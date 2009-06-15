@@ -1,0 +1,3 @@
+Notes for XSLT 2.0 conversion
+
+1. Apparatus: testing collection, use template and element creation. 
