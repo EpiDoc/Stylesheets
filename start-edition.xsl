@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: start-edition.xsl 1510 2008-08-14 15:27:51Z zau $ -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="tei">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:tei="http://www.tei-c.org/ns/1.0"
+                xmlns:t="http://www.tei-c.org/ns/1.0"
+                version="1.0">
   <xsl:output method="xml" encoding="UTF-8"/>
 
   <xsl:include href="global-varsandparams.xsl"/>
@@ -61,34 +64,34 @@
 
   <!-- HTML FILE -->
   <xsl:template match="/">
-    <html>
-      <head>        
-        <title>
-          <xsl:if test="$leiden-style = 'ddbdp'">
-            <xsl:value-of select="TEI.2/@id"/>
-            <xsl:text> </xsl:text>
-          </xsl:if>
-          <xsl:text>Greek Leiden Edition View</xsl:text>
-        </title>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <!-- Found in htm-tpl-cssandscripts.xsl -->
+      <html>
+         <head>        
+            <title>
+               <xsl:if test="$leiden-style = 'ddbdp'">
+                  <xsl:value-of select="t:TEI/@id"/>
+                  <xsl:text> </xsl:text>
+               </xsl:if>
+               <xsl:text>Greek Leiden Edition View</xsl:text>
+            </title>
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+            <!-- Found in htm-tpl-cssandscripts.xsl -->
         <xsl:call-template name="css-script"/>
-      </head>
-      <body>
+         </head>
+         <body>
 
         <!-- Found in htm-tpl-nav.xsl -->
         <xsl:call-template name="topNavigation"/>
 
         
-        <!-- Heading for a ddb style file -->
+            <!-- Heading for a ddb style file -->
         <xsl:if test="$leiden-style = 'ddbdp'">
-          <h1>
-            <xsl:value-of select="TEI.2/@id"/>
-          </h1>
-        </xsl:if>
+               <h1>
+                  <xsl:value-of select="t:TEI/@id"/>
+               </h1>
+            </xsl:if>
 
 
-        <!-- Found in htm-tpl-metadata.xsl -->
+            <!-- Found in htm-tpl-metadata.xsl -->
         <!-- Would need to change once combined 
         <xsl:if test="starts-with(//TEI.2/@id, 'hgv')">
           <xsl:call-template name="metadata"/>
@@ -98,10 +101,10 @@
         <!-- Main text output -->
         <xsl:apply-templates/>
         
-        <xsl:call-template name="license"/>
+            <xsl:call-template name="license"/>
 
-      </body>
-    </html>
+         </body>
+      </html>
   </xsl:template>
 
 
