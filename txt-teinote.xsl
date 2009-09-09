@@ -8,7 +8,7 @@
   
   <xsl:template match="t:note">
       <xsl:choose>
-         <xsl:when test="ancestor::p or ancestor::l or ancestor::ab">
+         <xsl:when test="ancestor::t:p or ancestor::t:l or ancestor::t:ab">
             <xsl:apply-imports/>
          </xsl:when>
          <xsl:otherwise>

@@ -14,8 +14,8 @@
       <xsl:text>
 &#xD;</xsl:text>
       <!-- Adds numbering if ordered -->
-    <xsl:if test="parent::list[@type = 'ordered']">
-         <xsl:number count="item" from="list"/>
+    <xsl:if test="parent::t:list[@type = 'ordered']">
+         <xsl:number count="t:item" from="t:list"/>
          <xsl:text>. </xsl:text>
       </xsl:if>
     

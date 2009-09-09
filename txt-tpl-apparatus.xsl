@@ -9,12 +9,12 @@
   <!-- Apparatus framework -->
   <xsl:template name="tpl-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
-    <xsl:if test=".//choice[child::sic and child::corr] | .//subst | .//app |        .//hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |       .//del[@rend='slashes' or @rend='cross-strokes'] | .//milestone[@rend = 'box']">
+    <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |        .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |       .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
       
          <xsl:text>Apparatus
 &#xD;</xsl:text>
          <!-- An entry is created for-each of the following instances -->
-      <xsl:for-each select=".//t:choice[child::sic and child::corr] | .//subst | .//app |          .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |         .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
+      <xsl:for-each select=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |          .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |         .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
         
             <xsl:call-template name="app-link">
                <xsl:with-param name="location" select="'apparatus'"/>
@@ -24,7 +24,7 @@
         <xsl:call-template name="ddbdp-app"/>
         
             <!-- Only creates a new line if the following is not true -->
-        <xsl:if test="not(descendant::choice[child::sic and child::corr] | descendant::subst | descendant::app)">
+        <xsl:if test="not(descendant::t:choice[child::t:sic and child::t:corr] | descendant::t:subst | descendant::t:app)">
                <xsl:text>
 &#xD;</xsl:text>
             </xsl:if>
@@ -42,7 +42,7 @@
     <xsl:param name="location"/>
     
       <!-- Only produces an indicator if it is not nested in an element that would be in apparatus -->
-    <xsl:if test="not(ancestor::choice[child::sic and child::corr] or ancestor::subst or ancestor::app or        ancestor::hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |       ancestor::del[@rend='slashes' or @rend='cross-strokes'])">
+    <xsl:if test="not(ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app or        ancestor::t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |       ancestor::t:del[@rend='slashes' or @rend='cross-strokes'])">
          <xsl:choose>
             <xsl:when test="$location = 'text'">
                <xsl:text>(*)</xsl:text>

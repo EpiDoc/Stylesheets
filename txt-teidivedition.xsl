@@ -31,7 +31,7 @@
       <xsl:choose>
          <xsl:when test="$leiden-style = 'edh'">
             <xsl:variable name="cur_parent" select="generate-id(parent::node())"/>
-            <xsl:if test="preceding::div[@type='textpart'][1][generate-id(parent::node())=$cur_parent]">
+            <xsl:if test="preceding::t:div[@type='textpart'][1][generate-id(parent::node())=$cur_parent]">
                <xsl:text>// </xsl:text>
             </xsl:if>
             <xsl:text>(</xsl:text>

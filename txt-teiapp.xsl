@@ -45,7 +45,7 @@
   <xsl:template match="t:wit">
       <xsl:choose>
       <!-- Temporary -->
-      <xsl:when test="parent::app"/>
+      <xsl:when test="parent::t:app"/>
 
          <xsl:otherwise>
             <xsl:apply-templates/>

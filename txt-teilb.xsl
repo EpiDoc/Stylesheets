@@ -9,12 +9,12 @@
   <xsl:template match="t:lb">
     
       <xsl:choose>
-         <xsl:when test="ancestor::lg and $verse-lines = 'yes'">
+         <xsl:when test="ancestor::t:lg and $verse-lines = 'yes'">
             <xsl:apply-imports/>
          </xsl:when>
          <xsl:otherwise>
             <xsl:variable name="div-loc">
-               <xsl:for-each select="ancestor::div[@type='textpart']">
+               <xsl:for-each select="ancestor::t:div[@type='textpart']">
                   <xsl:value-of select="@n"/>
                   <xsl:text>-</xsl:text>
                </xsl:for-each>
@@ -32,9 +32,9 @@
                <xsl:when test="$leiden-style='edh'">
                   <xsl:variable name="cur_anc"
                                 select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
-                  <xsl:if test="preceding::lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
+                  <xsl:if test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
-                        <xsl:when test="ancestor::w | ancestor::name | ancestor::placeName | ancestor::geogName">
+                        <xsl:when test="ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                            <xsl:text>/</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
