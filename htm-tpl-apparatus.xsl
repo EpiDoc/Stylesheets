@@ -9,12 +9,16 @@
   <!-- Apparatus framework -->
   <xsl:template name="tpl-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
-    <xsl:if test=".//choice[child::sic and child::corr] | .//subst | .//app |        .//hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |       .//del[@rend='slashes' or @rend='cross-strokes'] | .//milestone[@rend = 'box']">
+    <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |
+       .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |
+       .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
          <h2>Apparatus</h2>
          <div id="apparatus">
         <!-- An entry is created for-each of the following instances -->
-        <xsl:for-each select=".//t:choice[child::sic and child::corr] | .//subst | .//app |            .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |           .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
+        <xsl:for-each select=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |
+           .//t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'] |
+           .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
                <xsl:call-template name="app-link">
                   <xsl:with-param name="location" select="'apparatus'"/>
@@ -28,7 +32,7 @@
                   <xsl:when test="local-name() = 'del'">
                      <br/>
                   </xsl:when>
-                  <xsl:when test="not(descendant::choice[child::sic and child::corr] | descendant::subst | descendant::app)">
+                  <xsl:when test="not(descendant::t:choice[child::t:sic and child::t:corr] | descendant::t:subst | descendant::t:app)">
                      <br/>
                   </xsl:when>
                </xsl:choose>
@@ -43,9 +47,10 @@
     <!-- location defines the direction of linking -->
     <xsl:param name="location"/>
       <!-- Does not produce links for translations -->
-    <xsl:if test="not(ancestor::div[@type = 'translation'])">
+    <xsl:if test="not(ancestor::t:div[@type = 'translation'])">
       <!-- Only produces a link if it is not nested in an element that would be in apparatus -->
-      <xsl:if test="not((local-name() = 'choice' or local-name() = 'subst' or local-name() = 'app')        and (ancestor::choice[child::sic and child::corr] or ancestor::subst or ancestor::app))">
+      <xsl:if test="not((local-name() = 'choice' or local-name() = 'subst' or local-name() = 'app')
+         and (ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app))">
             <xsl:variable name="app-num">
                <xsl:value-of select="name()"/>
                <xsl:number level="any" format="01"/>

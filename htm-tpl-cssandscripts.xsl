@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" media="screen, projection"
             href="http://papyri.info/global.css"/>
     
-      <xsl:if test="$leiden-style = 'ddbdp' and //div[@type = 'translation']">
+      <xsl:if test="$leiden-style = 'ddbdp' and //t:div[@type = 'translation']">
          <script type="text/javascript" src="http://papyri.info/js/overlib_mini.js"> </script>
       </xsl:if>
   </xsl:template>

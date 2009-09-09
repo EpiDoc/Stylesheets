@@ -10,7 +10,7 @@
     
       <xsl:text>[</xsl:text>
       <xsl:text>Reprinted </xsl:text>
-      <xsl:value-of select="t:$direction"/>
+      <xsl:value-of select="$direction"/>
       <xsl:text>: </xsl:text>
       <xsl:call-template name="divide-links">
          <xsl:with-param name="val" select="@n"/>
@@ -31,7 +31,7 @@
                <xsl:value-of select="substring-before(normalize-space($val), '|')"/>
             </xsl:when>
             <xsl:otherwise>
-               <xsl:value-of select="t:$val"/>
+               <xsl:value-of select="$val"/>
             </xsl:otherwise>
          </xsl:choose>
       </xsl:variable>

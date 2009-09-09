@@ -21,7 +21,7 @@
       <xsl:choose>
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:choose>
-               <xsl:when test="parent::subst"/>
+               <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'supralinear'">
                   <xsl:text>\</xsl:text>
                </xsl:when>
@@ -32,7 +32,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="parent::subst or @place='overstrike'">
+               <xsl:when test="parent::t:subst or @place='overstrike'">
                   <xsl:text>«</xsl:text>
                </xsl:when>
                <xsl:otherwise>
@@ -48,7 +48,7 @@
       <xsl:choose>
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:choose>
-               <xsl:when test="parent::subst"/>
+               <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'supralinear'">
                   <xsl:text>/</xsl:text>
                </xsl:when>
@@ -59,7 +59,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="parent::subst or @place='overstrike'">
+               <xsl:when test="parent::t:subst or @place='overstrike'">
                   <xsl:text>»</xsl:text>
                </xsl:when>
                <xsl:otherwise>
@@ -88,7 +88,7 @@
          <xsl:when test="$leiden-style = 'ddbdp' and @rend='cross-strokes'">
             <xsl:apply-templates/>
          </xsl:when>
-         <xsl:when test="parent::subst"/>
+         <xsl:when test="parent::t:subst"/>
          <xsl:otherwise>
             <xsl:text>〚</xsl:text>
             <xsl:apply-templates/>

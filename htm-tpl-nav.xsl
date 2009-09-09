@@ -9,8 +9,8 @@
   <xsl:template name="topNavigation">
       <xsl:choose>
       <!-- Navigation from Translation HTML -->
-      <xsl:when test="//div[@type = 'translation'] and starts-with(/TEI.2/@id, 'HGV-') and $topNav = 'ddbdp'">
-            <a href="/navigator/full/trismegistos{substring-after(/TEI.2/@id, 'HGV-')}">Papyrological Navigator</a>
+      <xsl:when test="//t:div[@type = 'translation'] and starts-with(/TEI/@id, 'HGV-') and $topNav = 'ddbdp'">
+            <a href="/navigator/full/trismegistos{substring-after(/TEI/@id, 'HGV-')}">Papyrological Navigator</a>
         
             <xsl:text> | </xsl:text>
         
@@ -54,7 +54,7 @@
                <xsl:text>Meta HTML</xsl:text>
             </a>
 
-            <xsl:if test="/TEI.2/@n">
+            <xsl:if test="/t:TEI/@n">
                <xsl:variable name="ddb-id" select="translate(normalize-space(/t:TEI/@n), ' ', '')"/>
                <xsl:variable name="collection" select="substring-before($ddb-id, ';')"/>
                <xsl:variable name="vol" select="substring-before(substring-after($ddb-id, ';'), ';')"/>
@@ -64,21 +64,21 @@
                <a>
                   <xsl:attribute name="href">
                      <xsl:text>../</xsl:text>
-                     <xsl:value-of select="t:$collection"/>
+                     <xsl:value-of select="$collection"/>
                      <xsl:text>/</xsl:text>
                      <xsl:if test="string(normalize-space($vol))">
-                        <xsl:value-of select="t:$collection"/>
+                        <xsl:value-of select="$collection"/>
                         <xsl:text>.</xsl:text>
-                        <xsl:value-of select="t:$vol"/>
+                        <xsl:value-of select="$vol"/>
                         <xsl:text>/</xsl:text>
                      </xsl:if>
-                     <xsl:value-of select="t:$collection"/>
+                     <xsl:value-of select="$collection"/>
                      <xsl:text>.</xsl:text>
                      <xsl:if test="string(normalize-space($vol))">
-                        <xsl:value-of select="t:$vol"/>
+                        <xsl:value-of select="$vol"/>
                         <xsl:text>.</xsl:text>
                      </xsl:if>
-                     <xsl:value-of select="t:$doc"/>
+                     <xsl:value-of select="$doc"/>
                      <xsl:text>.html</xsl:text>
                   </xsl:attribute>
                   <xsl:text>DDb HTML</xsl:text>
@@ -87,7 +87,7 @@
          </xsl:when>
 
          <!-- Navigation from DDb Text HTML and NOT HGV metadata -->
-      <xsl:when test="$topNav = 'ddbdp' and //div[@type='edition']">
+      <xsl:when test="$topNav = 'ddbdp' and //t:div[@type='edition']">
         <!-- File name -->
         <xsl:variable name="cur-id" select="//t:TEI/@id"/>
             <xsl:variable name="pers-id" select="//t:TEI/@n"/>
@@ -98,10 +98,10 @@
             <xsl:variable name="ddb-vol-doc">
                <xsl:text>.</xsl:text>
                <xsl:if test="string($vol)">
-                  <xsl:value-of select="t:$vol"/>
+                  <xsl:value-of select="$vol"/>
                   <xsl:text>.</xsl:text>
                </xsl:if>
-               <xsl:value-of select="t:$doc"/>
+               <xsl:value-of select="$doc"/>
             </xsl:variable>
 
             <!-- Collection name -->
@@ -110,9 +110,9 @@
             <!-- Subdirectory -->
         <xsl:variable name="vol-dir">
                <xsl:if test="string($vol)">
-                  <xsl:value-of select="t:$collection"/>
+                  <xsl:value-of select="$collection"/>
                   <xsl:text>.</xsl:text>
-                  <xsl:value-of select="t:$vol"/>
+                  <xsl:value-of select="$vol"/>
                </xsl:if>
             </xsl:variable>
 
@@ -134,7 +134,7 @@
                      <xsl:value-of select="substring-before($pers-id,';')"/>
                      <xsl:text>_</xsl:text>
                      <xsl:if test="string($vol)">
-                        <xsl:value-of select="t:$vol"/>
+                        <xsl:value-of select="$vol"/>
                      </xsl:if>
                      <xsl:text>:</xsl:text>
                      <xsl:value-of select="substring-after($vol-doc,';')"/>
@@ -150,7 +150,7 @@
                         <xsl:text>../</xsl:text>
                      </xsl:if>
                      <xsl:text>../../xml/</xsl:text>
-                     <xsl:value-of select="t:$collection"/>
+                     <xsl:value-of select="$collection"/>
                      <xsl:text>/</xsl:text>
                      <xsl:if test="string($vol)">
                         <xsl:value-of select="$vol-dir"/>
@@ -184,7 +184,7 @@
               <!-- Metadata and Translation -->
               <xsl:call-template name="meta-mult-link">
                         <xsl:with-param name="n-val" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title/@n"/>
-                        <xsl:with-param name="vol" select="t:$vol"/>
+                        <xsl:with-param name="vol" select="$vol"/>
                         <xsl:with-param name="cur-id" select="$cur-id"/>
                      </xsl:call-template>
                   </xsl:if>
@@ -193,7 +193,7 @@
          </xsl:when>
       
          <!-- Navigation from HGV Translations -->
-      <xsl:when test="$topNav='hgv' and not(//div[@type='edition']) and //div[@type='translation']">
+      <xsl:when test="$topNav='hgv' and not(//t:div[@type='edition']) and //t:div[@type='translation']">
             <xsl:variable name="hgv-no" select="substring-after(/t:TEI/@id, 'HGV-')"/>
             <p>
                <a href="/navigator/full/trismegistos_{$hgv-no}">Papyrological Navigator</a>
@@ -203,7 +203,7 @@
          </xsl:when>
       
          <!-- Navigation from HGV metadata -->
-      <xsl:when test="($topNav='ddbdp' or $topNav='hgv') and not(//div[@type='edition'])">
+      <xsl:when test="($topNav='ddbdp' or $topNav='hgv') and not(//t:div[@type='edition'])">
             <xsl:variable name="hgv-no">
                <xsl:value-of select="//t:bibl[@type='Trismegistos']/t:biblScope[@type='numbers']"/>
             </xsl:variable>
@@ -289,7 +289,7 @@
       </xsl:if>
       <!-- Translations -->
     <!-- Extra testing to limit amount of dead translation links -->
-    <xsl:variable name="trans" select="concat($docroot,'/t:hgvtrans/t:xml/',$hgv-no,'.xml')"/>
+    <xsl:variable name="trans" select="concat($docroot,'/hgvtrans/xml/',$hgv-no,'.xml')"/>
       <xsl:if xmlns:file="java:java.io.File" test="file:exists(file:new($trans))">
          <xsl:text> | </xsl:text>
          <a>
@@ -325,7 +325,7 @@
          <xsl:call-template name="meta-mult-link">
             <xsl:with-param name="n-val" select="substring-after($n-val, ' ')"/>
             <xsl:with-param name="cur-id" select="$cur-id"/>
-            <xsl:with-param name="vol" select="t:$vol"/>
+            <xsl:with-param name="vol" select="$vol"/>
          </xsl:call-template>
       </xsl:if>
   </xsl:template>

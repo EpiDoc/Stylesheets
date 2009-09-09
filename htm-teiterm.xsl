@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: htm-teiterm.xsl 1567 2008-08-21 16:38:31Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
   
   <xsl:template match="t:term">
       <xsl:choose>
       <!-- Adds caption for hgv translations -->
-      <xsl:when test="$leiden-style = 'ddbdp' and ancestor::div[@type = 'translation'] and @target">
-            <xsl:variable name="lang" select="ancestor::div[@type = 'translation']/@lang"/>
+      <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation'] and @target">
+            <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@lang"/>
             <xsl:variable name="term" select="@target"/>
         
             <xsl:choose>
@@ -20,9 +19,9 @@
                   <a class="hgv-term" href="javascript:void(0);" onmouseout="return nd();">
                      <xsl:attribute name="onmouseover">
                         <xsl:text>return overlib('</xsl:text>
-                        <xsl:value-of select="document($hgv-gloss)//tei:item[@xml:id = $term]/tei:term"/>
+                        <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:term"/>
                         <xsl:text>. </xsl:text>
-                        <xsl:value-of select="document($hgv-gloss)//tei:item[@xml:id = $term]/tei:gloss[@xml:lang = $lang]"/>
+                        <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]"/>
                         <xsl:text>',STICKY,CAPTION,'</xsl:text>
                         <xsl:choose>
                            <xsl:when test="$lang = 'en'">

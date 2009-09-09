@@ -11,17 +11,17 @@
       <div id="license">
          <xsl:choose>
             <xsl:when test="p">
-               <xsl:if test="contains(p/xref[@type='license']/@href,'creativecommons')">
+               <xsl:if test="contains(t:p/t:ref[@type='license']/@href,'creativecommons')">
                   <img src="http://i.creativecommons.org/l/{substring-after(p/xref[@type='license']/@href, 'licenses/')}88x31.png"
-                       alt="{p/xref[@type='license']}"
+                       alt="{t:p/t:ref[@type='license']}"
                        align="left"/>
                </xsl:if>
                <xsl:apply-templates/>
             </xsl:when>
             <xsl:otherwise>
-               <xsl:if test="contains(availability/xref[@type='license']/@href,'creativecommons')">
-                  <img src="http://i.creativecommons.org/l/{substring-after(availability/xref[@type='license']/@href, 'licenses/')}88x31.png"
-                       alt="{availability/xref[@type='license']}"
+               <xsl:if test="contains(t:availability/t:ref[@type='license']/@href,'creativecommons')">
+                  <img src="http://i.creativecommons.org/l/{substring-after(t:availability/t:ref[@type='license']/@href, 'licenses/')}88x31.png"
+                       alt="{t:availability/t:ref[@type='license']}"
                        align="left"/>
                </xsl:if>
                <xsl:apply-templates select="t:availability"/>
@@ -30,7 +30,7 @@
       </div>
   </xsl:template>
   
-  <xsl:template match="t:xref[@type='license']">
+  <xsl:template match="t:ref[@type='license']">
       <a rel="license" href="{@href}">
          <xsl:apply-templates/>
       </a>

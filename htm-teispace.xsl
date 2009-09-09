@@ -13,21 +13,21 @@
             <i>
           <!-- Found in teispace.xsl -->
           <xsl:call-template name="space-content-1">
-                  <xsl:with-param name="vacat" select="t:$vacat"/>
+                  <xsl:with-param name="vacat" select="$vacat"/>
                </xsl:call-template>
             </i>
          </xsl:when>
          <xsl:when test="$leiden-style = 'panciera'">
         <!-- Found in teispace.xsl -->
         <xsl:call-template name="space-content-2">
-               <xsl:with-param name="vacat" select="t:$vacat"/>
-               <xsl:with-param name="extent" select="t:$extent"/>
+               <xsl:with-param name="vacat" select="$vacat"/>
+               <xsl:with-param name="extent" select="$extent"/>
             </xsl:call-template>
          </xsl:when>
          <xsl:otherwise>
         <!-- Found in teispace.xsl -->
         <xsl:call-template name="space-content-2">
-               <xsl:with-param name="vacat" select="t:$vacat"/>
+               <xsl:with-param name="vacat" select="$vacat"/>
             </xsl:call-template>
          </xsl:otherwise>
       </xsl:choose>

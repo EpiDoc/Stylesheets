@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: htm-teixref.xsl 1450 2008-08-07 13:17:24Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
   <xsl:include href="teixref.xsl"/>
   
-  <xsl:template match="t:xref">
+  <xsl:template match="t:ref">
       <xsl:choose>
          <xsl:when test="@type = 'reprint from'">
             <br/>

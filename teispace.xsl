@@ -105,7 +105,7 @@
                            <xsl:with-param name="vacat">vac.</xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@extent"/>
-                              <xsl:value-of select="t:$precision"/>
+                              <xsl:value-of select="$precision"/>
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
@@ -113,7 +113,7 @@
                         <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat">vac.</xsl:with-param>
                            <xsl:with-param name="extent">
-                              <xsl:value-of select="@extent"/> line<xsl:value-of select="t:$precision"/>
+                              <xsl:value-of select="@extent"/> line<xsl:value-of select="$precision"/>
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
@@ -122,7 +122,7 @@
                 <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat">vac.</xsl:with-param>
                            <xsl:with-param name="extent">
-                              <xsl:value-of select="@extent"/> lines<xsl:value-of select="t:$precision"/>
+                              <xsl:value-of select="@extent"/> lines<xsl:value-of select="$precision"/>
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
@@ -133,7 +133,7 @@
                               <xsl:value-of select="@extent"/>
                               <xsl:text> </xsl:text>
                               <xsl:value-of select="@unit"/>
-                              <xsl:value-of select="t:$precision"/>
+                              <xsl:value-of select="$precision"/>
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
@@ -174,7 +174,7 @@
       <xsl:if test="following-sibling::certainty[@target=current()/@id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
-      <xsl:value-of select="t:$vacat"/>
+      <xsl:value-of select="$vacat"/>
   </xsl:template>
 
 
@@ -184,14 +184,14 @@
       <xsl:param name="extent"/>
 
       <xsl:text>(</xsl:text>
-      <xsl:value-of select="t:$vacat"/>
+      <xsl:value-of select="$vacat"/>
       <xsl:if test="following-sibling::certainty[@target=current()/@id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
       <xsl:text> </xsl:text>
       <xsl:if test="string-length($extent) &gt; 0">
          <xsl:text> </xsl:text>
-         <xsl:value-of select="t:$extent"/>
+         <xsl:value-of select="$extent"/>
       </xsl:if>
       <xsl:text>)</xsl:text>
   </xsl:template>

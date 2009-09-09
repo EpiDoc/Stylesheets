@@ -12,7 +12,7 @@
 
   <xsl:template match="t:abbr">
       <xsl:apply-templates/>
-      <xsl:if test="not(parent::expan) and not(following-sibling::ex)">
+      <xsl:if test="not(parent::t:expan) and not(following-sibling::t:ex)">
          <xsl:text>(</xsl:text>
          <xsl:choose>
             <xsl:when test="$leiden-style = 'ddbdp'">
@@ -38,7 +38,8 @@
             <xsl:apply-templates/>
             <!-- Found in tpl-certlow.xsl -->
         <xsl:call-template name="cert-low"/>
-            <xsl:if test="$leiden-style='london' and ancestor::node()[@part='M' or @part='I']                       and last()">
+            <xsl:if test="$leiden-style='london' and ancestor::node()[@part='M' or @part='I']
+               and last()">
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:text>)</xsl:text>

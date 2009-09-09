@@ -6,9 +6,9 @@
   <!-- Contains all language related named templates -->  
   
   <xsl:template name="attr-lang">
-      <xsl:if test="ancestor-or-self::t:*[@lang]">
+      <xsl:if test="ancestor-or-self::t:*[@xml:lang]">
          <xsl:attribute name="lang">
-            <xsl:value-of select="ancestor-or-self::t:*[@lang][1]/@lang"/>
+            <xsl:value-of select="ancestor-or-self::t:*[@xml:lang][1]/@xml:lang"/>
          </xsl:attribute>
       </xsl:if>
   </xsl:template>

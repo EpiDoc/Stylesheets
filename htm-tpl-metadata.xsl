@@ -8,19 +8,23 @@
   <xsl:template name="metadata">
       <p>
          <strong>Publikation: </strong>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']         /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:title[@type = 'abbreviated']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:title[@type = 'abbreviated']"/>
          <xsl:text> </xsl:text>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']         /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='volume']"/>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']         /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='fascicle']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='volume']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='fascicle']"/>
          <xsl:text> </xsl:text>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']         /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='numbers']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='numbers']"/>
       </p>
-      <xsl:if test="//div[@type = 'bibliography' and @subtype = 'otherPublications']">
+      <xsl:if test="//t:div[@type = 'bibliography' and @subtype = 'otherPublications']">
          <p>
             <strong>Andere Publikationen: </strong>
             <xsl:for-each select="//t:div[@type = 'bibliography' and @subtype = 'otherPublications']//t:bibl">
                <xsl:value-of select="."/>
-               <xsl:if test="following-sibling::bibl">
+               <xsl:if test="following-sibling::t:bibl">
                   <xsl:text>; </xsl:text>
                </xsl:if>
             </xsl:for-each>
@@ -28,7 +32,8 @@
       </xsl:if>
       <p>
          <strong>Datierung: </strong>
-         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'textDate']         /t:p/t:date[@type = 'textDate']"/>
+         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'textDate']
+            /t:p/t:date[@type = 'textDate']"/>
       </p>
       <p>
          <strong>Ort: </strong>
@@ -45,9 +50,9 @@
       <p>
          <strong>Abbildung: </strong>
          <xsl:choose>
-            <xsl:when test="//div[@type='bibliography' and @subtype='illustrations']//bibl[@type = 'illustration']">
+            <xsl:when test="//t:div[@type='bibliography' and @subtype='illustrations']//t:bibl[@type = 'illustration']">
                <xsl:for-each select="//t:div[@type='bibliography' and @subtype='illustrations']//t:bibl[@type = 'illustration']">
-                  <xsl:if test="preceding-sibling::bibl[@type = 'illustration']">
+                  <xsl:if test="preceding-sibling::t:bibl[@type = 'illustration']">
                      <xsl:text>, </xsl:text>
                   </xsl:if>
                   <xsl:value-of select="."/>
@@ -57,7 +62,7 @@
                <xsl:text>keiner</xsl:text>
             </xsl:otherwise>
          </xsl:choose>
-         <xsl:if test="string(//div[@type='figure']//figure/@href)">
+         <xsl:if test="string(//t:div[@type='figure']//t:figure/@href)">
             <xsl:for-each select="//t:div[@type='figure']//t:figure[string(@href)]">
                <br/>
                <a href="{@href}">
@@ -66,14 +71,14 @@
             </xsl:for-each>
          </xsl:if>
       </p>
-      <xsl:if test="//div[@type = 'bibliography' and @subtype = 'corrections']">
+      <xsl:if test="//t:div[@type = 'bibliography' and @subtype = 'corrections']">
          <p>
             <strong>
                <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'corrections']/t:head"/>
                <xsl:text>: </xsl:text>
             </strong>
             <xsl:for-each select="//t:div[@type = 'bibliography' and @subtype = 'corrections']//t:bibl">
-               <xsl:if test="preceding-sibling::bibl">
+               <xsl:if test="preceding-sibling::t:bibl">
                   <xsl:text>, </xsl:text>
                </xsl:if>
                <xsl:value-of select="."/>
@@ -83,11 +88,14 @@
       <p>
          <strong>Text der DDBDP: </strong>
          <xsl:variable name="db-link">
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']           /t:listBibl/t:bibl[@type = 'DDbDP']/t:series"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+               /t:listBibl/t:bibl[@type = 'DDbDP']/t:series"/>
             <xsl:text>:volume=</xsl:text>
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']           /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'volume']"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+               /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'volume']"/>
             <xsl:text>:document=</xsl:text>
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']           /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'numbers']"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
+               /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'numbers']"/>
          </xsl:variable>
          <a>
             <xsl:attribute name="href">
@@ -107,16 +115,16 @@
       </p>
       <p>
          <strong>Bemerkungen: </strong>
-         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'general']         /t:p"/>
+         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'general']/t:p"/>
       </p>
-      <xsl:if test="//div[@type='bibliography' and @subtype='translations']">
+      <xsl:if test="//t:div[@type='bibliography' and @subtype='translations']">
          <p>
             <strong>Übersetzungen: </strong>
             <xsl:for-each select="//t:div[@type='bibliography' and @subtype='translations']/t:listBibl">
                <xsl:value-of select="t:head"/>
                <xsl:text> </xsl:text>
                <xsl:for-each select="t:bibl[@type = 'translations']">
-                  <xsl:if test="preceding-sibling::bibl[@type = 'translations']">
+                  <xsl:if test="preceding-sibling::t:bibl[@type = 'translations']">
                      <xsl:text>, </xsl:text>
                   </xsl:if>
                   <xsl:value-of select="."/>
@@ -127,13 +135,13 @@
       <p>
          <strong>Inhalt: </strong>
          <xsl:for-each select="//t:teiHeader/t:profileDesc//t:keywords/t:term/t:rs[@type = 'textType']">
-            <xsl:if test="preceding-sibling::rs">
+            <xsl:if test="preceding-sibling::t:rs">
                <xsl:text>, </xsl:text>
             </xsl:if>
             <xsl:value-of select="."/>
          </xsl:for-each>
       </p>
-      <xsl:if test="//div[@type = 'commentary' and @subtype = 'mentionedDates']//date[@type = 'mentioned']">
+      <xsl:if test="//t:div[@type = 'commentary' and @subtype = 'mentionedDates']//t:date[@type = 'mentioned']">
          <p>
             <strong>
                <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'mentionedDates']/t:head"/>
@@ -141,7 +149,7 @@
             </strong>
             <xsl:for-each select="//t:div[@type = 'commentary' and @subtype = 'mentionedDates']/t:p">
                <xsl:value-of select="."/>
-               <xsl:if test="following-sibling::p">
+               <xsl:if test="following-sibling::t:p">
                   <xsl:text>; </xsl:text>
                </xsl:if>
             </xsl:for-each>

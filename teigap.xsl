@@ -67,7 +67,7 @@
 
   <xsl:template match="t:gap[@reason='illegible']">
     <!-- certainty -->
-    <xsl:if test="following-sibling::certainty[@target=current()/@id and @degree='low']">
+    <xsl:if test="following-sibling::t:certainty[@target=current()/@id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
 
@@ -90,7 +90,7 @@
       <xsl:call-template name="extent-string"/>
 
       <!-- certainty -->
-    <xsl:if test="following-sibling::certainty[@target=current()/@id and @degree='low']">
+    <xsl:if test="following-sibling::t:certainty[@target=current()/@id and @degree='low']">
          <xsl:choose>
             <xsl:when test="$leiden-style = 'ddbdp'">
                <xsl:text>(?)</xsl:text>
@@ -139,7 +139,7 @@
                         <xsl:choose>
                            <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
                               <xsl:call-template name="tpl-vest">
-                                 <xsl:with-param name="circa" select="t:$circa"/>
+                                 <xsl:with-param name="circa" select="$circa"/>
                               </xsl:call-template>
                            </xsl:when>
                            <!-- reason illegible and lost caught in the otherwise -->
@@ -183,15 +183,15 @@
                         <xsl:choose>
                            <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
                               <xsl:call-template name="tpl-vest">
-                                 <xsl:with-param name="circa" select="t:$circa"/>
-                                 <xsl:with-param name="extentmax" select="t:$extentmax"/>
+                                 <xsl:with-param name="circa" select="$circa"/>
+                                 <xsl:with-param name="extentmax" select="$extentmax"/>
                               </xsl:call-template>
                            </xsl:when>
                            <!-- reason illegible and lost caught in the otherwise -->
                   <xsl:otherwise>
                               <xsl:text> - ca. </xsl:text>
                               <xsl:value-of select="@extent"/>
-                              <xsl:value-of select="t:$extentmax"/>
+                              <xsl:value-of select="$extentmax"/>
                               <xsl:text> - </xsl:text>
                            </xsl:otherwise>
                         </xsl:choose>
@@ -199,24 +199,24 @@
                      <xsl:when test="$leiden-style = 'panciera'">
                         <xsl:text>c. </xsl:text>
                         <xsl:value-of select="@extent"/>
-                        <xsl:value-of select="t:$extentmax"/>
+                        <xsl:value-of select="$extentmax"/>
                      </xsl:when>
                      <xsl:when test="$leiden-style = 'london'">
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:text> </xsl:text>
-                        <xsl:value-of select="t:$circa"/>
+                        <xsl:value-of select="$circa"/>
                         <xsl:value-of select="@extent"/>
-                        <xsl:value-of select="t:$extentmax"/>
+                        <xsl:value-of select="$extentmax"/>
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:value-of select="$cur-dot"/>
                      </xsl:when>
                      <xsl:otherwise>
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:text> </xsl:text>
-                        <xsl:value-of select="t:$circa"/>
+                        <xsl:value-of select="$circa"/>
                         <xsl:value-of select="@extent"/>
-                        <xsl:value-of select="t:$extentmax"/>
+                        <xsl:value-of select="$extentmax"/>
                         <xsl:value-of select="$cur-dot"/>
                      </xsl:otherwise>
                   </xsl:choose>
@@ -226,7 +226,7 @@
                   <xsl:choose>
                      <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
-                           <xsl:with-param name="circa" select="t:$circa"/>
+                           <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:otherwise>
@@ -241,7 +241,7 @@
                   <xsl:choose>
                      <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
-                           <xsl:with-param name="circa" select="t:$circa"/>
+                           <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:otherwise>
@@ -259,7 +259,7 @@
                   <xsl:choose>
                      <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
-                           <xsl:with-param name="circa" select="t:$circa"/>
+                           <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:otherwise>
@@ -293,15 +293,15 @@
                <xsl:when test="$leiden-style = 'london'">
                   <xsl:text>---</xsl:text>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'panciera' and not(following-sibling::lb)">
+               <xsl:when test="$leiden-style = 'panciera' and not(following-sibling::t:lb)">
                   <xsl:text>- - - - - -</xsl:text>
                </xsl:when>
                <xsl:when test="$leiden-style = 'edh-itx'">
                   <xsl:choose>
-                     <xsl:when test="not(following-sibling::lb)">
+                     <xsl:when test="not(following-sibling::t:lb)">
                         <xsl:text>&amp;</xsl:text>
                      </xsl:when>
-                     <xsl:when test="count(preceding-sibling::lb) = 1">
+                     <xsl:when test="count(preceding-sibling::t:lb) = 1">
                         <xsl:text>$</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
@@ -320,7 +320,7 @@
             <xsl:choose>
                <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
-                     <xsl:with-param name="circa" select="t:$circa"/>
+                     <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
                </xsl:when>
                <xsl:otherwise>
@@ -328,7 +328,7 @@
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> </xsl:text>
-                  <xsl:value-of select="t:$circa"/>
+                  <xsl:value-of select="$circa"/>
                   <xsl:value-of select="@extent"/>
                   <xsl:text> cm </xsl:text>
                   <xsl:value-of select="$cur-dot"/>
@@ -342,7 +342,7 @@
             <xsl:choose>
                <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
-                     <xsl:with-param name="circa" select="t:$circa"/>
+                     <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
                </xsl:when>
                <xsl:when test="$leiden-style = 'edh-idx'">
@@ -367,12 +367,12 @@
       <xsl:param name="circa"/>
       <xsl:param name="extentmax"/>
 
-      <xsl:value-of select="t:$circa"/>
+      <xsl:value-of select="$circa"/>
       <xsl:text>traces</xsl:text>
       <xsl:if test="not(@extent = 'unknown')">
          <xsl:text/>
          <xsl:value-of select="@extent"/>
-         <xsl:value-of select="t:$extentmax"/>
+         <xsl:value-of select="$extentmax"/>
 
          <xsl:choose>
             <xsl:when test="@unit = 'line'">
