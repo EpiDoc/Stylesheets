@@ -4,9 +4,9 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
 
-  <xsl:template match="text()[not(ancestor::note)]">
+  <xsl:template match="text()[not(ancestor::t:note)]">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' and ancestor::div[@type='edition'] and not(ancestor::head)">
+         <xsl:when test="$edition-type = 'diplomatic' and ancestor::t:div[@type='edition'] and not(ancestor::t:head)">
             <xsl:value-of select="translate(translate(., '··&#xA; ,.;', ''), $all-grc, $grc-upper-strip)"/>
          </xsl:when>
          <xsl:otherwise>
