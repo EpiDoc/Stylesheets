@@ -8,7 +8,7 @@
   
   <xsl:template match="t:num">
       <xsl:choose>
-         <xsl:when test="ancestor::t:*[@lang][1][@lang = 'la']">
+         <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'la']">
             <span class="latinnum">
                <xsl:apply-imports/>
             </span>

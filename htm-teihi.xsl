@@ -15,7 +15,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- @rend='apex'                                                       -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@lang][1][@lang = 'la']">
+      <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@xml:lang][1][@xml:lang = 'la']">
             <xsl:element name="span">
                <xsl:attribute name="class">apex</xsl:attribute>
                <xsl:attribute name="title">apex over: <xsl:value-of select="."/>

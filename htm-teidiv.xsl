@@ -17,7 +17,7 @@
             <xsl:choose>
               <xsl:when test="@type = 'translation'">
                   <h2>
-                     <xsl:value-of select="/t:TEI/t:teiHeader/t:profileDesc/t:langUsage/t:language[@id = current()/@lang]"/>
+                     <xsl:value-of select="/t:TEI/t:teiHeader/t:profileDesc/t:langUsage/t:language[@xml:id = current()/@xml:lang]"/>
                      <xsl:text> </xsl:text>
                      <xsl:value-of select="@type"/>
                   </h2>
@@ -41,7 +41,7 @@
           <!-- HGV translation editors -->
           <xsl:if test="$leiden-style = 'ddbdp' and @type = 'translation'">
             <xsl:choose>
-              <xsl:when test="@lang = 'de'">
+              <xsl:when test="@xml:lang = 'de'">
                   <xsl:text>(DK)</xsl:text>
               </xsl:when>
               <xsl:otherwise>

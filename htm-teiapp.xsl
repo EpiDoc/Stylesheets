@@ -102,7 +102,7 @@
   <xsl:template name="mouseover">
       <xsl:param name="wit-val"/>
       <xsl:param name="gloss"/>
-      <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@lang"/>
+      <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
     
       <xsl:attribute name="class">
          <xsl:text>hgv-corr</xsl:text>

@@ -7,7 +7,7 @@
   
   <xsl:template match="t:num[child::node()]">
       <xsl:choose>
-         <xsl:when test="ancestor::t:*[@lang][1][@lang = 'grc'] and not($leiden-style = 'ddbdp')">
+         <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'grc'] and not($leiden-style = 'ddbdp')">
             <xsl:if test="@value &gt;= 1000">
                <xsl:text>͵</xsl:text>
             </xsl:if>

@@ -9,15 +9,15 @@
   <xsl:template name="topNavigation">
       <xsl:choose>
       <!-- Navigation from Translation HTML -->
-      <xsl:when test="//t:div[@type = 'translation'] and starts-with(/TEI/@id, 'HGV-') and $topNav = 'ddbdp'">
-            <a href="/navigator/full/trismegistos{substring-after(/TEI/@id, 'HGV-')}">Papyrological Navigator</a>
+      <xsl:when test="//t:div[@type = 'translation'] and starts-with(/TEI/@xml:id, 'HGV-') and $topNav = 'ddbdp'">
+            <a href="/navigator/full/trismegistos{substring-after(/TEI/@xml:id, 'HGV-')}">Papyrological Navigator</a>
         
             <xsl:text> | </xsl:text>
         
             <a>
                <xsl:attribute name="href">
                   <xsl:text>../../../hgvtrans/xml/</xsl:text>
-                  <xsl:value-of select="substring-after(/t:TEI/@id, 'HGV-')"/>
+                  <xsl:value-of select="substring-after(/t:TEI/@xml:id, 'HGV-')"/>
                   <xsl:text>.xml</xsl:text>
                </xsl:attribute>
                <xsl:text>Trans XML</xsl:text>
@@ -25,7 +25,7 @@
 
             <xsl:text> | </xsl:text>
 
-            <xsl:variable name="meta-no" select="substring-after(/t:TEI/@id, 'HGV-')"/>
+            <xsl:variable name="meta-no" select="substring-after(/t:TEI/@xml:id, 'HGV-')"/>
             <xsl:variable name="meta-dir">
                <xsl:text>HGV</xsl:text>
                <xsl:value-of select="ceiling(number(translate($meta-no, $grc-lower-strip, '')) div 1000)"/>
@@ -89,7 +89,7 @@
          <!-- Navigation from DDb Text HTML and NOT HGV metadata -->
       <xsl:when test="$topNav = 'ddbdp' and //t:div[@type='edition']">
         <!-- File name -->
-        <xsl:variable name="cur-id" select="//t:TEI/@id"/>
+        <xsl:variable name="cur-id" select="//t:TEI/@xml:id"/>
             <xsl:variable name="pers-id" select="//t:TEI/@n"/>
 
             <xsl:variable name="vol-doc" select="substring-after($pers-id, ';')"/>
@@ -194,7 +194,7 @@
       
          <!-- Navigation from HGV Translations -->
       <xsl:when test="$topNav='hgv' and not(//t:div[@type='edition']) and //t:div[@type='translation']">
-            <xsl:variable name="hgv-no" select="substring-after(/t:TEI/@id, 'HGV-')"/>
+            <xsl:variable name="hgv-no" select="substring-after(/t:TEI/@xml:id, 'HGV-')"/>
             <p>
                <a href="/navigator/full/trismegistos_{$hgv-no}">Papyrological Navigator</a>
                <xsl:text> | </xsl:text>

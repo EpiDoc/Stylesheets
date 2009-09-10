@@ -67,7 +67,7 @@
 
   <xsl:template match="t:gap[@reason='illegible']">
     <!-- certainty -->
-    <xsl:if test="following-sibling::t:certainty[@target=current()/@id and @degree='low']">
+    <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
 
@@ -90,7 +90,7 @@
       <xsl:call-template name="extent-string"/>
 
       <!-- certainty -->
-    <xsl:if test="following-sibling::t:certainty[@target=current()/@id and @degree='low']">
+    <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
          <xsl:choose>
             <xsl:when test="$leiden-style = 'ddbdp'">
                <xsl:text>(?)</xsl:text>
