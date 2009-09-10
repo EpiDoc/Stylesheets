@@ -12,7 +12,7 @@
             <xsl:variable name="term" select="@target"/>
         
             <xsl:choose>
-               <xsl:when test="ancestor::lem">
+               <xsl:when test="ancestor::t:lem">
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:otherwise>

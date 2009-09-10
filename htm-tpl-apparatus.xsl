@@ -71,7 +71,7 @@
                </xsl:when>
                <xsl:when test="$location = 'apparatus'">
                   <a>
-                     <xsl:attribute name="id">
+                     <xsl:attribute name="xml:id">
                         <xsl:text>to-app-</xsl:text>
                         <xsl:value-of select="$app-num"/>
                      </xsl:attribute>
