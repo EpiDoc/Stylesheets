@@ -8,7 +8,7 @@
     <!-- div[@type = 'edition']" and div[starts-with(@type, 'textpart')] can be found in htm-teidivedition.xsl -->
         <div>
           <xsl:if test="parent::t:body and @type">
-            <xsl:attribute name="id">
+            <xsl:attribute name="xml:id">
               <xsl:value-of select="@type"/>
             </xsl:attribute>
           </xsl:if>

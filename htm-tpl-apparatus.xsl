@@ -62,7 +62,7 @@
                         <xsl:text>#to-app-</xsl:text>
                         <xsl:value-of select="$app-num"/>
                      </xsl:attribute>
-                     <xsl:attribute name="id">
+                     <xsl:attribute name="xml:id">
                         <xsl:text>from-app-</xsl:text>
                         <xsl:value-of select="$app-num"/>
                      </xsl:attribute>
