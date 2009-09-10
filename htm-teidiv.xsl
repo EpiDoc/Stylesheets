@@ -7,13 +7,13 @@
   <xsl:template match="t:div">
     <!-- div[@type = 'edition']" and div[starts-with(@type, 'textpart')] can be found in htm-teidivedition.xsl -->
         <div>
-          <xsl:if test="parent::body and @type">
+          <xsl:if test="parent::t:body and @type">
             <xsl:attribute name="id">
               <xsl:value-of select="@type"/>
             </xsl:attribute>
           </xsl:if>
           <!-- Temporary headings so we know what is where -->
-          <xsl:if test="not(head)">
+          <xsl:if test="not(t:head)">
             <xsl:choose>
               <xsl:when test="@type = 'translation'">
                   <h2>

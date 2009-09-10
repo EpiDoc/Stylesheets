@@ -18,7 +18,7 @@
       <xsl:choose>
          <xsl:when test="$verse-lines = 'on'">   
             <xsl:variable name="div-loc">
-               <xsl:for-each select="ancestor::div[@type='textpart']">
+               <xsl:for-each select="ancestor::t:div[@type='textpart']">
                   <xsl:value-of select="@n"/>
                   <xsl:text>-</xsl:text>
                </xsl:for-each>

@@ -7,7 +7,7 @@
   
   <xsl:template match="t:milestone">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp' and ancestor::div[@type = 'translation']">
+         <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation']">
             <xsl:if test="@rend = 'break'">
                <br/>
             </xsl:if>
@@ -21,7 +21,7 @@
          <xsl:when test="@rend = 'paragraphos'">
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">
-                  <xsl:if test="not(parent::supplied)">
+                  <xsl:if test="not(parent::t:supplied)">
                      <br/>
                   </xsl:if>
                   <xsl:text>————————</xsl:text>

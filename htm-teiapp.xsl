@@ -45,7 +45,7 @@
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:when test="@resp='autopsy'"/>
-               <xsl:when test="parent::app"/>
+               <xsl:when test="parent::t:app"/>
                <xsl:otherwise>
                   <xsl:apply-templates/>
                </xsl:otherwise>
@@ -58,7 +58,7 @@
   <xsl:template match="t:wit">
       <xsl:choose>
       <!-- Temporary -->
-      <xsl:when test="parent::app"/>
+      <xsl:when test="parent::t:app"/>
 
          <xsl:otherwise>
             <xsl:apply-templates/>
@@ -69,13 +69,13 @@
 
   <xsl:template match="t:lem">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp' and ancestor::div[@type = 'translation']">
-            <xsl:variable name="wit-val" select="normalize-space(following-sibling::wit)"/>
+         <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation']">
+            <xsl:variable name="wit-val" select="normalize-space(following-sibling::t:wit)"/>
             <a>
                <xsl:call-template name="mouseover">
                   <xsl:with-param name="wit-val" select="$wit-val"/>
                   <xsl:with-param name="gloss">
-                     <xsl:if test=".//term[@target]">
+                     <xsl:if test=".//t:term[@target]">
                         <xsl:text>on</xsl:text>
                      </xsl:if>
                   </xsl:with-param>
@@ -85,7 +85,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="parent::app[@type='previouslyread']">
+               <xsl:when test="parent::t:app[@type='previouslyread']">
                   <span class="previouslyread">
                      <xsl:apply-templates/>
                   </span>
@@ -102,7 +102,7 @@
   <xsl:template name="mouseover">
       <xsl:param name="wit-val"/>
       <xsl:param name="gloss"/>
-      <xsl:variable name="lang" select="ancestor::div[@type = 'translation']/@lang"/>
+      <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@lang"/>
     
       <xsl:attribute name="class">
          <xsl:text>hgv-corr</xsl:text>
@@ -114,9 +114,9 @@
          <xsl:text>return overlib('</xsl:text>
          <xsl:if test="$gloss = 'on'">
             <xsl:for-each select=".//t:term[@target]">
-               <xsl:value-of select="document($hgv-gloss)//tei:item[@xml:id = current()/@target]/tei:term"/>
+               <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:term"/>
                <xsl:text>. </xsl:text>
-               <xsl:value-of select="document($hgv-gloss)//tei:item[@xml:id = current()/@target]/tei:gloss[@xml:lang = $lang]"/>
+               <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:gloss[@xml:lang = $lang]"/>
                <xsl:text>; </xsl:text>
             </xsl:for-each>
          </xsl:if>

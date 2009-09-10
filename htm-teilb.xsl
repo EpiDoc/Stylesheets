@@ -8,13 +8,13 @@
 
   <xsl:template match="t:lb">
       <xsl:choose>
-         <xsl:when test="ancestor::lg and $verse-lines = 'on'">
+         <xsl:when test="ancestor::t:lg and $verse-lines = 'on'">
             <xsl:apply-imports/>
          </xsl:when>
       
          <xsl:otherwise>        
             <xsl:variable name="div-loc">
-               <xsl:for-each select="ancestor::div[@type= 'textpart']">
+               <xsl:for-each select="ancestor::t:div[@type= 'textpart']">
                   <xsl:value-of select="@n"/>
                   <xsl:text>-</xsl:text>
                </xsl:for-each>

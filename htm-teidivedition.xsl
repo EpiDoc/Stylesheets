@@ -26,7 +26,7 @@
   <!-- Textpart div -->
   <xsl:template match="t:div[@type='textpart']" priority="1">
       <xsl:variable name="div-loc">
-         <xsl:for-each select="ancestor::div[@type='textpart']">
+         <xsl:for-each select="ancestor::t:div[@type='textpart']">
             <xsl:value-of select="@n"/>
             <xsl:text>-</xsl:text>
          </xsl:for-each>
