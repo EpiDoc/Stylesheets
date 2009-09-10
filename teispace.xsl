@@ -6,7 +6,7 @@
   <!-- Found in [htm|txt]-teispace.xsl -->
 
   <xsl:template match="t:space">
-      <xsl:if test="following::t:*[1][local-name() = 'lb'][@type='worddiv']">
+      <xsl:if test="following::t:*[1][local-name() = 'lb'][@type='inWord']">
          <xsl:text>- </xsl:text>
       </xsl:if>
       <xsl:choose>
@@ -171,7 +171,7 @@
       <xsl:param name="vacat"/>
 
       <xsl:text> </xsl:text>
-      <xsl:if test="following-sibling::certainty[@target=current()/@xml:id and @degree='low']">
+     <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
       <xsl:value-of select="$vacat"/>
@@ -185,7 +185,7 @@
 
       <xsl:text>(</xsl:text>
       <xsl:value-of select="$vacat"/>
-      <xsl:if test="following-sibling::certainty[@target=current()/@xml:id and @degree='low']">
+     <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
          <xsl:text>?</xsl:text>
       </xsl:if>
       <xsl:text> </xsl:text>

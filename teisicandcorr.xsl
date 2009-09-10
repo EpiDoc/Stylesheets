@@ -8,12 +8,12 @@
 
   <xsl:template match="t:sic">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' and parent::choice[@type='correction']">
+         <xsl:when test="$edition-type = 'diplomatic' and parent::t:choice[@type='correction']">
             <xsl:apply-templates/>
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="parent::choice">
+               <xsl:when test="parent::t:choice">
                   <xsl:choose>
                      <xsl:when test="$leiden-style = 'edh'">
                         <xsl:apply-templates/>
@@ -36,7 +36,7 @@
 
   <xsl:template match="t:choice/t:corr">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' and parent::choice[@type='correction']"/>
+         <xsl:when test="$edition-type = 'diplomatic' and parent::t:choice[@type='correction']"/>
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">

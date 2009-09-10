@@ -16,13 +16,15 @@
   <!-- Defines the output of individual elements in apparatus -->
   <xsl:template name="ddbdp-app">
       <xsl:variable name="div-loc">
-         <xsl:for-each select="ancestor::div[starts-with(@type, 'textpart_')]">
+         <xsl:for-each select="ancestor::t:div[@type='textpart']">
             <xsl:value-of select="@n"/>
             <xsl:text>.</xsl:text>
          </xsl:for-each>
       </xsl:variable>
       <xsl:choose>
-         <xsl:when test="not(ancestor::choice[child::sic and child::corr] or ancestor::subst or ancestor::app or          ancestor::hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili' or @rend = 'perispomeni'])">
+         <xsl:when test="not(ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app or
+            ancestor::t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili'
+            or @rend = 'perispomeni'])">
             <xsl:value-of select="$div-loc"/>
             <xsl:value-of select="preceding::t:*[local-name() = 'lb'][1]/@n"/>
             <xsl:text>. </xsl:text>
@@ -34,7 +36,7 @@
 
       <xsl:choose>
       <!-- choice -->
-      <xsl:when test="local-name() = 'choice' and child::sic and child::corr">
+         <xsl:when test="local-name() = 'choice' and child::t:sic and child::t:corr">
             <xsl:apply-templates select="t:sic/node()"/>
             <xsl:text> pap.</xsl:text>
          </xsl:when>
@@ -57,7 +59,7 @@
                      <xsl:text>BL</xsl:text>
                   </xsl:if>
                   <xsl:choose>
-                     <xsl:when test="string(normalize-space(lem/@resp))">
+                     <xsl:when test="string(normalize-space(t:lem/@resp))">
                         <xsl:text> </xsl:text>
                         <xsl:value-of select="t:lem/@resp"/>
                      </xsl:when>
@@ -67,7 +69,7 @@
                   </xsl:choose>
                   <xsl:text>: </xsl:text>
                   <xsl:choose>
-                     <xsl:when test="not(string(normalize-space(rdg/node())))">
+                     <xsl:when test="not(string(normalize-space(t:rdg/node())))">
                         <xsl:text> Om.</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>

@@ -7,7 +7,7 @@
   <xsl:template match="t:unclear">
       <xsl:param name="text-content">
          <xsl:choose>
-            <xsl:when test="ancestor::orig[not(ancestor::choice)]">
+            <xsl:when test="ancestor::t:orig[not(ancestor::t:choice)]">
                <xsl:value-of select="translate(., $all-grc, $grc-upper-strip)"/>
             </xsl:when>
             <xsl:otherwise>

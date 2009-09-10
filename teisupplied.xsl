@@ -26,8 +26,8 @@
                   </xsl:variable>
                   <xsl:variable name="space-ex">
                      <xsl:choose>
-                        <xsl:when test="number(descendant::space/@extent)">
-                           <xsl:number value="descendant::space/@extent"/>
+                        <xsl:when test="number(descendant::t:space/@extent)">
+                           <xsl:number value="descendant::t:space/@extent"/>
                         </xsl:when>
                         <xsl:otherwise>
                            <xsl:number value="1"/>
