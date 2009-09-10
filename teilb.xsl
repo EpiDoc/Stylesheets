@@ -6,7 +6,7 @@
   <!-- Imported by [htm|txt]-teilb.xsl -->
   
   <xsl:template match="t:lb">
-      <xsl:if test="ancestor::l">
+      <xsl:if test="ancestor::t:l">
          <xsl:choose>
             <xsl:when test="@type = 'worddiv'">
                <xsl:text>|</xsl:text>
@@ -36,7 +36,7 @@
             <xsl:value-of select="@n"/>
             <xsl:text>)</xsl:text>
          </xsl:when>
-         <xsl:otherwise>
+         <xsl:otherwise>SIBLING
             <xsl:text>(</xsl:text>
             <xsl:value-of select="@n"/>
             <xsl:text>) </xsl:text>

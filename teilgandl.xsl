@@ -11,7 +11,7 @@
       </xsl:if>
       <xsl:if test="local-name(preceding-sibling::t:*[1])='lb'">
          <xsl:variable name="pre-lb">
-            <xsl:value-of select="preceding-sibling::lb[1]/@n"/>
+            <xsl:value-of select="preceding-sibling::t:lb[1]/@n"/>
          </xsl:variable>
          <xsl:if test="$pre-lb mod $line-inc = 0 and not($pre-lb = 0)">
             <xsl:choose>
