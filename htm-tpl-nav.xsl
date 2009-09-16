@@ -180,7 +180,7 @@
                   <xsl:text>Berlin</xsl:text>
                </a>
                <xsl:if test="not(starts-with($cur-id, 'p.test'))">
-                  <xsl:if test="string(/TEI.2/teiHeader/fileDesc/titleStmt/title/@n)">
+                  <xsl:if test="string(/TEI/teiHeader/fileDesc/titleStmt/title/@n)">
               <!-- Metadata and Translation -->
               <xsl:call-template name="meta-mult-link">
                         <xsl:with-param name="n-val" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title/@n"/>

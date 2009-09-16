@@ -93,7 +93,7 @@
 
             <!-- Found in htm-tpl-metadata.xsl -->
         <!-- Would need to change once combined 
-        <xsl:if test="starts-with(//TEI.2/@xml:id, 'hgv')">
+        <xsl:if test="starts-with(//TEI.2/@id, 'hgv')">
           <xsl:call-template name="metadata"/>
         </xsl:if>-->
         
