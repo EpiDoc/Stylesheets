@@ -17,7 +17,7 @@
             <xsl:choose>
               <xsl:when test="@type = 'translation'">
                   <h2>
-                     <xsl:value-of select="/t:TEI/t:teiHeader/t:profileDesc/t:langUsage/t:language[@xml:id = current()/@xml:lang]"/>
+                     <xsl:value-of select="/t:TEI/t:teiHeader/t:profileDesc/t:langUsage/t:language[@ident = current()/@xml:lang]"/>
                      <xsl:text> </xsl:text>
                      <xsl:value-of select="@type"/>
                   </h2>

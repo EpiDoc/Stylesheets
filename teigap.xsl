@@ -48,8 +48,8 @@
 
   <xsl:template match="t:gap[@reason='ellipsis']">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp' and string(@desc)">
-            <xsl:value-of select="@desc"/>
+         <xsl:when test="$leiden-style = 'ddbdp' and string(desc)">
+            <xsl:value-of select="desc"/>
             <xsl:text> </xsl:text>
             <xsl:value-of select="@extent"/>
             <xsl:text> </xsl:text>
@@ -137,7 +137,7 @@
                   <xsl:choose>
                      <xsl:when test="$leiden-style = 'ddbdp'">
                         <xsl:choose>
-                           <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
+                           <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                               <xsl:call-template name="tpl-vest">
                                  <xsl:with-param name="circa" select="$circa"/>
                               </xsl:call-template>
@@ -181,7 +181,7 @@
                   <xsl:choose>
                      <xsl:when test="$leiden-style = 'ddbdp'">
                         <xsl:choose>
-                           <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
+                           <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                               <xsl:call-template name="tpl-vest">
                                  <xsl:with-param name="circa" select="$circa"/>
                                  <xsl:with-param name="extentmax" select="$extentmax"/>
@@ -224,7 +224,7 @@
 
                <xsl:when test="$cur-max &gt;= number(@extent) and not(string(@extentmax))">
                   <xsl:choose>
-                     <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
+                     <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -239,7 +239,7 @@
 
                <xsl:otherwise>
                   <xsl:choose>
-                     <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
+                     <xsl:when test="desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -257,7 +257,7 @@
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">
                   <xsl:choose>
-                     <xsl:when test="@desc = 'vestiges' and @reason = 'illegible'">
+                     <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -318,7 +318,7 @@
 
          <xsl:when test="@extent and @unit='cm'">
             <xsl:choose>
-               <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
+               <xsl:when test="desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
                      <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
@@ -340,7 +340,7 @@
 
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="@desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
+               <xsl:when test="desc = 'vestiges' and $leiden-style = 'ddbdp' and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
                      <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
