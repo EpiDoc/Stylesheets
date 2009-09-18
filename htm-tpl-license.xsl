@@ -12,7 +12,7 @@
          <xsl:choose>
             <xsl:when test="p">
                <xsl:if test="contains(t:p/t:ref[@type='license']/@href,'creativecommons')">
-                  <img src="http://i.creativecommons.org/l/{substring-after(p/xref[@type='license']/@href, 'licenses/')}88x31.png"
+                  <img src="http://i.creativecommons.org/l/{substring-after(t:p/t:ref[@type='license']/@href, 'licenses/')}88x31.png"
                        alt="{t:p/t:ref[@type='license']}"
                        align="left"/>
                </xsl:if>

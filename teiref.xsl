@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: teixref.xsl 1449 2008-08-07 12:59:21Z zau $ -->
+<!-- $Id: teiref.xsl 1449 2008-08-07 12:59:21Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
-  <!-- Called from [htm|txt]-teixref.xsl -->
+  <!-- Called from [htm|txt]-teiref.xsl -->
   
   <xsl:template name="reprint-text">
       <xsl:param name="direction"/>
@@ -93,7 +93,7 @@
          <xsl:text>.html</xsl:text>
       </xsl:variable>
     
-      <!-- Found in [htm|txt]-teixref.xsl -->
+      <!-- Found in [htm|txt]-teiref.xsl -->
     <xsl:call-template name="link-text">
          <xsl:with-param name="href-link" select="$href-link"/>
          <xsl:with-param name="val-doc" select="$val-doc"/>
