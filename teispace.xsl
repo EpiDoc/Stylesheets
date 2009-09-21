@@ -171,7 +171,7 @@
       <xsl:param name="vacat"/>
 
       <xsl:text> </xsl:text>
-     <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
+     <xsl:if test="following-sibling::t:certainty[@match='preceding::space']">
          <xsl:text>?</xsl:text>
       </xsl:if>
       <xsl:value-of select="$vacat"/>
@@ -185,7 +185,7 @@
 
       <xsl:text>(</xsl:text>
       <xsl:value-of select="$vacat"/>
-     <xsl:if test="following-sibling::t:certainty[@target=current()/@xml:id and @degree='low']">
+     <xsl:if test="following-sibling::t:certainty[@match='preceding::space']">
          <xsl:text>?</xsl:text>
       </xsl:if>
       <xsl:text> </xsl:text>
