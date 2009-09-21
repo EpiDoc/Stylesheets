@@ -119,7 +119,7 @@
   <xsl:template name="extent-string">
     <!-- Precision and extentmax of <gap> defined -->
     <xsl:variable name="circa">
-         <xsl:if test="@precision='circa'">
+         <xsl:if test="@precision='low'">
             <xsl:text>c. </xsl:text>
          </xsl:if>
       </xsl:variable>

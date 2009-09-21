@@ -89,7 +89,7 @@
                      <xsl:choose>
                         <xsl:when test="not(@precision)"/>
                         <xsl:when test="@precision = 'exact'"/>
-                        <xsl:when test="@precision = 'circa'">?</xsl:when>
+                        <xsl:when test="@precision = 'low'">?</xsl:when>
                      </xsl:choose>
                   </xsl:variable>
 
