@@ -6,7 +6,7 @@
   <!-- Templates imported by [htm|txt]-teig.xsl -->
 
   <xsl:template name="lb-dash">
-      <xsl:if test="following::t:*[1][local-name() = 'lb'][@type='worddiv']">
+      <xsl:if test="following::t:*[1][local-name() = 'lb'][@type='inWord']">
          <xsl:text>- </xsl:text>
       </xsl:if>
   </xsl:template>

@@ -15,7 +15,7 @@
          </xsl:variable>
          <xsl:if test="$pre-lb mod $line-inc = 0 and not($pre-lb = 0)">
             <xsl:choose>
-               <xsl:when test="@type = 'worddiv'">
+               <xsl:when test="@type = 'inWord'">
                   <xsl:text>(</xsl:text>
                   <xsl:value-of select="$pre-lb"/>
                   <xsl:text>)</xsl:text>

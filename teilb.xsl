@@ -8,7 +8,7 @@
   <xsl:template match="t:lb">
       <xsl:if test="ancestor::t:l">
          <xsl:choose>
-            <xsl:when test="@type = 'worddiv'">
+            <xsl:when test="@type = 'inWord'">
                <xsl:text>|</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -31,7 +31,7 @@
 
   <xsl:template name="lb-content">
       <xsl:choose>
-         <xsl:when test="@type = 'worddiv'">
+         <xsl:when test="@type = 'inWord'">
             <xsl:text>(</xsl:text>
             <xsl:value-of select="@n"/>
             <xsl:text>)</xsl:text>

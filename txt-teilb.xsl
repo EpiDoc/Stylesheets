@@ -25,7 +25,7 @@
                </xsl:if>
             </xsl:variable>
         
-            <xsl:if test="@type='worddiv' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g')] and not($leiden-style = 'edh')">
+            <xsl:if test="@type='inWord' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g')] and not($leiden-style = 'edh')">
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
