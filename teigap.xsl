@@ -232,7 +232,7 @@
          
          <xsl:when test="@atLeast and @atMost">
             <!-- reason illegible and lost caught in the otherwise -->
-            <xsl:when test="$leiden-style = 'ddbdp'">
+            <xsl:choose><xsl:when test="$leiden-style = 'ddbdp'">
                <xsl:text> - ca. </xsl:text>
                <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
                <xsl:text> - </xsl:text>
@@ -257,6 +257,7 @@
                <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
                <xsl:value-of select="$cur-dot"/>
             </xsl:otherwise>
+            </xsl:choose>
          </xsl:when>
 
      
