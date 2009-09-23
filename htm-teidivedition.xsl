@@ -35,6 +35,7 @@
       <!-- add ancestor textparts -->
       <xsl:value-of select="@n"/>
       </span>
+     <xsl:element name="br"/>
       <xsl:apply-templates/>
   </xsl:template>
 </xsl:stylesheet>
