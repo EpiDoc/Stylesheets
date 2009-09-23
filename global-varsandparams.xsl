@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: global-varsandparams.xsl 1447 2008-08-07 12:57:55Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
 
   <!-- Location of file defining the parameters and variables -->
@@ -16,22 +15,22 @@
   
   <!-- Mapping file -->
   <xsl:variable name="mapping-file"
-                 select="'../t:crosswalker/t:aggregator/t:mapping/mapping.xml'"/>
+                 select="'../crosswalker/aggregator/mapping/mapping.xml'"/>
   
   <xsl:param name="topNav"
-              select="document($param-file)//t:parameter[name = 'topNav']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'topNav']/value[@on = 'yes']"/>
   <xsl:param name="verse-lines"
-              select="document($param-file)//t:parameter[name = 'verse-lines']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'verse-lines']/value[@on = 'yes']"/>
   <xsl:param name="leiden-style"
-              select="document($param-file)//t:parameter[name = 'leiden-style']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'leiden-style']/value[@on = 'yes']"/>
   <xsl:param name="meta-style"
-              select="document($param-file)//t:parameter[name = 'meta-style']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'meta-style']/value[@on = 'yes']"/>
   <xsl:param name="edition-type"
-              select="document($param-file)//t:parameter[name = 'edition-type']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'edition-type']/value[@on = 'yes']"/>
   <xsl:param name="apparatus-style"
-              select="document($param-file)//t:parameter[name = 'apparatus-style']/t:value[@on = 'yes']"/>
+              select="document($param-file)//parameter[name = 'apparatus-style']/value[@on = 'yes']"/>
   <xsl:param name="line-inc"
-              select="document($param-file)//t:parameter[name = 'line-inc']/t:value"/>
+              select="document($param-file)//parameter[name = 'line-inc']/value"/>
   
   <xsl:param name="docroot">../output/data</xsl:param>
   
