@@ -4,6 +4,10 @@
     border-top: thin black solid;
      }
      
+.supraline {
+    border-top: thin black solid;
+     }
+     
 .previouslyread {
     text-decoration: underline;
      }
