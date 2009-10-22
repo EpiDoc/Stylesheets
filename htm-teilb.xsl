@@ -28,7 +28,16 @@
             <xsl:if test="@type='inWord' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g')]">
                <xsl:text>-</xsl:text>
             </xsl:if>
-            <br id="a{$div-loc}l{$line}"/>
+            <xsl:choose>
+               <xsl:when test="generate-id(self::lb) = generate-id(ancestor::div[1]//lb[1])">
+                  <a id="a{$div-loc}l{$line}">
+                     <xsl:comment>0</xsl:comment>
+                  </a>
+               </xsl:when>
+               <xsl:otherwise>
+                  <br id="a{$div-loc}l{$line}"/>
+               </xsl:otherwise>
+            </xsl:choose>
             <xsl:choose>
                <xsl:when test="not(number(@n)) and $leiden-style = 'ddbdp'">
                   <xsl:call-template name="margin-num"/>
