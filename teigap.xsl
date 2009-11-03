@@ -84,7 +84,7 @@
         <xsl:call-template name="lost-opener"/>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:if test="leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I']">
+     <xsl:if test="leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
       <xsl:call-template name="extent-string"/>
@@ -101,7 +101,7 @@
          </xsl:choose>
       </xsl:if>
 
-      <xsl:if test="leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F']">
+     <xsl:if test="leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
 
