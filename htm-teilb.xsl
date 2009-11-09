@@ -29,7 +29,7 @@
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
-               <xsl:when test="generate-id(self::lb) = generate-id(ancestor::div[1]//lb[1])">
+               <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]//t:lb[1])">
                   <a id="a{$div-loc}l{$line}">
                      <xsl:comment>0</xsl:comment>
                   </a>
