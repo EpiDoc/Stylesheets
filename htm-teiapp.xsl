@@ -70,7 +70,7 @@
   <xsl:template match="t:lem">
       <xsl:choose>
          <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation']">
-            <xsl:variable name="wit-val" select="normalize-space(following-sibling::t:wit)"/>
+            <xsl:variable name="wit-val" select="@resp"/>
             <a>
                <xsl:call-template name="mouseover">
                   <xsl:with-param name="wit-val" select="$wit-val"/>
