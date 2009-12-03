@@ -46,8 +46,7 @@
                   </xsl:if>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>
-&#xD;</xsl:text>
+                  <xsl:text>&#xA;&#xD;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
@@ -66,8 +65,8 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>	</xsl:text>
-                  <xsl:text>	</xsl:text>
+                  <xsl:text>&#x9;</xsl:text>
+                  <xsl:text>&#x9;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>
@@ -75,8 +74,8 @@
   </xsl:template>
   
   <xsl:template name="margin-num">
-      <xsl:value-of select="@n"/>
-      <xsl:text>	</xsl:text>
+     <xsl:value-of select="@n"/>
+     <xsl:text>&#x9;</xsl:text>
   </xsl:template>
 
 </xsl:stylesheet>

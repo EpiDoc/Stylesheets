@@ -21,7 +21,7 @@
         <xsl:when test="$verse-lines = 'on' and not(number(@n)) and $leiden-style = 'ddbdp'">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
-            <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
+            <xsl:when test="@n mod $line-inc = 0 and not(@n = 0) and not(starts-with($leiden-style, 'edh'))">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
          </xsl:choose>
