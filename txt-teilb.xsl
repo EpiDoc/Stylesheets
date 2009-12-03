@@ -56,11 +56,7 @@
                </xsl:when>
                <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
                   <xsl:choose>
-                     <xsl:when test="starts-with($leiden-style, 'edh')">
-                        <xsl:text>(</xsl:text>
-                        <xsl:value-of select="@n"/>
-                        <xsl:text>) </xsl:text>
-                     </xsl:when>
+                     <xsl:when test="starts-with($leiden-style, 'edh')"/>
                      <xsl:otherwise>
                         <xsl:call-template name="margin-num"/>
                      </xsl:otherwise>
