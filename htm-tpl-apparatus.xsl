@@ -55,37 +55,47 @@
                <xsl:value-of select="name()"/>
                <xsl:number level="any" format="01"/>
             </xsl:variable>
-            <xsl:choose>
-               <xsl:when test="$location = 'text'">
-                  <a>
-                     <xsl:attribute name="href">
-                        <xsl:text>#to-app-</xsl:text>
-                        <xsl:value-of select="$app-num"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="xml:id">
-                        <xsl:text>from-app-</xsl:text>
-                        <xsl:value-of select="$app-num"/>
-                     </xsl:attribute>
-                     <xsl:text>(*)</xsl:text>
-                  </a>
-               </xsl:when>
-               <xsl:when test="$location = 'apparatus'">
-                  <a>
-                     <xsl:attribute name="xml:id">
-                        <xsl:text>to-app-</xsl:text>
-                        <xsl:value-of select="$app-num"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="href">
-                        <xsl:text>#from-app-</xsl:text>
-                        <xsl:value-of select="$app-num"/>
-                     </xsl:attribute>
-                     <xsl:text>^</xsl:text>
-                  </a>
-                  <xsl:text> </xsl:text>
-               </xsl:when>
-            </xsl:choose>
+            <xsl:call-template name="generate-app-link">
+              <xsl:with-param name="location" select="$location"/>
+              <xsl:with-param name="app-num" select="$app-num"/>
+            </xsl:call-template>
          </xsl:if>
       </xsl:if>
+  </xsl:template>
+  
+  <!-- Called by app-link to generate the actual HTML, so other projects can override this template for their own style -->
+  <xsl:template name="generate-app-link">
+    <xsl:param name="location"/>
+    <xsl:param name="app-num"/>
+    <xsl:choose>
+       <xsl:when test="$location = 'text'">
+          <a>
+             <xsl:attribute name="href">
+                <xsl:text>#to-app-</xsl:text>
+                <xsl:value-of select="$app-num"/>
+             </xsl:attribute>
+             <xsl:attribute name="xml:id">
+                <xsl:text>from-app-</xsl:text>
+                <xsl:value-of select="$app-num"/>
+             </xsl:attribute>
+             <xsl:text>(*)</xsl:text>
+          </a>
+       </xsl:when>
+       <xsl:when test="$location = 'apparatus'">
+          <a>
+             <xsl:attribute name="xml:id">
+                <xsl:text>to-app-</xsl:text>
+                <xsl:value-of select="$app-num"/>
+             </xsl:attribute>
+             <xsl:attribute name="href">
+                <xsl:text>#from-app-</xsl:text>
+                <xsl:value-of select="$app-num"/>
+             </xsl:attribute>
+             <xsl:text>^</xsl:text>
+          </a>
+          <xsl:text> </xsl:text>
+       </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
