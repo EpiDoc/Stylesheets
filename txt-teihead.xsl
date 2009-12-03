@@ -6,7 +6,7 @@
   
   <xsl:template match="t:div/t:head">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'edh'"/>
+         <xsl:when test="starts-with($leiden-style, 'edh')"/>
          <xsl:otherwise>
             <xsl:apply-templates/>
             <xsl:text>
