@@ -12,6 +12,7 @@
       <xsl:call-template name="w-space"/>
 
       <xsl:choose>
+         <xsl:when test="starts-with($leiden-style, 'edh')"/>
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
