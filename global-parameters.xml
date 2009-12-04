@@ -11,7 +11,7 @@
   <parameter>
     <name>leiden-style</name>
     <value>ddbdp</value>
-    <value>edh</value>
+    <value>edh-web</value>
     <value>edh-itx</value>
     <value>ila</value>
     <value>london</value>
