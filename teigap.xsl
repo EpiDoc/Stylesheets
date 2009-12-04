@@ -7,15 +7,15 @@
 
   <!-- style of the dot defined here -->
   <xsl:variable name="cur-dot">
-      <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'">
-            <xsl:text>  ̣</xsl:text>
-         </xsl:when>
+     <xsl:choose>
+        <xsl:when test="$leiden-style = 'ddbdp'">
+           <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+        </xsl:when>
          <xsl:when test="$leiden-style = 'panciera' and @reason='illegible'">
             <xsl:text>+</xsl:text>
          </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>·</xsl:text>
+        <xsl:otherwise>
+           <xsl:text>&#xb7;</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:variable>
@@ -119,7 +119,7 @@
   <xsl:template name="extent-string">
     <!-- Precision of <gap> defined -->
     <xsl:variable name="circa">
-         <xsl:if test="@precision='low'">
+       <xsl:if test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
             <xsl:text>c. </xsl:text>
          </xsl:if>
       </xsl:variable>
@@ -147,7 +147,7 @@
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'idp-itx'">
+               <xsl:when test="$leiden-style = 'edh-itx'">
                   <xsl:text>3</xsl:text>
                </xsl:when>
                <xsl:when test="$leiden-style = 'panciera'">
@@ -160,7 +160,7 @@
          </xsl:when>
          <xsl:when test="@quantity and @unit='character'">
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'edh-idx' and number(@quantity)">
+               <xsl:when test="$leiden-style = 'edh-itx' and @quantity">
                   <xsl:choose>
                      <xsl:when test="@quantity &gt; 2">
                         <xsl:text>3</xsl:text>
@@ -230,7 +230,7 @@
             </xsl:choose>
          </xsl:when>
          
-         <xsl:when test="@atLeast and @atMost">
+         <xsl:when test="@atLeast and @atMost and not(starts-with($leiden-style, 'edh'))">
             <!-- reason illegible and lost caught in the otherwise -->
             <xsl:choose><xsl:when test="$leiden-style = 'ddbdp'">
                <xsl:text> - ca. </xsl:text>
@@ -355,7 +355,7 @@
                      <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'edh-idx'">
+               <xsl:when test="$leiden-style = 'edh-itx'">
                   <xsl:text>6</xsl:text>
                </xsl:when>
                <xsl:otherwise>
