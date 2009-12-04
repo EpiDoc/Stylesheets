@@ -9,10 +9,9 @@
       <xsl:apply-templates/>
   </xsl:template>
 
-
   <xsl:template match="t:abbr">
       <xsl:apply-templates/>
-      <xsl:if test="not(parent::t:expan) and not(following-sibling::t:ex)">
+      <xsl:if test="not(ancestor::t:expan)">
          <xsl:text>(</xsl:text>
          <xsl:choose>
             <xsl:when test="$leiden-style = 'ddbdp'">
@@ -30,7 +29,6 @@
       </xsl:if>
   </xsl:template>
   
-
   <xsl:template match="t:ex">
       <xsl:choose>
          <xsl:when test="$edition-type = 'interpretive'">
@@ -48,7 +46,6 @@
       </xsl:choose>
   </xsl:template>
   
-
   <xsl:template match="t:am">
       <xsl:choose>
          <xsl:when test="$edition-type = 'interpretive'"/>
