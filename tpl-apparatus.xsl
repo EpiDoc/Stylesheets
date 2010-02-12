@@ -54,7 +54,7 @@
                   <xsl:text>or </xsl:text>
                   <xsl:apply-templates select="t:rdg/node()"/>
                </xsl:when>
-               <xsl:when test="@type = 'editorial' or @type = 'BL'">
+               <xsl:when test="@type = 'editorial' or @type = 'BL' or @type = 'SoSOL'">
                   <xsl:if test="@type = 'BL'">
                      <xsl:text>BL</xsl:text>
                   </xsl:if>
@@ -65,6 +65,9 @@
                      </xsl:when>
                      <xsl:when test="@type = 'editorial'">
                         <xsl:text>Subsequent ed.</xsl:text>
+                     </xsl:when>
+                     <xsl:when test="@type = 'SoSOL'">
+                        <xsl:text>SoSOL</xsl:text>
                      </xsl:when>
                   </xsl:choose>
                   <xsl:text>: </xsl:text>
