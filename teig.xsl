@@ -31,6 +31,29 @@
          <xsl:when test="@type = 'taurho'">
             <xsl:text>⳨</xsl:text>
          </xsl:when>
+         <xsl:when test="$leiden-style='diplomatic'">
+            <xsl:choose>
+               <xsl:when test="@type='crux'">
+                  <xsl:text>&#x2020;</xsl:text>
+               </xsl:when>
+               <xsl:when test="@type='denarius'">
+                  <xsl:text>&#x10196;</xsl:text>
+               </xsl:when>
+               <xsl:when test="@type='sestercius'">
+                  <xsl:text>&#x10198;</xsl:text>
+               </xsl:when>
+               <xsl:when test="@type='year'">
+                  <xsl:text>L</xsl:text>
+               </xsl:when>
+            </xsl:choose>
+         </xsl:when>
+         <xsl:otherwise>
+            <span class="smaller" style="font-style:italic;">
+               <xsl:text> </xsl:text>
+               <xsl:value-of select="@type"/>
+               <xsl:text> </xsl:text>
+            </span>
+         </xsl:otherwise>
       </xsl:choose>
 
    </xsl:template>
