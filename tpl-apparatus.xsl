@@ -99,23 +99,23 @@
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>̈</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend = 'varia'">
+               <xsl:when test="@rend = 'grave'">
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>̀</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend = 'oxia'">
+               <xsl:when test="@rend = 'acute'">
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>́</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend = 'dasia'">
+               <xsl:when test="@rend = 'asper'">
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>̔</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend = 'psili'">
+               <xsl:when test="@rend = 'lenis'">
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>̓</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend = 'perispomeni'">
+               <xsl:when test="@rend = 'circumflex'">
                   <xsl:call-template name="trans-string"/>
                   <xsl:text>͂</xsl:text>
                </xsl:when>
