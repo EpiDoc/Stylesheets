@@ -48,7 +48,7 @@
 
   <xsl:template match="t:gap[@reason='ellipsis']">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp' and string(desc)">
+         <xsl:when test="$leiden-style = 'ddbdp' and string(t:desc)">
             <xsl:value-of select="desc"/>
             <xsl:text> </xsl:text>
             <xsl:value-of select="@quantity"/>
