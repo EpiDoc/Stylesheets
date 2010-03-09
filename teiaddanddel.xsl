@@ -21,10 +21,10 @@
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
-               <xsl:when test="@place = 'supralinear'">
+               <xsl:when test="@place = 'above'">
                   <xsl:text>\</xsl:text>
                </xsl:when>
-               <xsl:when test="@place = 'infralinear'">
+               <xsl:when test="@place = 'below'">
                   <xsl:text>/</xsl:text>
                </xsl:when>
             </xsl:choose>
@@ -48,10 +48,10 @@
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
-               <xsl:when test="@place = 'supralinear'">
+               <xsl:when test="@place = 'above'">
                   <xsl:text>/</xsl:text>
                </xsl:when>
-               <xsl:when test="@place = 'infralinear'">
+               <xsl:when test="@place = 'below'">
                   <xsl:text>\</xsl:text>
                </xsl:when>
             </xsl:choose>
