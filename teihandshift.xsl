@@ -9,7 +9,7 @@
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:text>(hand </xsl:text>
             <xsl:value-of select="substring-after(@new, 'm')"/>
-            <xsl:text>)</xsl:text>
+            <xsl:text>) </xsl:text>
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates/>
