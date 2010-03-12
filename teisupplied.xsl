@@ -54,6 +54,9 @@
             <!-- Found in tpl-cert-low.xsl -->
         <xsl:call-template name="cert-low"/>
             <!-- Found in tpl-reasonlost.xsl -->
+            <xsl:if test="following-sibling::node()[1][local-name()='lb' and @type='inWord']">
+               <xsl:text>-</xsl:text>
+            </xsl:if>
         <xsl:call-template name="lost-closer"/>
          </xsl:otherwise>
       </xsl:choose>
