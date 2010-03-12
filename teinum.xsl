@@ -19,7 +19,8 @@
       
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:apply-templates/>
-            <xsl:if test="contains(@value, '/') and not(@value = '1/2' or @value = '2/3' or @value = '3/4')">
+<!--            <xsl:if test="contains(@value, '/') and not(@value = '1/2' or @value = '2/3' or @value = '3/4')">-->
+            <xsl:if test="@rend='fraction'">
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
