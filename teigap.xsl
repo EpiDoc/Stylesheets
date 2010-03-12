@@ -139,7 +139,7 @@
                      </xsl:when>
                      <!-- reason illegible and lost caught in the otherwise -->
                      <xsl:otherwise>
-                        <xsl:text> - ca. ? - </xsl:text>
+                        <xsl:text> -ca.?- </xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
@@ -239,9 +239,11 @@
             <!-- reason illegible and lost caught in the otherwise -->
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">
-                  <xsl:text> - ca. </xsl:text>
-                  <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
-                  <xsl:text> - </xsl:text>
+                  <xsl:text> -ca.</xsl:text>
+                  <xsl:value-of select="@atLeast"/>
+                  <xsl:text>-</xsl:text>
+                  <xsl:value-of select="@atMost"/>
+                  <xsl:text>- </xsl:text>
                </xsl:when>
                <xsl:when test="$leiden-style = 'panciera'">
                   <xsl:text>c. </xsl:text>
@@ -252,7 +254,9 @@
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> </xsl:text>
                   <xsl:value-of select="$circa"/>
-                  <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
+                  <xsl:value-of select="@atLeast"/>
+                  <xsl:text>-</xsl:text>
+                  <xsl:value-of select="@atMost"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:when>
@@ -260,7 +264,9 @@
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> </xsl:text>
                   <xsl:value-of select="$circa"/>
-                  <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
+                  <xsl:value-of select="@atLeast"/>
+                  <xsl:text>-</xsl:text>
+                  <xsl:value-of select="@atMost"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:otherwise>
             </xsl:choose>

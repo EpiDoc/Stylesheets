@@ -79,7 +79,7 @@
          <xsl:when test="@type='filler' and @rend='extension'">
             <xsl:text>―</xsl:text>
          </xsl:when>
-         <xsl:when test="@type='latin interpunct' or @type='middot' or @type='mid punctus'">
+         <xsl:when test="@type='latin-interpunct' or @type='middot' or @type='mid-punctus'">
             <xsl:text>·</xsl:text>
          </xsl:when>
          <xsl:when test="@type='monogram'">

@@ -25,7 +25,8 @@
                </xsl:if>
             </xsl:variable>
         
-            <xsl:if test="@type='inWord' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g')]
+            <xsl:if test="@type='inWord' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g'
+               or (local-name() = 'supplied' and @reason=lost'))]
                and not(starts-with($leiden-style, 'edh'))
                and not($edition-type='diplomatic')">
                <xsl:text>-</xsl:text>
