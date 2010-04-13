@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: txt-teilb.xsl 1447 2008-08-07 12:57:55Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0"
-                version="1.0">
-  <!-- Actual display and increment calculation found in teilb.xsl -->
-  <xsl:import href="teilb.xsl"/>
+   xmlns:t="http://www.tei-c.org/ns/1.0" version="1.0">
+   <!-- Actual display and increment calculation found in teilb.xsl -->
+   <xsl:import href="teilb.xsl"/>
 
-  <xsl:template match="t:lb">
-    
+   <xsl:template match="t:lb">
       <xsl:choose>
          <xsl:when test="ancestor::t:lg and $verse-lines = 'yes'">
             <xsl:apply-imports/>
@@ -24,8 +22,8 @@
                   <xsl:value-of select="@n"/>
                </xsl:if>
             </xsl:variable>
-        
-            <xsl:if test="@type='inWord' and preceding::t:node()[1][not(local-name() = 'space' or local-name() = 'g'
+            <xsl:if
+               test="@type='inWord' and preceding::node()[1][not(local-name() = 'space' or local-name() = 'g'
                or @reason='lost')]
                and not(starts-with($leiden-style, 'edh'))
                and not($edition-type='diplomatic')">
@@ -34,10 +32,12 @@
             <xsl:choose>
                <xsl:when test="starts-with($leiden-style, 'edh')">
                   <xsl:variable name="cur_anc"
-                                select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
-                  <xsl:if test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
+                     select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
+                  <xsl:if
+                     test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
-                        <xsl:when test="ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                        <xsl:when
+                           test="ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                            <xsl:text>/</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -47,7 +47,8 @@
                   </xsl:if>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>&#xA;&#xD;</xsl:text>
+                  <xsl:text>
+</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
@@ -66,17 +67,16 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>&#x9;</xsl:text>
-                  <xsl:text>&#x9;</xsl:text>
+                  <xsl:text>&#x9;&#x9;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>
-  </xsl:template>
-  
-  <xsl:template name="margin-num">
-     <xsl:value-of select="@n"/>
-     <xsl:text>&#x9;</xsl:text>
-  </xsl:template>
+   </xsl:template>
+
+   <xsl:template name="margin-num">
+      <xsl:value-of select="@n"/>
+      <xsl:text>&#x9;&#x9;</xsl:text>
+   </xsl:template>
 
 </xsl:stylesheet>

@@ -6,7 +6,6 @@
 
   <xsl:template match="t:app">
       <xsl:apply-templates/>
-
       <xsl:if test="$apparatus-style = 'ddbdp'">
       <!-- Found in txt-tpl-apparatus -->
       <xsl:call-template name="app-link">
@@ -33,9 +32,7 @@
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:when test="@resp='autopsy'"/>
-               <xsl:otherwise>
-                  <xsl:apply-templates/>
-               </xsl:otherwise>
+               <xsl:otherwise/>
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>

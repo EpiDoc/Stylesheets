@@ -10,7 +10,7 @@
             <xsl:value-of select="translate(translate(., '··&#xA; ,.;', ''), $all-grc, $grc-upper-strip)"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:value-of select="."/>
+            <xsl:if test="starts-with(., ' ') and string-length(.) &gt; 1"><xsl:text> </xsl:text></xsl:if><xsl:value-of select="normalize-space(.)"/><xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::*[1]) = 'lb')"><xsl:text> </xsl:text></xsl:if>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>

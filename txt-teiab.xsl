@@ -6,7 +6,7 @@
 
   <xsl:template match="t:ab">
       <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
       <xsl:apply-templates/>
   </xsl:template>
   

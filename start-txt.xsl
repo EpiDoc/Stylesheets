@@ -4,7 +4,7 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
 
-  <xsl:output method="text" encoding="UTF-8" indent="yes" xml:space="preserve"/>
+  <xsl:output method="text" encoding="UTF-8" indent="no" omit-xml-declaration="yes"/>
 
   <xsl:include href="global-varsandparams.xsl"/>
   
@@ -53,21 +53,5 @@
     <!-- No templates for metadata just yet -->
     <xsl:apply-templates/>
   </xsl:template>
-
-
   
-  
-  <!-- NEW FILE  -->
-  
-  <xsl:template match="text()">
-      <xsl:choose>
-         <xsl:when test="normalize-space(.) = ''">
-            <xsl:text> </xsl:text>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="normalize-space(.)"/>
-         </xsl:otherwise>
-      </xsl:choose>
-    
-  </xsl:template>
 </xsl:stylesheet>

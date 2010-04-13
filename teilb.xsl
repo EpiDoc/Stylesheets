@@ -15,7 +15,6 @@
                <xsl:text> | </xsl:text>
             </xsl:otherwise>
          </xsl:choose>
-      
          <xsl:choose>
         <!-- If verse-line is needed in ddbdp and @n is not a number eg 2a -->
         <xsl:when test="$verse-lines = 'on' and not(number(@n)) and $leiden-style = 'ddbdp'">
