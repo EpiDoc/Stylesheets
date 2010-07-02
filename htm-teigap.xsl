@@ -7,7 +7,9 @@
   <xsl:import href="teigap.xsl"/>
   
   <xsl:template match="t:gap[@reason = 'lost']">
-      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and $leiden-style = 'ddbdp'">
+      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and $leiden-style = 'ddbdp' 
+         and not(preceding-sibling::t:*[1][local-name() = 'lb'])">
+         <!--     adds a newline character before gap-extent-line in DDbDP unless <lb/> present    -->
          <br/>
       </xsl:if>
       <xsl:apply-imports/>

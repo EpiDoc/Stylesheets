@@ -40,12 +40,19 @@
             </xsl:choose>
             <xsl:choose>
                <xsl:when test="not(number(@n)) and $leiden-style = 'ddbdp'">
+                  <!--         non-numerical line-nos always printed in DDbDP         -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
+               <xsl:when test="@n mod $line-inc = 0 and not(@n = 0) and 
+                  not((preceding::t:lb[1][@n = current()/@n] or following::t:lb[1][@n = current()/@n]) and 
+                  following::t:*[1][local-name() = 'gap'][@unit = 'line'] and 
+                  $leiden-style = 'ddbdp')">
+                  <!-- prints line-nos divisible by stated increment, unless zero
+                     and unless it is a gap line in DDbDP -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when test="preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
+                  <!-- always print line-no after gap line -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
             </xsl:choose>
