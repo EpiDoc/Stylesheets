@@ -25,7 +25,14 @@
                </xsl:if>
             </xsl:variable>
         
-            <xsl:if test="@type='inWord' and preceding::t:*[1][not(local-name() = 'space' or local-name() = 'g')] and not($edition-type='diplomatic')">
+            <xsl:if test="@type='inWord' 
+               and preceding-sibling::node()[1][not(local-name() = 'space' or
+                        local-name() = 'g' or
+                        (local-name()='supplied' and @reason='lost'))]
+               and not($edition-type='diplomatic')">
+               <!-- print hyphen if type=inWord
+                              *unless* previous line ends with space / g / supplied[reason=lost]
+                              *or unless* diplomatic edition -->
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
@@ -33,6 +40,7 @@
                   <a id="a{$div-loc}l{$line}">
                      <xsl:comment>0</xsl:comment>
                   </a>
+                  <!-- for the first lb in a div, create an empty anchor instead of a line-break -->
                </xsl:when>
                <xsl:otherwise>
                   <br id="a{$div-loc}l{$line}"/>

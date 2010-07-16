@@ -27,12 +27,11 @@
                   <xsl:apply-templates/>
                   <xsl:text>\</xsl:text>
                </xsl:when>
-               <xsl:when test="@rend='supraline'">
-                  <!--<xsl:text>¯</xsl:text>-->
+               <!--<xsl:when test="@rend='supraline'">
                   <span style="text-decoration:overline;">
                      <xsl:apply-templates/>
                   </span>
-               </xsl:when>
+               </xsl:when>-->
                <xsl:otherwise>
                   <xsl:apply-templates/>
                </xsl:otherwise>

@@ -3,12 +3,11 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="1.0">
-  <!-- Contains templates for sic and choice/corr -->
-
+  <!-- Contains templates for sic and choice/corr and surplus -->
 
   <xsl:template match="t:sic">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' and parent::t:choice[@type='correction']">
+         <xsl:when test="$edition-type = 'diplomatic' and parent::t:choice">
             <xsl:apply-templates/>
          </xsl:when>
          <xsl:otherwise>
@@ -32,7 +31,14 @@
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
-
+   
+   <xsl:template match="t:surplus">
+      <xsl:text>{</xsl:text>
+      <xsl:apply-templates/>
+      <!-- cert-low template found in tpl-certlow.xsl -->
+      <xsl:call-template name="cert-low"/>
+      <xsl:text>}</xsl:text>
+   </xsl:template>
 
   <xsl:template match="t:choice/t:corr">
       <xsl:choose>

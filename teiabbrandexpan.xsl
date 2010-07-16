@@ -33,9 +33,10 @@
          <xsl:when test="$edition-type = 'diplomatic'"/>
          <xsl:when test="$leiden-style = 'edh-names' and ancestor::t:name[@type='praenomen']"/>
          <xsl:otherwise>
-            <xsl:if test="not($leiden-style='ddbdp' and ancestor::t:corr[parent::t:choice])">
+            <!--<xsl:if test="not($leiden-style='ddbdp' and ancestor::t:corr[parent::t:choice])">-->
                <xsl:text>(</xsl:text>
-            </xsl:if>
+<!--            </xsl:if>-->
+            <!-- at one point we wanted to suppress abbreviations inside corrected text; we no longer agree with this, but are leaving the code here in case it turns out to have been a good idea after all -->
             <xsl:apply-templates/>
             <!-- Found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>
@@ -44,9 +45,9 @@
                and last()">
                <xsl:text>-</xsl:text>
             </xsl:if>
-            <xsl:if test="not($leiden-style='ddbdp' and ancestor::t:corr[parent::t:choice])">
+<!--            <xsl:if test="not($leiden-style='ddbdp' and ancestor::t:corr[parent::t:choice])">-->
                <xsl:text>)</xsl:text>
-            </xsl:if>
+<!--            </xsl:if>-->
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
