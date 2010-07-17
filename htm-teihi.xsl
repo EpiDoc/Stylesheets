@@ -109,7 +109,21 @@
       <xsl:when test="@rend='superscript'">
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">
-                  <xsl:apply-imports/>
+                  <xsl:choose>
+                     <xsl:when test="@rend='superscript'">
+                        <span style="vertical-align:super;">
+                           <xsl:apply-imports/>
+                        </span>
+                     </xsl:when>
+                     <xsl:when test="@rend='subscript'">
+                        <span style="vertical-align:sub;">
+                           <xsl:apply-imports/>
+                        </span>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:apply-imports/>
+                     </xsl:otherwise>
+                  </xsl:choose>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:element name="sup">

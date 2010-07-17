@@ -10,6 +10,7 @@
       <xsl:choose>
          <xsl:when test="ancestor::t:lg and $verse-lines = 'on'">
             <xsl:apply-imports/>
+            <!-- use the particular templates in teilb.xsl -->
          </xsl:when>
       
          <xsl:otherwise>        
