@@ -9,7 +9,7 @@
   <xsl:template match="t:note">
       <xsl:choose>
          <xsl:when test="ancestor::t:p or ancestor::t:l or ancestor::t:ab">
-            <xsl:apply-imports/>
+            <i><xsl:apply-imports/></i>
          </xsl:when>
          <xsl:otherwise>
             <p class="note">
