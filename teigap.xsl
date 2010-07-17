@@ -68,7 +68,7 @@
 
    <xsl:template match="t:gap[@reason='illegible']">
       <!-- certainty -->
-      <xsl:if test="following-sibling::t:certainty[@match='preceding::gap']">
+      <xsl:if test="child::t:certainty[@match='..']">
          <xsl:text>?</xsl:text>
       </xsl:if>
 
@@ -92,7 +92,7 @@
       <xsl:call-template name="extent-string"/>
 
       <!-- certainty -->
-      <xsl:if test="following-sibling::t:certainty[@match='preceding::space']">
+      <xsl:if test="child::t:certainty[@match='..']">
          <xsl:choose>
             <xsl:when test="$leiden-style = 'ddbdp'">
                <xsl:text>(?)</xsl:text>
