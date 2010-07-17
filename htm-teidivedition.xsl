@@ -33,6 +33,10 @@
       </xsl:variable>
       <span class="textpartnumber" id="ab{$div-loc}{@n}">
       <!-- add ancestor textparts -->
+       <xsl:if test="@subtype">
+          <xsl:value-of select="@subtype"/>
+          <xsl:text> </xsl:text>
+       </xsl:if>  
       <xsl:value-of select="@n"/>
       </span>
      <xsl:element name="br"/>

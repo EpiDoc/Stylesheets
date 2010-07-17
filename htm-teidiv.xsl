@@ -37,18 +37,6 @@
           <!-- Body of the div -->
           <xsl:apply-templates/>
 
-          
-          <!-- HGV translation editors -->
-          <xsl:if test="$leiden-style = 'ddbdp' and @type = 'translation'">
-            <xsl:choose>
-              <xsl:when test="@xml:lang = 'de'">
-                  <xsl:text>(DK)</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                  <xsl:text>(JMSC)</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:if>
         </div>
 
   </xsl:template>

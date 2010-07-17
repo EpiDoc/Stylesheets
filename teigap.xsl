@@ -19,7 +19,7 @@
       </xsl:choose>
    </xsl:variable>
 
-   <!-- The highest value of @extent that will have dots produced -->
+   <!-- The highest value of @quantity that will have dots produced -->
    <xsl:variable name="cur-max">
       <xsl:choose>
          <xsl:when test="$leiden-style = 'ddbdp'">
@@ -122,9 +122,14 @@
    <xsl:template name="extent-string">
       <!-- Precision of <gap> defined -->
       <xsl:variable name="circa">
-         <xsl:if test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
-            <xsl:text>c. </xsl:text>
-         </xsl:if>
+         <xsl:choose>
+            <xsl:when test="$leiden-style='ddbdp'">
+               <xsl:text>ca.</xsl:text>
+            </xsl:when>
+            <xsl:when test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
+               <xsl:text>c. </xsl:text>
+            </xsl:when>
+         </xsl:choose>
       </xsl:variable>
 
       <xsl:choose>
@@ -175,11 +180,20 @@
                </xsl:when>
                <xsl:when test="number(@quantity) &gt; $cur-max">
                   <xsl:choose>
-                     <xsl:when
-                        test="$leiden-style = 'ddbdp' and (desc = 'vestiges' and @reason = 'illegible')">
-                        <xsl:call-template name="tpl-vest">
-                           <xsl:with-param name="circa" select="$circa"/>
-                        </xsl:call-template>
+                     <xsl:when test="$leiden-style = 'ddbdp'">
+                        <xsl:choose>
+                           <xsl:when test="t:desc = 'vestiges' and @reason = 'illegible'">
+                              <xsl:call-template name="tpl-vest">
+                                 <xsl:with-param name="circa" select="$circa"/>
+                              </xsl:call-template>
+                           </xsl:when>
+                           <xsl:otherwise>
+                              <xsl:text>- </xsl:text>
+                              <xsl:value-of select="$circa"/>
+                              <xsl:value-of select="@quantity"/>
+                              <xsl:text> -</xsl:text>
+                           </xsl:otherwise>
+                        </xsl:choose>
                      </xsl:when>
                      <xsl:when test="$leiden-style = 'panciera'">
                         <xsl:text>c. </xsl:text>

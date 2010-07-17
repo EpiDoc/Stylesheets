@@ -27,6 +27,10 @@
             or @rend = 'circumflex'])">
             <xsl:value-of select="$div-loc"/>
             <xsl:value-of select="preceding::t:*[local-name() = 'lb'][1]/@n"/>
+            <xsl:if test="descendant::t:lb">
+               <xsl:text>-</xsl:text>
+               <xsl:value-of select="descendant::t:lb[position() = last()]/@n"/>
+            </xsl:if>
             <xsl:text>. </xsl:text>
          </xsl:when>
          <xsl:otherwise>
