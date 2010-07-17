@@ -23,8 +23,8 @@
       </xsl:variable>
       <xsl:choose>
          <xsl:when test="not(ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app or
-            ancestor::t:hi[@rend = 'diaeresis' or @rend = 'varia' or @rend = 'oxia' or @rend = 'dasia' or @rend = 'psili'
-            or @rend = 'perispomeni'])">
+            ancestor::t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis'
+            or @rend = 'circumflex'])">
             <xsl:value-of select="$div-loc"/>
             <xsl:value-of select="preceding::t:*[local-name() = 'lb'][1]/@n"/>
             <xsl:text>. </xsl:text>

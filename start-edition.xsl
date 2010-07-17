@@ -86,7 +86,7 @@
             <!-- Heading for a ddb style file -->
         <xsl:if test="$leiden-style = 'ddbdp'">
                <h1>
-                  <xsl:value-of select="t:TEI/@xml:id"/>
+                  <xsl:value-of select="//t:idno[@type='filename']"/>
                </h1>
             </xsl:if>
 
