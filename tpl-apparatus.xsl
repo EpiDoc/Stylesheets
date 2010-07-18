@@ -76,7 +76,7 @@
                   </xsl:choose>
                   <xsl:text>: </xsl:text>
                   <xsl:choose>
-                     <xsl:when test="not(string(normalize-space(t:rdg/node())))">
+                     <xsl:when test="not(string(normalize-space(t:rdg)))">
                         <xsl:text> Om.</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
