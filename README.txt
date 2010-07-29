@@ -1,4 +1,4 @@
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ï»¿XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXX     README.txt for example-p5-xslt              XXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -16,14 +16,14 @@ License:
 Technical requirements:
 
 	These scripts are written in XSLT 1.0 and may be transformed using any
-	XSLT processor. (Tested with Saxon™ 6.5.5.)
+	XSLT processor. (Tested with Saxonâ„¢ 6.5.5.)
 
 How to use it:
 
 	XSLT may be run on an individual EpiDoc XML file, creating a single file output
-	(e.g. via a command-line Saxon™ call or an Oxygen™ transformation scenario)
+	(e.g. via a command-line Saxonâ„¢ call or an Oxygenâ„¢ transformation scenario)
 	or batch-run upon a large collection of files via some other process (e.g. an
-	Oxygen™ project, set of batch files, etc.)
+	Oxygenâ„¢ project, set of batch files, etc.)
 
 	Transformations are parameterised so that they may be used by different projects
 	with only a change in local parameters, the scripts themselves being identical
