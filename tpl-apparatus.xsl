@@ -12,6 +12,7 @@
     2. Indicator in text: [htm | txt]-element.xsl to add call-template to [htm | txt]-tpl-apparatus.xsl for links and/or stars.
     3. Add to ddbdp-app template below using local-name() to define context
   -->
+  
 
   <!-- Defines the output of individual elements in apparatus -->
   <xsl:template name="ddbdp-app">
