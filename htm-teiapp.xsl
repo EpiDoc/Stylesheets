@@ -2,7 +2,7 @@
 <!-- $Id: htm-teiapp.xsl 1567 2008-08-21 16:38:31Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:t="http://www.tei-c.org/ns/1.0"
+                xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t" 
                 version="1.0">
   <!-- Contains app and its children rdg, ptr, note and lem -->
 
