@@ -102,7 +102,7 @@
             </xsl:otherwise>
          </xsl:choose>
       </xsl:if>
-   ô
+
       <xsl:if
          test="leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
