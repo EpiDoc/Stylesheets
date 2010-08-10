@@ -38,14 +38,9 @@
             <xsl:choose>
                <xsl:when test="$leiden-style='ddbdp'">
                   <xsl:text>vac.</xsl:text>
-                  <xsl:choose>
-                     <xsl:when test="@quantity">
+                     <xsl:if test="@quantity">
                         <xsl:value-of select="@quantity"/>
-                     </xsl:when>
-                     <xsl:when test="@extent='unknown'">
-                        <xsl:text>?</xsl:text>
-                     </xsl:when>
-                  </xsl:choose>
+                     </xsl:if>
                   <xsl:if test="child::t:certainty[@match='..']">
                      <xsl:text>(?)</xsl:text>
                   </xsl:if>
