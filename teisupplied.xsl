@@ -65,6 +65,7 @@
 
   <xsl:template match="t:supplied[@reason='omitted']">
       <xsl:choose>
+         <xsl:when test="$edition-type='diplomatic'"/>
          <xsl:when test="@evidence = 'parallel'">
         <!-- Found in [htm|txt]-teisupplied.xsl -->
         <xsl:call-template name="supplied-parallel"/>
