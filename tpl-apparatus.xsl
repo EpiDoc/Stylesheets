@@ -43,6 +43,7 @@
       <!-- choice -->
          <xsl:when test="local-name() = 'choice' and child::t:sic and child::t:corr">
             <xsl:apply-templates select="t:sic/node()"/>
+            <xsl:call-template name="childCertainty"/>
             <xsl:text> pap.</xsl:text>
          </xsl:when>
 
@@ -50,6 +51,7 @@
       <xsl:when test="local-name() = 'subst'">
             <xsl:text>corr. from </xsl:text>
             <xsl:apply-templates select="t:del/node()"/>
+         <xsl:call-template name="childCertainty"/>
          </xsl:when>
 
          <!-- app -->
@@ -58,6 +60,7 @@
                <xsl:when test="@type = 'alternative'">
                   <xsl:text>or </xsl:text>
                   <xsl:apply-templates select="t:rdg/node()"/>
+                  <xsl:call-template name="childCertainty"/>
                </xsl:when>
                <xsl:when test="@type = 'editorial' or @type = 'BL' or @type = 'SoSOL'">
                   <xsl:if test="@type = 'BL'">
@@ -195,5 +198,11 @@
       <xsl:param name="trans-text" select="."/>
       <xsl:value-of select="translate($trans-text, $all-grc, $grc-lower-strip)"/>
   </xsl:template>
+   
+   <xsl:template name="childCertainty">
+      <xsl:if test="child::t:certainty[@match='..']">
+         <xsl:text>(?)</xsl:text>
+      </xsl:if>
+   </xsl:template>
 
 </xsl:stylesheet>
