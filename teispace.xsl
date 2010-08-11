@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: teispace.xsl 1450 2008-08-07 13:17:24Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t"  version="1.0">
+   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
+   exclude-result-prefixes="t" version="1.0">
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
@@ -38,9 +39,16 @@
             <xsl:choose>
                <xsl:when test="$leiden-style='ddbdp'">
                   <xsl:text>vac.</xsl:text>
-                     <xsl:if test="@quantity">
-                        <xsl:value-of select="@quantity"/>
+                  <xsl:if test="@quantity">
+                     <xsl:value-of select="@quantity"/>
+                     <xsl:if test="@unit='line'">
+                        <xsl:text> line</xsl:text>
+                        <xsl:if test="@quantity > 1">
+                           <xsl:text>s</xsl:text>
+                        </xsl:if>
                      </xsl:if>
+                  </xsl:if>
+
                   <xsl:if test="child::t:certainty[@match='..']">
                      <xsl:text>(?)</xsl:text>
                   </xsl:if>
@@ -75,7 +83,7 @@
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@unit='line'">
-                        <xsl:text>      </xsl:text>
+                        <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
                         <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat" select="'vacat '"/>
                         </xsl:call-template>
