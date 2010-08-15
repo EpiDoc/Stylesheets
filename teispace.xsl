@@ -13,7 +13,7 @@
          <xsl:when test="$edition-type = 'diplomatic'">
             <xsl:choose>
                <xsl:when test="@unit='line'">
-                  <xsl:text>      </xsl:text>
+                  <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
                   <xsl:call-template name="dip-space"/>
                </xsl:when>
                <xsl:when test="@unit='character' or not(@unit)">
@@ -118,22 +118,17 @@
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
-                     <xsl:when test="@quantity = string(1) and @unit='line'">
+                     <xsl:when test="@quantity and @unit='line'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat">vac.</xsl:with-param>
-                           <xsl:with-param name="extent">
-                              <xsl:value-of select="@quantity"/> line<xsl:value-of
-                                 select="$precision"/>
-                           </xsl:with-param>
-                        </xsl:call-template>
-                     </xsl:when>
-                     <xsl:when test="contains('23456789', @extent) and @unit='line'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
-                        <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat">vac.</xsl:with-param>
                            <xsl:with-param name="extent">
-                              <xsl:value-of select="@quantity"/> lines<xsl:value-of
-                                 select="$precision"/>
+                              <xsl:value-of select="@quantity"/>
+                              <xsl:text> line</xsl:text>
+                              <xsl:if test="@quantity > 1">
+                                 <xsl:text>s</xsl:text>
+                              </xsl:if>
+                              <xsl:value-of select="$precision"/>
                            </xsl:with-param>
                         </xsl:call-template>
                      </xsl:when>
@@ -170,7 +165,7 @@
    <xsl:template name="nbsp">
       <xsl:param name="extent"/>
       <xsl:if test="$extent &gt; 0">
-         <xsl:text> </xsl:text>
+         <xsl:text>&#xa0;&#xa0;</xsl:text>
          <xsl:call-template name="nbsp">
             <xsl:with-param name="extent" select="$extent - 1"/>
          </xsl:call-template>
