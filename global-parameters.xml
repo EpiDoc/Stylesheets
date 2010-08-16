@@ -9,13 +9,13 @@
   
   <parameter>
     <name>leiden-style</name>
-    <value on="yes">ddbdp</value>
+    <value>ddbdp</value>
     <value>edh-itx</value>
     <value>edh-names</value>
     <value>edh-web</value>
     <value>ila</value>
     <value>london</value>
-    <value>panciera</value>
+    <value on="yes">panciera</value>
     <value>seg</value>
   </parameter>
   
@@ -39,8 +39,9 @@
   
   <parameter>
     <name>apparatus-style</name>
-    <value>default</value>
-    <value on="yes">ddbdp</value>
+    <value on="yes">default</value>
+    <value>ddbdp</value>
+    <!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
   </parameter>
   
   <!-- Line increment -->
