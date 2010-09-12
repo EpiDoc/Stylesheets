@@ -70,7 +70,7 @@
          <head>        
             <title>
                <xsl:if test="$leiden-style = 'ddbdp'">
-                  <xsl:value-of select="t:TEI/@xml:id"/>
+                  <xsl:value-of select="//t:idno[@type='filename']"/>
                   <xsl:text> </xsl:text>
                </xsl:if>
                <xsl:text>Greek Leiden Edition View</xsl:text>
