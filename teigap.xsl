@@ -89,7 +89,15 @@
          test="leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
-      <xsl:call-template name="extent-string"/>
+      
+      <xsl:choose>
+         <xsl:when test="$verse-lines='on' and parent::t:seg[@met or @real]">
+            <xsl:call-template name="verse-string"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:call-template name="extent-string"/>
+         </xsl:otherwise>
+      </xsl:choose>
 
       <!-- certainty -->
       <xsl:if test="child::t:certainty[@match='..']">
@@ -397,6 +405,46 @@
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>
+   </xsl:template>
+
+<!-- Template for lost verse, metre known -->
+<xsl:template name="verse-string">
+   <xsl:choose>
+      <xsl:when test="parent::t:seg[contains(@real,'+') or contains(@real,'-')]">
+         <xsl:call-template name="scansion">
+            <xsl:with-param name="met-string" select="translate(parent::t:seg/@real, '+-','ˉ˘')"/>
+            <xsl:with-param name="string-len" select="string-length(parent::t:seg/@real)"/>
+            <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@real) - 1"/>
+         </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="parent::t:seg[contains(@met,'+') or contains(@met,'-')]">
+         <xsl:call-template name="scansion">
+            <xsl:with-param name="met-string" select="translate(parent::t:seg/@met, '+-','ˉ˘')"/>
+            <xsl:with-param name="string-len" select="string-length(parent::t:seg/@met)"/>
+            <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@met) - 1"/>
+         </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+         <xsl:call-template name="extent-string"/>
+      </xsl:otherwise>
+   </xsl:choose>
+</xsl:template>
+   
+   <!-- print macron and breve with intervening hard-spaces -->
+   <xsl:template name="scansion">
+      <xsl:param name="met-string"/>
+      <xsl:param name="string-len"/>
+      <xsl:param name="string-pos"/>
+      <xsl:if test="$string-pos > -1">
+         <xsl:text>&#xa0;</xsl:text>
+         <xsl:value-of select="substring($met-string, number($string-len - $string-pos), 1)"/>
+         <xsl:text>&#xa0;</xsl:text>
+         <xsl:call-template name="scansion">
+            <xsl:with-param name="met-string" select="$met-string"/>
+            <xsl:with-param name="string-len" select="$string-len"/>
+            <xsl:with-param name="string-pos" select="$string-pos - 1"/>
+         </xsl:call-template>
+      </xsl:if>
    </xsl:template>
 
 
