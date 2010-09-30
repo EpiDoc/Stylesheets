@@ -6,7 +6,7 @@
   <!-- Called by different elements -->
   
   <xsl:template name="cert-low">
-      <xsl:if test="@cert='low'">
+      <xsl:if test="@cert='low' and $edition-type != 'diplomatic'">
          <xsl:text>(?)</xsl:text>
       </xsl:if>
   </xsl:template>
