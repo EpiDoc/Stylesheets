@@ -23,11 +23,17 @@ How to use it:
 	XSLT may be run on an individual EpiDoc XML file, creating a single file output
 	(e.g. via a command-line Saxon™ call or an Oxygen™ transformation scenario)
 	or batch-run upon a large collection of files via some other process (e.g. an
-	Oxygen™ project, set of batch files, etc.)
+	Oxygen™ project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create
+	a HTML version of the output (this xsl calls both generic and specialized files needed),
+	or start-txt.xsl to create a text-only version of the text output.
 
 	Transformations are parameterised so that they may be used by different projects
 	with only a change in local parameters, the scripts themselves being identical
-	for all users. The parameters currently defined include:
+	for all users. Change the parameters either by (a) changing the global-parameters.xml
+	in your local copy (please do *not* commit these changes to SVN), or (b) setting local
+	variables in your Saxon command-line, Oxygen scenario, etc.
+
+	The parameters currently defined include:
 
 	$leiden-style:
 		values include 'panciera' (default), 'ddbdp', 'london',
