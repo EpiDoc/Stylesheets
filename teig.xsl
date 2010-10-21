@@ -35,8 +35,12 @@
          </xsl:when>
          <xsl:when test="$edition-type='diplomatic'">
             <xsl:choose>
-               <xsl:when test="@type='crux'">
+               <xsl:when test="@type='crux' or @type='cross'">
                   <xsl:text>&#x2020;</xsl:text>
+                  <xsl:call-template name="g-unclear"/>
+               </xsl:when>
+               <xsl:when test="@type='crosses'">
+                  <xsl:text>&#x2020;&#x2020;</xsl:text>
                   <xsl:call-template name="g-unclear"/>
                </xsl:when>
                <xsl:when test="@type='denarius'">
@@ -55,6 +59,16 @@
                   <xsl:text>•</xsl:text>
                   <xsl:call-template name="g-unclear"/>
                </xsl:when>
+               <xsl:otherwise>
+                  <span class="smaller" style="font-style:italic;">
+                     <xsl:text> </xsl:text>
+                     <xsl:value-of select="@type"/>
+                     <xsl:if test="parent::t:unclear">
+                        <xsl:text>?</xsl:text>
+                     </xsl:if>
+                     <xsl:text> </xsl:text>
+                  </span>
+               </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
          <xsl:otherwise>

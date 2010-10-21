@@ -86,7 +86,7 @@
          </xsl:otherwise>
       </xsl:choose>
       <xsl:if
-         test="leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($edition-type='diplomatic')">
+         test="$leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
       
@@ -112,7 +112,7 @@
       </xsl:if>
 
       <xsl:if
-         test="leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F'] and not($edition-type='diplomatic')">
+         test="$leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
 
@@ -156,10 +156,20 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'london'">
+               <xsl:when test="$leiden-style = 'london' and not($edition-type='diplomatic')">
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> ? </xsl:text>
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
+               </xsl:when>
+               <xsl:when test="$leiden-style = 'london'">                  
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
+                  <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:when>
@@ -176,6 +186,10 @@
          </xsl:when>
          <xsl:when test="@quantity and @unit='character'">
             <xsl:choose>
+               <xsl:when test="$edition-type = 'diplomatic'">
+                  <xsl:variable name="dots" select="'····························································································································································'"/>
+                  <xsl:value-of select="substring($dots, 1, number(@quantity))"/>
+               </xsl:when>
                <xsl:when test="$leiden-style = 'edh-itx' and @quantity">
                   <xsl:choose>
                      <xsl:when test="@quantity &gt; 2">

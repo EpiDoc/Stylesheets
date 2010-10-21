@@ -42,7 +42,7 @@
 
   <xsl:template match="t:choice/t:corr">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' and parent::t:choice[@type='correction']"/>
+         <xsl:when test="$edition-type = 'diplomatic'"/>
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp'">
