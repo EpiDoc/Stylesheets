@@ -7,6 +7,13 @@
   <xsl:import href="teinum.xsl"/>
   
   <xsl:template match="t:num">
+     <span>
+        <xsl:if test="contains(@value,'/')">
+           <xsl:attribute name="title">
+              <xsl:text>fraction: </xsl:text>
+              <xsl:value-of select="@value"/>
+           </xsl:attribute>
+        </xsl:if>
       <xsl:choose>
          <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'la']">
             <span class="latinnum">
@@ -17,6 +24,7 @@
             <xsl:apply-imports/>
          </xsl:otherwise>
       </xsl:choose>
+     </span>
   </xsl:template>
   
 </xsl:stylesheet>
