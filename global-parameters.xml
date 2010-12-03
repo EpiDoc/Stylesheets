@@ -17,12 +17,14 @@
     <value>london</value>
     <value on="yes">panciera</value>
     <value>seg</value>
+    <value>sammelbuch</value>
   </parameter>
   
   <parameter>
     <name>meta-style</name>
     <value on="yes">default</value>
     <value>hgv</value>
+    <value>sammelbuch</value>
   </parameter>
   
   <parameter>
