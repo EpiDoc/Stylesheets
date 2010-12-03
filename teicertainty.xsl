@@ -5,7 +5,7 @@
 
    <xsl:template match="t:certainty">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:text>(?)</xsl:text>
          </xsl:when>
          <xsl:when test="@match='..'">

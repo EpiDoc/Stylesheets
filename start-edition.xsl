@@ -68,7 +68,7 @@
          <head>
             <title>
                <xsl:choose>
-                  <xsl:when test="$leiden-style = 'ddbdp'">
+                  <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                      <xsl:choose>
                         <xsl:when test="//t:sourceDesc//t:bibl/text()">
                            <xsl:value-of select="//t:sourceDesc//t:bibl"/>
@@ -102,7 +102,7 @@
 
 
             <!-- Heading for a ddb style file -->
-            <xsl:if test="$leiden-style = 'ddbdp'">
+            <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                <h1>
                   <xsl:choose>
                      <xsl:when test="//t:sourceDesc//t:bibl/text()">

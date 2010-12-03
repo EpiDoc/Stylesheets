@@ -13,7 +13,7 @@
 
       <xsl:choose>
          <xsl:when test="starts-with($leiden-style, 'edh')"/>
-         <xsl:when test="$leiden-style = 'ddbdp'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
          <xsl:otherwise>

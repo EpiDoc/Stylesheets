@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" media="screen, projection">
          <xsl:attribute name="href">
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'ddbdp'">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:text>http://papyri.info/global.css</xsl:text>
                </xsl:when>
                <xsl:otherwise>
@@ -21,7 +21,7 @@
          </xsl:attribute>
       </link>
 
-      <xsl:if test="$leiden-style = 'ddbdp' and //t:div[@type = 'translation']">
+      <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and //t:div[@type = 'translation']">
          <script type="text/javascript" src="http://papyri.info/js/overlib_mini.js">
              </script>
       </xsl:if>

@@ -8,7 +8,7 @@
   
   <xsl:template match="t:num">
      <span>
-        <xsl:if test="contains(@value,'/') and $leiden-style='ddbdp'">
+        <xsl:if test="contains(@value,'/') and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
            <xsl:attribute name="title">
               <xsl:text>fraction: </xsl:text>
               <xsl:value-of select="@value"/>

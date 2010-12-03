@@ -7,7 +7,7 @@
   <xsl:template match="t:term">
       <xsl:choose>
       <!-- Adds caption for hgv translations -->
-      <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation'] and @target">
+      <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation'] and @target">
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <xsl:variable name="term" select="@target"/>
         

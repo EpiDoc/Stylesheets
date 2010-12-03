@@ -6,7 +6,7 @@
 
   <xsl:template match="t:q">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:text>'</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>'</xsl:text>

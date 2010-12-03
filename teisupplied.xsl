@@ -5,7 +5,7 @@
                 version="1.0">
 
   <xsl:template match="t:supplied[@reason='lost']">
-      <xsl:if test="$leiden-style = 'ddbdp' and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
+      <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
          <br/>
       </xsl:if>
       <xsl:choose>

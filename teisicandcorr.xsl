@@ -14,7 +14,7 @@
             <xsl:choose>
                <xsl:when test="parent::t:choice">
                   <xsl:choose>
-                     <xsl:when test="starts-with($leiden-style, 'edh')">
+                     <xsl:when test="starts-with($leiden-style, 'edh') or ($leiden-style = 'sammelbuch')">
                         <xsl:apply-templates/>
                      </xsl:when>
                      <xsl:otherwise/>
@@ -42,10 +42,10 @@
 
   <xsl:template match="t:choice/t:corr">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic'"/>
+         <xsl:when test="($edition-type = 'diplomatic') or ($leiden-style = 'sammelbuch')"/>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'ddbdp'">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:apply-templates/>
                   <!-- cert-low template found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>

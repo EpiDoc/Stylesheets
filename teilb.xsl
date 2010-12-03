@@ -17,7 +17,7 @@
          </xsl:choose>
          <xsl:choose>
         <!-- If verse-line is needed in ddbdp and @n is not a number eg 2a -->
-        <xsl:when test="$verse-lines = 'on' and not(number(@n)) and $leiden-style = 'ddbdp'">
+        <xsl:when test="$verse-lines = 'on' and not(number(@n)) and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
             <xsl:when test="@n mod $line-inc = 0 and not(@n = 0) and not(starts-with($leiden-style, 'edh'))">

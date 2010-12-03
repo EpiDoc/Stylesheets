@@ -69,7 +69,7 @@
 
   <xsl:template match="t:lem">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:div[@type = 'translation']">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
             <xsl:variable name="wit-val" select="@resp"/>
             <a>
                <xsl:call-template name="mouseover">

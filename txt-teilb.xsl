@@ -52,7 +52,7 @@
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
-               <xsl:when test="not(number(@n)) and $leiden-style = 'ddbdp'">
+               <xsl:when test="not(number(@n)) and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
@@ -67,7 +67,8 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>&#x9;&#x9;</xsl:text>
+                  <!-- template »line-numbering-tab« found in txt-tpl-linenumberingtab.xsl respectively odf-tpl-linenumberingtab.xsl -->
+                  <xsl:call-template name="line-numbering-tab" />
                </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>
@@ -76,7 +77,8 @@
 
    <xsl:template name="margin-num">
       <xsl:value-of select="@n"/>
-      <xsl:text>&#x9;&#x9;</xsl:text>
+      <!-- template »line-numbering-tab« found in txt-tpl-linenumberingtab.xsl respectively odf-tpl-linenumberingtab.xsl -->
+      <xsl:call-template name="line-numbering-tab" />
    </xsl:template>
 
 </xsl:stylesheet>

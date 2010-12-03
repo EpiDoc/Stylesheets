@@ -42,9 +42,19 @@
       <xsl:choose>
       <!-- choice -->
          <xsl:when test="local-name() = 'choice' and child::t:sic and child::t:corr">
-            <xsl:apply-templates select="t:sic/node()"/>
+
+            <xsl:choose>
+              <xsl:when test="$leiden-style = 'sammelbuch'">
+                <xsl:apply-templates select="t:corr/node()"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="t:sic/node()"/>
+              </xsl:otherwise>
+            </xsl:choose>
+            
             <xsl:call-template name="childCertainty"/>
             <xsl:text> pap.</xsl:text>
+
          </xsl:when>
 
          <!-- subst -->

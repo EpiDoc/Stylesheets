@@ -94,7 +94,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <xsl:when test="@rend='subscript'">
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'ddbdp'">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:apply-imports/>
                </xsl:when>
                <xsl:otherwise>
@@ -108,7 +108,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <xsl:when test="@rend='superscript'">
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'ddbdp'">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:choose>
                      <xsl:when test="@rend='superscript'">
                         <span style="vertical-align:super;">

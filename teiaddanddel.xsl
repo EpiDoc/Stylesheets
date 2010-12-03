@@ -18,7 +18,7 @@
 
    <xsl:template match="t:add">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -45,7 +45,7 @@
       <xsl:call-template name="cert-low"/>
 
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -86,10 +86,10 @@
             <xsl:apply-templates/>
             <xsl:text>]]</xsl:text>
          </xsl:when>
-         <xsl:when test="$leiden-style = 'ddbdp' and @rend='slashes'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @rend='slashes'">
             <xsl:apply-templates/>
          </xsl:when>
-         <xsl:when test="$leiden-style = 'ddbdp' and @rend='cross-strokes'">
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @rend='cross-strokes'">
             <xsl:apply-templates/>
          </xsl:when>
          <xsl:when test="parent::t:subst"/>

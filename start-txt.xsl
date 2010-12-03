@@ -44,6 +44,7 @@
   <xsl:include href="teiunclear.xsl"/>
   
   <xsl:include href="txt-tpl-apparatus.xsl"/>
+  <xsl:include href="txt-tpl-linenumberingtab.xsl"/>
   
   <xsl:include href="tpl-reasonlost.xsl"/>
   <xsl:include href="tpl-certlow.xsl"/>

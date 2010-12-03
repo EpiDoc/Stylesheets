@@ -37,7 +37,7 @@
 
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="$leiden-style='ddbdp'">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:text>vac.</xsl:text>
                   <xsl:if test="@quantity">
                      <xsl:value-of select="@quantity"/>

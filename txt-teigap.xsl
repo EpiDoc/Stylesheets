@@ -7,7 +7,7 @@
   <xsl:import href="teigap.xsl"/>
   
   <xsl:template match="t:gap[@reason = 'lost']">
-      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and $leiden-style = 'ddbdp'">
+      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
          <xsl:text>
 &#xD;</xsl:text>
       </xsl:if>
