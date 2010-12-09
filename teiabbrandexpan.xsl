@@ -31,7 +31,10 @@
    <xsl:template match="t:ex">
       <xsl:choose>
          <xsl:when test="$edition-type = 'diplomatic'"/>
-         <xsl:when test="$leiden-style = 'edh-names' and ancestor::t:name[@type='praenomen']"/>
+         <!--<xsl:when test="$leiden-style = 'edh-names' and ancestor::t:name[@type='praenomen']"/>--><!-- DEPRECATED RULE -->
+         <xsl:when test="$leiden-style = 'edh-names'">
+            <xsl:text>.</xsl:text>
+         </xsl:when>
          <xsl:otherwise>
             <!--<xsl:if test="not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:corr[parent::t:choice])">-->
                <xsl:text>(</xsl:text>
