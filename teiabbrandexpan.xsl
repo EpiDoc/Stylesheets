@@ -31,7 +31,7 @@
    <xsl:template match="t:ex">
       <xsl:choose>
          <xsl:when test="$edition-type = 'diplomatic'"/>
-         <!--<xsl:when test="$leiden-style = 'edh-names' and ancestor::t:name[@type='praenomen']"/>--><!-- DEPRECATED RULE -->
+         <xsl:when test="$leiden-style = 'edh-names' and parent::t:w"/>
          <xsl:when test="$leiden-style = 'edh-names'">
             <xsl:text>.</xsl:text>
          </xsl:when>

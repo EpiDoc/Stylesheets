@@ -12,12 +12,16 @@
             </xsl:variable>
             <xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>
          </xsl:when>
+         <xsl:when test="$leiden-style='edh-names' and 
+            normalize-space(.) = '' and 
+            following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus'] and
+            preceding-sibling::t:*[1][descendant-or-self::t:expan]"/>
          <xsl:otherwise>
             <xsl:if test="starts-with(., ' ') and string-length(.) &gt; 1">
                <xsl:text> </xsl:text>
             </xsl:if>
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::*[1]) = 'lb')">
+            <xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::t:*[1]) = 'lb')">
                <xsl:text> </xsl:text>
             </xsl:if>
          </xsl:otherwise>
