@@ -14,7 +14,7 @@
          </xsl:when>
          <xsl:when test="$leiden-style='edh-names' and 
             normalize-space(.) = '' and 
-            following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus'] and
+            following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus' or @lemma='filia' or @lemma='liberta] and
             preceding-sibling::t:*[1][descendant-or-self::t:expan]"/>
          <xsl:otherwise>
             <xsl:if test="starts-with(., ' ') and string-length(.) &gt; 1">
