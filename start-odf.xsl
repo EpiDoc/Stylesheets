@@ -60,10 +60,11 @@
         <office:text>
 
           <xsl:choose>
-            <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='HGV']">
+            <xsl:when test="not(contains(/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:p, 'Duke Databank of Documentary Papyri'))">
 
                 <xsl:call-template name="metadata_header" />
                 <xsl:call-template name="metadata_footer" />
+                <text:p text:style-name="Sammelbuch-Endsatz" />
 
             </xsl:when>
             <xsl:otherwise>
@@ -76,11 +77,17 @@
                 </xsl:if>
               </xsl:for-each-group>
 
-              <text:p text:style-name="Sammelbuch-Textapparat">
+              <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |        
+                .//t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'] |
+                .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
-                <xsl:call-template name="tpl-apparatus" />
+                <text:p text:style-name="Sammelbuch-Textapparat">
+  
+                  <xsl:call-template name="tpl-apparatus" />
+  
+                </text:p>
 
-              </text:p>
+              </xsl:if>
 
             </xsl:otherwise>
           </xsl:choose>
