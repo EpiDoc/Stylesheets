@@ -8,21 +8,23 @@
                 version="1.0">
 
   <!-- Called from start-edition.xsl -->
+  <xsl:param name="sammelbuchIndex"> 
+    <xsl:choose>
+      <xsl:when test="matches(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='futurePrintRelease'], 'sb;\d+;\d+')">
+        <xsl:value-of select="substring-after(substring-after(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='futurePrintRelease'], ';'), ';')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="substring-after(substring-after(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='ddb-hybrid'], ';'), ';')" />
+      </xsl:otherwise>  
+    </xsl:choose>
+  </xsl:param>
 
   <xsl:template name="metadata_header">
     <text:p text:style-name="Sammelbuch-Kopf">
 
       <!-- sammelbuch number -->
-      
       <text:span text:style-name="Sammelbuch-Nummer">
-        <xsl:choose>
-          <xsl:when test="matches(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='futurePrintRelease'], 'sb;\d+;\d+')">
-            <xsl:value-of select="substring-after(substring-after(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='futurePrintRelease'], ';'), ';')" />
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="substring-after(substring-after(//t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[@type='ddb-hybrid'], ';'), ';')" />
-          </xsl:otherwise>  
-        </xsl:choose>
+        <xsl:value-of select="$sammelbuchIndex" />        
         <xsl:text>. </xsl:text>
       </text:span>
 
@@ -31,7 +33,6 @@
       <xsl:text>. </xsl:text>
 
       <!-- title / new edition -->
-
       <xsl:choose>
         <xsl:when test="string(//t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@type='sb']/t:relatedItem[@type='reedition' and @subtype='reference']/t:bibl[@type='publication' and @subtype='other'])">
           <text:span text:style-name="Sammelbuch-Titel">
@@ -95,7 +96,7 @@
       </xsl:if>
       <xsl:if test="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:msIdentifier/t:altIdentifier[@type='temporary']">
         <xsl:text> (z.Z. </xsl:text>
-        <xsl:value-of select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:msIdentifier/t:altIdentifier[@type='temporary']/note" />
+        <xsl:value-of select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:msIdentifier/t:altIdentifier[@type='temporary']/t:note" />
         <xsl:text>, </xsl:text>
         <xsl:value-of select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:msIdentifier/t:altIdentifier[@type='temporary']/t:idno[@type='invNo']" />
         <xsl:text>)</xsl:text>
@@ -136,9 +137,10 @@
     <xsl:text>. </xsl:text>
 
     <!-- date -->
-    <xsl:value-of select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:history/t:origin/t:origDate[@type='textDate']" />
+    <xsl:variable name="date" select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:history/t:origin/t:origDate[@type='textDate']" />
+    <xsl:value-of select="concat(upper-case(substring($date, 1, 1)), substring($date, 2))" />
     <xsl:if test="not(ends-with(//t:teiHeader/t:fileDesc/t:sourceDesc/t:msDesc/t:history/t:origin/t:origDate[@type='textDate'], '.'))">
-      <xsl:text>☠☠☠.</xsl:text>
+      <xsl:text>.</xsl:text>
     </xsl:if>
     
     </text:p>
@@ -155,10 +157,13 @@
         <text:p text:style-name="Sammelbuch-Fuß">
           <xsl:text>Photo: </xsl:text>
           <xsl:for-each select="//t:text/t:body/t:div[@type='bibliography' and @subtype='illustrations']/t:p">
-            <xsl:value-of select="." />
+            <xsl:variable name="illu" select="normalize-space(.)" />
+            <xsl:value-of select="$illu" />
             <xsl:choose>
               <xsl:when test="position() = last()">
-                <xsl:text>.</xsl:text>
+                <xsl:if test="not(ends-with($illu, '.'))">
+                  <xsl:text>.</xsl:text>
+                </xsl:if>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:text>, </xsl:text>
