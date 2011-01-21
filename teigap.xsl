@@ -176,8 +176,8 @@
                <xsl:when test="$leiden-style = 'edh-itx'">
                   <xsl:text>3</xsl:text>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'panciera'">
-                  <xsl:text>-</xsl:text>
+               <xsl:when test="$leiden-style = 'panciera' or $leiden-style = 'edh-names'">
+                  <xsl:text>---</xsl:text>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:text> - - - </xsl:text>
