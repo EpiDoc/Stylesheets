@@ -32,13 +32,9 @@
       </xsl:choose>
   </xsl:template>
    
-   <xsl:template match="t:surplus">
-      <xsl:text>{</xsl:text>
-      <xsl:apply-templates/>
-      <!-- cert-low template found in tpl-certlow.xsl -->
-      <xsl:call-template name="cert-low"/>
-      <xsl:text>}</xsl:text>
-   </xsl:template>
+   <!--<xsl:template match="t:surplus">
+      MOVED TO teisurplus.xsl
+   </xsl:template>-->
 
   <xsl:template match="t:choice/t:corr">
       <xsl:choose>
