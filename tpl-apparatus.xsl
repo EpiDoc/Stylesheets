@@ -23,7 +23,7 @@
          </xsl:for-each>
       </xsl:variable>
       <xsl:choose>
-         <xsl:when test="not(ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app or
+         <xsl:when test="not(ancestor::t:choice or ancestor::t:subst or ancestor::t:app or
             ancestor::t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis'
             or @rend = 'circumflex'])">
             <xsl:value-of select="$div-loc"/>
@@ -39,24 +39,41 @@
          </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:choose>
-      <!-- choice -->
-         <xsl:when test="local-name() = 'choice' and child::t:sic and child::t:corr">
-
-            <xsl:choose>
+     <xsl:choose>
+        <!-- choice [ sic & corr ] -->
+        <xsl:when test="local-name() = 'choice' and child::t:sic and child::t:corr">
+           
+           <xsl:choose>
               <xsl:when test="$leiden-style = 'sammelbuch'">
-                <xsl:apply-templates select="t:corr/node()"/>
+                 <xsl:apply-templates select="t:corr/node()"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:apply-templates select="t:sic/node()"/>
+                 <xsl:apply-templates select="t:sic/node()"/>
               </xsl:otherwise>
-            </xsl:choose>
-            
-            <xsl:call-template name="childCertainty"/>
-            <xsl:text> pap.</xsl:text>
-
-         </xsl:when>
-
+           </xsl:choose>
+           
+           <xsl:call-template name="childCertainty"/>
+           <xsl:text> pap.</xsl:text>
+           
+        </xsl:when>
+        
+        <!-- choice [ orig & reg ] -->
+        <xsl:when test="local-name() = 'choice' and child::t:orig and child::t:reg">
+           
+           <xsl:choose>
+              <xsl:when test="$leiden-style = 'sammelbuch'">
+                 <xsl:apply-templates select="t:reg/node()"/>
+              </xsl:when>
+              <xsl:otherwise>
+                 <xsl:apply-templates select="t:orig/node()"/>
+              </xsl:otherwise>
+           </xsl:choose>
+           
+           <xsl:call-template name="childCertainty"/>
+           <xsl:text> pap.</xsl:text>
+           
+        </xsl:when>
+        
          <!-- subst -->
       <xsl:when test="local-name() = 'subst'">
             <xsl:text>corr. from </xsl:text>

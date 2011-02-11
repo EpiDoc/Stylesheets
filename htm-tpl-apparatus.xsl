@@ -9,14 +9,14 @@
   <!-- Apparatus framework -->
   <xsl:template name="tpl-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
-    <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |
+     <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:choice[child::t:reg and child::t:orig] | .//t:subst | .//t:app |
        .//t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'] |
        .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
          <h2>Apparatus</h2>
          <div id="apparatus">
         <!-- An entry is created for-each of the following instances -->
-        <xsl:for-each select=".//t:choice[child::t:sic and child::t:corr] | .//t:subst | .//t:app |
+            <xsl:for-each select=".//t:choice[child::t:sic and child::t:corr] | .//t:choice[child::t:reg and child::t:orig] | .//t:subst | .//t:app |
            .//t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'] |
            .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
@@ -32,7 +32,7 @@
                   <xsl:when test="local-name() = 'del'">
                      <br/>
                   </xsl:when>
-                  <xsl:when test="not(descendant::t:choice[child::t:sic and child::t:corr] | descendant::t:subst | descendant::t:app)">
+                  <xsl:when test="not(descendant::t:choice | descendant::t:subst | descendant::t:app)">
                      <br/>
                   </xsl:when>
                </xsl:choose>
@@ -50,7 +50,7 @@
     <xsl:if test="not(ancestor::t:div[@type = 'translation'])">
       <!-- Only produces a link if it is not nested in an element that would be in apparatus -->
       <xsl:if test="not((local-name() = 'choice' or local-name() = 'subst' or local-name() = 'app')
-         and (ancestor::t:choice[child::t:sic and child::t:corr] or ancestor::t:subst or ancestor::t:app))">
+         and (ancestor::t:choice or ancestor::t:subst or ancestor::t:app))">
             <xsl:variable name="app-num">
                <xsl:value-of select="name()"/>
                <xsl:number level="any" format="01"/>
