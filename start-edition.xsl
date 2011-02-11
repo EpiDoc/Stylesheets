@@ -41,10 +41,12 @@
    <xsl:include href="teiheader.xsl"/>
    <xsl:include href="teimilestone.xsl"/>
    <xsl:include href="teiorig.xsl"/>
+   <xsl:include href="teiorigandreg.xsl"/>
    <xsl:include href="teiq.xsl"/>
    <xsl:include href="teisicandcorr.xsl"/>
    <xsl:include href="teispace.xsl"/>
    <xsl:include href="teisupplied.xsl"/>
+   <xsl:include href="teisurplus.xsl"/>
    <xsl:include href="teiunclear.xsl"/>
 
    <!-- html related stylesheets for named templates -->
