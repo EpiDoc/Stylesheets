@@ -16,26 +16,13 @@
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:otherwise>
-                  <a class="hgv-term" href="javascript:void(0);" onmouseout="return nd();">
-                     <xsl:attribute name="onmouseover">
-                        <xsl:text>return overlib('</xsl:text>
-                        <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:term"/>
-                        <xsl:text>. </xsl:text>
-                        <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]"/>
-                        <xsl:text>',STICKY,CAPTION,'</xsl:text>
-                        <xsl:choose>
-                           <xsl:when test="$lang = 'en'">
-                              <xsl:text>Glossary:</xsl:text>
-                           </xsl:when>
-                           <xsl:when test="$lang = 'de'">
-                              <xsl:text>Glossar:</xsl:text>
-                           </xsl:when>
-                        </xsl:choose>            
-                        <xsl:text>',MOUSEOFF,NOCLOSE);</xsl:text>
-                     </xsl:attribute>
-              
-                     <xsl:apply-templates/>
-                  </a>
+                  <xsl:choose>
+                    <xsl:when test="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]/text()"><span class="term">
+                    <xsl:apply-templates/>
+                    <span class="gloss" style="display:none"><xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]"/></span>                 
+                    </span></xsl:when>
+                    <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+                  </xsl:choose>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
