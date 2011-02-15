@@ -71,17 +71,33 @@
       <xsl:choose>
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
             <xsl:variable name="wit-val" select="@resp"/>
-            <a>
-               <xsl:call-template name="mouseover">
-                  <xsl:with-param name="wit-val" select="$wit-val"/>
-                  <xsl:with-param name="gloss">
-                     <xsl:if test=".//t:term[@target]">
-                        <xsl:text>on</xsl:text>
-                     </xsl:if>
-                  </xsl:with-param>
-               </xsl:call-template>
-               <xsl:apply-templates/>
-            </a>
+            <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
+            <span class="term">
+              <xsl:apply-templates/>
+              <span class="gloss" style="display:none">
+              <b><xsl:choose>
+                  <xsl:when test="$lang = 'en'">
+                    <xsl:if test=".//t:term[@target]">
+                      <xsl:text>Glossary/</xsl:text>
+                    </xsl:if>
+                    <xsl:text>Correction:</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'de'">
+                    <xsl:if test=".//t:term[@target]">
+                      <xsl:text>Glossar/</xsl:text>
+                    </xsl:if>
+                    <xsl:text>Korrektur:</xsl:text>
+                  </xsl:when>
+                </xsl:choose></b>
+                <xsl:for-each select=".//t:term[@target]">
+                  <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:term"/>
+                  <xsl:text>. </xsl:text>
+                  <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:gloss[@xml:lang = $lang]"/>
+                  <xsl:text>; </xsl:text>
+                </xsl:for-each>
+                <xsl:value-of select="$wit-val"/>
+              </span>                 
+            </span>
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
@@ -96,51 +112,6 @@
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>
-  </xsl:template>
-
-
-  <xsl:template name="mouseover">
-      <xsl:param name="wit-val"/>
-      <xsl:param name="gloss"/>
-      <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
-    
-      <xsl:attribute name="class">
-         <xsl:text>hgv-corr</xsl:text>
-      </xsl:attribute>
-      <xsl:attribute name="href">
-         <xsl:text>javascript:void(0);</xsl:text>
-      </xsl:attribute>
-      <xsl:attribute name="onmouseover">
-         <xsl:text>return overlib('</xsl:text>
-         <xsl:if test="$gloss = 'on'">
-            <xsl:for-each select=".//t:term[@target]">
-               <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:term"/>
-               <xsl:text>. </xsl:text>
-               <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:gloss[@xml:lang = $lang]"/>
-               <xsl:text>; </xsl:text>
-            </xsl:for-each>
-         </xsl:if>
-         <xsl:value-of select="$wit-val"/>
-         <xsl:text>',STICKY,CAPTION,'</xsl:text>
-         <xsl:choose>
-            <xsl:when test="$lang = 'en'">
-               <xsl:if test="$gloss = 'on'">
-                  <xsl:text>Glossary/</xsl:text>
-               </xsl:if>
-               <xsl:text>Correction:</xsl:text>
-            </xsl:when>
-            <xsl:when test="$lang = 'de'">
-               <xsl:if test="$gloss = 'on'">
-                  <xsl:text>Glossar/</xsl:text>
-               </xsl:if>
-               <xsl:text>Korrektur:</xsl:text>
-            </xsl:when>
-         </xsl:choose>
-         <xsl:text>',MOUSEOFF,NOCLOSE);</xsl:text>
-      </xsl:attribute>
-      <xsl:attribute name="onmouseout">
-         <xsl:text>return nd();</xsl:text>
-      </xsl:attribute>
   </xsl:template>
 
 </xsl:stylesheet>
