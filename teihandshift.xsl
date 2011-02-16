@@ -9,6 +9,9 @@
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:text>(hand </xsl:text>
             <xsl:value-of select="substring-after(@new, 'm')"/>
+            <xsl:if test="@cert='low'">
+               <xsl:text>?</xsl:text>
+            </xsl:if>
             <xsl:text>) </xsl:text>
          </xsl:when>
          <xsl:otherwise>
