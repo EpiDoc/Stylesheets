@@ -45,7 +45,7 @@
             <xsl:choose>
                <xsl:when test="g">
                   <xsl:apply-templates/>
-                  <!-- find some way to indicate the unclear status of this word -->
+                  <!-- templates (including tests for parent::unclear) are in teig.xsl -->
                </xsl:when>
                <xsl:otherwise>
                   <xsl:call-template name="subpunct">
