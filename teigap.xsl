@@ -145,7 +145,10 @@
             <xsl:choose>
                <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:choose>
-                     <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
+                     <xsl:when test="@reason='lost' and @unit='line' and (not(preceding-sibling::t:lb[2]) or not(following-sibling::*))">
+                        <xsl:text>papyrus breaks</xsl:text>
+                     </xsl:when>
+                     <xsl:when test="t:desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -469,8 +472,10 @@
       <xsl:value-of select="$circa"/>
       <xsl:text>traces</xsl:text>
       <xsl:if test="not(@extent = 'unknown')">
-         <xsl:text/>
-         <xsl:value-of select="@atLeast"/> - <xsl:value-of select="@atMost"/>
+         <xsl:text> </xsl:text>
+         <xsl:value-of select="@atLeast"/>
+         <xsl:text> - </xsl:text>
+         <xsl:value-of select="@atMost"/>
          <xsl:choose>
             <xsl:when test="@unit = 'line'">
                <xsl:text> line</xsl:text>
