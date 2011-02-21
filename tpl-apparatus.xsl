@@ -48,12 +48,17 @@
                  <xsl:apply-templates select="t:corr/node()"/>
               </xsl:when>
               <xsl:otherwise>
+                 <!-- when ddbdp changeover happens:
+                    <xsl:text>Read </xsl:text>
+                    <xsl:apply-templates select="t:corr/node()"/>
+                    <xsl:text> (correction)</xsl:text>
+                 -->
                  <xsl:apply-templates select="t:sic/node()"/>
-              </xsl:otherwise>
+                 <xsl:call-template name="childCertainty"/>
+                 <xsl:text> papyrus</xsl:text>
+             </xsl:otherwise>
            </xsl:choose>
            
-           <xsl:call-template name="childCertainty"/>
-           <xsl:text> pap.</xsl:text>
            
         </xsl:when>
         
@@ -65,12 +70,16 @@
                  <xsl:apply-templates select="t:reg/node()"/>
               </xsl:when>
               <xsl:otherwise>
+                 <!-- when ddbdp changeover happens:
+                    <xsl:text>Read </xsl:text>
+                    <xsl:apply-templates select="t:reg/node()"/>
+                 -->
                  <xsl:apply-templates select="t:orig/node()"/>
+                 <xsl:call-template name="childCertainty"/>
+                 <xsl:text> papyrus</xsl:text>
               </xsl:otherwise>
            </xsl:choose>
            
-           <xsl:call-template name="childCertainty"/>
-           <xsl:text> pap.</xsl:text>
            
         </xsl:when>
         
