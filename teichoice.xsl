@@ -20,10 +20,13 @@
                </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates/>
+         </xsl:otherwise>
       </xsl:choose>
     
       <!-- Found in [htm|txt]-tpl-apparatus -->
-    <xsl:if test="$apparatus-style = 'ddbdp' and child::t:sic and child::t:corr">
+     <xsl:if test="$apparatus-style = 'ddbdp' and ((child::t:sic and child::t:corr) or (child::t:orig and child::t:reg))">
          <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>
          </xsl:call-template>
