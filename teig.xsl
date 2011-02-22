@@ -212,7 +212,7 @@
          <xsl:otherwise>
             <text> ((</text>
             <xsl:value-of select="@type"/>
-            <xsl:call-template name="g-unclear-symbol"/>
+            <xsl:call-template name="g-unclear-string"/>
             <text>)) </text>
          </xsl:otherwise>
       </xsl:choose>

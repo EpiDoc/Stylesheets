@@ -43,7 +43,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="g">
+               <xsl:when test="t:g">
                   <xsl:apply-templates/>
                   <!-- templates (including tests for parent::unclear) are in teig.xsl -->
                </xsl:when>
