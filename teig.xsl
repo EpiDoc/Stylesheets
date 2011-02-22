@@ -73,7 +73,7 @@
             <span class="smaller" style="font-style:italic;">
                <xsl:text> </xsl:text>
                <xsl:value-of select="@type"/>
-               <xsl:call-template name="g-unclear-symbol"/>
+               <xsl:call-template name="g-unclear-string"/>
                <xsl:text> </xsl:text>
             </span>
          </xsl:otherwise>
