@@ -14,14 +14,17 @@
             <span>
                <xsl:attribute name="title">
                   <xsl:choose>
-                     <xsl:when test="contains(@value,'/')">
-                        <xsl:text>fraction: </xsl:text>
+                     <xsl:when test="contains(@value,'/') or @type='fraction'">
+                        <xsl:text>fraction</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:text>number: </xsl:text>
+                        <xsl:text>number</xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
-                  <xsl:value-of select="@value"/>
+                  <xsl:if test="string(@value)">
+                     <xsl:text>: </xsl:text>
+                     <xsl:value-of select="@value"/>
+                  </xsl:if>
                </xsl:attribute>
                <xsl:apply-imports/>
             </span>
