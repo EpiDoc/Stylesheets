@@ -25,6 +25,15 @@
             </xsl:when>
          </xsl:choose>
       </xsl:if>
+     <xsl:if test="$leiden-style = 'ddbdp' and $leiden-style = 'sammelbuch'">
+        <xsl:choose>
+           <xsl:when test="@rend">
+              <xsl:text> (</xsl:text>
+              <xsl:value-of select="@rend"/>
+              <xsl:text>) </xsl:text>
+           </xsl:when>
+        </xsl:choose>
+     </xsl:if>
   </xsl:template>
   
 
