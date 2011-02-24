@@ -15,7 +15,8 @@
                </xsl:call-template>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <!-- I *think* this entire "xsl:when" is redundant now
+            <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:choose>
                <xsl:when test="@rend='superscript'">
                   <xsl:text>\</xsl:text>
@@ -31,7 +32,7 @@
                   <xsl:apply-templates/>
                </xsl:otherwise>
             </xsl:choose>
-         </xsl:when>
+         </xsl:when>-->
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
