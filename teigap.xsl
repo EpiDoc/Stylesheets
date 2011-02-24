@@ -143,10 +143,10 @@
       <xsl:choose>
          <xsl:when test="@extent='unknown'">
             <xsl:choose>
-               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+               <xsl:when test="$leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'">
                   <xsl:choose>
-                     <xsl:when test="@reason='lost' and @unit='line' and (not(preceding-sibling::t:lb[2]) or not(following-sibling::*))">
-                        <xsl:text>papyrus breaks</xsl:text>
+                     <xsl:when test="@reason='lost' and @unit='line'"> <!--and (not(preceding-sibling::t:lb[2]) or not(following-sibling::*))-->
+                        <xsl:text>-- -- -- -- -- -- -- -- -- --</xsl:text>
                      </xsl:when>
                      <xsl:when test="t:desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
