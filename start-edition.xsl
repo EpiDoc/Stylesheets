@@ -9,6 +9,7 @@
 
    <!-- html related stylesheets, these may import tei{element} stylesheets if relevant eg. htm-teigap and teigap -->
    <xsl:include href="htm-teiab.xsl"/>
+   <xsl:include href="htm-teiaddanddel.xsl"/>
    <xsl:include href="htm-teiapp.xsl"/>
    <xsl:include href="htm-teidiv.xsl"/>
    <xsl:include href="htm-teidivedition.xsl"/>
@@ -34,7 +35,6 @@
 
    <!-- tei stylesheets that are also used by start-txt -->
    <xsl:include href="teiabbrandexpan.xsl"/>
-   <xsl:include href="teiaddanddel.xsl"/>
    <xsl:include href="teicertainty.xsl"/>
    <xsl:include href="teichoice.xsl"/>
    <xsl:include href="teihandshift.xsl"/>
