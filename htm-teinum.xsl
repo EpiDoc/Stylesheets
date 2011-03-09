@@ -21,10 +21,22 @@
                         <xsl:text>number</xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
-                  <xsl:if test="string(@value)">
-                     <xsl:text>: </xsl:text>
-                     <xsl:value-of select="@value"/>
-                  </xsl:if>
+                  <xsl:choose>
+                     <xsl:when test="string(@value)">
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="@value"/>
+                     </xsl:when>
+                     <xsl:when test="string(@atLeast) or string(@atMost)">
+                        <xsl:text>: </xsl:text>
+                        <xsl:if test="string(@atLeast)">
+                           <xsl:value-of select="@atLeast"/>
+                        </xsl:if>
+                        <xsl:text>-</xsl:text>
+                        <xsl:if test="string(@atMost)">
+                           <xsl:value-of select="@atMost"/>
+                        </xsl:if>
+                     </xsl:when>
+                  </xsl:choose>
                </xsl:attribute>
                <xsl:apply-imports/>
             </span>
