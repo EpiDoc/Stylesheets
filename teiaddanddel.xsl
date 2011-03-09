@@ -29,6 +29,12 @@
                <xsl:when test="@place = 'below'">
                   <xsl:text>/</xsl:text>
                </xsl:when>
+               <xsl:when test="@place = 'left'">
+                  <xsl:text>(added at left: </xsl:text>
+               </xsl:when>
+               <xsl:when test="@place = 'right'">
+                  <xsl:text>(added at right: </xsl:text>
+               </xsl:when>
             </xsl:choose>
          </xsl:when>
          <xsl:otherwise>
@@ -55,6 +61,9 @@
                </xsl:when>
                <xsl:when test="@place = 'below'">
                   <xsl:text>\</xsl:text>
+               </xsl:when>
+               <xsl:when test="@place = 'left' or @place = 'right'">
+                  <xsl:text>)</xsl:text>
                </xsl:when>
             </xsl:choose>
          </xsl:when>
