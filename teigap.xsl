@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: teigap.xsl 1487 2008-08-11 14:38:11Z zau $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t"  version="1.0">
+   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
+   exclude-result-prefixes="t" version="1.0">
    <!-- Templates imported by [htm|txt]teigap.xsl -->
 
    <!-- style of the dot defined here -->
@@ -78,7 +79,8 @@
 
    <xsl:template match="t:gap[@reason='lost']">
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
+         <xsl:when
+            test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="$leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:otherwise>
             <!-- Found in tpl-reasonlost.xsl -->
@@ -89,7 +91,7 @@
          test="$leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
-      
+
       <xsl:choose>
          <xsl:when test="$verse-lines='on' and parent::t:seg[@met or @real]">
             <xsl:call-template name="verse-string"/>
@@ -117,7 +119,8 @@
       </xsl:if>
 
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
+         <xsl:when
+            test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="$leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:otherwise>
             <!-- Found in tpl-reasonlost.xsl -->
@@ -145,7 +148,8 @@
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'">
                   <xsl:choose>
-                     <xsl:when test="@reason='lost' and @unit='line'"> <!--and (not(preceding-sibling::t:lb[2]) or not(following-sibling::*))-->
+                     <xsl:when test="@reason='lost' and @unit='line'">
+                        <!--and (not(preceding-sibling::t:lb[2]) or not(following-sibling::*))-->
                         <xsl:text>-- -- -- -- -- -- -- -- -- --</xsl:text>
                      </xsl:when>
                      <xsl:when test="t:desc = 'vestiges' and @reason = 'illegible'">
@@ -166,7 +170,7 @@
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'london'">                  
+               <xsl:when test="$leiden-style = 'london'">
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
@@ -190,7 +194,8 @@
          <xsl:when test="@quantity and @unit='character'">
             <xsl:choose>
                <xsl:when test="$edition-type = 'diplomatic'">
-                  <xsl:variable name="dots" select="'····························································································································································'"/>
+                  <xsl:variable name="dots"
+                     select="'····························································································································································'"/>
                   <xsl:value-of select="substring($dots, 1, number(@quantity))"/>
                </xsl:when>
                <xsl:when test="$leiden-style = 'edh-itx' and @quantity">
@@ -424,29 +429,29 @@
       </xsl:choose>
    </xsl:template>
 
-<!-- Template for lost verse, metre known -->
-<xsl:template name="verse-string">
-   <xsl:choose>
-      <xsl:when test="parent::t:seg[contains(@real,'+') or contains(@real,'-')]">
-         <xsl:call-template name="scansion">
-            <xsl:with-param name="met-string" select="translate(parent::t:seg/@real, '+-','ˉ˘')"/>
-            <xsl:with-param name="string-len" select="string-length(parent::t:seg/@real)"/>
-            <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@real) - 1"/>
-         </xsl:call-template>
-      </xsl:when>
-      <xsl:when test="parent::t:seg[contains(@met,'+') or contains(@met,'-')]">
-         <xsl:call-template name="scansion">
-            <xsl:with-param name="met-string" select="translate(parent::t:seg/@met, '+-','ˉ˘')"/>
-            <xsl:with-param name="string-len" select="string-length(parent::t:seg/@met)"/>
-            <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@met) - 1"/>
-         </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-         <xsl:call-template name="extent-string"/>
-      </xsl:otherwise>
-   </xsl:choose>
-</xsl:template>
-   
+   <!-- Template for lost verse, metre known -->
+   <xsl:template name="verse-string">
+      <xsl:choose>
+         <xsl:when test="parent::t:seg[contains(@real,'+') or contains(@real,'-')]">
+            <xsl:call-template name="scansion">
+               <xsl:with-param name="met-string" select="translate(parent::t:seg/@real, '+-','ˉ˘')"/>
+               <xsl:with-param name="string-len" select="string-length(parent::t:seg/@real)"/>
+               <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@real) - 1"/>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="parent::t:seg[contains(@met,'+') or contains(@met,'-')]">
+            <xsl:call-template name="scansion">
+               <xsl:with-param name="met-string" select="translate(parent::t:seg/@met, '+-','ˉ˘')"/>
+               <xsl:with-param name="string-len" select="string-length(parent::t:seg/@met)"/>
+               <xsl:with-param name="string-pos" select="string-length(parent::t:seg/@met) - 1"/>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:call-template name="extent-string"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
    <!-- print macron and breve with intervening hard-spaces -->
    <xsl:template name="scansion">
       <xsl:param name="met-string"/>
@@ -468,14 +473,21 @@
    <!-- Template for vestiges -->
    <xsl:template name="tpl-vest">
       <xsl:param name="circa"/>
-
-      <xsl:value-of select="$circa"/>
       <xsl:text>traces</xsl:text>
       <xsl:if test="not(@extent = 'unknown')">
          <xsl:text> </xsl:text>
-         <xsl:value-of select="@atLeast"/>
-         <xsl:text> - </xsl:text>
-         <xsl:value-of select="@atMost"/>
+         <xsl:value-of select="$circa"/>
+         <xsl:text> </xsl:text>
+         <xsl:choose>
+            <xsl:when test="string(@atLeast) and string(@atMost)">
+               <xsl:value-of select="@atLeast"/>
+               <xsl:text>-</xsl:text>
+               <xsl:value-of select="@atMost"/>
+            </xsl:when>
+            <xsl:when test="string(@value)">
+               <xsl:value-of select="@value"/>
+            </xsl:when>
+         </xsl:choose>
          <xsl:choose>
             <xsl:when test="@unit = 'line'">
                <xsl:text> line</xsl:text>
