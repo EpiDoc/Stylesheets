@@ -283,7 +283,7 @@
             <!-- reason illegible and lost caught in the otherwise -->
             <xsl:choose>
                <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-                  <xsl:text> -ca.</xsl:text>
+                  <xsl:text> -</xsl:text>
                   <xsl:value-of select="@atLeast"/>
                   <xsl:text>-</xsl:text>
                   <xsl:value-of select="@atMost"/>
