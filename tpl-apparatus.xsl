@@ -141,26 +141,44 @@
             <xsl:choose>
                <xsl:when test="@rend = 'diaeresis'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text>&#xa0;</xsl:text>
+                  </xsl:if>
                   <xsl:text>̈</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'grave'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text>&#xa0;</xsl:text>
+                  </xsl:if>
                   <xsl:text>̀</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'acute'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text> </xsl:text>
+                  </xsl:if>
                   <xsl:text>́</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'asper'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text>&#xa0;</xsl:text>
+                  </xsl:if>
                   <xsl:text>̔</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'lenis'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text>&#xa0;</xsl:text>
+                  </xsl:if>
                   <xsl:text>̓</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'circumflex'">
                   <xsl:call-template name="trans-string"/>
+                  <xsl:if test="preceding-sibling::node()[1][local-name() = 'gap']">
+                     <xsl:text>&#xa0;</xsl:text>
+                  </xsl:if>
                   <xsl:text>͂</xsl:text>
                </xsl:when>
             </xsl:choose>
