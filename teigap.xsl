@@ -248,7 +248,7 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="$cur-max &gt;= number(@quantity) and not(string(@atMost))">
+               <xsl:when test="$cur-max &gt;= number(@quantity) and not(string(@atMost)) and not(@precision='low')">
                   <xsl:choose>
                      <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
