@@ -19,8 +19,8 @@
       
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:apply-templates/>
-            <!--<xsl:if test="@rend='tick'">-->
-            <xsl:if test="@rend='fraction'">
+            <xsl:if test="@rend='tick'">
+<!--            <xsl:if test="@rend='fraction'">-->
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
