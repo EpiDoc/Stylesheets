@@ -106,7 +106,7 @@
          </xsl:when>
          <xsl:when test="@type='filler' and @rend='extension'">
             <xsl:text>―</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
+            <xsl:call-template name="g-unclear-string"/>
          </xsl:when>
          <xsl:when test="@type='latin-interpunct' or @type='middot' or @type='mid-punctus'">
             <xsl:text>·</xsl:text>
