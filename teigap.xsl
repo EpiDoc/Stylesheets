@@ -337,6 +337,7 @@
                               <xsl:text>Traces</xsl:text>
                            </xsl:when>
                            <xsl:when test="@reason='lost'">
+                              <xsl:value-of select="$circa"/>
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
                               <xsl:if test="@quantity &gt; 1">
