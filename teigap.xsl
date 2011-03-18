@@ -134,7 +134,8 @@
       <!-- Precision of <gap> defined -->
       <xsl:variable name="circa">
          <xsl:choose>
-            <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+            <xsl:when
+               test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and (@precision='low' or @unit='character')">
                <xsl:text>ca.</xsl:text>
             </xsl:when>
             <xsl:when test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
@@ -208,7 +209,7 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="number(@quantity) &gt; $cur-max">
+               <xsl:when test="@quantity &gt; $cur-max or (@quantity &gt; 1 and @precision='low')">
                   <xsl:choose>
                      <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                         <xsl:choose>
@@ -248,7 +249,8 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="$cur-max &gt;= number(@quantity) and not(string(@atMost)) and not(@precision='low')">
+               <xsl:when
+                  test="$cur-max &gt;= number(@quantity) and not(string(@atMost))">
                   <xsl:choose>
                      <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
@@ -282,12 +284,28 @@
          <xsl:when test="@atLeast and @atMost and not(starts-with($leiden-style, 'edh'))">
             <!-- reason illegible and lost caught in the otherwise -->
             <xsl:choose>
-               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-                  <xsl:text> -</xsl:text>
-                  <xsl:value-of select="@atLeast"/>
-                  <xsl:text>-</xsl:text>
-                  <xsl:value-of select="@atMost"/>
-                  <xsl:text>- </xsl:text>
+               <xsl:when test="$leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'">
+                  <xsl:choose>
+                     <xsl:when test="@unit='character'">
+                        <xsl:text> -</xsl:text>
+                        <xsl:value-of select="@atLeast"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="@atMost"/>
+                        <xsl:text>- </xsl:text>
+                     </xsl:when>
+                     <xsl:when test="@unit='line'">
+                        <xsl:if test="@reason='illegible'">
+                           <xsl:text>Traces </xsl:text>
+                        </xsl:if>
+                        <xsl:value-of select="@atLeast"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="@atMost"/>
+                        <xsl:text> lines</xsl:text>
+                        <xsl:if test="@reason='lost'">
+                           <xsl:text> missing</xsl:text>
+                        </xsl:if>
+                     </xsl:when>
+                  </xsl:choose>
                </xsl:when>
                <xsl:when test="$leiden-style = 'panciera'">
                   <xsl:text>c. </xsl:text>
