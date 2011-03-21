@@ -22,6 +22,11 @@
                <xsl:apply-imports/>
             </span>
          </xsl:when>
+         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @place='interlinear'">
+            <span style="font-size:smaller;">
+               <xsl:apply-imports/>
+            </span>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:apply-imports/>
          </xsl:otherwise>
