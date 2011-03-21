@@ -49,15 +49,41 @@
    <xsl:template match="t:gap[@reason='ellipsis']">
       <xsl:choose>
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-            <xsl:if test="string(t:desc)">
+            <xsl:if test="string(t:desc) != 'non transcribed'">
                <xsl:value-of select="t:desc"/>
                <xsl:text> </xsl:text>
             </xsl:if>
-            <xsl:value-of select="@quantity"/>
+            <xsl:choose>
+               <xsl:when test="@quantity">
+                  <xsl:if test="@precision='low'">
+                     <xsl:text>ca.</xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="@quantity"/>
+               </xsl:when>
+               <xsl:when test="@atLeast and @atMost">
+                  <xsl:value-of select="@atLeast"/>
+                  <xsl:text>-</xsl:text>
+                  <xsl:value-of select="@atMost"/>
+               </xsl:when>
+               <xsl:when test="@atLeast ">
+                  <xsl:text>&#x2265;</xsl:text>
+                  <xsl:value-of select="@atLeast"/>
+               </xsl:when>
+               <xsl:when test="@atMost ">
+                  <xsl:text>&#x2264;</xsl:text>
+                  <xsl:value-of select="@atMost"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:text>?</xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
             <xsl:text> </xsl:text>
             <xsl:value-of select="@unit"/>
-            <xsl:if test="@quantity &gt; 1">
+            <xsl:if test="@quantity &gt; 1 or @extent='unknown' or @atLeast or @atMost">
                <xsl:text>s</xsl:text>
+            </xsl:if>
+            <xsl:if test="string(t:desc) = 'non transcribed'">
+               <xsl:text> untranscribed</xsl:text>
             </xsl:if>
          </xsl:when>
          <xsl:otherwise>
@@ -249,8 +275,7 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when
-                  test="$cur-max &gt;= number(@quantity) and not(string(@atMost))">
+               <xsl:when test="$cur-max &gt;= number(@quantity) and not(string(@atMost))">
                   <xsl:choose>
                      <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
