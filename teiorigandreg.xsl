@@ -7,8 +7,15 @@
 
    <xsl:template match="t:choice/t:orig">
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'ddbdp'"/>
-            <!-- commented out until later DDbDP switch-over
+         <xsl:when test="$leiden-style = 'ddbdp'">
+            <xsl:choose>
+               <xsl:when test="not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])">
+                  <xsl:apply-templates/>
+               </xsl:when>
+               <xsl:otherwise/>
+            </xsl:choose>
+         </xsl:when>
+         <!-- commented out until later DDbDP switch-over
                <xsl:apply-templates/>
                <xsl:call-template name="cert-low"/> -->
          <xsl:otherwise>
@@ -20,10 +27,15 @@
    <xsl:template match="t:choice/t:reg">
       <xsl:choose>
          <xsl:when test="$leiden-style = 'ddbdp'">
-            <!-- to be removed when later DDbDP switch-over -->
-            <xsl:apply-templates/>
-            <!-- cert-low template found in tpl-certlow.xsl -->
-            <xsl:call-template name="cert-low"/>
+            <xsl:choose>
+               <xsl:when test="@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang"/>
+               <xsl:otherwise>
+                  <!-- to be removed when later DDbDP switch-over -->
+                  <xsl:apply-templates/>
+                  <!-- cert-low template found in tpl-certlow.xsl -->
+                  <xsl:call-template name="cert-low"/>
+               </xsl:otherwise>
+            </xsl:choose>
          </xsl:when>
          <xsl:otherwise/>
       </xsl:choose>
