@@ -88,7 +88,10 @@
                      <xsl:if test="t:reg/@xml:lang='grc'">
                         <xsl:text>Greek </xsl:text>
                      </xsl:if>
-                     <xsl:apply-templates select="t:reg[@xml:lang='grc']/node()"/>
+                     <xsl:if test="t:reg/@xml:lang='la'">
+                        <xsl:text>Latin </xsl:text>
+                     </xsl:if>
+                     <xsl:apply-templates select="t:reg[@xml:lang]/node()"/>
                   </xsl:if>
                </xsl:otherwise>
             </xsl:choose>

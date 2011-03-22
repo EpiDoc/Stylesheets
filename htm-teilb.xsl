@@ -30,7 +30,11 @@
                and preceding-sibling::node()[1][not(local-name() = 'space' or
                         local-name() = 'g' or
                         (local-name()='supplied' and @reason='lost'))]
-                        and not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and (ancestor::t:sic or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice]))
+                        and not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
+                           (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
+                           or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
+                                                       not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+                           or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice]))
                and not($edition-type='diplomatic')">
                <!-- print hyphen if type=inWord
                               *unless* previous line ends with space / g / supplied[reason=lost]
@@ -45,7 +49,11 @@
                   </a>
                   <!-- for the first lb in a div, create an empty anchor instead of a line-break -->
                </xsl:when>
-               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and (ancestor::t:sic or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])">
+               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
+                  and (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
+                        or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
+                        not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+                  or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])">
                   <xsl:text>|</xsl:text>
                </xsl:when>
                <xsl:otherwise>
