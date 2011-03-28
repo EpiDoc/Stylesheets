@@ -91,6 +91,15 @@
                      <xsl:if test="t:reg/@xml:lang='la'">
                         <xsl:text>Latin </xsl:text>
                      </xsl:if>
+                     <xsl:if test="t:reg/@xml:lang='cop'">
+                        <xsl:text>Coptic </xsl:text>
+                     </xsl:if>
+                     <!--
+                ## commented out until ticket http://idp.atlantides.org/trac/idp/ticket/700 (part 2) implemented ## 
+                      <xsl:if test="//t:langUsage/t:language/@ident = t:reg/@xml:lang">
+                        <xsl:value-of select="//t:langUsage/t:language[@ident = t:reg/@xml:lang]/text()"/>
+                     </xsl:if>
+                     -->
                      <xsl:apply-templates select="t:reg[@xml:lang]/node()"/>
                   </xsl:if>
                </xsl:otherwise>
@@ -132,7 +141,7 @@
                   </xsl:choose>
                   <xsl:text>: </xsl:text>
                   <xsl:choose>
-                     <xsl:when test="not(string(normalize-space(t:rdg)))">
+                     <xsl:when test="not(string(normalize-space(t:rdg))) and not(t:rdg/t:gap)">
                         <xsl:text> Om.</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
