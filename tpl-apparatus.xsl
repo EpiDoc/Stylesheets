@@ -56,7 +56,8 @@
                  -->
                   <xsl:apply-templates select="t:sic/node()"/>
                   <xsl:call-template name="childCertainty"/>
-                  <xsl:text> papyrus</xsl:text>
+                  <xsl:call-template name="support"/>
+                  <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
                </xsl:otherwise>
             </xsl:choose>
 
@@ -71,17 +72,24 @@
                   <xsl:apply-templates select="t:reg/node()"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:if test="t:reg[not(@xml:lang)]">
+                  <xsl:if test="t:reg[not(@xml:lang) and not(preceding-sibling::reg[not(@xml:lang)])]">
                   <!-- when ddbdp changeover happens:
                     <xsl:text>Read </xsl:text>
                     <xsl:apply-templates select="t:reg/node()"/>
                  -->
                   <xsl:apply-templates select="t:orig/node()"/>
                   <xsl:call-template name="childCertainty"/>
-                  <xsl:text> papyrus</xsl:text>
+                     
+                     <xsl:call-template name="support"/>
+                     <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
+                     <!--<xsl:text> papyrus</xsl:text>-->
                   </xsl:if>
                   <xsl:if test="t:reg[not(@xml:lang)] and t:reg[@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang]">
                      <xsl:text>; </xsl:text>
+                  </xsl:if>
+                  <xsl:if test="t:reg[not(@xml:lang)][2]">
+                     <xsl:text>; i.e. </xsl:text>
+                     <xsl:value-of select="t:reg[not(@xml:lang)][2]"/>
                   </xsl:if>
                   <xsl:if test="t:reg[@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang]">
                      <xsl:text>i.e. </xsl:text>
@@ -229,8 +237,10 @@
                   </xsl:call-template>
                </xsl:with-param>
             </xsl:call-template>
-
-            <xsl:text> pap.</xsl:text>
+            
+            <xsl:call-template name="support"/>
+            <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
+            <!--<xsl:text> pap.</xsl:text>-->
          </xsl:when>
 
          <!-- del -->
@@ -296,6 +306,18 @@
       <xsl:if test="child::t:certainty[@match='..']">
          <xsl:text>(?)</xsl:text>
       </xsl:if>
+   </xsl:template>
+   
+   <xsl:template name="support">
+      <xsl:choose>
+         <xsl:when test="starts-with(//t:idno[@type='filename'],'o.')">
+            <xsl:text> ostrakon</xsl:text>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text> papyrus</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      
    </xsl:template>
 
 </xsl:stylesheet>

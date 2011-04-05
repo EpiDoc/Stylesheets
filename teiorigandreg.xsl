@@ -29,6 +29,7 @@
          <xsl:when test="$leiden-style = 'ddbdp'">
             <xsl:choose>
                <xsl:when test="@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang"/>
+               <xsl:when test="preceding-sibling::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]"/>
                <xsl:otherwise>
                   <!-- to be removed when later DDbDP switch-over -->
                   <xsl:apply-templates/>
