@@ -89,16 +89,33 @@
 
 
    <xsl:template name="margin-num">
-      <xsl:if test="not($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
-         and not(ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]]
-         or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
-         not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
-         or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice]
-         or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]])">
+      <xsl:choose>
+         <!-- don't print marginal line number inside tags that are relegated to the apparatus (ddbdp) -->
+         <xsl:when
+            test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
+            and (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
+            or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
+            not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+            or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
+            or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]"/>
+         <xsl:otherwise>
+            <span class="linenumber">
+               <xsl:value-of select="@n"/>
+            </span>
+         </xsl:otherwise>
+      </xsl:choose>
+      
+      <!--<xsl:if test="not(apparatus-style = 'ddbdp' 
+                                 and (ancestor::t:sic
+                                          or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]]
+                                          or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)
+                                                         and not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+                                          or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice]
+                                          or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]))">
          <span class="linenumber">
             <xsl:value-of select="@n"/>
          </span>
-      </xsl:if>
+      </xsl:if>-->
    </xsl:template>
 
 </xsl:stylesheet>
