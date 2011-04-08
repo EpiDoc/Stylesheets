@@ -86,7 +86,7 @@
                   </xsl:if>
                   <xsl:if test="t:reg[not(@xml:lang)][2]">
                      <xsl:text>; i.e. </xsl:text>
-                     <xsl:value-of select="t:reg[not(@xml:lang)][2]"/>
+                     <xsl:apply-templates select="t:reg[not(@xml:lang)][2]/node()"/>
                   </xsl:if>
                   <xsl:if test="t:reg[not(@xml:lang)] and t:reg[@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang]">
                      <xsl:text>; </xsl:text>
