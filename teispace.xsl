@@ -39,20 +39,42 @@
             <xsl:choose>
                <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:text>vac.</xsl:text>
-                  <xsl:if test="@quantity">
-                     <xsl:value-of select="@quantity"/>
-                     <xsl:if test="@unit='line'">
+                  <xsl:choose>
+                     <xsl:when test="@quantity">
+                        <xsl:if test="@precision='low'">
+                           <xsl:text>ca.</xsl:text>
+                        </xsl:if>
+                        <xsl:value-of select="@quantity"/>
+                     </xsl:when>
+                     <xsl:when test="@atLeast and @atMost">
+                        <xsl:value-of select="@atLeast"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="@atMost"/>
+                     </xsl:when>
+                     <xsl:when test="@atLeast ">
+                        <xsl:text>&#x2265;</xsl:text>
+                        <xsl:value-of select="@atLeast"/>
+                     </xsl:when>
+                     <xsl:when test="@atMost ">
+                        <xsl:text>&#x2264;</xsl:text>
+                        <xsl:value-of select="@atMost"/>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:text>?</xsl:text>
+                     </xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:if test="@unit='line'">
                         <xsl:text> line</xsl:text>
-                        <xsl:if test="@quantity > 1">
+                        <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
                            <xsl:text>s</xsl:text>
                         </xsl:if>
                      </xsl:if>
-                  </xsl:if>
-
+                  
                   <xsl:if test="child::t:certainty[@match='..']">
                      <xsl:text>(?)</xsl:text>
                   </xsl:if>
                </xsl:when>
+               
                <xsl:when test="$leiden-style='london'">
                   <xsl:choose>
                      <xsl:when test="@extent = 'unknown'">
