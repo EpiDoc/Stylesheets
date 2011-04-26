@@ -161,7 +161,8 @@
       <xsl:variable name="circa">
          <xsl:choose>
             <xsl:when
-               test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and (@precision='low' or @unit='character')">
+               test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
+               (@precision='low' or (@unit='character' and @quantity &gt; $cur-max))">
                <xsl:text>ca.</xsl:text>
             </xsl:when>
             <xsl:when test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
@@ -275,9 +276,9 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="$cur-max &gt;= number(@quantity) and not(string(@atMost))">
+               <xsl:when test="$cur-max &gt;= number(@quantity) and not(@atMost)">
                   <xsl:choose>
-                     <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
+                     <xsl:when test="t:desc='vestiges' and @reason='illegible' and ($leiden-style='ddbdp' or $leiden-style='sammelbuch')">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -293,7 +294,7 @@
                <xsl:otherwise>
                   <xsl:choose>
                      <xsl:when
-                        test="desc = 'vestiges' and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @reason = 'illegible'">
+                        test="t:desc='vestiges' and @reason='illegible' and ($leiden-style='ddbdp' or $leiden-style='sammelbuch')">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -311,6 +312,11 @@
             <xsl:choose>
                <xsl:when test="$leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'">
                   <xsl:choose>
+                     <xsl:when test="t:desc='vestiges' and @reason='illegible'">
+                        <xsl:call-template name="tpl-vest">
+                           <xsl:with-param name="circa" select="$circa"/>
+                        </xsl:call-template>
+                     </xsl:when>
                      <xsl:when test="@unit='character'">
                         <xsl:text> -</xsl:text>
                         <xsl:value-of select="@atLeast"/>
@@ -518,33 +524,46 @@
    <!-- Template for vestiges -->
    <xsl:template name="tpl-vest">
       <xsl:param name="circa"/>
-      <xsl:text>traces</xsl:text>
-      <xsl:if test="not(@extent = 'unknown')">
-         <xsl:text> </xsl:text>
-         <xsl:value-of select="$circa"/>
-         <xsl:text> </xsl:text>
-         <xsl:choose>
-            <xsl:when test="string(@atLeast) and string(@atMost)">
-               <xsl:value-of select="@atLeast"/>
-               <xsl:text>-</xsl:text>
-               <xsl:value-of select="@atMost"/>
-            </xsl:when>
-            <xsl:when test="string(@value)">
-               <xsl:value-of select="@value"/>
-            </xsl:when>
-         </xsl:choose>
-         <xsl:choose>
-            <xsl:when test="@unit = 'line'">
-               <xsl:text> line</xsl:text>
-               <xsl:if test="@atMost &gt; 1">
-                  <xsl:text>s</xsl:text>
-               </xsl:if>
-            </xsl:when>
-            <xsl:when test="@unit = 'cm'">
-               <xsl:text> cm</xsl:text>
-            </xsl:when>
-         </xsl:choose>
-      </xsl:if>
+      <xsl:text>Traces</xsl:text>
+      <xsl:choose>
+         <xsl:when test="@extent = 'unknown'">
+            <xsl:if test="@unit='line'">
+               <xsl:text> ?  lines</xsl:text>
+            </xsl:if>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$circa"/>
+            <xsl:text> </xsl:text>
+            <xsl:choose>
+               <xsl:when test="string(@atLeast) and string(@atMost)">
+                  <xsl:value-of select="@atLeast"/>
+                  <xsl:text>-</xsl:text>
+                  <xsl:value-of select="@atMost"/>
+               </xsl:when>
+               <xsl:when test="string(@quantity)">
+                  <xsl:value-of select="@quantity"/>
+               </xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+               <xsl:when test="@unit = 'line'">
+                  <xsl:text> line</xsl:text>
+                  <xsl:if test="@quantity &gt; 1 or @atMost &gt; 1">
+                     <xsl:text>s</xsl:text>
+                  </xsl:if>
+               </xsl:when>
+               <xsl:when test="@unit = 'character'">
+                  <xsl:text> character</xsl:text>
+                  <xsl:if test="@quantity &gt; 1 or @atMost &gt; 1">
+                     <xsl:text>s</xsl:text>
+                  </xsl:if>
+               </xsl:when>
+               <xsl:when test="@unit = 'cm'">
+                  <xsl:text> cm</xsl:text>
+               </xsl:when>
+            </xsl:choose>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
 
 
