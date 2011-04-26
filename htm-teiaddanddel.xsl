@@ -12,6 +12,7 @@
 
    <xsl:template match="t:add">
       <xsl:choose>
+         <!-- \* these rules deprecated, but not deleting them just yet in case they come in handy */
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @place='above'">
             <span style="vertical-align:super;">
                <xsl:apply-imports/>
@@ -21,7 +22,7 @@
             <span style="vertical-align:sub;">
                <xsl:apply-imports/>
             </span>
-         </xsl:when>
+         </xsl:when>-->
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @place='interlinear'">
             <span style="font-size:smaller;">
                <xsl:apply-imports/>
