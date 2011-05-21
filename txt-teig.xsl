@@ -16,8 +16,15 @@
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
-         <xsl:otherwise>
+         <xsl:when test="$leiden-style = 'dohnicht'">
+            <xsl:text>⊂</xsl:text>
             <xsl:apply-imports/>
+            <xsl:text>⊃</xsl:text>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>((</xsl:text>
+            <xsl:apply-imports/>
+            <xsl:text>))</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
     

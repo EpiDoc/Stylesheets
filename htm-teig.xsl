@@ -29,10 +29,15 @@
             </em>
             <xsl:text> </xsl:text>
          </xsl:when>
-         <xsl:otherwise>
-            <i>
-               <xsl:apply-imports/>
-            </i>
+        <xsl:when test="$leiden-style = 'dohnicht'">
+           <xsl:text>⊂</xsl:text>
+           <xsl:apply-imports/>
+           <xsl:text>⊃</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+           <xsl:text>((</xsl:text>
+           <xsl:apply-imports/>
+           <xsl:text>))</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
     
