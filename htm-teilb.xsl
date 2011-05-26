@@ -49,7 +49,7 @@
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
-               <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]//t:lb[1])">
+               <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])">
                   <a id="a{$div-loc}l{$line}">
                      <xsl:comment>0</xsl:comment>
                   </a>
@@ -75,7 +75,7 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when
-                  test="number(@n) @n mod $line-inc = 0 and not(@n = 0) and 
+                  test="number(@n) and @n mod $line-inc = 0 and not(@n = 0) and 
                   not(following::t:*[1][local-name() = 'gap' or local-name()='space'][@unit = 'line'] and 
                   ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'))">
                   <!-- prints line-nos divisible by stated increment, unless zero
