@@ -75,7 +75,7 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when
-                  test="@n mod $line-inc = 0 and not(@n = 0) and 
+                  test="number(@n) @n mod $line-inc = 0 and not(@n = 0) and 
                   not(following::t:*[1][local-name() = 'gap' or local-name()='space'][@unit = 'line'] and 
                   ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'))">
                   <!-- prints line-nos divisible by stated increment, unless zero
