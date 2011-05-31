@@ -5,7 +5,7 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 xmlns="http://www.w3.org/1999/xhtml"
                 exclude-result-prefixes="t" 
-                version="1.0">
+                version="2.0">
 
   <!-- Called from start-edition.xsl -->
   <xsl:param name="sammelbuchIndex"> 

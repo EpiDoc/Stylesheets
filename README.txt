@@ -15,8 +15,8 @@ License:
 
 Technical requirements:
 
-	These scripts are written in XSLT 1.0 and may be transformed using any
-	XSLT processor. (Tested with Saxon™ 6.5.5.)
+	These scripts are written in XSLT 2.0 and may be transformed using any
+	conformant XSLT processor. (Tested with Saxon-HE™ 9.2.0.6.)
 
 How to use it:
 

@@ -53,4 +53,10 @@
     <name>line-inc</name>
     <value>5</value>
   </parameter>
+  
+  <parameter>
+    <name>css-loc</name>
+    <value>../xsl/global.css</value>
+  </parameter>
+  
 </parameters>

@@ -2,7 +2,7 @@
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
-   exclude-result-prefixes="t" version="1.0">
+   exclude-result-prefixes="t" version="2.0">
    <xsl:output method="xml" encoding="UTF-8"/>
 
    <xsl:include href="global-varsandparams.xsl"/>
@@ -54,7 +54,7 @@
    <xsl:include href="htm-tpl-apparatus.xsl"/>
    <xsl:include href="htm-tpl-lang.xsl"/>
    <xsl:include href="htm-tpl-metadata.xsl"/>
-   <xsl:include href="htm-tpl-nav.xsl"/>
+   <!--<xsl:include href="htm-tpl-nav.xsl"/>--><!--      No longer exists      -->
    <xsl:include href="htm-tpl-license.xsl"/>
 
    <!-- global named templates with no html, also used by start-txt -->
@@ -79,7 +79,6 @@
                            <xsl:value-of select="//t:idno[@type='filename']"/>
                         </xsl:otherwise>
                      </xsl:choose>
-                     <xsl:text> Greek Leiden Edition View</xsl:text>
                   </xsl:when>
                   <xsl:when test="//t:titleStmt/t:title/text()">
                      <xsl:if test="//t:idno[@type='filename']/text()">
@@ -100,7 +99,8 @@
          <body>
 
             <!-- Found in htm-tpl-nav.xsl -->
-            <xsl:call-template name="topNavigation"/>
+            <!--<xsl:call-template name="topNavigation"/>-->
+            <!--      No longer exists      -->
 
 
             <!-- Heading for a ddb style file -->
@@ -131,6 +131,7 @@
             <!-- Main text output -->
             <xsl:apply-templates/>
 
+            <!-- Found in ...? -->
             <xsl:call-template name="license"/>
 
          </body>

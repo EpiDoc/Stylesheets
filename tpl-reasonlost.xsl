@@ -2,7 +2,7 @@
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t" 
-                version="1.0">
+                version="2.0">
 
   <!-- Templates for opening and closing brackets for gap and supplied [@reason = 'lost'] -->
   
@@ -33,7 +33,7 @@
         If y is a text() then output '['
         If y is 'lost' then nothing
       -->
-      <xsl:when test="current()[not(preceding-sibling::t:*)][not(preceding-sibling::text()) or translate(normalize-space(preceding-sibling::text()[1]), ' ', '') = '']         /parent::t:*[preceding-sibling::t:*[1][@reason='lost']]">
+      <xsl:when test="current()[not(preceding-sibling::t:*)][not(preceding-sibling::text()) or translate(normalize-space(preceding-sibling::text()), ' ', '') = '']         /parent::t:*[preceding-sibling::t:*[1][@reason='lost']]">
             <xsl:if test="parent::t:*[preceding-sibling::node()[1][self::text()][not(translate(normalize-space(.), ' ', '') = '')]]">
                <xsl:text>[</xsl:text>
             </xsl:if>
@@ -201,7 +201,9 @@
       
       
          <!-- 2.1 -->
-      <xsl:when test="current()[not(following-sibling::t:*)]         [not(following-sibling::text()) or translate(normalize-space(following-sibling::text()[1]), ' ', '') = '']         /parent::t:*[following-sibling::t:*[1][@reason='lost']]">
+      <xsl:when test="current()[not(following-sibling::t:*)]
+         [not(following-sibling::text()) or translate(normalize-space(following-sibling::text()[1]), ' ', '') = '']
+         /parent::t:*[following-sibling::t:*[1][@reason='lost']]">
             <xsl:if test="parent::t:*[following-sibling::node()[1][self::text()][not(translate(normalize-space(.), ' ', '') = '')]]">
                <xsl:text>]</xsl:text>
             </xsl:if>

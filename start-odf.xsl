@@ -4,7 +4,7 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
                 xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-                version="1.0">
+                exclude-result-prefixes="t" version="2.0">
 
   <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
