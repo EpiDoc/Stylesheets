@@ -14,8 +14,11 @@
          <xsl:when test="$leiden-style = 'panciera' and @reason='illegible'">
             <xsl:text>+</xsl:text>
          </xsl:when>
-         <xsl:otherwise>
+         <xsl:when test="$leiden-style='london'">
             <xsl:text>&#xb7;</xsl:text>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>.</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:variable>
@@ -108,7 +111,10 @@
          <xsl:when
             test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="$leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
-         <xsl:otherwise>
+         <xsl:when test="@unit='line'">
+            <xsl:text>[</xsl:text>
+         </xsl:when>
+         <xsl:otherwise>            
             <!-- Found in tpl-reasonlost.xsl -->
             <xsl:call-template name="lost-opener"/>
          </xsl:otherwise>
@@ -148,6 +154,9 @@
          <xsl:when
             test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="$leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
+         <xsl:when test="@unit='line'">
+            <xsl:text>]</xsl:text>
+         </xsl:when>
          <xsl:otherwise>
             <!-- Found in tpl-reasonlost.xsl -->
             <xsl:call-template name="lost-closer"/>
@@ -366,9 +375,7 @@
          </xsl:when>
 
 
-
-
-         <xsl:when test="(@extent or @quantity) and @unit='line'">
+         <xsl:when test="@quantity and @unit='line'">
             <xsl:choose>
                <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:choose>
@@ -379,12 +386,12 @@
                      </xsl:when>
                      <xsl:otherwise>
                         <xsl:choose>
-                           <xsl:when test="@extent='unknown' and @reason='lost'">
+                           <!--<xsl:when test="@extent='unknown' and @reason='lost'">
                               <xsl:text>Text breaks</xsl:text>
-                           </xsl:when>
-                           <xsl:when test="@extent='unknown' and @reason='illegible'">
+                           </xsl:when>-->
+                           <!--<xsl:when test="@extent='unknown' and @reason='illegible'">
                               <xsl:text>Traces</xsl:text>
-                           </xsl:when>
+                           </xsl:when>-->
                            <xsl:when test="@reason='lost'">
                               <xsl:value-of select="$circa"/>
                               <xsl:value-of select="@quantity"/>
