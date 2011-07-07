@@ -97,6 +97,10 @@
             <xsl:text>☧</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='dash'">
+            <xsl:text>—</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='dipunct'">
             <xsl:text>∶</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
