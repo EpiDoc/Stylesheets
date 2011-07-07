@@ -62,7 +62,14 @@
                         not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
                         or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
                         or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]">
-                  <xsl:text>|</xsl:text>
+                  <xsl:choose>
+                     <xsl:when test="@type = 'inWord'">
+                        <xsl:text>|</xsl:text>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:text> | </xsl:text>
+                     </xsl:otherwise>
+                  </xsl:choose>
                </xsl:when>
                <xsl:otherwise>
                   <br id="a{$div-loc}l{$line}"/>
