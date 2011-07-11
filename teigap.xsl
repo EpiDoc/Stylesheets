@@ -171,7 +171,7 @@
          <xsl:choose>
             <xsl:when
                test="$leiden-style = ('ddbdp','sammelbuch') and
-               (@precision='low' or (@unit='character' and @quantity &gt; $cur-max))">
+               (@precision='low' or (@unit='character' and number(@quantity) &gt; $cur-max))">
                <xsl:text>ca.</xsl:text>
             </xsl:when>
             <xsl:when test="@precision='low' and not(starts-with($leiden-style, 'edh'))">
@@ -240,7 +240,7 @@
                </xsl:when>
                <xsl:when test="$leiden-style = 'edh-itx'">
                   <xsl:choose>
-                     <xsl:when test="@quantity &gt; 2">
+                     <xsl:when test="number(@quantity) &gt; 2">
                         <xsl:text>3</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
@@ -248,7 +248,7 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="@quantity &gt; $cur-max or (@quantity &gt; 1 and @precision='low')">
+               <xsl:when test="number(@quantity) &gt; $cur-max or (number(@quantity) &gt; 1 and @precision='low')">
                   <xsl:choose>
                      <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
                         <xsl:choose>
@@ -400,7 +400,7 @@
                               <xsl:value-of select="$circa"/>
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
-                              <xsl:if test="@quantity &gt; 1">
+                              <xsl:if test="number(@quantity) &gt; 1">
                                  <xsl:text>s</xsl:text>
                               </xsl:if>
                               <xsl:text> missing</xsl:text>
@@ -410,7 +410,7 @@
                               <xsl:value-of select="$circa"/>
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
-                              <xsl:if test="@quantity &gt; 1">
+                              <xsl:if test="number(@quantity) &gt; 1">
                                  <xsl:text>s</xsl:text>
                               </xsl:if>
                            </xsl:when>
@@ -557,13 +557,13 @@
             <xsl:choose>
                <xsl:when test="@unit = 'line'">
                   <xsl:text> line</xsl:text>
-                  <xsl:if test="@quantity &gt; 1 or @atMost &gt; 1">
+                  <xsl:if test="number(@quantity) &gt; 1 or number(@atMost) &gt; 1">
                      <xsl:text>s</xsl:text>
                   </xsl:if>
                </xsl:when>
                <xsl:when test="@unit = 'character'">
                   <xsl:text> character</xsl:text>
-                  <xsl:if test="@quantity &gt; 1 or @atMost &gt; 1">
+                  <xsl:if test="number(@quantity) &gt; 1 or number(@atMost) &gt; 1">
                      <xsl:text>s</xsl:text>
                   </xsl:if>
                </xsl:when>
