@@ -40,7 +40,8 @@
                            or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
                                                        not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
                            or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                           or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]])
+                           or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
+                           or ancestor::t:del[@rend='corrected'][parent::t:subst])
                and not($edition-type='diplomatic')">
                <!-- print hyphen if type=inWord
                               *unless* previous line ends with space / g / supplied[reason=lost]
@@ -61,7 +62,8 @@
                         or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
                         not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
                         or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                        or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]">
+                        or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
+                        or ancestor::t:del[@rend='corrected'][parent::t:subst]">
                   <xsl:choose>
                      <xsl:when test="@type = 'inWord'">
                         <xsl:text>|</xsl:text>
@@ -108,7 +110,8 @@
             or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
             not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
             or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-            or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]"/>
+            or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
+            or ancestor::t:del[@rend='corrected'][parent::t:subst]"/>
          <xsl:otherwise>
             <span class="linenumber">
                <xsl:value-of select="@n"/>
