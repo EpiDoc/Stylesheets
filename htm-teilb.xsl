@@ -42,11 +42,13 @@
                            or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
                            or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
                            or ancestor::t:del[@rend='corrected'][parent::t:subst])
-               and not($edition-type='diplomatic')">
+               and not($edition-type='diplomatic')
+               and not(generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1]))">
                <!-- print hyphen if type=inWord
                               *unless* previous line ends with space / g / supplied[reason=lost]
                               *or unless* the second part of an app in ddbdp
-                              *or unless* diplomatic edition -->
+                              *or unless* diplomatic edition
+                              *or unless* the lb is first in its ancestor div  -->
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
