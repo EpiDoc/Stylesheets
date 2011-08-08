@@ -171,6 +171,10 @@
             <xsl:text>⎠</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type = 'rho-cross'">
+            <xsl:text>&#x2ce8;</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='slanting-stroke'">
             <xsl:text>/</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
