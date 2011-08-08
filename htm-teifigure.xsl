@@ -10,6 +10,11 @@
                <xsl:apply-templates/>
             </a>
          </xsl:when>
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+            <xsl:text>(</xsl:text>
+            <xsl:apply-templates/>
+            <xsl:text>)</xsl:text>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
