@@ -127,9 +127,14 @@
          <xsl:when test="local-name() = 'app'">
             <xsl:choose>
                <xsl:when test="@type = 'alternative'">
-                  <xsl:text>or </xsl:text>
-                  <xsl:apply-templates select="t:rdg/node()"/>
-                  <xsl:call-template name="childCertainty"/>
+                  <xsl:for-each select="t:rdg">
+                     <xsl:text>or </xsl:text>
+                     <xsl:apply-templates select="node()"/>
+                     <xsl:call-template name="childCertainty"/>
+                     <xsl:if test="following-sibling::t:rdg">
+                        <xsl:text>, </xsl:text>
+                     </xsl:if>
+                  </xsl:for-each>
                </xsl:when>
                <xsl:when test="@type = 'editorial' or @type = 'BL' or @type = 'SoSOL'">
                   <xsl:if test="@type = 'BL'">
