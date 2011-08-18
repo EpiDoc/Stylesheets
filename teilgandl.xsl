@@ -13,7 +13,7 @@
          <xsl:variable name="pre-lb">
             <xsl:value-of select="preceding-sibling::t:lb[1]/@n"/>
          </xsl:variable>
-         <xsl:if test="$pre-lb mod $line-inc = 0 and not($pre-lb = 0)">
+         <xsl:if test="number($pre-lb) and $pre-lb mod $line-inc = 0 and not($pre-lb = 0)">
             <xsl:choose>
                <xsl:when test="@type = 'inWord'">
                   <xsl:text>(</xsl:text>

@@ -55,7 +55,7 @@
                <xsl:when test="not(number(@n)) and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
+               <xsl:when test="number(@n) and @n mod $line-inc = 0 and not(@n = 0)">
                   <xsl:choose>
                      <xsl:when test="starts-with($leiden-style, 'edh')"/>
                      <xsl:otherwise>

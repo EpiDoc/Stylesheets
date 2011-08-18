@@ -17,7 +17,7 @@
             <xsl:text>
 &#xD;</xsl:text>
             <xsl:choose>
-               <xsl:when test="@n mod $line-inc = 0 and not(@n = 0)">
+               <xsl:when test="number(@n) and @n mod $line-inc = 0 and not(@n = 0)">
                   <xsl:text>	</xsl:text>
                   <xsl:value-of select="@n"/>
                   <xsl:text>	</xsl:text>
