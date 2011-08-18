@@ -24,7 +24,7 @@
                </xsl:for-each>
             </xsl:variable>
             <br id="a{$div-loc}l{@n}"/>
-            <xsl:if test="@n mod $line-inc = 0 and not(@n = 0)">
+            <xsl:if test="number(@n) and @n mod $line-inc = 0 and not(@n = 0)">
                <span class="linenumber">
                   <xsl:value-of select="@n"/>
                </span>
