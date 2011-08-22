@@ -6,8 +6,14 @@
   <!-- Called by different elements -->
   
   <xsl:template name="cert-low">
-      <xsl:if test="@cert='low' and $edition-type != 'diplomatic'">
-         <xsl:text>(?)</xsl:text>
+     <xsl:if test="@cert='low' and $edition-type != 'diplomatic'">
+        <xsl:if test="not($leiden-style = ('london','panciera') and local-name() = ('ex','supplied'))">
+           <xsl:text>(</xsl:text>
+        </xsl:if>
+        <xsl:text>?</xsl:text>
+        <xsl:if test="not($leiden-style = ('london','panciera') and local-name() = ('ex','supplied'))">
+           <xsl:text>)</xsl:text>
+        </xsl:if>
       </xsl:if>
   </xsl:template>
   

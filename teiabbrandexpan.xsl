@@ -6,6 +6,8 @@
 
    <xsl:template match="t:expan">
       <xsl:apply-templates/>
+      <!-- Found in tpl-certlow.xsl -->
+      <xsl:call-template name="cert-low"/>
    </xsl:template>
 
    <xsl:template match="t:abbr">
