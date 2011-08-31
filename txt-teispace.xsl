@@ -6,6 +6,7 @@
 
   <xsl:template name="space-content">
       <xsl:param name="vacat"/>
+      <xsl:param name="extent"/>
       <xsl:choose>
          <xsl:when test="$leiden-style = 'london'">
         <!-- Found in teispace.xsl -->
@@ -17,6 +18,7 @@
         <!-- Found in teispace.xsl -->
         <xsl:call-template name="space-content-2">
                <xsl:with-param name="vacat" select="$vacat"/>
+               <xsl:with-param name="extent" select="$extent"/>
             </xsl:call-template>
          </xsl:otherwise>
       </xsl:choose>
