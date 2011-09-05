@@ -53,8 +53,12 @@
             </xsl:choose>
             <!-- Found in tpl-cert-low.xsl -->
         <xsl:call-template name="cert-low"/>
+            <!-- if supplied is immediately followed by inWord, end-of-line hyphen will be omitted so include it here instead -->
             <xsl:if test="following-sibling::node()[1][local-name()='lb' and @type='inWord']">
-               <xsl:text>-</xsl:text>
+               <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
+               <!--<xsl:if test="not()">-->
+                  <xsl:text>-</xsl:text>
+               <!--</xsl:if>-->
             </xsl:if>
             <!-- Found in tpl-reasonlost.xsl -->
         <xsl:call-template name="lost-closer"/>
