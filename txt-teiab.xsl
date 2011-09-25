@@ -8,8 +8,8 @@
       <xsl:text>
 </xsl:text>
       <xsl:apply-templates/>
-      <!-- if next div or ab begins with lb[inWord], then add hyphen -->
-      <xsl:if test="following::t:lb[1][@type='inWord'] and not($edition-type='diplomatic')">
+      <!-- if next div or ab begins with lb[break=no], then add hyphen -->
+      <xsl:if test="following::t:lb[1][@break='no'] and not($edition-type='diplomatic')">
           <xsl:text>-</xsl:text>
       </xsl:if>
   </xsl:template>

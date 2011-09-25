@@ -5,8 +5,8 @@
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
    <xsl:template name="lb-dash">
-      <xsl:if test="following::node()[1][local-name() = 'lb'][@type='inWord'] or
-         following::node()[1][normalize-space(.)=''][following::node()[1][local-name() = 'lb'][@type='inWord']]">
+      <xsl:if test="following::node()[1][local-name() = 'lb'][@break='no'] or
+         following::node()[1][normalize-space(.)=''][following::node()[1][local-name() = 'lb'][@break='no']]">
          <xsl:text>- </xsl:text>
       </xsl:if>
    </xsl:template>

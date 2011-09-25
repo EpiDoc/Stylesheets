@@ -23,7 +23,7 @@
                </xsl:if>
             </xsl:variable>
             <xsl:if
-               test="@type='inWord' and preceding::node()[1][not(local-name() = 'space' or local-name() = 'g'
+               test="@break='no' and preceding::node()[1][not(local-name() = 'space' or local-name() = 'g'
                or @reason='lost')]
                and not(starts-with($leiden-style, 'edh'))
                and not($edition-type='diplomatic')">
