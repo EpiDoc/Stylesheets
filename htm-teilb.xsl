@@ -27,7 +27,7 @@
             </xsl:variable>
 
             <xsl:if
-               test="@break='no' 
+               test="(@break='no' or @type='inWord') 
                and preceding-sibling::node()[1][not(local-name() = 'space' or
                         local-name() = 'g' or
                         (local-name()='supplied' and @reason='lost') or
@@ -67,7 +67,7 @@
                         or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
                         or ancestor::t:del[@rend='corrected'][parent::t:subst]">
                   <xsl:choose>
-                     <xsl:when test="@break = 'no'">
+                     <xsl:when test="@break='no' or @type='inWord'">
                         <xsl:text>|</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>

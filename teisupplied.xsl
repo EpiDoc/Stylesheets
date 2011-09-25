@@ -54,7 +54,7 @@
             <!-- Found in tpl-cert-low.xsl -->
         <xsl:call-template name="cert-low"/>
             <!-- if supplied is immediately followed by break=no, end-of-line hyphen will be omitted so include it here instead -->
-            <xsl:if test="following-sibling::node()[1][local-name()='lb' and @break='no']">
+            <xsl:if test="following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]">
                <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
                <!--<xsl:if test="not()">-->
                   <xsl:text>-</xsl:text>

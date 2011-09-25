@@ -6,7 +6,7 @@
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
-      <xsl:if test="following::t:*[1][local-name() = 'lb'][@break = 'no']">
+      <xsl:if test="following::t:*[1][local-name() = 'lb'][@break='no' or @type='inWord']">
          <xsl:text>- </xsl:text>
       </xsl:if>
       <xsl:choose>
