@@ -21,6 +21,12 @@
          </xsl:when>
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:choose>
+               <xsl:when test="@rend = 'wavy-line'">
+                  <xsl:if test="not(parent::t:supplied)">
+                     <br/>
+                  </xsl:if>
+                  <xsl:text>~~~~~~~~</xsl:text>
+               </xsl:when>
                <xsl:when test="@rend = 'paragraphos'">
                   <xsl:if test="not(parent::t:supplied)">
                      <br/>
