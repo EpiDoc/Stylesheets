@@ -93,8 +93,12 @@
                      and unless it is a gap line or vacat in DDbDP -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
-                  <!-- always print line-no after gap line -->
+               <xsl:when test="$leiden-style = 'ddbdp' and preceding-sibling::t:*[1][local-name()='gap'][@unit = 'line']">
+                  <!-- always print line-no after gap line in ddbdp -->
+                  <xsl:call-template name="margin-num"/>
+               </xsl:when>
+               <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]">
+                  <!-- always print line-no when broken orig in line, in ddbdp -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
             </xsl:choose>
@@ -115,7 +119,17 @@
             or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
             or ancestor::t:del[@rend='corrected'][parent::t:subst]"/>
          <xsl:otherwise>
-            <span class="linenumber">
+            <span>
+               <xsl:attribute name="class">
+                  <xsl:choose>
+                     <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]">
+                        <xsl:text>linenumberbroken</xsl:text>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:text>linenumber</xsl:text>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:attribute>
                <xsl:value-of select="@n"/>
             </span>
          </xsl:otherwise>
