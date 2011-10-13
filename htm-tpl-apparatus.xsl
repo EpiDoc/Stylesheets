@@ -9,14 +9,14 @@
   <!-- Apparatus framework -->
   <xsl:template name="tpl-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
-     <xsl:if test=".//t:choice[child::t:sic and child::t:corr] | .//t:choice[child::t:reg and child::t:orig] | .//t:subst | .//t:app |
+     <xsl:if test=".//t:choice | .//t:subst | .//t:app |
        .//t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'] |
        .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
          <h2>Apparatus</h2>
          <div id="apparatus">
         <!-- An entry is created for-each of the following instances -->
-            <xsl:for-each select=".//t:choice[child::t:sic and child::t:corr] | .//t:choice[child::t:reg and child::t:orig] | .//t:subst | .//t:app |
+            <xsl:for-each select="(.//t:choice | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
            .//t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'] |
            .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
 
@@ -25,17 +25,44 @@
                </xsl:call-template>
 
                <!-- Found in tpl-apparatus.xsl -->
-          <xsl:call-template name="ddbdp-app"/>
+          <xsl:call-template name="ddbdp-app">
+             <xsl:with-param name="apptype">
+                <xsl:choose>
+                   <xsl:when test="self::t:choice[child::t:orig and child::t:reg]">
+                      <xsl:text>origreg</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:choice[child::t:sic and child::t:corr]">
+                      <xsl:text>siccorr</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:subst">
+                      <xsl:text>subst</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:app[@type='alternative']">
+                      <xsl:text>appalt</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:app[@type='editorial']">
+                      <xsl:text>apped</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:app[@type='BL']">
+                      <xsl:text>appbl</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:app[@type='SoSOL']">
+                      <xsl:text>appsosol</xsl:text>
+                   </xsl:when>
+                </xsl:choose>
+             </xsl:with-param>
+          </xsl:call-template>
 
+               <br/>
                <!-- Does not create newline for app, subst, choice nesting -->
-          <xsl:choose>
+          <!--<xsl:choose>
                   <xsl:when test="local-name() = 'del'">
                      <br/>
                   </xsl:when>
                   <xsl:when test="not(descendant::t:choice | descendant::t:subst | descendant::t:app)">
                      <br/>
                   </xsl:when>
-               </xsl:choose>
+               </xsl:choose>-->
             </xsl:for-each>
          </div>
       </xsl:if>

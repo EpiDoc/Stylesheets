@@ -7,13 +7,16 @@
 
    <xsl:template match="t:choice/t:sic">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' or $leiden-style = 'sammelbuch'">
+         <xsl:when test="$edition-type='diplomatic' or $leiden-style=('ddbdp','sammelbuch')">
             <xsl:apply-templates/>
-         </xsl:when>
-         <xsl:when test="$leiden-style='ddbdp'">
-            <!-- commented out until later DDbDP switch-over
-                 <xsl:apply-templates/>
-                 <xsl:call-template name="cert-low"/> -->
+            <!-- if context is inside the app-part of an app-like element... -->
+            <xsl:if test="ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
+               or self::t:del[@rend='corrected'] 
+               or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">
+               <xsl:text> (i.e. </xsl:text>
+               <xsl:apply-templates select="../t:corr/node()"/>
+               <xsl:text>)</xsl:text>
+            </xsl:if>
          </xsl:when>
          <xsl:otherwise/>
       </xsl:choose>
@@ -24,15 +27,9 @@
 
    <xsl:template match="t:choice/t:corr">
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic' or $leiden-style = 'sammelbuch'"/>
+         <xsl:when test="$edition-type='diplomatic' or $leiden-style=('ddbdp','sammelbuch')"/>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'ddbdp'">
-                  <!-- to be removed when later DDbDP switch-over -->
-                  <xsl:apply-templates/>
-                  <!-- cert-low template found in tpl-certlow.xsl -->
-                  <xsl:call-template name="cert-low"/>
-               </xsl:when>
                <xsl:when test="$leiden-style = 'seg'">
                   <xsl:text>&lt;</xsl:text>
                   <xsl:apply-templates/>

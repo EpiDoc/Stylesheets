@@ -36,11 +36,9 @@
                                  local-name() = 'g' or
                                  (local-name()='supplied' and @reason='lost')]))]
                and not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
-                           (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
-                           or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
-                                                       not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+                           (ancestor::t:sic 
+                           or ancestor::t:reg
                            or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                           or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
                            or ancestor::t:del[@rend='corrected'][parent::t:subst])
                and not($edition-type='diplomatic')
                and not(generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1]))">
@@ -49,6 +47,9 @@
                               *or unless* the second part of an app in ddbdp
                               *or unless* diplomatic edition
                               *or unless* the lb is first in its ancestor div  -->
+               <!-- *old code* or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
+                  ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
+                  not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]               -->
                <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
@@ -60,11 +61,9 @@
                </xsl:when>
                <xsl:when
                   test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
-                  and (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
-                        or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
-                        not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+                  and (ancestor::t:sic 
+                        or ancestor::t:reg
                         or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                        or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
                         or ancestor::t:del[@rend='corrected'][parent::t:subst]">
                   <xsl:choose>
                      <xsl:when test="@break='no' or @type='inWord'">
@@ -112,11 +111,9 @@
          <!-- don't print marginal line number inside tags that are relegated to the apparatus (ddbdp) -->
          <xsl:when
             test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
-            and (ancestor::t:sic or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
-            or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
-            not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
+            and (ancestor::t:sic
+            or ancestor::t:reg
             or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-            or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]
             or ancestor::t:del[@rend='corrected'][parent::t:subst]"/>
          <xsl:otherwise>
             <span>

@@ -39,17 +39,13 @@
                <xsl:otherwise/>
             </xsl:choose>
          </xsl:when>
+         <xsl:when test="@resp='previous'">
+            <xsl:apply-templates/>
+         </xsl:when>
+         <xsl:when test="@resp='autopsy'"/>
+         <xsl:when test="parent::t:app"/>
          <xsl:otherwise>
-            <xsl:choose>
-               <xsl:when test="@resp='previous'">
-                  <xsl:apply-templates/>
-               </xsl:when>
-               <xsl:when test="@resp='autopsy'"/>
-               <xsl:when test="parent::t:app"/>
-               <xsl:otherwise>
-                  <xsl:apply-templates/>
-               </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
@@ -58,18 +54,16 @@
   <xsl:template match="t:wit">
       <xsl:choose>
       <!-- Temporary -->
-      <xsl:when test="parent::t:app"/>
-
+         <xsl:when test="parent::t:app"/>
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
 
-
   <xsl:template match="t:lem">
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:div[@type='translation']">
             <xsl:variable name="wit-val" select="@resp"/>
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <span class="term">
@@ -99,17 +93,37 @@
               </span>                 
             </span>
          </xsl:when>
-         <xsl:otherwise>
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
+            or self::t:del[@rend='corrected'] 
+            or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">
+            <xsl:apply-templates/>
+            <xsl:if test="@resp">
+               <xsl:text> </xsl:text>
+               <xsl:if test="parent::t:app[@type='BL']">
+                  <xsl:text>BL </xsl:text>
+               </xsl:if>
+               <xsl:value-of select="@resp"/>
+            </xsl:if>
             <xsl:choose>
-               <xsl:when test="parent::t:app[@type='previouslyread']">
-                  <span class="previouslyread">
-                     <xsl:apply-templates/>
-                  </span>
+               <xsl:when test="parent::t:app[@type=('editorial','BL','SoSOL')]">
+                  <xsl:text> (</xsl:text>
+                  <xsl:apply-templates select="../t:rdg/node()"/>
+                  <xsl:text> prev. ed.)</xsl:text>
                </xsl:when>
-               <xsl:otherwise>
-                  <xsl:apply-templates/>
-               </xsl:otherwise>
+               <xsl:when test="parent::t:app[@type='alternative']">
+                  <xsl:text> (or </xsl:text>
+                  <xsl:apply-templates select="../t:rdg/node()"/>
+                  <xsl:text>)</xsl:text>
+               </xsl:when>
             </xsl:choose>
+         </xsl:when>
+         <xsl:when test="parent::t:app[@type='previouslyread']">
+            <span class="previouslyread">
+               <xsl:apply-templates/>
+            </span>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
