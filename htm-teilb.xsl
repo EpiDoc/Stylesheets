@@ -119,7 +119,7 @@
             <span>
                <xsl:attribute name="class">
                   <xsl:choose>
-                     <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]">
+                     <xsl:when test="$leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                         <xsl:text>linenumberbroken</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>

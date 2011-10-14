@@ -22,7 +22,7 @@
             <xsl:if test="ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                or self::t:del[@rend='corrected'] 
                or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">
-               <xsl:text> (i.e. </xsl:text>
+               <xsl:text> (l. </xsl:text>
                <xsl:apply-templates select="../t:reg/node()"/>
                <xsl:text>)</xsl:text>
             </xsl:if>
