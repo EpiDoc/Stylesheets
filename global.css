@@ -42,6 +42,14 @@
     position: absolute;
     }
     
+.linenumberbroken {
+    left: -4em;
+    padding-right: 0.2em;
+    position: absolute;
+    color: red ;
+    text-decoration: blink ;
+    }
+    
 .underline {
     text-decoration: underline;
     }
