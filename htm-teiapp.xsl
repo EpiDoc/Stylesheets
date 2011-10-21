@@ -93,9 +93,8 @@
               </span>                 
             </span>
          </xsl:when>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
-            or self::t:del[@rend='corrected'] 
-            or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('reg','corr','rdg') 
+            or self::t:del[@rend='corrected']]">
             <xsl:apply-templates/>
             <xsl:if test="@resp">
                <xsl:text> </xsl:text>

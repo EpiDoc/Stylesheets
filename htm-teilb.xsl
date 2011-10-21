@@ -96,7 +96,7 @@
                   <!-- always print line-no after gap line in ddbdp -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="$leiden-style = 'ddbdp' and ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]">
+               <xsl:when test="$leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                   <!-- always print line-no when broken orig in line, in ddbdp -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>

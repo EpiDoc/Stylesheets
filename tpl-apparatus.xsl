@@ -18,7 +18,7 @@
    <xsl:template name="ddbdp-app">
       <xsl:param name="apptype"/>
       <xsl:variable name="div-loc">
-         <xsl:for-each select="ancestor::t:div[@type='textpart']">
+         <xsl:for-each select="ancestor::t:div[@type='textpart'][@n]">
             <xsl:value-of select="@n"/>
             <xsl:text>.</xsl:text>
          </xsl:for-each>
@@ -26,8 +26,13 @@
       <xsl:choose>
          <xsl:when
             test="not(ancestor::t:choice or ancestor::t:subst or ancestor::t:app or
-            ancestor::t:hi[@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis'
-            or @rend = 'circumflex'])">
+            ancestor::t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')])">
+            <!-- either <br/> in htm-tpl-apparatus or \r\n in txt-tpl-apparatus -->
+            <xsl:call-template name="lbrk-app"/>
+            <!-- in htm-tpl-apparatus.xsl or txt-tpl-apparatus.xsl -->
+            <xsl:call-template name="app-link">
+               <xsl:with-param name="location" select="'apparatus'"/>
+            </xsl:call-template>
             <xsl:value-of select="$div-loc"/>
             <xsl:value-of select="preceding::t:*[local-name() = 'lb'][1]/@n"/>
             <xsl:if test="descendant::t:lb">
@@ -41,8 +46,11 @@
          </xsl:otherwise>
       </xsl:choose>
       
-      <!-- if there are more app elements inside the text part of the element, deal with them here -->
-      <xsl:if test="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]">
+      <xsl:choose>
+         <xsl:when test="local-name()=('choice','subst','app')">
+            <!-- if there are more app elements inside the text part of the element, deal with them here -->
+            
+         <xsl:if test="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]">
          <xsl:call-template name="txPtchild">
             <xsl:with-param name="apptype" select="$apptype"/>
             <xsl:with-param name="childtype">
@@ -72,49 +80,49 @@
             </xsl:with-param>
          </xsl:call-template>
       </xsl:if>
-      
       <!-- generate the main content of the app here -->
       <xsl:call-template name="appcontent">
          <xsl:with-param name="apptype" select="$apptype"/>
       </xsl:call-template>
-      
-      <!-- if there are more app elements inside the app part of the element, deal with them here -->
-      <!--<xsl:if test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:*[local-name()=('choice','subst','app')]">
-         <xsl:call-template name="apPtchild">
-            <xsl:with-param name="apptype" select="$apptype"/>
-            <xsl:with-param name="childtype">
-               <xsl:choose>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:choice[child::t:orig and child::t:reg]">
-                     <xsl:text>origreg</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:choice[child::t:sic and child::t:corr]">
-                     <xsl:text>siccorr</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:subst">
-                     <xsl:text>subst</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:app[@type='alternative']">
-                     <xsl:text>appalt</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:app[@type='editorial']">
-                     <xsl:text>apped</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:app[@type='BL']">
-                     <xsl:text>appbl</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('reg','corr','del','rdg')]/t:app[@type='SoSOL']">
-                     <xsl:text>appsosol</xsl:text>
-                  </xsl:when>
-               </xsl:choose>
-            </xsl:with-param>
-         </xsl:call-template>
-      </xsl:if>-->
+      <!-- if there are more app elements inside the app part of the element,
+         these are handled in the individual templates for the elements in question -->
+         </xsl:when>
+         
+         <!-- hi -->
+         <xsl:when test="local-name() = 'hi'">
+            <xsl:call-template name="hirend"/>
+         </xsl:when>
+         
+         <!-- del -->
+         <xsl:when test="local-name() = 'del'">
+            <xsl:choose>
+               <xsl:when test="@rend = 'slashes'">
+                  <xsl:text>Text canceled with slashes</xsl:text>
+               </xsl:when>
+               <xsl:when test="@rend = 'cross-strokes'">
+                  <xsl:text>Text canceled with cross-strokes</xsl:text>
+               </xsl:when>
+            </xsl:choose>
+         </xsl:when>
+         
+         <xsl:when test="local-name() = 'milestone'">
+            <xsl:if test="@rend = 'box'">
+               <xsl:text>Text in box.</xsl:text>
+            </xsl:if>
+         </xsl:when>
+      </xsl:choose>
    </xsl:template>
    
    <xsl:template name="txPtchild">
       <xsl:param name="apptype"/>
       <xsl:param name="childtype"/>
       <xsl:choose>
+         <xsl:when test="$childtype=('origreg','siccorr') and @xml:lang!=ancestor::t:*[@xml:lang][1]/@xml:lang">
+            <xsl:text> i.e. </xsl:text>
+            <xsl:call-template name="reglang">
+               <xsl:with-param name="lang" select="@xml:lang"/>
+            </xsl:call-template>
+         </xsl:when>
          <xsl:when test="$childtype=('origreg','siccorr')">
             <xsl:text> l. </xsl:text>
          </xsl:when>
@@ -123,24 +131,28 @@
          </xsl:when>
          <xsl:when test="$childtype='appalt'">
             <xsl:text> or </xsl:text>
+            <xsl:if test="not(string(child::t:rdg))">
+               <xsl:text>not </xsl:text>
+               <xsl:apply-templates select="child::t:lem"/>
+            </xsl:if>
          </xsl:when>
          <xsl:when test="$childtype='appbl' and t:lem/@resp">
-            <xsl:if test="starts-with(t:lem/@resp,'cf.')">
+            <xsl:if test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
                <xsl:text> cf.</xsl:text>
             </xsl:if>
             <xsl:text> BL </xsl:text>
             <xsl:choose>
-               <xsl:when test="starts-with(t:lem/@resp,'cf.')">
-                  <xsl:value-of select="substring-after(t:lem/@resp,'cf.')"/>
+               <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
+                  <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:value-of select="t:lem/@resp"/>
+                  <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp"/>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:text> : </xsl:text>
          </xsl:when>
-         <xsl:when test="$childtype=('apped','appsosol') and t:lem/@resp">
-            <xsl:value-of select="t:lem/@resp"/>
+         <xsl:when test="$childtype=('apped','appsosol') and child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp">
+            <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp"/>
             <xsl:text> : </xsl:text>
          </xsl:when>
       </xsl:choose>
@@ -166,18 +178,7 @@
          <xsl:when test="$apptype='origreg' and child::t:reg[2]">
             <xsl:for-each select="child::t:reg">
                <xsl:sort select="position()" order="descending"/>
-               <xsl:choose>
-                  <xsl:when test="position()!=1">
-                     <xsl:text> i.e. </xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:text> l. </xsl:text>
-                  </xsl:otherwise>
-               </xsl:choose>
-               <xsl:apply-templates/>
-               <xsl:if test="position()!=last()">
-                  <xsl:text>, </xsl:text>
-               </xsl:if>
+               <xsl:call-template name="multreg"/>
             </xsl:for-each>
          </xsl:when>
          <xsl:when test="$apptype='appalt' and child::t:rdg[2]">
@@ -185,11 +186,21 @@
                   <xsl:if test="position()!=1">
                      <xsl:text>, or </xsl:text>
                   </xsl:if>
+               <xsl:if test="not(string(.))">
+                  <xsl:text>not </xsl:text>
+                  <xsl:apply-templates select="preceding-sibling::t:lem"/>
+               </xsl:if>
                <xsl:apply-templates/>
             </xsl:for-each>
          </xsl:when>
         <xsl:otherwise>
            <xsl:choose>
+              <xsl:when test="$apptype=('origreg','siccorr') and t:reg/@xml:lang!=ancestor-or-self::t:*[@xml:lang][1]/@xml:lang">
+                 <xsl:text> i.e. </xsl:text>
+                 <xsl:call-template name="reglang">
+                    <xsl:with-param name="lang" select="t:reg/@xml:lang"/>
+                 </xsl:call-template>
+              </xsl:when>
               <xsl:when test="$apptype=('origreg','siccorr')">
                  <xsl:text> l. </xsl:text>
               </xsl:when>
@@ -198,6 +209,10 @@
               </xsl:when>
               <xsl:when test="$apptype='appalt'">
                  <xsl:text> or </xsl:text>
+                 <xsl:if test="not(string(t:rdg))">
+                    <xsl:text>not </xsl:text>
+                    <xsl:apply-templates select="t:lem"/>
+                 </xsl:if>
               </xsl:when>
               <xsl:when test="$apptype='appbl' and t:lem/@resp">
                  <xsl:if test="starts-with(t:lem/@resp,'cf.')">
@@ -277,11 +292,127 @@
        <xsl:text>)</xsl:text>
    </xsl:template>-->
    
-
+   <xsl:template name="hirend">
+      <xsl:param name="hicontext" select="'yes'"/>
+      <xsl:if test="$hicontext != 'no'">
+      <xsl:call-template name="trans-string">
+         <xsl:with-param name="trans-text">
+            <xsl:call-template name="string-after-space">
+               <xsl:with-param name="test-string"
+                  select="preceding-sibling::node()[1][self::text()]"/>
+            </xsl:call-template>
+         </xsl:with-param>
+      </xsl:call-template>
+      </xsl:if>
+      <xsl:choose>
+         <xsl:when test="@rend = 'diaeresis'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>̈</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+         <xsl:when test="@rend = 'grave'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>̀</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+         <xsl:when test="@rend = 'acute'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>́</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+         <xsl:when test="@rend = 'asper'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>̔</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+         <xsl:when test="@rend = 'lenis'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>̓</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+         <xsl:when test="@rend = 'circumflex'">
+            <xsl:call-template name="trans-string"/>
+            <xsl:if test="t:gap">
+               <xsl:if test="t:gap[@reason='lost']"><xsl:text>[</xsl:text></xsl:if>
+               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+            </xsl:if>
+            <xsl:text>͂</xsl:text>
+            <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
+         </xsl:when>
+      </xsl:choose>
+      
+      <xsl:if test="$hicontext != 'no'">
+      <xsl:call-template name="trans-string">
+         <xsl:with-param name="trans-text">
+            <xsl:call-template name="string-before-space">
+               <xsl:with-param name="test-string"
+                  select="following-sibling::node()[1][self::text()]"/>
+            </xsl:call-template>
+         </xsl:with-param>
+      </xsl:call-template>
+      <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
+      <xsl:call-template name="support"/>
+         </xsl:if>
+      
+   </xsl:template>
+   
+   <xsl:template name="multreg">
+      <xsl:choose>
+         <xsl:when test="position()!=1">
+            <xsl:text> i.e. </xsl:text>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text> l. </xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang">
+         <xsl:call-template name="reglang">
+            <xsl:with-param name="lang" select="@xml:lang"/>
+         </xsl:call-template>
+      </xsl:if>
+      <xsl:apply-templates/>
+      <xsl:if test="position()!=last()">
+         <xsl:text>, </xsl:text>
+      </xsl:if>
+   </xsl:template>
+   
+   <xsl:template name="reglang">
+      <xsl:param name="lang"/>
+      <xsl:choose>
+         <xsl:when test="$lang='grc'">
+            <xsl:text> Greek </xsl:text>
+         </xsl:when>
+         <xsl:when test="$lang='la'">
+            <xsl:text> Latin </xsl:text>
+         </xsl:when>
+         <xsl:when test="$lang='cop'">
+            <xsl:text> Coptic </xsl:text>
+         </xsl:when>
+      </xsl:choose>
+   </xsl:template>
 
    <xsl:template name="string-after-space">
       <xsl:param name="test-string"/>
-
       <xsl:choose>
          <xsl:when test="contains($test-string, ' ')">
             <xsl:call-template name="string-after-space">
@@ -293,7 +424,6 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
 
    <xsl:template name="string-before-space">
       <xsl:param name="test-string"/>
@@ -310,7 +440,6 @@
       </xsl:choose>
    </xsl:template>
 
-
    <xsl:template name="trans-string">
       <xsl:param name="trans-text" select="."/>
       <xsl:value-of select="translate($trans-text, $all-grc, $grc-lower-strip)"/>
@@ -322,7 +451,7 @@
       </xsl:if>
    </xsl:template>
    
-   <!--<xsl:template name="support">
+   <xsl:template name="support">
       <xsl:choose>
          <xsl:when test="starts-with(//t:idno[@type='filename'],'o.')">
             <xsl:text> ostrakon</xsl:text>
@@ -332,6 +461,6 @@
          </xsl:otherwise>
       </xsl:choose>
       
-   </xsl:template>-->
+   </xsl:template>
 
 </xsl:stylesheet>

@@ -8,12 +8,26 @@
          <xsl:when
             test="@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'">
             <xsl:apply-templates/>
-            <xsl:if test="$apparatus-style = 'ddbdp'">
-               <!-- found in [htm|txt]-tpl-apparatus.xsl -->
-               <xsl:call-template name="app-link">
-                  <xsl:with-param name="location" select="'text'"/>
-               </xsl:call-template>
-            </xsl:if>
+            <xsl:choose>
+               <xsl:when test="$apparatus-style = 'ddbdp' and
+                  ancestor::t:*[local-name()=('reg','corr','del','rdg')]">
+                  <!--ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
+                  or self::t:del[@rend='corrected'] 
+                  or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">-->
+                  <xsl:text> (</xsl:text>
+                     <!-- found in tpl-apparatus.xsl -->
+                     <xsl:call-template name="hirend">
+                        <xsl:with-param name="hicontext" select="'no'"/>
+                     </xsl:call-template>
+                  <xsl:text>)</xsl:text>
+               </xsl:when>
+               <xsl:when test="$apparatus-style = 'ddbdp'">
+                  <!-- found in [htm|txt]-tpl-apparatus.xsl -->
+                  <xsl:call-template name="app-link">
+                     <xsl:with-param name="location" select="'text'"/>
+                  </xsl:call-template>
+               </xsl:when>
+            </xsl:choose>
          </xsl:when>
          <!-- I *think* this entire "xsl:when" is redundant now
             <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
