@@ -117,16 +117,22 @@
             or ancestor::t:del[@rend='corrected'][parent::t:subst]"/>
          <xsl:otherwise>
             <span>
-               <xsl:attribute name="class">
                   <xsl:choose>
                      <xsl:when test="$leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
-                        <xsl:text>linenumberbroken</xsl:text>
+                        <xsl:attribute name="class">
+                           <xsl:text>linenumberbroken</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="title">
+                           <xsl:text>line-break missing in orig</xsl:text>
+                        </xsl:attribute>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:text>linenumber</xsl:text>
+                        <xsl:attribute name="class">
+                           <xsl:text>linenumber</xsl:text>
+                         </xsl:attribute>
                      </xsl:otherwise>
                   </xsl:choose>
-               </xsl:attribute>
+               
                <xsl:value-of select="@n"/>
             </span>
          </xsl:otherwise>
