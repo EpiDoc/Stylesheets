@@ -26,31 +26,30 @@
                </xsl:if>
             </xsl:variable>
 
-            <xsl:if
-               test="(@break='no' or @type='inWord') 
-               and preceding-sibling::node()[1][not(local-name() = 'space' or
-                        local-name() = 'g' or
-                        (local-name()='supplied' and @reason='lost') or
+            <xsl:if test="(@break='no' or @type='inWord')">
+               <!-- print hyphen if break=no  -->
+               <xsl:choose>
+                  <!--    *unless* diplomatic edition  -->
+                  <xsl:when test="$edition-type='diplomatic'"/>
+                  <!--    *or unless* the lb is first in its ancestor div  -->
+                  <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
+                  <!--   *or unless* the second part of an app in ddbdp  -->
+                  <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
+                           (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
+                  <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
+                  <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
+                        local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
                         (normalize-space(.)='' 
                                  and preceding-sibling::node()[1][local-name() = 'space' or
-                                 local-name() = 'g' or
-                                 (local-name()='supplied' and @reason='lost')]))]
-               and not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
-                           (ancestor::t:sic 
-                           or ancestor::t:reg
-                           or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                           or ancestor::t:del[@rend='corrected'][parent::t:subst])
-               and not($edition-type='diplomatic')
-               and not(generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1]))">
-               <!-- print hyphen if break=no
-                              *unless* previous line ends with space / g / supplied[reason=lost]
-                              *or unless* the second part of an app in ddbdp
-                              *or unless* diplomatic edition
-                              *or unless* the lb is first in its ancestor div  -->
+                                 local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>
+                  <xsl:otherwise>
+                      <xsl:text>-</xsl:text>
+                  </xsl:otherwise>
+               </xsl:choose>
+              
                <!-- *old code* or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
                   ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
                   not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]               -->
-               <xsl:text>-</xsl:text>
             </xsl:if>
             <xsl:choose>
                <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])">
