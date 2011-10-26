@@ -2,7 +2,8 @@
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
-  exclude-result-prefixes="t" version="2.0">
+   xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
+  exclude-result-prefixes="t EDF" version="2.0">
    <!-- Actual display and increment calculation found in teilb.xsl -->
    <xsl:import href="teilb.xsl"/>
 
@@ -46,10 +47,6 @@
                       <xsl:text>-</xsl:text>
                   </xsl:otherwise>
                </xsl:choose>
-              
-               <!-- *old code* or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]] 
-                  ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang) and
-                  not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]               -->
             </xsl:if>
             <xsl:choose>
                <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])">
@@ -103,6 +100,20 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+   
+   <xsl:function name="EDF:f-wwrap">
+      <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
+      <xsl:param name="ww-context"/>
+         <xsl:choose>
+            <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))
+            or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
+               <xsl:value-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:value-of select="false()"/>
+            </xsl:otherwise>
+         </xsl:choose>
+   </xsl:function>
 
 
    <xsl:template name="margin-num">
@@ -131,23 +142,10 @@
                          </xsl:attribute>
                      </xsl:otherwise>
                   </xsl:choose>
-               
                <xsl:value-of select="@n"/>
             </span>
          </xsl:otherwise>
       </xsl:choose>
-      
-      <!--<xsl:if test="not(apparatus-style = 'ddbdp' 
-                                 and (ancestor::t:sic
-                                          or ancestor::t:orig[../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)]]
-                                          or ancestor::t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)
-                                                         and not(../t:reg[not(@xml:lang != ancestor::t:*[@xml:lang][1]/@xml:lang)])]
-                                          or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice]
-                                          or ancestor::t:reg[not(@xml:lang)][preceding-sibling::t:reg[not(@xml:lang)]]))">
-         <span class="linenumber">
-            <xsl:value-of select="@n"/>
-         </span>
-      </xsl:if>-->
    </xsl:template>
 
 </xsl:stylesheet>

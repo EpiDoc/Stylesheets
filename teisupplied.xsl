@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t" 
+   xmlns:t="http://www.tei-c.org/ns/1.0" 
+   xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
+                xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t EDF" 
                 version="2.0">
 
   <xsl:template match="t:supplied[@reason='lost']">
@@ -34,7 +36,6 @@
                         </xsl:otherwise>
                      </xsl:choose>
                   </xsl:variable>
-            
                   <xsl:for-each select="t:g">
                      <xsl:text>··</xsl:text>
                   </xsl:for-each>
@@ -45,21 +46,19 @@
                   <xsl:call-template name="dot-out">
                      <xsl:with-param name="cur-num" select="$space-ex"/>
                   </xsl:call-template>
-            
                </xsl:when>
                <xsl:otherwise>
                   <xsl:apply-templates/>
                </xsl:otherwise>
             </xsl:choose>
             <!-- Found in tpl-cert-low.xsl -->
-        <xsl:call-template name="cert-low"/>
-            <!-- if supplied is immediately followed by break=no, end-of-line hyphen will be omitted so include it here instead -->
-            <xsl:if test="following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))
-               or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
+            <xsl:call-template name="cert-low"/>
+            <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows supplied -->
+            <xsl:if test="EDF:f-wwrap(.) = true()">
                <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
-               <!--<xsl:if test="not()">-->
+               <xsl:if test="not($leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') or self::t:del[parent::t:subst]]))">
                   <xsl:text>-</xsl:text>
-               <!--</xsl:if>-->
+               </xsl:if>
             </xsl:if>
             <!-- Found in tpl-reasonlost.xsl -->
         <xsl:call-template name="lost-closer"/>

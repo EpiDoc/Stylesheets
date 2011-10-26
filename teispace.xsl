@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
-   exclude-result-prefixes="t" version="2.0">
+   xmlns:t="http://www.tei-c.org/ns/1.0"
+   xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
+   xmlns="http://www.w3.org/1999/xhtml"
+   exclude-result-prefixes="t EDF" version="2.0">
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
-      <xsl:if test="following::t:*[1][local-name() = 'lb'][@break='no' or @type='inWord']">
+      <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows space -->
+      <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>
       <xsl:choose>
