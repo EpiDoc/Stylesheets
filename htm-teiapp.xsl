@@ -102,6 +102,9 @@
                   <xsl:text>BL </xsl:text>
                </xsl:if>
                <xsl:value-of select="@resp"/>
+               <xsl:if test="parent::t:app[@type='SoSOL']">
+                  <xsl:text> (via PE)</xsl:text>
+               </xsl:if>
             </xsl:if>
             <xsl:choose>
                <xsl:when test="parent::t:app[@type=('editorial','BL','SoSOL')]">

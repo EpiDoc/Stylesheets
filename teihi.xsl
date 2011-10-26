@@ -14,7 +14,7 @@
                   <!--ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                   or self::t:del[@rend='corrected'] 
                   or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">-->
-                  <xsl:text> (</xsl:text>
+                  <xsl:text>(</xsl:text>
                      <!-- found in tpl-apparatus.xsl -->
                      <xsl:call-template name="hirend">
                         <xsl:with-param name="hicontext" select="'no'"/>
