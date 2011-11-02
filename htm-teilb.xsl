@@ -38,6 +38,8 @@
                   <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
                            (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
+                  <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
+                     (tested by EDF:f-wwrap below, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
                         local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
                         (normalize-space(.)='' 
