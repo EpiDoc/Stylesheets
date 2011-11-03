@@ -125,7 +125,7 @@
                 <xsl:text>#to-app-</xsl:text>
                 <xsl:value-of select="$app-num"/>
              </xsl:attribute>
-             <xsl:attribute name="xml:id">
+             <xsl:attribute name="id">
                 <xsl:text>from-app-</xsl:text>
                 <xsl:value-of select="$app-num"/>
              </xsl:attribute>
@@ -134,7 +134,7 @@
        </xsl:when>
        <xsl:when test="$location = 'apparatus'">
           <a>
-             <xsl:attribute name="xml:id">
+             <xsl:attribute name="id">
                 <xsl:text>to-app-</xsl:text>
                 <xsl:value-of select="$app-num"/>
              </xsl:attribute>
