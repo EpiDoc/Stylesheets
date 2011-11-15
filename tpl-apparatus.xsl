@@ -68,14 +68,14 @@
                   <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='alternative']">
                      <xsl:text>appalt</xsl:text>
                   </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']">
-                     <xsl:text>apped</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='BL']">
+                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial'][starts-with(@resp,'BL ')]">
                      <xsl:text>appbl</xsl:text>
                   </xsl:when>
-                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='SoSOL']">
-                     <xsl:text>appsosol</xsl:text>
+                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial'][starts-with(@resp,'PN ')]">
+                     <xsl:text>apppn</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']">
+                     <xsl:text>apped</xsl:text>
                   </xsl:when>
                </xsl:choose>
             </xsl:with-param>
@@ -139,24 +139,24 @@
             </xsl:if>
          </xsl:when>
          <xsl:when test="$childtype='appbl' and t:lem/@resp">
-            <xsl:if test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
+            <xsl:if test="contains(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
                <xsl:text> cf.</xsl:text>
             </xsl:if>
             <xsl:text> BL </xsl:text>
             <xsl:choose>
-               <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
+               <xsl:when test="contains(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
                   <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp"/>
+                  <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'BL ')"/>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:text> : </xsl:text>
          </xsl:when>
-         <xsl:when test="$childtype=('apped','appsosol') and child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp">
-            <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp"/>
-            <xsl:if test="$childtype='appsosol'">
-               <xsl:text> (via PE)</xsl:text>
+         <xsl:when test="$childtype=('apped','apppn') and child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp">
+            <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp,'PN ')"/>
+            <xsl:if test="$childtype='apppn'">
+               <xsl:text> (via PN)</xsl:text>
             </xsl:if>
             <xsl:text> : </xsl:text>
          </xsl:when>
@@ -167,7 +167,7 @@
          <xsl:when test="$childtype='siccorr'">
             <xsl:text> (corr)</xsl:text>
          </xsl:when>
-         <xsl:when test="$childtype=('appbl','apped','appsosol')">
+         <xsl:when test="$childtype=('appbl','apped','apppn')">
             <xsl:text> prev. ed.</xsl:text>
          </xsl:when>
       </xsl:choose>
@@ -230,16 +230,18 @@
                        <xsl:value-of select="substring-after(t:lem/@resp,'cf.')"/>
                     </xsl:when>
                     <xsl:otherwise>
-                       <xsl:value-of select="t:lem/@resp"/>
+                       <xsl:value-of select="substring-after(t:lem/@resp,'BL ')"/>
                     </xsl:otherwise>
                  </xsl:choose>
                  <xsl:text> : </xsl:text>
               </xsl:when>
-              <xsl:when test="$apptype=('apped','appsosol') and t:lem/@resp">
+              <xsl:when test="$apptype=('apped') and t:lem/@resp">
                  <xsl:value-of select="t:lem/@resp"/>
-                 <xsl:if test="$apptype='appsosol'">
-                    <xsl:text> (via PE)</xsl:text>
-                 </xsl:if>
+                 <xsl:text> : </xsl:text>
+              </xsl:when>
+              <xsl:when test="$apptype=('apppn') and t:lem/@resp">
+                 <xsl:value-of select="substring-after(t:lem/@resp,'PN ')"/>
+                 <xsl:text> (via PN)</xsl:text>
                  <xsl:text> : </xsl:text>
               </xsl:when>
            </xsl:choose>
@@ -248,7 +250,7 @@
               <xsl:when test="$apptype='siccorr'">
                  <xsl:text> (corr)</xsl:text>
               </xsl:when>
-              <xsl:when test="$apptype=('apped','appsosol','appbl') and not(t:*[local-name()=('reg','corr','del','rdg')][child::t:app[child::t:lem[@resp]]])">
+              <xsl:when test="$apptype=('apped','apppn','appbl') and not(t:*[local-name()=('reg','corr','del','rdg')][child::t:app[child::t:lem[@resp]]])">
                  <xsl:text> prev. ed.</xsl:text>
               </xsl:when>
            </xsl:choose>

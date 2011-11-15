@@ -51,14 +51,14 @@
                    <xsl:when test="self::t:app[@type='alternative']">
                       <xsl:text>appalt</xsl:text>
                    </xsl:when>
-                   <xsl:when test="self::t:app[@type='editorial']">
-                      <xsl:text>apped</xsl:text>
-                   </xsl:when>
-                   <xsl:when test="self::t:app[@type='BL']">
+                   <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'BL ')]">
                       <xsl:text>appbl</xsl:text>
                    </xsl:when>
-                   <xsl:when test="self::t:app[@type='SoSOL']">
-                      <xsl:text>appsosol</xsl:text>
+                   <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'PN ')]">
+                      <xsl:text>apppn</xsl:text>
+                   </xsl:when>
+                   <xsl:when test="self::t:app[@type='editorial']">
+                      <xsl:text>apped</xsl:text>
                    </xsl:when>
                 </xsl:choose>
              </xsl:with-param>
