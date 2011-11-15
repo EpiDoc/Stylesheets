@@ -22,8 +22,8 @@
                         select="document($param-file)//parameter[name = 'verse-lines']/value[@on = 'yes']"/>
             <xsl:param name="leiden-style"
                         select="document($param-file)//parameter[name = 'leiden-style']/value[@on = 'yes']"/>
-            <xsl:param name="meta-style"
-                        select="document($param-file)//parameter[name = 'meta-style']/value[@on = 'yes']"/>
+            <xsl:param name="edn-structure"
+                        select="document($param-file)//parameter[name = 'edn-structure']/value[@on = 'yes']"/>
             <xsl:param name="edition-type"
                         select="document($param-file)//parameter[name = 'edition-type']/value[@on = 'yes']"/>
             <xsl:param name="apparatus-style"

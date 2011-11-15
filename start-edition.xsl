@@ -54,6 +54,7 @@
    <xsl:include href="htm-tpl-apparatus.xsl"/>
    <xsl:include href="htm-tpl-lang.xsl"/>
    <xsl:include href="htm-tpl-metadata.xsl"/>
+   <xsl:include href="htm-tpl-structure.xsl"/>
    <!--<xsl:include href="htm-tpl-nav.xsl"/>--><!--      No longer exists      -->
    <xsl:include href="htm-tpl-license.xsl"/>
 
@@ -66,76 +67,17 @@
 
    <!-- HTML FILE -->
    <xsl:template match="/">
-      <html>
-         <head>
-            <title>
-               <xsl:choose>
-                  <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-                     <xsl:choose>
-                        <xsl:when test="//t:sourceDesc//t:bibl/text()">
-                           <xsl:value-of select="//t:sourceDesc//t:bibl"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                           <xsl:value-of select="//t:idno[@type='filename']"/>
-                        </xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:when>
-                  <xsl:when test="//t:titleStmt/t:title/text()">
-                     <xsl:if test="//t:idno[@type='filename']/text()">
-                        <xsl:value-of select="//t:idno[@type='filename']"/>
-                        <xsl:text>. </xsl:text>
-                     </xsl:if>
-                     <xsl:value-of select="//t:titleStmt/t:title"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:text>EpiDoc Leiden View</xsl:text>
-                  </xsl:otherwise>
-               </xsl:choose>
-            </title>
-            <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-            <!-- Found in htm-tpl-cssandscripts.xsl -->
-            <xsl:call-template name="css-script"/>
-         </head>
-         <body>
-
-            <!-- Found in htm-tpl-nav.xsl -->
-            <!--<xsl:call-template name="topNavigation"/>-->
-            <!--      No longer exists      -->
-
-
-            <!-- Heading for a ddb style file -->
-            <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-               <h1>
-                  <xsl:choose>
-                     <xsl:when test="//t:sourceDesc//t:bibl/text()">
-                        <xsl:value-of select="//t:sourceDesc//t:bibl"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="//t:idno[@type='filename']"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </h1>
-            </xsl:if>
-
-
-            <!-- Found in htm-tpl-metadata.xsl -->
-
-            <!-- could substitute //publicationsStmt/idno[@type='filename'] for //TEI.2/@id
-               but it's commented out. -->
-            <!-- Would need to change once combined 
-        <xsl:if test="starts-with(//TEI.2/@id, 'hgv')">
-          <xsl:call-template name="metadata"/>
-        </xsl:if>-->
-
-
-            <!-- Main text output -->
-            <xsl:apply-templates/>
-
-            <!-- Found in ...? -->
-            <xsl:call-template name="license"/>
-
-         </body>
-      </html>
+      <xsl:choose>
+         <xsl:when test="$edn-structure = 'london'">
+            <xsl:call-template name="london-structure"/>
+         </xsl:when>
+         <xsl:when test="$edn-structure = 'hgv'">
+            <xsl:call-template name="hgv-structure"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:call-template name="default-structure"/>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
 
 
