@@ -243,11 +243,11 @@
             <xsl:text> : </xsl:text>
             <xsl:for-each select="t:rdg">
                <xsl:apply-templates/>
-               <xsl:if test="starts-with(t:lem/@resp,'BL ')">
-                  <xsl:if test="starts-with(substring-after(t:lem/@resp,'BL '),'cf.')">
+               <xsl:if test="starts-with(@resp,'BL ')">
+                  <xsl:if test="starts-with(substring-after(@resp,'BL '),'cf.')">
                      <xsl:text> cf.</xsl:text>
                   </xsl:if>
-                  <xsl:text> BL </xsl:text>
+                  <xsl:text> BL</xsl:text>
                </xsl:if>
                <xsl:text> </xsl:text>
                <xsl:choose>
