@@ -15,8 +15,11 @@
       <xsl:if test="not(ancestor::t:expan) and not($edition-type='diplomatic')">
          <xsl:text>(</xsl:text>
          <xsl:choose>
-            <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+            <xsl:when test="$leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch'">
                <xsl:text>&#xa0;&#xa0;</xsl:text>
+            </xsl:when>
+            <xsl:when test="$leiden-style = 'rib'">
+               <xsl:text> . . . </xsl:text>
             </xsl:when>
             <xsl:otherwise>
                <xsl:text>- - -</xsl:text>

@@ -18,6 +18,7 @@
     <value>london</value>
     <value on="yes">panciera</value>
     <value>petrae</value>
+    <value>rib</value>
     <value>seg</value>
     <value>sammelbuch</value>
   </parameter>
@@ -52,7 +53,7 @@
     <!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
   </parameter>
   
-  <!-- Line increment -->
+  <!-- Line-numbering increment -->
   <parameter>
     <name>line-inc</name>
     <value>5</value>
