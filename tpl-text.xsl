@@ -17,11 +17,12 @@
             following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus' or @lemma='filia' or @lemma='liberta'] and
             preceding-sibling::t:*[1][descendant-or-self::t:expan]"/>
          <xsl:otherwise>
-            <xsl:if test="starts-with(., ' ') and string-length(.) &gt; 1">
+            <xsl:if test="matches(., '^\s.')">
                <xsl:text> </xsl:text>
             </xsl:if>
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::t:*[1]) = 'lb')">
+            <xsl:if test="matches(.,'\s$') and not(local-name(following-sibling::t:*[1]) = 'lb')">
+               <!--<xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::t:*[1]) = 'lb')">-->
                <xsl:text> </xsl:text>
             </xsl:if>
          </xsl:otherwise>
