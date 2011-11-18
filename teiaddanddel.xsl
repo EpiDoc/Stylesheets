@@ -56,9 +56,11 @@
          <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
             <xsl:choose>
                <!-- if parent subst and subst is in the app part of a further app element, include value of del -->
-               <xsl:when test="parent::t:subst[ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
-                  or self::t:del[@rend='corrected'] 
-                  or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]]">
+               <xsl:when test="ancestor::t:*[local-name()=('reg','corr','rdg') 
+                  or self::t:del[@rend='corrected']]">
+                  <!--<xsl:when test="parent::t:subst[ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
+                     or self::t:del[@rend='corrected'] 
+                     or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]]">-->
                   <xsl:text> (corr. ex </xsl:text>
                   <xsl:apply-templates select="../t:del/node()"/>
                   <xsl:text>)</xsl:text>

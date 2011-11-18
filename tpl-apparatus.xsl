@@ -119,27 +119,99 @@
       <xsl:param name="apptype"/>
       <xsl:param name="childtype"/>
       <xsl:choose>
-         <xsl:when test="$childtype=('origreg','siccorr') and @xml:lang!=ancestor::t:*[@xml:lang][1]/@xml:lang">
+          <!-- *REG*  (repeatable) -->
+         <xsl:when test="$childtype='origreg'">
+            <xsl:for-each select="child::t:*[local-name()=('orig','sic','add','lem')]/t:choice/t:reg">
+               <xsl:sort select="position()" order="descending"/>
+               <xsl:call-template name="multreg"/>
+            </xsl:for-each>
+            <xsl:text>,</xsl:text>
+         </xsl:when>
+         <!-- *CORR* -->
+         <xsl:when test="$childtype=('siccorr')">
+            <xsl:text>l. </xsl:text>
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:choice/t:corr/node()"/>
+            <xsl:text> (corr)</xsl:text>
+            <xsl:text>,</xsl:text>
+         </xsl:when>
+         <!-- *SUBST* -->
+         <xsl:when test="$childtype='subst'">
+            <xsl:text> corr. ex </xsl:text>
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:subst/t:del/node()"/>
+            <xsl:text>,</xsl:text>
+         </xsl:when>
+         <!-- *ALT* (repeatable) -->
+         <xsl:when test="$childtype='appalt'">
+            <xsl:for-each select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='alternative']/t:rdg">
+               <xsl:if test="position()!=1">
+                  <xsl:text>,</xsl:text>
+               </xsl:if>
+               <xsl:text> or </xsl:text>
+               <xsl:if test="not(.//text())">
+                  <xsl:text>not </xsl:text>
+                  <xsl:apply-templates select="preceding-sibling::t:lem"/>
+               </xsl:if>
+               <xsl:apply-templates/>
+            </xsl:for-each>
+         </xsl:when>
+         <!-- *ED* (repeatable) -->
+         <xsl:when test="$childtype=('appbl','apppn','apped')">
+            <xsl:if test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL ')">
+               <xsl:if test="starts-with(substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL '),'cf.')">
+                  <xsl:text> cf.</xsl:text>
+               </xsl:if>
+               <xsl:text> BL </xsl:text>
+            </xsl:if>
+            <xsl:choose>
+               <xsl:when test="starts-with(substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL '),'cf.')">
+                  <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'cf.')"/>
+               </xsl:when>
+               <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL ')">
+                  <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL ')"/>
+               </xsl:when>
+               <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'PN ')">
+                  <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'PN ')"/>
+                  <xsl:text> (via PN)</xsl:text>
+               </xsl:when>
+               <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp">
+                  <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:text>subseq. ed.</xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text> : </xsl:text>
+            <xsl:for-each select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:rdg">
+               <!-- found below -->
+               <xsl:call-template name="app-ed-mult"/>
+            </xsl:for-each>
+         </xsl:when>
+         <!--<xsl:when test="$childtype=('origreg','siccorr') and @xml:lang!=ancestor::t:*[@xml:lang][1]/@xml:lang">
             <xsl:text> i.e. </xsl:text>
             <xsl:call-template name="reglang">
                <xsl:with-param name="lang" select="@xml:lang"/>
             </xsl:call-template>
-         </xsl:when>
-         <xsl:when test="$childtype=('origreg','siccorr')">
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
+               t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
+            <xsl:if test="$childtype='siccorr'">
+               <xsl:text> (corr)</xsl:text>
+            </xsl:if>
+         </xsl:when>-->
+         <!--<xsl:when test="$childtype=('origreg','siccorr')">
             <xsl:text>l. </xsl:text>
-         </xsl:when>
-         <xsl:when test="$childtype='subst'">
-            <xsl:text> corr. ex </xsl:text>
-         </xsl:when>
-         <xsl:when test="$childtype='appalt'">
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
+               t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
+         </xsl:when>-->
+         <!--<xsl:when test="$childtype='appalt'">
             <xsl:text> or </xsl:text>
-            <!--<xsl:if test="not(string(child::t:rdg)) and not(child::t:rdg/t:*)">-->
             <xsl:if test="t:rdg[not(.//text())]">
                <xsl:text>not </xsl:text>
                <xsl:apply-templates select="child::t:lem"/>
             </xsl:if>
-         </xsl:when>
-         <xsl:when test="$childtype='appbl' and t:lem/@resp">
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
+               t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
+         </xsl:when>-->
+         <!--<xsl:when test="$childtype='appbl' and t:lem/@resp">
             <xsl:if test="contains(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/t:lem/@resp,'cf.')">
                <xsl:text> cf.</xsl:text>
             </xsl:if>
@@ -153,6 +225,8 @@
                </xsl:otherwise>
             </xsl:choose>
             <xsl:text> : </xsl:text>
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
+               t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
          </xsl:when>
          <xsl:when test="$childtype=('apped','apppn') and child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp">
             <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app/t:lem/@resp,'PN ')"/>
@@ -160,21 +234,19 @@
                <xsl:text> (via PN)</xsl:text>
             </xsl:if>
             <xsl:text> : </xsl:text>
-         </xsl:when>
+            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
+               t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
+         </xsl:when>-->
       </xsl:choose>
-      <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:*[local-name()=('choice','subst','app')]/
-         t:*[local-name()=('reg','corr','del','rdg')]/node()"/>
-      <xsl:choose>
-         <xsl:when test="$childtype='siccorr'">
-            <xsl:text> (corr)</xsl:text>
-         </xsl:when>
+      
+      <!--<xsl:choose>
          <xsl:when test="$childtype=('appbl','apped','apppn')">
             <xsl:text> prev. ed.</xsl:text>
          </xsl:when>
       </xsl:choose>
       <xsl:if test="$apptype=('origreg','siccorr','subst')">
          <xsl:text>,</xsl:text>
-      </xsl:if>
+      </xsl:if>-->
       <xsl:text> </xsl:text>
    </xsl:template>
    
@@ -242,35 +314,8 @@
             </xsl:choose>
             <xsl:text> : </xsl:text>
             <xsl:for-each select="t:rdg">
-               <xsl:apply-templates/>
-               <xsl:if test="starts-with(@resp,'BL ')">
-                  <xsl:if test="starts-with(substring-after(@resp,'BL '),'cf.')">
-                     <xsl:text> cf.</xsl:text>
-                  </xsl:if>
-                  <xsl:text> BL</xsl:text>
-               </xsl:if>
-               <xsl:text> </xsl:text>
-               <xsl:choose>
-                  <xsl:when test="starts-with(substring-after(@resp,'BL '),'cf.')">
-                     <xsl:value-of select="substring-after(@resp,'cf.')"/>
-                  </xsl:when>
-                  <xsl:when test="starts-with(@resp,'BL ')">
-                     <xsl:value-of select="substring-after(@resp,'BL ')"/>
-                  </xsl:when>
-                  <xsl:when test="starts-with(@resp,'PN ')">
-                     <xsl:value-of select="substring-after(@resp,'PN ')"/>
-                     <xsl:text> (via PN)</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="string(@resp)">
-                     <xsl:value-of select="@resp"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:text> prev. ed.</xsl:text>
-                  </xsl:otherwise>
-               </xsl:choose>
-               <xsl:if test="position()!=last()">
-                  <xsl:text> : </xsl:text>
-               </xsl:if>
+               <!-- found below -->
+               <xsl:call-template name="app-ed-mult"/>
             </xsl:for-each>
          </xsl:when>
          <!--<xsl:when test="$apptype='appbl'">
@@ -511,6 +556,38 @@
             <xsl:text> Coptic </xsl:text>
          </xsl:when>
       </xsl:choose>
+   </xsl:template>
+   
+   <xsl:template name="app-ed-mult">
+      <xsl:apply-templates/>
+      <xsl:if test="starts-with(@resp,'BL ')">
+         <xsl:if test="starts-with(substring-after(@resp,'BL '),'cf.')">
+            <xsl:text> cf.</xsl:text>
+         </xsl:if>
+         <xsl:text> BL</xsl:text>
+      </xsl:if>
+      <xsl:text> </xsl:text>
+      <xsl:choose>
+         <xsl:when test="starts-with(substring-after(@resp,'BL '),'cf.')">
+            <xsl:value-of select="substring-after(@resp,'cf.')"/>
+         </xsl:when>
+         <xsl:when test="starts-with(@resp,'BL ')">
+            <xsl:value-of select="substring-after(@resp,'BL ')"/>
+         </xsl:when>
+         <xsl:when test="starts-with(@resp,'PN ')">
+            <xsl:value-of select="substring-after(@resp,'PN ')"/>
+            <xsl:text> (via PN)</xsl:text>
+         </xsl:when>
+         <xsl:when test="string(@resp)">
+            <xsl:value-of select="@resp"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text> prev. ed.</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="position()!=last()">
+         <xsl:text> : </xsl:text>
+      </xsl:if>
    </xsl:template>
 
    <xsl:template name="string-after-space">

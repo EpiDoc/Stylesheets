@@ -10,9 +10,8 @@
          <xsl:when test="$edition-type='diplomatic' or $leiden-style=('ddbdp','sammelbuch')">
             <xsl:apply-templates/>
             <!-- if context is inside the app-part of an app-like element... -->
-            <xsl:if test="ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
-               or self::t:del[@rend='corrected'] 
-               or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">
+            <xsl:if test="ancestor::t:*[local-name()=('reg','corr','rdg') 
+               or self::t:del[@rend='corrected']]">
                <xsl:text> (i.e. </xsl:text>
                <xsl:apply-templates select="../t:corr/node()"/>
                <xsl:text>)</xsl:text>

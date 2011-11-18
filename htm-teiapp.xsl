@@ -107,14 +107,22 @@
                </xsl:if>
             </xsl:if>
             <xsl:choose>
-               <xsl:when test="parent::t:app[@type=('editorial','BL','SoSOL')]">
+               <xsl:when test="parent::t:app[@type='editorial']">
                   <xsl:text> (</xsl:text>
-                  <xsl:apply-templates select="../t:rdg/node()"/>
-                  <xsl:text> prev. ed.)</xsl:text>
+                  <xsl:for-each select="following-sibling::t:rdg">
+                     <!-- found in tpl-apparatus.xsl -->
+                     <xsl:call-template name="app-ed-mult"/>
+                  </xsl:for-each>
+                  <xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:when test="parent::t:app[@type='alternative']">
                   <xsl:text> (or </xsl:text>
-                  <xsl:apply-templates select="../t:rdg/node()"/>
+                  <xsl:for-each select="following-sibling::t:rdg">
+                     <xsl:apply-templates/>
+                     <xsl:if test="position()!=last()">
+                        <xsl:text> or </xsl:text>
+                     </xsl:if>
+                  </xsl:for-each>
                   <xsl:text>)</xsl:text>
                </xsl:when>
             </xsl:choose>
