@@ -115,10 +115,10 @@
          </xsl:when>
          <xsl:when test="parent::t:subst"/>
          <xsl:otherwise>
-            <xsl:text>〚</xsl:text>
+            <xsl:text>&#x27e6;</xsl:text>
             <xsl:apply-templates/>
             <xsl:call-template name="cert-low"/>
-            <xsl:text>〛</xsl:text>
+            <xsl:text>&#x27e7;</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
