@@ -40,11 +40,11 @@
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>⌜</xsl:text>
+                  <xsl:text>&#x2e22;</xsl:text>
                   <xsl:apply-templates/>
                   <!-- cert-low template found in tpl-certlow.xsl -->
                   <xsl:call-template name="cert-low"/>
-                  <xsl:text>⌝</xsl:text>
+                  <xsl:text>&#x2e23;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>
