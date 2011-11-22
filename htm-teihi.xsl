@@ -49,7 +49,7 @@
             <xsl:element name="span">
                <xsl:attribute name="class">ligature</xsl:attribute>
                <xsl:attribute name="title">Ligature: these characters are joined</xsl:attribute>
-               <xsl:apply-templates/>
+               <xsl:apply-imports/>
             </xsl:element>
          </xsl:when>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

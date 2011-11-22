@@ -5,6 +5,14 @@
 
    <xsl:template match="t:hi">
       <xsl:choose>
+         <xsl:when test="@rend='ligature'">
+            <xsl:if test="$leiden-style='seg'">
+               <xsl:if test="string-length(normalize-space(.))=2">
+                  <xsl:text>&#x035c;</xsl:text>
+               </xsl:if>
+            </xsl:if>
+            <xsl:apply-templates/>
+         </xsl:when>
          <xsl:when
             test="@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'">
             <xsl:apply-templates/>
@@ -29,24 +37,6 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
-         <!-- I *think* this entire "xsl:when" is redundant now
-            <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-            <xsl:choose>
-               <xsl:when test="@rend='superscript'">
-                  <xsl:text>\</xsl:text>
-                  <xsl:apply-templates/>
-                  <xsl:text>/</xsl:text>
-               </xsl:when>
-               <xsl:when test="@rend='subscript'">
-                  <xsl:text>/</xsl:text>
-                  <xsl:apply-templates/>
-                  <xsl:text>\</xsl:text>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:apply-templates/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:when>-->
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
