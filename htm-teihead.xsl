@@ -6,9 +6,24 @@
   
   
   <xsl:template match="t:div/t:head">
-      <h2>
+      <h3>
          <xsl:apply-templates/>
-      </h2>
+      </h3>
   </xsl:template>
+   
+   <xsl:template match="t:body/t:head">
+      <xsl:choose>
+         <xsl:when test="$leiden-style='ddbdp'">
+            <xsl:element name="p">
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:otherwise>
+            <h2>
+               <xsl:apply-templates/>
+            </h2>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
   
 </xsl:stylesheet>
