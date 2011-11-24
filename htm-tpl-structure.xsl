@@ -104,7 +104,14 @@
             </xsl:if>         
             
             <!-- Main text output -->
-            <xsl:apply-templates/>
+            <xsl:variable name="maintxt">
+               <xsl:apply-templates/>
+            </xsl:variable>
+            
+            <!-- Found in htm-tpl-sqbrackets.xsl -->
+            <xsl:call-template name="sqbrackets">
+               <xsl:with-param name="html-elm" select="$maintxt/*"/>
+            </xsl:call-template>
             
             <!-- Found in htm-tpl-license.xsl -->
             <xsl:call-template name="license"/>

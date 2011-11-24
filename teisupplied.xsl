@@ -17,7 +17,8 @@
          </xsl:when>
          <xsl:otherwise>
         <!-- Found in tpl-reasonlost.xsl -->
-        <xsl:call-template name="lost-opener"/>
+        <!--<xsl:call-template name="lost-opener"/>-->
+            <xsl:text>[</xsl:text>
             <xsl:choose>
                <xsl:when test="$edition-type = 'diplomatic'">
                   <xsl:variable name="supplied-content">
@@ -61,7 +62,8 @@
                </xsl:if>
             </xsl:if>
             <!-- Found in tpl-reasonlost.xsl -->
-        <xsl:call-template name="lost-closer"/>
+        <!--<xsl:call-template name="lost-closer"/>-->
+            <xsl:text>]</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
