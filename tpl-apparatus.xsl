@@ -165,22 +165,22 @@
             <xsl:choose>
                <xsl:when test="starts-with(substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL '),'cf.')">
                   <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'cf.')"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
                <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL ')">
                   <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'BL ')"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
                <xsl:when test="starts-with(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'PN ')">
                   <xsl:value-of select="substring-after(child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp,'PN ')"/>
-                  <xsl:text> (via PN)</xsl:text>
+                  <xsl:text> (via PN) : </xsl:text>
                </xsl:when>
                <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp">
                   <xsl:value-of select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:lem/@resp"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
-               <xsl:otherwise>
-                  <xsl:text>subseq. ed.</xsl:text>
-               </xsl:otherwise>
+               <xsl:otherwise/>
             </xsl:choose>
-            <xsl:text> : </xsl:text>
             <xsl:for-each select="child::t:*[local-name()=('orig','sic','add','lem')]/t:app[@type='editorial']/t:rdg">
                <!-- found below -->
                <xsl:call-template name="app-ed-mult"/>
@@ -323,22 +323,22 @@
             <xsl:choose>
                <xsl:when test="starts-with(substring-after(t:lem/@resp,'BL '),'cf.')">
                   <xsl:value-of select="substring-after(t:lem/@resp,'cf.')"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
                <xsl:when test="starts-with(t:lem/@resp,'BL ')">
                   <xsl:value-of select="substring-after(t:lem/@resp,'BL ')"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
                <xsl:when test="starts-with(t:lem/@resp,'PN ')">
                   <xsl:value-of select="substring-after(t:lem/@resp,'PN ')"/>
-                  <xsl:text> (via PN)</xsl:text>
+                  <xsl:text> (via PN) : </xsl:text>
                </xsl:when>
                <xsl:when test="t:lem/@resp">
                   <xsl:value-of select="t:lem/@resp"/>
+                  <xsl:text> : </xsl:text>
                </xsl:when>
-               <xsl:otherwise>
-                  <xsl:text>subseq. ed.</xsl:text>
-               </xsl:otherwise>
+               <xsl:otherwise/>
             </xsl:choose>
-            <xsl:text> : </xsl:text>
             <xsl:for-each select="t:rdg">
                <!-- found below -->
                <xsl:call-template name="app-ed-mult"/>
@@ -386,12 +386,10 @@
             <xsl:choose>
                <xsl:when test="t:lem/@resp">
                   <xsl:value-of select="t:lem/@resp"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:text>subseq. ed.</xsl:text>
-               </xsl:otherwise>
-            </xsl:choose>
             <xsl:text> : </xsl:text>
+               </xsl:when>
+               <xsl:otherwise/>
+            </xsl:choose>
             <xsl:for-each select="t:rdg">
                <xsl:apply-templates/>
                <xsl:choose>
