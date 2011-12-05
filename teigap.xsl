@@ -102,7 +102,10 @@
          <xsl:text>?</xsl:text>
       </xsl:if>
 
-      <xsl:call-template name="extent-string"/>
+      <xsl:if test="not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='illegible']]])
+         and not(preceding::node()[1][self::t:gap[@reason='illegible']])">
+         <xsl:call-template name="extent-string"/>
+      </xsl:if>
    </xsl:template>
 
 
@@ -130,7 +133,11 @@
             <xsl:call-template name="verse-string"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:call-template name="extent-string"/>
+            <!-- Don't display again if there is a preceding adjecent gap of the same kind -->
+            <xsl:if test="not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='lost']]])
+               and not(preceding::node()[1][self::t:gap[@reason='lost']])">
+               <xsl:call-template name="extent-string"/>
+            </xsl:if>
          </xsl:otherwise>
       </xsl:choose>
 
