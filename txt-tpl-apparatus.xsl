@@ -34,13 +34,14 @@ Apparatus
         <!--<xsl:if test="not(descendant::t:choice | descendant::t:subst | descendant::t:app)">
                <xsl:text>
 &#xD;</xsl:text>
-            </xsl:if>
-         </xsl:for-each>-->
+            </xsl:if>-->
+         </xsl:for-each>
          <!-- End of apparatus -->
       <xsl:text>
 &#xD;
 &#xD;</xsl:text>
-      </xsl:if>
+     </xsl:if>
+     
   </xsl:template>
 
 
