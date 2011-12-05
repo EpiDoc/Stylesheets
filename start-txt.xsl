@@ -48,14 +48,26 @@
   <xsl:include href="txt-tpl-apparatus.xsl"/>
   <xsl:include href="txt-tpl-linenumberingtab.xsl"/>
   
-  <xsl:include href="tpl-reasonlost.xsl"/>
+  <!--<xsl:include href="tpl-reasonlost.xsl"/>--><!-- Deprecated -->
   <xsl:include href="tpl-certlow.xsl"/>
   <xsl:include href="tpl-text.xsl"/>
+  <xsl:include href="txt-tpl-sqbrackets.xsl"/>
 
 
   <xsl:template match="/">
     <!-- No templates for metadata just yet -->
-    <xsl:apply-templates/>
+    
+   <!-- <xsl:apply-templates/>-->
+    
+    <xsl:variable name="main-text">
+      <xsl:apply-templates/>
+    </xsl:variable>
+        
+    <!-- Templates found in txt-tpl-sqbrackets.xsl -->
+    <xsl:for-each select="$main-text">
+      <xsl:call-template name="sqbrackets"/>
+    </xsl:for-each>
+    
   </xsl:template>
   
 </xsl:stylesheet>
