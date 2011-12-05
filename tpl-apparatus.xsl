@@ -504,6 +504,26 @@
          </xsl:when>
          <xsl:otherwise>
               <xsl:choose>
+               <xsl:when test="$step[self::t:hi]">
+                  <xsl:call-template name="recurse_back">
+                     <xsl:with-param name="step" select="$step/preceding-sibling::node()[1]"/>
+                  </xsl:call-template>
+                  <xsl:for-each select="$step">
+                     <xsl:call-template name="hirend_print"/>
+                  </xsl:for-each>
+                  <xsl:copy-of select="$buildup"/>
+               </xsl:when>
+                 <xsl:when test="$step[self::t:subst]">
+                    <xsl:call-template name="recurse_back">
+                       <xsl:with-param name="step" select="$step/preceding-sibling::node()[1]"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="trans-string">
+                       <xsl:with-param name="trans-text">
+                          <xsl:apply-templates select="$step//t:add/node()"/>
+                       </xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:copy-of select="$buildup"/>
+                 </xsl:when>
                <xsl:when test="($step[self::text] or $step[self::*]) and matches($step, '[\s\n\r\t]')">
                   <xsl:variable name="builddown">
                      <xsl:call-template name="recurse_down_back">
@@ -560,6 +580,12 @@
                </xsl:otherwise>
             </xsl:choose>
             <xsl:copy-of select="buildup"/>
+         </xsl:when>
+         <xsl:when test="$step[self::t:hi]">
+            <xsl:for-each select="$step">
+               <xsl:call-template name="hirend_print"/>
+            </xsl:for-each>
+            <xsl:copy-of select="$buildup"/>
          </xsl:when>
          <xsl:otherwise>
             <xsl:element name="{$step/name()}" xmlns="http://www.tei-c.org/ns/1.0">
@@ -675,6 +701,24 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
+               <xsl:when test="$step[self::t:hi]">
+                  <xsl:for-each select="$step">
+                     <xsl:call-template name="hirend_print"/>
+                  </xsl:for-each>
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="$step/following-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:when>
+               <xsl:when test="$step[self::t:subst]">
+                  <xsl:call-template name="trans-string">
+                     <xsl:with-param name="trans-text">
+                        <xsl:apply-templates select="$step//t:add/node()"/>
+                     </xsl:with-param>
+                  </xsl:call-template>
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="$step/following-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:when>
                <xsl:when test="($step[self::text] or $step[self::*]) and matches($step, '[\s\n\r\t]')">
                   <xsl:variable name="buildown">
                      <xsl:call-template name="recurse_down">
@@ -713,6 +757,11 @@
                   </xsl:call-template>
                </xsl:with-param>
             </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$step[self::t:hi]">
+            <xsl:for-each select="$step">
+               <xsl:call-template name="hirend_print"/>
+            </xsl:for-each>
          </xsl:when>
          <xsl:otherwise>
             <xsl:element name="{$step/name()}" xmlns="http://www.tei-c.org/ns/1.0">
@@ -757,11 +806,34 @@
       <xsl:param name="hicontext" select="'yes'"/>
       <xsl:if test="$hicontext != 'no'">
          
-         <xsl:call-template name="recurse_back">
-            <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
-         </xsl:call-template>
+         <xsl:variable name="text-before">
+            <xsl:call-template name="recurse_back">
+               <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
+            </xsl:call-template>
+         </xsl:variable>
+         
+         <!-- This removes unnecessary line breaks that could've come through -->
+         <xsl:value-of select="normalize-space($text-before)"/>
          
       </xsl:if>
+      
+      <xsl:call-template name="hirend_print"/>
+      
+      <xsl:if test="$hicontext != 'no'">
+         
+         <xsl:call-template name="recurse_forward">
+            <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+         </xsl:call-template>
+        
+          <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
+          <xsl:call-template name="support"/>
+      </xsl:if>
+      
+   </xsl:template>
+   
+   <xsl:template name="hirend_print">
+      <!-- Determines the value of diacritical <hi> values -->
+      <!-- Used by hirend -->
       <xsl:choose>
          <xsl:when test="@rend = 'diaeresis'">
             <xsl:call-template name="trans-string"/>
@@ -818,17 +890,6 @@
             <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
          </xsl:when>
       </xsl:choose>
-      
-      <xsl:if test="$hicontext != 'no'">
-         
-         <xsl:call-template name="recurse_forward">
-            <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-         </xsl:call-template>
-        
-          <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
-          <xsl:call-template name="support"/>
-      </xsl:if>
-      
    </xsl:template>
    
    <xsl:template name="multreg">
