@@ -39,7 +39,7 @@
                            (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
                   <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
-                     (tested by EDF:f-wwrap below, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
+                     (tested by EDF:f-wwrap in teig.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
                         local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
                         (normalize-space(.)='' 
@@ -102,21 +102,6 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   
-   <xsl:function name="EDF:f-wwrap">
-      <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
-      <xsl:param name="ww-context"/>
-         <xsl:choose>
-            <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))
-            or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
-               <xsl:value-of select="true()"/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:value-of select="false()"/>
-            </xsl:otherwise>
-         </xsl:choose>
-   </xsl:function>
-
 
    <xsl:template name="margin-num">
       <xsl:choose>
