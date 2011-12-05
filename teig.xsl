@@ -6,6 +6,20 @@
    xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="t EDF"  version="2.0">
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
+   <xsl:function name="EDF:f-wwrap">
+      <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
+      <xsl:param name="ww-context"/>
+      <xsl:choose>
+         <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))
+            or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
+            <xsl:value-of select="true()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="false()"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:function>
+
    <xsl:template name="lb-dash">
       <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows g -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
