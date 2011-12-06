@@ -483,11 +483,45 @@
       <xsl:variable name="origin" select="name()"/>
       
       <xsl:choose>
+         <xsl:when test="$step[self::t:lb[not(@break='no')]]">
+            <xsl:copy-of select="$buildup"/>
+         </xsl:when>
          <xsl:when test="$step[self::text()]">
             <xsl:choose>
                <xsl:when test="matches($step, '[\s\n\r\t]')">
-                  
                   <xsl:copy-of select="$buildup"/>                  
+               </xsl:when>
+               <!-- if the text node is a first child and a space hasn't been located yet... -->
+               <xsl:when test="not($step/preceding-sibling::node()[1])">
+                  <xsl:variable name="temp-buildup">
+                     <xsl:choose>
+                        <xsl:when test="$origin='hi'">
+                           <xsl:call-template name="trans-string">
+                              <xsl:with-param name="trans-text">
+                                 <xsl:call-template name="string-after-space">
+                                    <xsl:with-param name="test-string"
+                                       select="$step"/>
+                                 </xsl:call-template>
+                              </xsl:with-param>
+                           </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <xsl:call-template name="string-after-space">
+                              <xsl:with-param name="test-string"
+                                 select="$step"/>
+                           </xsl:call-template>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                     <xsl:copy-of select="$buildup"/>
+                  </xsl:variable>
+                  
+                  <xsl:for-each select="$step/ancestor::*[preceding-sibling::node()][1]">
+                     <xsl:call-template name="recurse_back">
+                        <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
+                        <xsl:with-param name="buildup" select="$temp-buildup"/>
+                     </xsl:call-template>
+                  </xsl:for-each>
+                  
                </xsl:when>
                <xsl:otherwise>
                   <xsl:variable name="temp-buildup">
@@ -517,6 +551,15 @@
                   </xsl:call-template>
                </xsl:otherwise>
             </xsl:choose>
+         </xsl:when>
+         <!-- if the element is nested and a space hasn't been located yet... -->
+         <xsl:when test="not($step/preceding-sibling::node()[1])">
+            <xsl:for-each select="$step/ancestor::*[preceding-sibling::node()][1]">
+               <xsl:call-template name="recurse_back">
+                  <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
+                  <xsl:with-param name="buildup" select="$buildup"/>
+               </xsl:call-template>
+            </xsl:for-each>
          </xsl:when>
          <xsl:otherwise>
               <xsl:choose>
@@ -668,6 +711,7 @@
       <xsl:variable name="origin" select="name()"/>
             
       <xsl:choose>
+         <xsl:when test="$step[self::t:lb[not(@break='no')]]"/>
          <xsl:when test="$step[self::text()]">
             <xsl:choose>
                <xsl:when test="matches($step, '[\s\n\r\t]')">
@@ -689,6 +733,32 @@
                         </xsl:call-template>
                      </xsl:otherwise>
                   </xsl:choose>
+               </xsl:when>
+               <!-- if the text node is a first child and a space hasn't been located yet... -->
+               <xsl:when test="not($step/preceding-sibling::node()[1])">
+                  <xsl:choose>
+                     <xsl:when test="$origin='hi'">
+                        <xsl:call-template name="trans-string">
+                           <xsl:with-param name="trans-text">
+                              <xsl:call-template name="string-before-space">
+                                 <xsl:with-param name="test-string"
+                                    select="$step"/>
+                              </xsl:call-template>
+                           </xsl:with-param>
+                        </xsl:call-template>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:call-template name="string-before-space">
+                           <xsl:with-param name="test-string"
+                              select="$step"/>
+                        </xsl:call-template>
+                     </xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
+                     <xsl:call-template name="recurse_forward">
+                        <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+                     </xsl:call-template>
+                  </xsl:for-each>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:choose>
@@ -714,6 +784,13 @@
                   </xsl:call-template>
                </xsl:otherwise>
             </xsl:choose>
+         </xsl:when>
+         <xsl:when test="not($step/following-sibling::node()[1])">
+            <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+               </xsl:call-template>
+            </xsl:for-each>
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
@@ -823,9 +900,18 @@
       <xsl:if test="$hicontext != 'no'">
          
          <xsl:variable name="text-before">
-            <xsl:call-template name="recurse_back">
-               <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
-            </xsl:call-template>
+            <xsl:choose>
+               <xsl:when test="not(preceding-sibling::node()[1])">
+                  <xsl:call-template name="recurse_back">
+                     <xsl:with-param name="step" select="parent::*"/>
+                  </xsl:call-template>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:call-template name="recurse_back">
+                     <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:otherwise>
+            </xsl:choose>
          </xsl:variable>
          
          <!-- This removes unnecessary line breaks that could've come through -->
@@ -837,9 +923,18 @@
       
       <xsl:if test="$hicontext != 'no'">
          
-         <xsl:call-template name="recurse_forward">
-            <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-         </xsl:call-template>
+         <xsl:choose>
+            <xsl:when test="not(preceding-sibling::node()[1])">
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="parent::*"/>
+               </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+               </xsl:call-template>
+            </xsl:otherwise>
+         </xsl:choose>
         
           <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
           <xsl:call-template name="support"/>
