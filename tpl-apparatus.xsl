@@ -136,8 +136,10 @@
          </xsl:when>
          <!-- *SUBST* -->
          <xsl:when test="$childtype='subst'">
-            <xsl:text> corr. ex </xsl:text>
-            <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:subst/t:del/node()"/>
+            <xsl:call-template name="resolvesubst">
+               <xsl:with-param name="delpath" select="child::t:*[local-name()=('orig','sic','add','lem')]/t:subst/t:del/node()"/>
+               <xsl:with-param name="addpath" select="child::t:*[local-name()=('orig','sic','add','lem')]/t:subst/t:add/node()"/>
+            </xsl:call-template>
             <xsl:text>,</xsl:text>
          </xsl:when>
          <!-- *ALT* (repeatable) -->
@@ -250,6 +252,57 @@
       <xsl:text> </xsl:text>
    </xsl:template>
    
+   <xsl:template name="resolvesubst">
+      <!-- Deals with old/new encoding of subst -->
+      <!-- Used by: txPtchild, appcontent, teiaddanddel.xsl#t:add -->
+      <xsl:param name="addpath"/>
+      <xsl:param name="delpath"/>
+      
+      <xsl:choose>
+         <!-- Old encoding: (stil supported) -->
+         <xsl:when test="(
+            not(preceding-sibling::node())
+            or matches(preceding-sibling::node()[1][self::text()], '[\s\n\r\t]')
+            or preceding-sibling::node()[1][self::t:lb]
+            )   
+            and
+            (
+            not(following-sibling::node())
+            or matches(following-sibling::node()[1][self::text()], '[\s\n\r\t]')
+            )
+            ">
+            <xsl:text> corr. ex </xsl:text>
+            <xsl:apply-templates select="$delpath"/>
+         </xsl:when>
+         <!-- New encoding (introduced in Nov/Dec 2011) -->
+         <!-- get full word --> 
+         <xsl:otherwise>
+            <xsl:variable name="fullword">
+               <xsl:call-template name="recurse_back">
+                  <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
+               </xsl:call-template>
+               <xsl:apply-templates select="t:add/node()"/>
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+               </xsl:call-template>
+            </xsl:variable>
+            <xsl:value-of select="$fullword"/>
+            <xsl:text> </xsl:text>
+            <xsl:call-template name="trans-string">
+               <xsl:with-param name="trans-text">
+                  <xsl:apply-templates select="$addpath"/>
+               </xsl:with-param>
+            </xsl:call-template>
+            <xsl:text> corr. ex </xsl:text>
+            <xsl:call-template name="trans-string">
+               <xsl:with-param name="trans-text">
+                  <xsl:apply-templates select="$delpath"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   
    <xsl:template name="appcontent">
       <!-- prints the content of apparatus; called by ddb-apparatus or by individual elements if nested -->
       <xsl:param name="apptype"/>
@@ -269,50 +322,10 @@
          </xsl:when>
          <!-- *SUBST* -->
          <xsl:when test="$apptype='subst'">
-            
-            <xsl:choose>
-               <!-- Old encoding: (stil supported) -->
-               <xsl:when test="(
-                  not(preceding-sibling::node())
-                  or matches(preceding-sibling::node()[1][self::text()], '[\s\n\r\t]')
-                  or preceding-sibling::node()[1][self::t:lb]
-                  )   
-                  and
-                  (
-                  not(following-sibling::node())
-                  or matches(following-sibling::node()[1][self::text()], '[\s\n\r\t]')
-                  )
-                  ">
-                  <xsl:text> corr. ex </xsl:text>
-                  <xsl:apply-templates select="t:del/node()"/>
-               </xsl:when>
-               <!-- New encoding (introduced in Nov/Dec 2011) -->
-               <!-- get full word --> 
-               <xsl:otherwise>
-                  <xsl:variable name="fullword">
-                     <xsl:call-template name="recurse_back">
-                        <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>
-                     </xsl:call-template>
-                     <xsl:apply-templates select="t:add/node()"/>
-                     <xsl:call-template name="recurse_forward">
-                        <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-                     </xsl:call-template>
-                  </xsl:variable>
-                  <xsl:value-of select="$fullword"/>
-                  <xsl:text> </xsl:text>
-                  <xsl:call-template name="trans-string">
-                     <xsl:with-param name="trans-text">
-                        <xsl:apply-templates select="t:add/node()"/>
-                     </xsl:with-param>
-                  </xsl:call-template>
-                  <xsl:text> corr ex </xsl:text>
-                  <xsl:call-template name="trans-string">
-                     <xsl:with-param name="trans-text">
-                        <xsl:apply-templates select="t:del/node()"/>
-                     </xsl:with-param>
-                  </xsl:call-template>
-               </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="resolvesubst">
+               <xsl:with-param name="delpath" select="t:del/node()"/>
+               <xsl:with-param name="addpath" select="t:add/node()"/>
+            </xsl:call-template>
          </xsl:when>
          <!-- *ALT* (repeatable) -->
          <xsl:when test="$apptype='appalt'">
