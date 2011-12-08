@@ -75,6 +75,11 @@
          <xsl:when test="$edn-structure = 'hgv'">
             <xsl:call-template name="hgv-structure"/>
          </xsl:when>
+         <xsl:when test="$edn-structure = 'ddbdp'">
+            <div>
+              <xsl:call-template name="default-body-structure"/>
+            </div>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:call-template name="default-structure"/>
          </xsl:otherwise>

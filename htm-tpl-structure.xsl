@@ -88,34 +88,36 @@
             <xsl:call-template name="css-script"/>
          </head>
          <body>
-            
-            <!-- Heading for a ddb style file -->
-            <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-               <h1>
-                  <xsl:choose>
-                     <xsl:when test="//t:sourceDesc//t:bibl/text()">
-                        <xsl:value-of select="//t:sourceDesc//t:bibl"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="//t:idno[@type='filename']"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </h1>
-            </xsl:if>         
-            
-            <!-- Main text output -->
-            <xsl:variable name="maintxt">
-               <xsl:apply-templates/>
-            </xsl:variable>
-            
-            <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-            <xsl:apply-templates select="$maintxt" mode="sqbrackets"/>
-            
-            <!-- Found in htm-tpl-license.xsl -->
-            <xsl:call-template name="license"/>
-            
+           <xsl:call-template name="default-body-structure"/>
          </body>
       </html>
+   </xsl:template>
+
+   <xsl:template name="default-body-structure">
+      <!-- Heading for a ddb style file -->
+      <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <h1>
+            <xsl:choose>
+               <xsl:when test="//t:sourceDesc//t:bibl/text()">
+                  <xsl:value-of select="//t:sourceDesc//t:bibl"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:value-of select="//t:idno[@type='filename']"/>
+               </xsl:otherwise>
+            </xsl:choose>
+         </h1>
+      </xsl:if>         
+      
+      <!-- Main text output -->
+      <xsl:variable name="maintxt">
+         <xsl:apply-templates/>
+      </xsl:variable>
+      
+      <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+      <xsl:apply-templates select="$maintxt" mode="sqbrackets"/>
+      
+      <!-- Found in htm-tpl-license.xsl -->
+      <xsl:call-template name="license"/>
    </xsl:template>
    
 </xsl:stylesheet>
