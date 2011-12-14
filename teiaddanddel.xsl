@@ -62,11 +62,25 @@
                      or self::t:del[@rend='corrected'] 
                      or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]]">-->
                   <xsl:text> (</xsl:text>
-                  <xsl:call-template name="resolvesubst">
-                     <!-- From tpl-apparatus.xsl -->
-                     <xsl:with-param name="delpath" select="../t:del/node()"/>
-                     <xsl:with-param name="addpath" select="node()"/>
-                  </xsl:call-template>
+                  
+                  <!-- If add contains app, only render del (add is rendered before the subst by app templates) -->
+                  <xsl:choose>
+                     <xsl:when test="t:app">
+                        <xsl:call-template name="resolvesubst">
+                           <!-- From tpl-apparatus.xsl -->
+                           <xsl:with-param name="delpath" select="../t:del/node()"/>
+                        </xsl:call-template>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:call-template name="resolvesubst">
+                           <!-- From tpl-apparatus.xsl -->
+                           <xsl:with-param name="delpath" select="../t:del/node()"/>
+                           <xsl:with-param name="addpath" select="node()"/>
+                        </xsl:call-template>
+                     </xsl:otherwise>
+                  </xsl:choose>
+                  
+                  
                   <xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:when test="parent::t:subst"/>
