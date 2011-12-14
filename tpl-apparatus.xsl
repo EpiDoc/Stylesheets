@@ -195,7 +195,7 @@
    <xsl:template name="resolvesubst">
       <!-- Deals with old/new encoding of subst -->
       <!-- Used by: txPtchild, appcontent, teiaddanddel.xsl#t:add -->
-      <xsl:param name="addpath"/>
+      <xsl:param name="addpath" select="''"/>
       <xsl:param name="delpath"/>
       
       <xsl:choose>
@@ -228,11 +228,17 @@
             </xsl:variable>
             <xsl:value-of select="$fullword"/>
             <xsl:text> </xsl:text>
-            <xsl:call-template name="trans-string">
-               <xsl:with-param name="trans-text">
-                  <xsl:apply-templates select="$addpath"/>
-               </xsl:with-param>
-            </xsl:call-template>
+            <!-- Check that $addpath has been passed (might be excluded, see template matching t:add in teiaddanddel.xsl-->
+            <xsl:choose>
+               <xsl:when test="$addpath=''"/>
+               <xsl:otherwise>
+                  <xsl:call-template name="trans-string">
+                     <xsl:with-param name="trans-text">
+                        <xsl:apply-templates select="$addpath"/>
+                     </xsl:with-param>
+                  </xsl:call-template>
+               </xsl:otherwise>
+            </xsl:choose>
             <xsl:text> corr. ex </xsl:text>
             <xsl:call-template name="trans-string">
                <xsl:with-param name="trans-text">
