@@ -70,6 +70,7 @@
    <xsl:template match="/">
       <xsl:choose>
          <xsl:when test="$edn-structure = 'london'">
+            <!-- this and other structure templates found in htm-tpl-structure.xsl -->
             <xsl:call-template name="london-structure"/>
          </xsl:when>
          <xsl:when test="$edn-structure = 'hgv'">
