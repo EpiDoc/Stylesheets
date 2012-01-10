@@ -330,6 +330,7 @@
       <xsl:param name="buildup"/>
       
       <xsl:variable name="origin" select="name()"/>
+      <xsl:variable name="origin_id" select="generate-id()"/>
       
       <xsl:choose>
          <xsl:when test="$step[self::t:lb[not(@break='no')]]">
@@ -410,6 +411,7 @@
                </xsl:call-template>
             </xsl:for-each>
          </xsl:when>
+         <xsl:when test="$step/preceding-sibling::node()[1][self::t:lb][not(@break='no')]"/>
          <xsl:otherwise>
               <xsl:choose>
                <xsl:when test="$step[self::t:hi]">
@@ -445,7 +447,17 @@
                </xsl:when>
                <xsl:otherwise>
                   <xsl:variable name="temp-buildup">
-                     <xsl:apply-templates select="$step"/>
+                     <xsl:choose>
+                        <xsl:when test="$step/t:hi[generate-id()=$origin_id]"/>
+                        <xsl:when test="$step/t:hi">
+                           <xsl:for-each select="$step/t:hi">
+                              <xsl:call-template name="hirend_print"/>
+                           </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <xsl:apply-templates select="$step"/>
+                        </xsl:otherwise>
+                     </xsl:choose>
                      <xsl:copy-of select="$buildup"/>
                   </xsl:variable>
                   <xsl:call-template name="recurse_back">
@@ -558,7 +570,8 @@
       <xsl:param name="step"/>
             
       <xsl:variable name="origin" select="name()"/>
-            
+      <xsl:variable name="origin_id" select="generate-id()"/>
+      
       <xsl:choose>
          <xsl:when test="$step[self::t:lb[not(@break='no')]]"/>
          <xsl:when test="$step[self::text()]">
@@ -635,6 +648,17 @@
             </xsl:choose>
          </xsl:when>
          <xsl:when test="not($step/following-sibling::node()[1])">
+            <xsl:choose>
+               <xsl:when test="$step/t:hi[generate-id()=$origin_id]"/>
+               <xsl:when test="$step/t:hi">
+                  <xsl:for-each select="$step/t:hi">
+                     <xsl:call-template name="hirend_print"/>
+                  </xsl:for-each>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:apply-templates select="$step"/>
+               </xsl:otherwise>
+            </xsl:choose>
             <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
                <xsl:call-template name="recurse_forward">
                   <xsl:with-param name="step" select="following-sibling::node()[1]"/>
@@ -672,7 +696,17 @@
                   <xsl:value-of select="$resolve"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:apply-templates select="$step"/>                     
+                  <xsl:choose>
+                     <xsl:when test="$step/t:hi[generate-id()=$origin_id]"/>
+                     <xsl:when test="$step/t:hi">
+                        <xsl:for-each select="$step/t:hi">
+                           <xsl:call-template name="hirend_print"/>
+                        </xsl:for-each>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:apply-templates select="$step"/>
+                     </xsl:otherwise>
+                  </xsl:choose>                         
                   <xsl:call-template name="recurse_forward">
                      <xsl:with-param name="step" select="$step/following-sibling::node()[1]"/>
                   </xsl:call-template>
@@ -773,7 +807,7 @@
       <xsl:if test="$hicontext != 'no'">
          
          <xsl:choose>
-            <xsl:when test="not(preceding-sibling::node()[1])">
+            <xsl:when test="not(following-sibling::node()[1])">
                <xsl:call-template name="recurse_forward">
                   <xsl:with-param name="step" select="parent::*"/>
                </xsl:call-template>
