@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
@@ -11,7 +10,9 @@
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
-            
+    
+    <xsl:output method="html" encoding="UTF-8"/>
+
     <xsl:template match="comment()" mode="sqbrackets">
         <xsl:sequence select="."/>
     </xsl:template>
@@ -21,6 +22,10 @@
             <xsl:copy-of select="@*"/>
             <xsl:apply-templates mode="sqbrackets"/>
         </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="br" mode="sqbrackets">
+        <xsl:sequence select="."/>
     </xsl:template>
     
     <xsl:template match="text()" mode="sqbrackets">
@@ -41,10 +46,10 @@
                 <xsl:variable name="after" select="following::text()[1]" />
                 
                 <!-- get the first text node before the next br (if this node matches current text node then there is a br between this text node and the next text node so don't strip brackets) -->
-                <xsl:variable name="beforenextbr" select="following::html:br[1]/preceding::text()[1]"/>
+                <xsl:variable name="beforenextbr" select="following::br[1]/preceding::text()[1]"/>
                 
                 <!-- get the first next node following the preceding br (if this node matches current text node then there is a br between this text node and the previous text node so don't strip brackets)-->
-                <xsl:variable name="afterprevbr" select="preceding::html:br[1]/following::text()[1]"/>
+                <xsl:variable name="afterprevbr" select="preceding::br[1]/following::text()[1]"/>
                 <xsl:variable name="afirstletter" select="substring(normalize-space($after), 1, 1)"/>
                 <xsl:variable name="plastletter" select="substring(normalize-space($previous), string-length(normalize-space($previous)))"/>
                                 
