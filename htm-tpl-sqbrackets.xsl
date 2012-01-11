@@ -18,7 +18,7 @@
     </xsl:template>
     
     <xsl:template match="*" mode="sqbrackets">
-        <xsl:element name="{name()}" namespace="http://www.w3.org/1999/xhtml">
+        <xsl:element name="{name()}">
             <xsl:copy-of select="@*"/>
             <xsl:apply-templates mode="sqbrackets"/>
         </xsl:element>
