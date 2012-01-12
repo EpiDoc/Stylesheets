@@ -9,7 +9,7 @@
    <xsl:template match="t:num">
       <xsl:choose>
          <xsl:when
-            test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
+            test="$leiden-style=('ddbdp','sammelbuch') 
             and string(.)">
             <span>
                <xsl:attribute name="title">
@@ -37,6 +37,9 @@
                         </xsl:if>
                      </xsl:when>
                   </xsl:choose>
+                  <xsl:if test="child::t:certainty[@match='../@value']">
+                     <xsl:text>(?)</xsl:text>
+                  </xsl:if>
                </xsl:attribute>
                <xsl:apply-imports/>
             </span>

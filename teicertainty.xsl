@@ -5,14 +5,15 @@
 
    <xsl:template match="t:certainty">
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-            <xsl:text>(?)</xsl:text>
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+            <xsl:if test="@match='..'">
+               <xsl:text>(?)</xsl:text>
+            </xsl:if>
          </xsl:when>
          <xsl:when test="@match='..'">
             <xsl:text>?</xsl:text>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:text>?</xsl:text>
             <xsl:message>no template in teicertainty.xsl for your use of certainty</xsl:message>
          </xsl:otherwise>
       </xsl:choose>
