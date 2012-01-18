@@ -3,7 +3,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    exclude-result-prefixes="t" version="2.0">
-   <xsl:output method="html" encoding="UTF-8"/>
+   <xsl:output method="xml" encoding="UTF-8"/>
 
    <xsl:include href="global-varsandparams.xsl"/>
 

@@ -10,8 +10,6 @@
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
-    
-    <xsl:output method="html" encoding="UTF-8"/>
 
     <xsl:template match="comment()" mode="sqbrackets">
         <xsl:sequence select="."/>
