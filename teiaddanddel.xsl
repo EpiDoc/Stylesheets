@@ -20,7 +20,7 @@
 
    <xsl:template match="t:add">
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -36,6 +36,9 @@
                   <xsl:text>(added at right: </xsl:text>
                </xsl:when>
             </xsl:choose>
+         </xsl:when>
+         <xsl:when test="$leiden-style='petrae'">
+            <xsl:text>\</xsl:text>
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
@@ -53,7 +56,7 @@
       <xsl:call-template name="cert-low"/>
 
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
             <xsl:choose>
                <!-- if parent subst and subst is in the app part of a further app element, include value of del -->
                <xsl:when test="ancestor::t:*[local-name()=('reg','corr','rdg') 
@@ -95,6 +98,9 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
+         <xsl:when test="$leiden-style='petrae'">
+            <xsl:text>/</xsl:text>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when test="parent::t:subst or @place='overstrike'">
@@ -120,7 +126,7 @@
       </xsl:if>
 
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')">
+         <xsl:when test="starts-with($leiden-style, 'edh') or $leiden-style='petrae'">
             <xsl:text>[[</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>]]</xsl:text>
