@@ -50,6 +50,10 @@
     text-decoration: blink ;
     }
     
+.petraeligature {
+    text-decoration: underline;
+    }
+    
 .underline {
     text-decoration: underline;
     }

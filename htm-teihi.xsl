@@ -47,7 +47,14 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='ligature'">
             <xsl:element name="span">
-               <xsl:attribute name="class">ligature</xsl:attribute>
+               <xsl:choose>
+                  <xsl:when test="$leiden-style='petrae'">
+                     <xsl:attribute name="class">petraeligature</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:attribute name="class">ligature</xsl:attribute>
+                  </xsl:otherwise>
+               </xsl:choose>
                <xsl:attribute name="title">Ligature: these characters are joined</xsl:attribute>
                <xsl:apply-imports/>
             </xsl:element>
