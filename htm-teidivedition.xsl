@@ -25,13 +25,19 @@
 
    <!-- Textpart div -->
    <xsl:template match="t:div[@type='textpart']" priority="1">
-      <xsl:variable name="div-loc">
+       <xsl:variable name="div-type">
+           <xsl:for-each select="ancestor::t:div[@type!='edition']">
+               <xsl:value-of select="@type"/>
+               <xsl:text>-</xsl:text>
+           </xsl:for-each>
+       </xsl:variable>
+       <xsl:variable name="div-loc">
          <xsl:for-each select="ancestor::t:div[@type='textpart']">
             <xsl:value-of select="@n"/>
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-      <span class="textpartnumber" id="ab{$div-loc}{@n}">
+       <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
          <!-- add ancestor textparts -->
          <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @subtype">
             <xsl:value-of select="@subtype"/>
