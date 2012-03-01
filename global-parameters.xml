@@ -26,12 +26,14 @@
   <parameter>
     <name>edn-structure</name>
     <value on="yes">default</value>
+    <value>ddbdp</value>
     <value>hgv</value>
-    <value>sammelbuch</value>
+    <value>london</value>
     <value>london</value>
     <value>petrae-en</value>
     <value>petrae-fr</value>
     <value>petrae-ru</value>
+    <value>sammelbuch</value>
   </parameter>
   
   <parameter>
