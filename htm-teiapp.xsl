@@ -97,23 +97,30 @@
             or self::t:del[@rend='corrected']]">
             <xsl:apply-templates/>
             <xsl:if test="@resp">
-               <xsl:text> </xsl:text>
+               <xsl:choose>
+                  <xsl:when test="$leiden-style='ddbdp'"><xsl:text> FNORD-SPLIT </xsl:text></xsl:when>
+                  <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
+               </xsl:choose>              
                <xsl:if test="parent::t:app[@type='BL']">
                   <xsl:text>BL </xsl:text>
                </xsl:if>
+               
                <xsl:value-of select="@resp"/>
+               
                <xsl:if test="parent::t:app[@type='SoSOL']">
                   <xsl:text> (via PE)</xsl:text>
                </xsl:if>
+               <xsl:choose>
+                  <xsl:when test="$leiden-style='ddbdp'"><xsl:text> FNORD-DELIM </xsl:text></xsl:when>
+                  <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
+               </xsl:choose>  
             </xsl:if>
             <xsl:choose>
                <xsl:when test="parent::t:app[@type='editorial']">
-                  <xsl:text> (</xsl:text>
-                  <xsl:for-each select="following-sibling::t:rdg">
+                  <xsl:text> (</xsl:text><xsl:for-each select="following-sibling::t:rdg">
                      <!-- found in tpl-apparatus.xsl -->
                      <xsl:call-template name="app-ed-mult"/>
-                  </xsl:for-each>
-                  <xsl:text>)</xsl:text>
+                  </xsl:for-each><xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:when test="parent::t:app[@type='alternative']">
                   <xsl:text> (or </xsl:text>

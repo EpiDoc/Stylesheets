@@ -51,7 +51,6 @@
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>
-
       <xsl:apply-templates/>
       <xsl:call-template name="cert-low"/>
 
@@ -64,27 +63,19 @@
                   <!--<xsl:when test="parent::t:subst[ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                      or self::t:del[@rend='corrected'] 
                      or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]]">-->
-                  <xsl:text> (</xsl:text>
+                  
                   
                   <!-- If add contains app, only render del (add is rendered before the subst by app templates) -->
-                  <xsl:choose>
-                     <xsl:when test="t:app">
-                        <xsl:call-template name="resolvesubst">
+                  <xsl:text> (</xsl:text><xsl:choose>
+                     <xsl:when test="t:app"><xsl:call-template name="resolvesubst">
                            <!-- From tpl-apparatus.xsl -->
                            <xsl:with-param name="delpath" select="../t:del/node()"/>
-                        </xsl:call-template>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:call-template name="resolvesubst">
+                        </xsl:call-template></xsl:when>
+                     <xsl:otherwise><xsl:call-template name="resolvesubst">
                            <!-- From tpl-apparatus.xsl -->
                            <xsl:with-param name="delpath" select="../t:del/node()"/>
                            <xsl:with-param name="addpath" select="node()"/>
-                        </xsl:call-template>
-                     </xsl:otherwise>
-                  </xsl:choose>
-                  
-                  
-                  <xsl:text>)</xsl:text>
+                        </xsl:call-template></xsl:otherwise></xsl:choose><xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">

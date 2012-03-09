@@ -8,6 +8,8 @@
    <xsl:import href="teilb.xsl"/>
 
    <xsl:template match="t:lb">
+      <xsl:param name="location"/>
+      
       <xsl:choose>
          <xsl:when test="ancestor::t:lg and $verse-lines = 'on'">
             <xsl:apply-imports/>
@@ -34,6 +36,7 @@
                   <xsl:when test="$edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
+                  <xsl:when test="$leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')" />                                      
                   <!--   *or unless* the second part of an app in ddbdp  -->
                   <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and
                            (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
@@ -44,7 +47,7 @@
                         local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
                         (normalize-space(.)='' 
                                  and preceding-sibling::node()[1][local-name() = 'space' or
-                                 local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>
+                                 local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>              
                   <xsl:otherwise>
                       <xsl:text>-</xsl:text>
                   </xsl:otherwise>
@@ -72,11 +75,23 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
+               <xsl:when
+                  test="$leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI']))  or $location='apparatus')">
+                  <xsl:choose>
+                     <xsl:when test="@break='no' or @type='inWord'">
+                        <xsl:text>|</xsl:text>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:text> | </xsl:text>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:when>              
                <xsl:otherwise>
                   <br id="a{$div-loc}l{$line}"/>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
+               <xsl:when test="$location = 'apparatus'" />
                <xsl:when
                   test="not(number(@n)) and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
                   <!--         non-numerical line-nos always printed in DDbDP         -->

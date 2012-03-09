@@ -16,12 +16,10 @@
             <!--<xsl:if test="ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                or self::t:del[@rend='corrected'] 
                or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]">-->
-               <xsl:text> (</xsl:text>
-               <xsl:for-each select="../t:reg">
+               <xsl:text> (</xsl:text><xsl:for-each select="../t:reg">
                   <xsl:sort select="position()" order="descending"/>
                   <xsl:call-template name="multreg"/>
-               </xsl:for-each>
-               <xsl:text>)</xsl:text>
+               </xsl:for-each><xsl:text>)</xsl:text>
             </xsl:if>
          </xsl:if>
    </xsl:template>
