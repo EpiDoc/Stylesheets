@@ -95,7 +95,66 @@
             </span>
          </xsl:otherwise>
       </xsl:choose>
-
+   </xsl:template>
+   
+   <!-- IOSPE specific template -->
+   <!-- called from htm-teig.xml -->
+   <xsl:template name="g-iospe">
+      <xsl:choose>
+         <xsl:when test="@type = 'stauros'">
+            <xsl:text>+</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type = 'staurogram'">
+            <xsl:text>&#x2ce8;</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type = 'leaf'">
+            <xsl:text>&#x2664;</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type = 'dipunct'">
+            <xsl:text>:</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="$edition-type='diplomatic'">
+            <xsl:choose>
+               <!--<xsl:when test="@type='denarius'">
+                  <xsl:text>&#x10196;</xsl:text>
+                  <xsl:call-template name="g-unclear-symbol"/>
+               </xsl:when>
+               <xsl:when test="@type='sestercius'">
+                  <xsl:text>&#x10198;</xsl:text>
+                  <xsl:call-template name="g-unclear-symbol"/>
+               </xsl:when>-->
+               <xsl:when test="@type='year'">
+                  <xsl:text>L</xsl:text>
+                  <xsl:call-template name="g-unclear-symbol"/>
+               </xsl:when>
+               <xsl:when test="@type='stop'">
+                  <xsl:text>•</xsl:text>
+                  <xsl:call-template name="g-unclear-symbol"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <span class="smaller" style="font-style:italic;">
+                     <xsl:text> </xsl:text>
+                     <xsl:value-of select="@type"/>
+                     <xsl:call-template name="g-unclear-symbol"/>
+                     <xsl:text> </xsl:text>
+                  </span>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         <xsl:otherwise>
+            <span class="smaller" style="font-style:italic;">
+               <xsl:text> </xsl:text>
+               <xsl:value-of select="@type"/>
+               <xsl:call-template name="g-unclear-string"/>
+               <xsl:text> </xsl:text>
+            </span>
+         </xsl:otherwise>
+      </xsl:choose>
+      
    </xsl:template>
 
    <!-- ddb specific template -->

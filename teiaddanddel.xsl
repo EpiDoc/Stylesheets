@@ -37,7 +37,7 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
-         <xsl:when test="$leiden-style='petrae'">
+         <xsl:when test="$leiden-style=('petrae','iospe')">
             <xsl:text>\</xsl:text>
          </xsl:when>
          <xsl:otherwise>
@@ -89,7 +89,7 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
-         <xsl:when test="$leiden-style='petrae'">
+         <xsl:when test="$leiden-style=('petrae','iospe')">
             <xsl:text>/</xsl:text>
          </xsl:when>
          <xsl:otherwise>
@@ -117,7 +117,7 @@
       </xsl:if>
 
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh') or $leiden-style='petrae'">
+         <xsl:when test="starts-with($leiden-style, 'edh') or $leiden-style=('petrae','iospe')">
             <xsl:text>[[</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>]]</xsl:text>

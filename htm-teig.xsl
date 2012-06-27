@@ -17,9 +17,11 @@
         <!-- Found in teig.xsl -->
         <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
-         <xsl:when test="$leiden-style = 'london'">
-            <xsl:call-template name="g-london"/>
-         </xsl:when>
+        <xsl:when test="$leiden-style = 'london'">
+           <xsl:call-template name="g-london"/>
+        </xsl:when><xsl:when test="$leiden-style = 'iospe'">
+           <xsl:call-template name="g-iospe"/>
+        </xsl:when>
          <xsl:when test="$edition-type = 'diplomatic'">
             <xsl:text> </xsl:text>
             <em>

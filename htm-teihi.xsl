@@ -48,7 +48,7 @@
          <xsl:when test="@rend='ligature'">
             <xsl:element name="span">
                <xsl:choose>
-                  <xsl:when test="$leiden-style='petrae'">
+                  <xsl:when test="$leiden-style=('petrae','iospe')">
                      <xsl:attribute name="class">petraeligature</xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
