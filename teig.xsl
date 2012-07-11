@@ -64,6 +64,10 @@
                   <xsl:text>&#x10196;</xsl:text>
                   <xsl:call-template name="g-unclear-symbol"/>
                </xsl:when>
+               <xsl:when test="@type='drachma'">
+                  <xsl:text>&#x10175;</xsl:text>
+                  <xsl:call-template name="g-unclear-symbol"/>
+               </xsl:when>
                <xsl:when test="@type='sestercius'">
                   <xsl:text>&#x10198;</xsl:text>
                   <xsl:call-template name="g-unclear-symbol"/>
