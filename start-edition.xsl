@@ -55,7 +55,6 @@
    <xsl:include href="htm-tpl-lang.xsl"/>
    <xsl:include href="htm-tpl-metadata.xsl"/>
    <xsl:include href="htm-tpl-structure.xsl"/>
-   <!--<xsl:include href="htm-tpl-nav.xsl"/>--><!--      No longer exists      -->
    <xsl:include href="htm-tpl-license.xsl"/>
    <xsl:include href="htm-tpl-sqbrackets.xsl"/>
 

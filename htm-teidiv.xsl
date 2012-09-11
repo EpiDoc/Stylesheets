@@ -5,7 +5,7 @@
                 version="2.0">
 
   <xsl:template match="t:div">
-    <!-- div[@type = 'edition']" and div[starts-with(@type, 'textpart')] can be found in htm-teidivedition.xsl -->
+    <!-- div[@type = 'edition']" and div[@type='textpart'] can be found in htm-teidivedition.xsl -->
         <div>
           <xsl:if test="parent::t:body and @type">
             <xsl:attribute name="id">
