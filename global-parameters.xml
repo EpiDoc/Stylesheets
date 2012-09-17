@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <parameters>
   <!-- HTML site navigation -->
   <parameter>
@@ -29,7 +29,6 @@
     <value on="yes">default</value>
     <value>ddbdp</value>
     <value>hgv</value>
-    <value>london</value>
     <value>london</value>
     <value>petrae-en</value>
     <value>petrae-fr</value>
