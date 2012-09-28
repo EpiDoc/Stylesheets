@@ -4,6 +4,13 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
 
+<!-- ****DEPRECATED**** -->
+<!-- As far as I'm aware this stylesheet is not used anywhere any more.
+      The matching of square brackets is now performed by  [htm|txt]-tpl-sqbrackets.xsl
+      which is called after all other processing is completed, just prior to printing the output
+      (and called in start-text.xsl or tpl-structure.xsl)
+   -->
+
   <!-- Templates for opening and closing brackets for gap and supplied [@reason = 'lost'] -->
   
   

@@ -118,8 +118,12 @@
             <xsl:text>[</xsl:text>
          </xsl:when>
          <xsl:otherwise>            
-            <!-- Found in tpl-reasonlost.xsl -->
-            <!--<xsl:call-template name="lost-opener"/>-->
+            <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+           are no longer used in this version of the stylesheets. They used to serve to limit
+           the superfluous square brackets between adjacent gap and supplied elements,
+           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
+           which is called after all other templates are completed.
+        -->
             <xsl:text>[</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
@@ -166,8 +170,12 @@
             <xsl:text>]</xsl:text>
          </xsl:when>
          <xsl:otherwise>
-            <!-- Found in tpl-reasonlost.xsl -->
-            <!--<xsl:call-template name="lost-closer"/>-->
+            <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+           are no longer used in this version of the stylesheets. They used to serve to limit
+           the superfluous square brackets between adjacent gap and supplied elements,
+           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
+           which is called after all other templates are completed.
+        -->
             <xsl:text>]</xsl:text>
          </xsl:otherwise>
       </xsl:choose>

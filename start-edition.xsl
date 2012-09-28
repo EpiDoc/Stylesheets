@@ -59,7 +59,6 @@
    <xsl:include href="htm-tpl-sqbrackets.xsl"/>
 
    <!-- global named templates with no html, also used by start-txt -->
-   <!--<xsl:include href="tpl-reasonlost.xsl"/>--> <!-- Deprecated -->
    <xsl:include href="tpl-certlow.xsl"/>
    <xsl:include href="tpl-text.xsl"/>
 
