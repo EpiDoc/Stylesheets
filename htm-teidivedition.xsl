@@ -32,22 +32,21 @@
            </xsl:for-each>
        </xsl:variable>
        <xsl:variable name="div-loc">
-         <xsl:for-each select="ancestor::t:div[@type='textpart']">
+         <xsl:for-each select="ancestor::t:div[@type='textpart'][@n]">
             <xsl:value-of select="@n"/>
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-       <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
-         <!-- add ancestor textparts -->
-         <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @subtype">
-            <xsl:value-of select="@subtype"/>
-            <xsl:text> </xsl:text>
-         </xsl:if>
-         <xsl:if test="@n">
-            <xsl:value-of select="@n"/>
-         </xsl:if>
-      </span>
-      <!--<xsl:element name="br"/>-->
+      <xsl:if test="@n">
+         <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
+           <!-- add ancestor textparts -->
+           <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @subtype">
+              <xsl:value-of select="@subtype"/>
+              <xsl:text> </xsl:text>
+           </xsl:if>
+              <xsl:value-of select="@n"/>
+         </span>
+      </xsl:if>
       <xsl:apply-templates/>
    </xsl:template>
 </xsl:stylesheet>
