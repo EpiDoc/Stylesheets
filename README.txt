@@ -18,6 +18,23 @@ Technical requirements:
 	These scripts are written in XSLT 2.0 and may be transformed using any
 	conformant XSLT processor. (Tested with Saxon-HE™ 9.2.0.6.)
 
+How to obtain the stylesheets:
+
+	Two methods:
+
+	(1) check out from the EpiDoc Subversion repository. On a Mac or Linux machine
+	with Subversion installed, simply create a directory into which you want to check
+	out the xslt, and then on the command-line enter:
+
+	svn checkout https://epidoc.svn.sourceforge.net/svnroot/epidoc/trunk/example-p5-xslt your_directory
+
+	On Windows, using a client such as TortoiseSVN or Oxygen's SynchroSVN, check out
+	the repo from https://epidoc.svn.sourceforge.net/svnroot/epidoc/trunk/example-p5-xslt
+	to your local repository.
+
+	(2) download the latest packaged, stable release from the SourceForge repository at
+	https://sourceforge.net/projects/epidoc/files/epidoc-xsl/
+
 How to use it:
 
 	XSLT may be run on an individual EpiDoc XML file, creating a single file output
