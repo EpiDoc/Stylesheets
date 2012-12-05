@@ -6,11 +6,17 @@
   <xsl:include href="teilgandl.xsl"/>
 
   <xsl:template match="t:lg">
-      <div class="textpart">
-      <!-- Found in htm-tpl-lang.xsl -->
-      <xsl:call-template name="attr-lang"/>
-         <xsl:apply-templates/>
-      </div>
+     <xsl:choose>
+        <!-- in IOSPE, if preceded by ab, will be called inside that div (in htm-teiab.xsl) -->
+        <xsl:when test="$leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
+        <xsl:otherwise>
+        <div class="textpart">
+         <!-- Found in htm-tpl-lang.xsl -->
+         <xsl:call-template name="attr-lang"/>
+            <xsl:apply-templates/>
+         </div>
+        </xsl:otherwise>
+     </xsl:choose>
   </xsl:template>
 
 

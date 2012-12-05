@@ -22,6 +22,10 @@
          <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($edition-type='diplomatic')">
             <xsl:text>-</xsl:text>
          </xsl:if>
+         <!-- in IOSPE, if followed by lg, include it here (and suppress in htm-teilgandl.xsl) -->
+         <xsl:if test="$leiden-style='iospe' and following-sibling::t:*[1][self::t:lg]">
+            <xsl:apply-templates select="following-sibling::t:lg/*"/>
+         </xsl:if>
       </div>
   </xsl:template>
 
