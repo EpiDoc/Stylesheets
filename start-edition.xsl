@@ -54,9 +54,16 @@
    <xsl:include href="htm-tpl-apparatus.xsl"/>
    <xsl:include href="htm-tpl-lang.xsl"/>
    <xsl:include href="htm-tpl-metadata.xsl"/>
-   <xsl:include href="htm-tpl-structure.xsl"/>
    <xsl:include href="htm-tpl-license.xsl"/>
    <xsl:include href="htm-tpl-sqbrackets.xsl"/>
+   
+   <!-- named templates for localized layout/structure (aka "metadata") -->
+   <xsl:include href="htm-tpl-structure.xsl"/>
+   <xsl:include href="htm-tpl-struct-hgv.xsl"/>
+   <xsl:include href="htm-tpl-struct-inslib.xsl"/>
+   <xsl:include href="htm-tpl-struct-rib.xsl"/>
+   <xsl:include href="htm-tpl-struct-iospe.xsl"/>
+   <xsl:include href="htm-tpl-struct-edh.xsl"/>
 
    <!-- global named templates with no html, also used by start-txt -->
    <xsl:include href="tpl-certlow.xsl"/>

@@ -44,7 +44,7 @@
             </xsl:if>         
             
             <!-- Main text output -->
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="//div[@type='edition']"/>
             
             <!-- Found in htm-tpl-license.xsl -->
             <xsl:call-template name="license"/>

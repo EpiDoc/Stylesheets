@@ -29,10 +29,11 @@
     <value on="yes">default</value>
     <value>ddbdp</value>
     <value>hgv</value>
-    <value>london</value>
-    <value>petrae-en</value>
-    <value>petrae-fr</value>
-    <value>petrae-ru</value>
+    <value>inslib</value>
+    <value>iospe</value>
+    <value>edh</value>
+    <value>edh-db</value>
+    <value>rib</value>
     <value>sammelbuch</value>
   </parameter>
   
