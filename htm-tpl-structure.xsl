@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: htm-tpl-lang.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
+<!-- $Id: htm-tpl-structure.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
-  <!-- Contains all language related named templates -->  
+  <!-- Contains named templates for default file structure (aka "metadata" aka "supporting data") -->  
+   
+  <!-- Specifid named templates for HGV, InsLib, RIB, EDH, etc. are found in:
+               htm-tpl-struct-hgv.xsl
+               htm-tpl-struct-inslib.xsl
+               htm-tpl-struct-rib.xsl
+               htm-tpl-struct-edh.xsl
+               etc.
+  -->
    
    <xsl:template name="london-structure">
       <xsl:call-template name="default-structure"/>
