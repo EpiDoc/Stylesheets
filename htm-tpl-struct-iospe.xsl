@@ -44,7 +44,6 @@
             <div id="stone">
                <h3>Stone</h3>
                <table border="0">
-                  <xsl:if test="">
                      <tr>
                      <th width="150" align="left">Type of monument:</th>
                         <td>
@@ -56,7 +55,6 @@
                            </xsl:choose>
                      </td>
                   </tr>
-                  </xsl:if>
                   <tr>
                      <th width="150" align="left">Material:</th>
                      <td>
