@@ -215,9 +215,19 @@
                   <tr>
                      <th align="left" width="150">Dating criteria:</th>
                      <td>
-                        <xsl:for-each select="tokenize(//t:origin/t:origDate[@evidence],' ')">
-                           <xsl:value-of select="translate(.,'-',' ')"/>
-                        </xsl:for-each>
+                        <xsl:choose>
+                           <xsl:when test="//t:origin/t:origDate/@evidence">
+                              <xsl:for-each select="tokenize(//t:origin/t:origDate[@evidence],' ')">
+                                 <xsl:value-of select="translate(.,'-',' ')"/>
+                                 <xsl:if test="position()!=last()">
+                                    <xsl:text>, </xsl:text>
+                                 </xsl:if>
+                              </xsl:for-each>
+                           </xsl:when>
+                           <xsl:otherwise>
+                              <xsl:text>n/a</xsl:text>
+                           </xsl:otherwise>
+                        </xsl:choose>
                      </td>
                   </tr>
                   <tr>
@@ -227,6 +237,18 @@
                </table>
                <div id="edition">
                   <xsl:apply-templates select="//div[@type='edition']"/>
+               </div>
+               <div id="apparatus">
+                  <h4>Apparatus</h4>
+                  <xsl:apply-templates select="//div[@type='apparatus']"/>
+               </div>
+               <div id="translation">
+                  <h4>Translation</h4>
+                  <xsl:apply-templates select="//div[@type='translation']"/>
+               </div>
+               <div id="commentary">
+                  <h4>Commentary</h4>
+                  <xsl:apply-templates select="//div[@type='commentary']"/>
                </div>
             </div>
          </body>
