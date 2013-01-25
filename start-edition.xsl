@@ -75,11 +75,14 @@
    <xsl:template match="/">
       <xsl:choose>
          <xsl:when test="$edn-structure = 'london'">
-            <!-- this and other structure templates found in htm-tpl-structure.xsl -->
+            <!-- this and other structure templates found in htm-tpl-struct-*.xsl -->
             <xsl:call-template name="london-structure"/>
          </xsl:when>
          <xsl:when test="$edn-structure = 'hgv'">
             <xsl:call-template name="hgv-structure"/>
+         </xsl:when>
+         <xsl:when test="$edn-structure = 'inslib'">
+            <xsl:call-template name="inslib-structure"/>
          </xsl:when>
          <xsl:when test="$edn-structure = 'ddbdp'">
             <div>
