@@ -11,7 +11,7 @@
   </xsl:template>
 
 
-  <xsl:template match="t:bibl">
+  <xsl:template match="t:listBibl//t:bibl">
       <li>
          <xsl:apply-templates/>
       </li>

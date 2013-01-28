@@ -11,9 +11,9 @@
       <xsl:variable name="title">
          <xsl:choose>
             <xsl:when test="//t:titleStmt/t:title/text()">
-               <xsl:if test="//t:idno[@type='filename']/text()">
+               <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
                   <xsl:value-of
-                     select="number(//t:idno[@type='filename'])"/>
+                     select="//t:publicationStmt/t:idno[@type='filename']"/> 
                   <xsl:text>. </xsl:text>
                </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
@@ -45,7 +45,7 @@
                <xsl:value-of select="$title"/>
             </h1>
               
-               <p><b>Description:</b>
+               <p><b>Description: </b>
                <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
                         <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
@@ -55,7 +55,7 @@
                   
                   
                <br />
-                  <b>Text:</b>
+                  <b>Text: </b>
                <xsl:choose>
                   <xsl:when test="//t:layoutDesc/t:layout//text()">
                         <xsl:value-of select="//t:layoutDesc/t:layout"/>
@@ -63,13 +63,13 @@
                   <xsl:otherwise>Unknown.</xsl:otherwise>
                </xsl:choose>
                   <br />
-                  <b>Letters:</b>
+                  <b>Letters: </b>
                      <xsl:if test="//t:handDesc/t:handNote/text()">
                         <xsl:value-of select="//t:handDesc/t:handNote"/>
                      </xsl:if>
                </p>
                
-               <p><b>Date:</b>
+               <p><b>Date: </b>
                <xsl:choose>
                   <xsl:when test="//t:origin/t:origDate/text()">
                      <xsl:value-of select="//t:origin/t:origDate"/>
@@ -88,7 +88,7 @@
                </xsl:choose>
                </p>
                
-               <p><b>Findspot:</b>
+               <p><b>Findspot: </b>
                <xsl:choose>
                   <xsl:when test="//t:provenance[@type='found']/text()">
                         <xsl:apply-templates select="//t:provenance[@type='found']" mode="inslib-placename"/>
@@ -96,7 +96,7 @@
                   <xsl:otherwise>Unknown</xsl:otherwise>
                </xsl:choose>
                   <br/>
-                  <b>Original Location:</b>
+                  <b>Original location: </b>
                   <xsl:choose>
                      <xsl:when test="//t:origin/t:origPlace/text()">
                         <xsl:apply-templates select="//t:origin/t:origPlace" mode="inslib-placename"/>
@@ -104,7 +104,7 @@
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
                   <br/>
-                  <b>Last recorded location:</b>
+                  <b>Last recorded location: </b>
                   <xsl:choose>
                      <xsl:when test="//t:provenance[@type='observed']/text()">
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/>
@@ -113,18 +113,18 @@
                   </xsl:choose>
                </p>
             
-               <div><b>Translation:</b>
-                  <xsl:apply-templates select="//t:div[@type='translation']"/>
+               <div><b>Translation: </b>
+                  <xsl:apply-templates select="//t:div[@type='translation']/t:p"/>
                </div>
             <div>
-                  <b>Commentary:</b>
-                  <xsl:apply-templates select="//t:div[@type='commentary']"/>
+                  <b>Commentary: </b>
+                  <xsl:apply-templates select="//t:div[@type='commentary']/t:p"/>
                </div>
             
-               <p><b>Bibliography:</b>
-               <xsl:apply-templates select="//t:div[@type='bibliography']"/> 
+               <p><b>Bibliography: </b>
+               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
                   <br/>
-                 <b>Text constituted from:</b>
+                 <b>Text constituted from: </b>
                   <xsl:apply-templates select="//t:creation"/>
                </p>            
                
@@ -153,14 +153,19 @@
    </xsl:template>
    
    <xsl:template match="t:placeName|t:rs" mode="inslib-placename">
-      <xsl:if test="contains(@ref,'pleiades.stoa.org') or contains(@ref,'geonames.org')">
+      <xsl:choose>
+         <xsl:when test="contains(@ref,'pleiades.stoa.org') or contains(@ref,'geonames.org')">
             <a>
                <xsl:attribute name="href">
                   <xsl:value-of select="@ref"/>
                </xsl:attribute>
                <xsl:apply-templates/>
             </a>
-      </xsl:if>
+      </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates/>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    
    </xsl:stylesheet>
