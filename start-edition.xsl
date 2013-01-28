@@ -84,6 +84,9 @@
          <xsl:when test="$edn-structure = 'inslib'">
             <xsl:call-template name="inslib-structure"/>
          </xsl:when>
+         <xsl:when test="$edn-structure = 'iospe'">
+            <xsl:call-template name="iospe-structure"/>
+         </xsl:when>
          <xsl:when test="$edn-structure = 'ddbdp'">
             <div>
               <xsl:call-template name="default-body-structure"/>
