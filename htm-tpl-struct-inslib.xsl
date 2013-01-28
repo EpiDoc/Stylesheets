@@ -12,8 +12,9 @@
          <xsl:choose>
             <xsl:when test="//t:titleStmt/t:title/text()">
                <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
-                  <xsl:value-of
-                     select="//t:publicationStmt/t:idno[@type='filename']"/> 
+                  <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
+                  <xsl:text>. </xsl:text>
+                  <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],2,5)"/> <!-- figure out how to divide by 100 next time --> 
                   <xsl:text>. </xsl:text>
                </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
@@ -110,7 +111,7 @@
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
-                  </xsl:choose>
+                  </xsl:choose>  <!-- add inventory number -->
                </p>
             
                <div><b>Translation: </b>
