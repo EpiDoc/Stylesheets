@@ -68,13 +68,12 @@
                </xsl:otherwise>
             </xsl:choose>
          </h1>
-      </xsl:if>         
+      </xsl:if>
       
       <!-- Main text output -->
       <xsl:variable name="maintxt">
          <xsl:apply-templates/>
       </xsl:variable>
-      
       <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
       <xsl:apply-templates select="$maintxt" mode="sqbrackets"/>
       

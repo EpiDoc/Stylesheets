@@ -237,23 +237,43 @@
                   </tr>
                   <tr>
                      <th align="left" width="150">Editions:</th>
-                     <td><xsl:value-of select="//t:body//div[@type='bibliography']"/></td>
+                     <td><xsl:value-of select="//t:body//t:div[@type='bibliography']"/></td>
                   </tr>
                </table>
                <div id="edition">
-                  <xsl:apply-templates select="//div[@type='edition']"/>
+                  <!-- Edited text output -->
+                  <xsl:variable name="edtxt">
+                     <xsl:apply-templates select="//t:div[@type='edition']"/>
+                  </xsl:variable>
+                  <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+                  <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
                </div>
                <div id="apparatus">
                   <h4>Apparatus</h4>
-                  <xsl:apply-templates select="//div[@type='apparatus']"/>
+                  <!-- Apparatus text output -->
+                  <xsl:variable name="apptxt">
+                     <xsl:apply-templates select="//t:div[@type='apparatus']"/>
+                  </xsl:variable>
+                  <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+                  <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
                </div>
                <div id="translation">
                   <h4>Translation</h4>
-                  <xsl:apply-templates select="//div[@type='translation']"/>
+                  <!-- Translation text output -->
+                  <xsl:variable name="transtxt">
+                     <xsl:apply-templates select="//t:div[@type='translation']"/>
+                  </xsl:variable>
+                  <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+                  <xsl:apply-templates select="$transtxt" mode="sqbrackets"/>
                </div>
                <div id="commentary">
                   <h4>Commentary</h4>
-                  <xsl:apply-templates select="//div[@type='commentary']"/>
+                  <!-- Commentary text output -->
+                  <xsl:variable name="commtxt">
+                     <xsl:apply-templates select="//t:div[@type='commentary']"/>
+                  </xsl:variable>
+                  <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+                  <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
                </div>
             </div>
          </body>
