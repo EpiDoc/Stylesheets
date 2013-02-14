@@ -61,3 +61,7 @@
 .italic {
     font-style: italic;
     }
+    
+h4.slimmer {
+    margin-bottom: -0.5em;
+}    

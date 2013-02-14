@@ -7,7 +7,7 @@
   
   <xsl:template name="attr-lang">
       <xsl:if test="ancestor-or-self::t:*[@xml:lang]">
-         <xsl:attribute name="xml:lang">
+         <xsl:attribute name="lang">
             <xsl:value-of select="ancestor-or-self::t:*[@xml:lang][1]/@xml:lang"/>
          </xsl:attribute>
       </xsl:if>

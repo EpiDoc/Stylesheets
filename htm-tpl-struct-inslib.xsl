@@ -14,7 +14,7 @@
                <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
                   <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
                   <xsl:text>. </xsl:text>
-                  <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],2,5)"/> <!-- figure out how to divide by 100 next time --> 
+                  <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],2,5)) div 100"/> 
                   <xsl:text>. </xsl:text>
                </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
@@ -91,7 +91,7 @@
                
                <p><b>Findspot: </b>
                <xsl:choose>
-                  <xsl:when test="//t:provenance[@type='found']/text()">
+                  <xsl:when test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
                         <xsl:apply-templates select="//t:provenance[@type='found']" mode="inslib-placename"/>
                   </xsl:when>
                   <xsl:otherwise>Unknown</xsl:otherwise>
@@ -107,20 +107,59 @@
                   <br/>
                   <b>Last recorded location: </b>
                   <xsl:choose>
-                     <xsl:when test="//t:provenance[@type='observed']/text()">
-                        <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/>
+                     <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
+                        <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/> 
+                        <!-- Named template found below. -->
+                        <xsl:call-template name="inslib-invno"/> 
+                     </xsl:when>
+                     <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
+                        <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
+                        <!-- Named template found below. -->
+                        <xsl:call-template name="inslib-invno"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
-                  </xsl:choose>  <!-- add inventory number -->
+                  </xsl:choose> 
                </p>
             
-               <div><b>Translation: </b>
-                  <xsl:apply-templates select="//t:div[@type='translation']/t:p"/>
+               <div id="edition">
+                  <p><b>Edition:</b></p>
+                  <!-- Edited text output -->
+               <xsl:variable name="edtxt">
+                  <xsl:apply-templates select="//t:div[@type='edition']"/>
+               </xsl:variable>
+               <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+               <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
                </div>
-            <div>
-                  <b>Commentary: </b>
-                  <xsl:apply-templates select="//t:div[@type='commentary']/t:p"/>
-               </div>
+            
+            
+            <div id="apparatus">
+               <!-- Apparatus text output -->
+               <xsl:variable name="apptxt">
+                  <xsl:apply-templates select="//t:div[@type='apparatus']"/>
+               </xsl:variable>
+               <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+               <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
+            </div>
+            
+            <div id="translation">
+               <h4 class="slimmer">Translation:</h4>
+               <!-- Translation text output -->
+               <xsl:variable name="transtxt">
+                  <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
+               </xsl:variable>
+               <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+               <xsl:apply-templates select="$transtxt" mode="sqbrackets"/>
+            </div>
+            
+            <div id="commentary">
+               <h4 class="slimmer">Commentary:</h4>
+               <!-- Commentary text output -->
+               <xsl:variable name="commtxt">
+                  <xsl:apply-templates select="//t:div[@type='commentary']//t:p"/>
+               </xsl:variable>
+               <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+               <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
+            </div>
             
                <p><b>Bibliography: </b>
                <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
@@ -167,6 +206,19 @@
             <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
+   </xsl:template>
+   
+   <xsl:template name="inslib-invno">
+      <xsl:if test="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
+         <xsl:text> (Inv. no. </xsl:text>
+         <xsl:for-each select="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
+            <xsl:value-of select="."/>
+            <xsl:if test="position()!=last()">
+               <xsl:text>, </xsl:text>
+            </xsl:if>
+         </xsl:for-each>
+         <xsl:text>)</xsl:text>
+      </xsl:if>
    </xsl:template>
    
    </xsl:stylesheet>
