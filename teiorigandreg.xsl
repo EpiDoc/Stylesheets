@@ -22,9 +22,15 @@
                </xsl:for-each><xsl:text>)</xsl:text>
             </xsl:if>
          </xsl:if>
+      <xsl:if test="$leiden-style='iospe' and ../t:reg">
+         <xsl:text> (pro </xsl:text>
+         <xsl:value-of select="normalize-space(../t:reg[1])"/>
+         <xsl:text>)</xsl:text>
+      </xsl:if>
    </xsl:template>
 
    <xsl:template match="t:choice/t:reg"/>
-   <!-- reg is not displayed in text in any Leiden-style -->
-
+      <!-- reg is currently not displayed in text in any Leiden-style
+          (except "iospe", see under orig, above) -->
+   
 </xsl:stylesheet>
