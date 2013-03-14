@@ -23,8 +23,9 @@
             </xsl:if>
          </xsl:if>
       <xsl:if test="$leiden-style='iospe' and ../t:reg">
+         <!-- in iospe style, reg is printed in parenthesis -->
          <xsl:text> (pro </xsl:text>
-         <xsl:value-of select="normalize-space(../t:reg[1])"/>
+         <xsl:apply-templates select="../t:reg[1]"/>
          <xsl:text>)</xsl:text>
       </xsl:if>
    </xsl:template>
