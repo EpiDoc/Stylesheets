@@ -206,11 +206,11 @@
                <h3>Text</h3>
                <table border="0">
                   <tr>
-                     <th align="left" width="150">Origin of text:</th>
+                     <th align="left" width="150">Origin:</th>
                      <td><xsl:value-of select="//t:origin/t:origPlace"/></td>
                   </tr>
                   <tr>
-                     <th align="left" width="150">Document type:</th>
+                     <th align="left" width="150">Category:</th>
                      <td><xsl:value-of select="//t:msContents/t:summary"/></td>
                   </tr>
                   <tr>
