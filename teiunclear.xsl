@@ -21,14 +21,14 @@
          </xsl:when>
          <xsl:when test="$edition-type = 'diplomatic'">
             <!-- Calculates the number of middots to output -->
-            <xsl:variable name="unclear-length">
+            <xsl:variable name="un-len-all">
                <!-- collects all children text together -->
                <xsl:variable name="un-len-text">
                   <xsl:for-each select="text()">
                      <xsl:value-of select="."/>
                   </xsl:for-each>
                </xsl:variable>
-               <!-- Outputs an 'a' per child <g> -->
+               <!-- Outputs one character per child <g> -->
                <xsl:variable name="un-len-g">
                   <xsl:for-each select="t:g">
                      <xsl:text>a</xsl:text>
@@ -36,10 +36,24 @@
                </xsl:variable>
                <xsl:value-of select="string-length($un-len-text) + string-length($un-len-g)"/>
             </xsl:variable>
+            
+            <xsl:for-each select="1 to $un-len-all">
+               <xsl:choose>
+                  <xsl:when test="$leiden-style='london'">
+                     <xsl:text>·</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+                     <xsl:text>&#xa0;&#xa0;&#x0323;</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:text>.</xsl:text>
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:for-each>
 
-            <xsl:call-template name="middot">
-               <xsl:with-param name="unc-len" select="$unclear-length"/>
-            </xsl:call-template>
+            <!--<xsl:call-template name="middot">
+               <xsl:with-param name="unc-len" select="$un-len-all"/>
+            </xsl:call-template>-->
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
@@ -48,11 +62,15 @@
                   <!-- templates (including tests for parent::unclear) are in teig.xsl -->
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:call-template name="subpunct">
+                  <xsl:variable name="text" select="normalize-space(normalize-unicode(.))"/>
+                  <xsl:for-each select="1 to string-length()">
+                     <xsl:value-of select="concat(substring($text,.,1),'&#x0323;')"/>
+                  </xsl:for-each>
+                  <!--<xsl:call-template name="subpunct">
                      <xsl:with-param name="unc-len" select="string-length($text-content)"/>
                      <xsl:with-param name="abs-len" select="string-length($text-content)+1"/>
                      <xsl:with-param name="text-content" select="$text-content"/>
-                  </xsl:call-template>
+                  </xsl:call-template>-->
                </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>
@@ -60,30 +78,29 @@
    </xsl:template>
 
 
-   <xsl:template name="middot">
+   <!--<xsl:template name="middot">
       <xsl:param name="unc-len"/>
-
       <xsl:if test="not($unc-len = 0)">
          <xsl:text>·</xsl:text>
          <xsl:call-template name="middot">
             <xsl:with-param name="unc-len" select="$unc-len - 1"/>
          </xsl:call-template>
       </xsl:if>
-   </xsl:template>
+   </xsl:template>-->
 
-   <xsl:template name="subpunct">
+   <!--<xsl:template name="subpunct">
       <xsl:param name="abs-len"/>
       <xsl:param name="unc-len"/>
       <xsl:param name="text-content"/>
       <xsl:if test="$unc-len!=0">
          <xsl:value-of select="substring($text-content, number($abs-len - $unc-len),1)"/>
-         <xsl:text>̣</xsl:text>
+         <xsl:text>&#x0323;</xsl:text>
          <xsl:call-template name="subpunct">
             <xsl:with-param name="unc-len" select="$unc-len - 1"/>
             <xsl:with-param name="abs-len" select="string-length($text-content)+1"/>
             <xsl:with-param name="text-content" select="$text-content"/>
          </xsl:call-template>
       </xsl:if>
-   </xsl:template>
+   </xsl:template>-->
 
 </xsl:stylesheet>

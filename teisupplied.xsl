@@ -97,7 +97,10 @@
   
 
   <xsl:template match="t:supplied[@reason='subaudible']">
-      <xsl:text>(</xsl:text><xsl:apply-templates/><xsl:call-template name="cert-low"/><xsl:text>)</xsl:text>
+      <xsl:text>(</xsl:text>
+     <xsl:apply-templates/>
+     <xsl:call-template name="cert-low"/>
+     <xsl:text>)</xsl:text>
   </xsl:template>
   
 
