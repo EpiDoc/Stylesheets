@@ -25,7 +25,7 @@
       <xsl:if test="$leiden-style='iospe' and ../t:reg">
          <!-- in iospe style, reg is printed in parenthesis -->
          <xsl:text> (pro </xsl:text>
-         <xsl:apply-templates select="../t:reg[1]/."/>
+         <xsl:apply-templates select="../t:reg/node()"/>
          <xsl:text>)</xsl:text>
       </xsl:if>
    </xsl:template>
