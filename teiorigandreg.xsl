@@ -22,7 +22,7 @@
                </xsl:for-each><xsl:text>)</xsl:text>
             </xsl:if>
          </xsl:if>
-      <xsl:if test="$leiden-style='iospe' and ../t:reg">
+      <xsl:if test="$leiden-style='iospe' and ../t:reg and $edition-type='interpretive'">
          <!-- in iospe style, reg is printed in parenthesis -->
          <xsl:text> (pro </xsl:text>
          <xsl:apply-templates select="../t:reg/node()"/>
