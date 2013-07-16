@@ -141,14 +141,13 @@
          </xsl:when>
          <xsl:when test="$leiden-style='iospe' and ../t:rdg">
             <xsl:apply-templates/>
-            <xsl:text> (resp. </xsl:text>
+            <xsl:text> resp. </xsl:text>
             <xsl:for-each select="../t:rdg">
                <xsl:apply-templates/>
                <xsl:if test="not(position()=last())">
                   <xsl:text>, </xsl:text>
                </xsl:if>
             </xsl:for-each>
-            <xsl:text>) </xsl:text>
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates/>
