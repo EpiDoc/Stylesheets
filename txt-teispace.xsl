@@ -26,7 +26,7 @@
 
   <xsl:template name="dip-space">
       <xsl:call-template name="space-content-1">
-         <xsl:with-param name="vacat" select="'vacat '"/>
+         <xsl:with-param name="vacat" select="'vacat'"/>
       </xsl:call-template>
   </xsl:template>
 </xsl:stylesheet>
