@@ -57,15 +57,11 @@
       <xsl:choose>
          <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
             <xsl:choose>
-               <!-- if parent subst and subst is in the app part of a further app element, include value of del -->
+               <!-- if my parent is subst which in turn is in the appcrit-part of a further app-like element 
+                  (i.e. my ancestor is reg, corr, rdg, or del[corrected]), then include value of my sibling del in parens -->
                <xsl:when test="parent::t:subst and ancestor::t:*[local-name()=('reg','corr','rdg') 
                   or self::t:del[@rend='corrected']]">
-                  <!--<xsl:when test="parent::t:subst[ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
-                     or self::t:del[@rend='corrected'] 
-                     or self::t:add[@place='inline']][1][local-name()=('reg','corr','del','rdg')]]">-->
-                  
-                  
-                  <!-- If add contains app, only render del (add is rendered before the subst by app templates) -->
+                  <!-- If add contains app, *only* render del (because add is rendered before the subst by app templates) -->
                   <xsl:text> (</xsl:text><xsl:choose>
                      <xsl:when test="t:app"><xsl:call-template name="resolvesubst">
                            <!-- From tpl-apparatus.xsl -->
