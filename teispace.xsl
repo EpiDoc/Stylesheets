@@ -22,6 +22,9 @@
                <xsl:when test="@unit='character' or not(@unit)">
                   <xsl:variable name="sp-ext">
                      <xsl:choose>
+                        <xsl:when test="@quantity">
+                           <xsl:number value="@quantity"/>
+                        </xsl:when>
                         <xsl:when test="number(@extent)">
                            <xsl:number value="@extent"/>
                         </xsl:when>
@@ -30,9 +33,9 @@
                         </xsl:otherwise>
                      </xsl:choose>
                   </xsl:variable>
-                  <xsl:call-template name="nbsp">
-                     <xsl:with-param name="extent" select="$sp-ext"/>
-                  </xsl:call-template>
+                  <xsl:for-each select="1 to $sp-ext">
+                     <xsl:text>&#xa0;&#xa0;</xsl:text>
+                  </xsl:for-each>
                </xsl:when>
                <xsl:otherwise/>
             </xsl:choose>
@@ -83,7 +86,7 @@
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac '"/>
+                           <xsl:with-param name="vacat" select="'vac'"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@quantity = string(1) and @unit='character'">
@@ -121,6 +124,27 @@
                   </xsl:choose>
                </xsl:when>
 
+               <xsl:when test="$leiden-style='iospe'">
+                  <xsl:variable name="vacat" select="'vac.'"/>
+                  <xsl:choose>
+                     <xsl:when test="@quantity and @unit='character'">
+                        <xsl:call-template name="space-content">
+                           <xsl:with-param name="vacat" select="$vacat"/>
+                           <xsl:with-param name="extent" select="concat(@quantity,' litt.')"/>
+                        </xsl:call-template>
+                     </xsl:when>
+                     <xsl:when test="@unit='character'">
+                        <xsl:call-template name="space-content">
+                           <xsl:with-param name="vacat" select="$vacat"/>
+                        </xsl:call-template>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:call-template name="space-content">
+                           <xsl:with-param name="vacat" select="$vacat"/>
+                        </xsl:call-template>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:when>
 
                <xsl:when test="$leiden-style='panciera'">
                   <xsl:variable name="precision">
@@ -176,7 +200,6 @@
                   </xsl:choose>
                </xsl:when>
 
-
                <xsl:otherwise>
                   <xsl:call-template name="space-content">
                      <xsl:with-param name="vacat" select="'vac.'"/>
@@ -185,16 +208,6 @@
             </xsl:choose>
          </xsl:otherwise>
       </xsl:choose>
-   </xsl:template>
-
-   <xsl:template name="nbsp">
-      <xsl:param name="extent"/>
-      <xsl:if test="$extent &gt; 0">
-         <xsl:text>&#xa0;&#xa0;</xsl:text>
-         <xsl:call-template name="nbsp">
-            <xsl:with-param name="extent" select="$extent - 1"/>
-         </xsl:call-template>
-      </xsl:if>
    </xsl:template>
 
    <!-- Called from [htm|txt]-teispace.xsl -->

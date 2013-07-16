@@ -28,6 +28,7 @@
             <!-- Found in teispace.xsl -->
             <xsl:call-template name="space-content-2">
                <xsl:with-param name="vacat" select="$vacat"/>
+               <xsl:with-param name="extent" select="$extent"/>
             </xsl:call-template>
          </xsl:otherwise>
       </xsl:choose>
