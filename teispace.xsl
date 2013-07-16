@@ -213,8 +213,6 @@
    <!-- Called from [htm|txt]-teispace.xsl -->
    <xsl:template name="space-content-1">
       <xsl:param name="vacat"/>
-
-      <xsl:text> </xsl:text>
       <xsl:if test="child::t:certainty[starts-with(@match,'..')]">
          <xsl:text>(?)</xsl:text>
       </xsl:if>
@@ -226,8 +224,7 @@
    <xsl:template name="space-content-2">
       <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
-
-      <xsl:text>(</xsl:text>
+     <xsl:if test="$leiden-style='panciera'"><xsl:text>(</xsl:text></xsl:if>
       <xsl:value-of select="$vacat"/>
       <xsl:if test="child::t:certainty[starts-with(@match,'..')]">
          <xsl:text>(?)</xsl:text>
@@ -236,7 +233,7 @@
          <xsl:text> </xsl:text>
          <xsl:value-of select="$extent"/>
       </xsl:if>
-      <xsl:text>)</xsl:text>
+      <xsl:if test="$leiden-style='panciera'"><xsl:text>)</xsl:text></xsl:if>
    </xsl:template>
 
 </xsl:stylesheet>
