@@ -232,9 +232,8 @@
       <xsl:if test="child::t:certainty[starts-with(@match,'..')]">
          <xsl:text>(?)</xsl:text>
       </xsl:if>
-      <xsl:text> </xsl:text>
       <xsl:if test="string-length($extent) &gt; 0">
-         <xsl:text>%$£" </xsl:text>
+         <xsl:text> </xsl:text>
          <xsl:value-of select="$extent"/>
       </xsl:if>
       <xsl:text>)</xsl:text>
