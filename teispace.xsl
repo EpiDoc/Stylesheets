@@ -44,11 +44,11 @@
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
-                  <xsl:text>vac.</xsl:text>
+                  <xsl:text> vac. </xsl:text>
                   <xsl:choose>
                      <xsl:when test="@quantity">
                         <xsl:if test="@precision='low'">
-                           <xsl:text>ca.</xsl:text>
+                           <xsl:text>ca. </xsl:text>
                         </xsl:if>
                         <xsl:value-of select="@quantity"/>
                      </xsl:when>
@@ -86,51 +86,51 @@
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac'"/>
+                           <xsl:with-param name="vacat" select="' vac '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@quantity = string(1) and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'v'"/>
+                           <xsl:with-param name="vacat" select="' v '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@quantity = string(2) and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vv'"/>
+                           <xsl:with-param name="vacat" select="' vv '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="contains('345', @quantity) and @unit='character'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac'"/>
+                           <xsl:with-param name="vacat" select="' vac '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@quantity &gt;= 6 and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vacat'"/>
+                           <xsl:with-param name="vacat" select="' vacat '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@unit='line'">
                         <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vacat'"/>
+                           <xsl:with-param name="vacat" select="' vacat '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:otherwise>
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac'"/>
+                           <xsl:with-param name="vacat" select="' vac '"/>
                         </xsl:call-template>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
 
                <xsl:when test="$leiden-style='iospe'">
-                  <xsl:variable name="vacat" select="'vac.'"/>
+                  <xsl:variable name="vacat" select="' vac. '"/>
                   <xsl:choose>
                      <xsl:when test="@quantity and @unit='character'">
                         <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat" select="$vacat"/>
-                           <xsl:with-param name="extent" select="concat(@quantity,' litt.')"/>
+                           <xsl:with-param name="extent" select="concat(@quantity,' litt. ')"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@unit='character'">
@@ -155,12 +155,12 @@
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac.'"/>
+                           <xsl:with-param name="vacat" select="' vac. '"/>
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@quantity and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat">vac.</xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:value-of select="$precision"/>
@@ -170,7 +170,7 @@
                      <xsl:when test="@quantity and @unit='line'">
                         <xsl:call-template name="space-content">
                         <!-- Found in [htm|txt]-teispace.xsl -->
-                           <xsl:with-param name="vacat">vac.</xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
@@ -183,7 +183,7 @@
                      </xsl:when>
                      <xsl:when test="@quantity and @unit != 'line' and @unit != 'character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat"><xsl:text>vac.</xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> </xsl:text>
@@ -194,7 +194,7 @@
                      </xsl:when>
                      <xsl:otherwise>
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat" select="'vac.'"/>
+                           <xsl:with-param name="vacat" select="' vac. '"/>
                         </xsl:call-template>
                      </xsl:otherwise>
                   </xsl:choose>
@@ -202,7 +202,7 @@
 
                <xsl:otherwise>
                   <xsl:call-template name="space-content">
-                     <xsl:with-param name="vacat" select="'vac.'"/>
+                     <xsl:with-param name="vacat" select="' vac. '"/>
                   </xsl:call-template>
                </xsl:otherwise>
             </xsl:choose>
