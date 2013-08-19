@@ -14,9 +14,9 @@
             </xsl:if>
          </xsl:when>
          <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'grc'] and
-            (number(@value) or number(@atLeast) or number(@atMost)) and not(contains(@value,'/'))">
+            (number(@value) or number(@atLeast) or number(@atMost))
+            and not(contains((@value,@atLeast,@atMost),'/'))">
             <xsl:if test="$edition-type='interpretive'
-               and not(contains((@value,@atLeast,@atMost),'/'))
                and (@value &gt;= 1000 or @atLeast &gt;= 1000 or @atMost &gt;= 1000)">
                <xsl:text>͵</xsl:text>
             </xsl:if>
