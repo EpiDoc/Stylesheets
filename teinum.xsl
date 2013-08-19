@@ -5,7 +5,7 @@
                 version="2.0">  
   <!-- latinnum span added in htm-teinum.xsl -->
   
-  <xsl:template match="t:num">%%
+  <xsl:template match="t:num">
       <xsl:choose>
          <xsl:when test="not(child::t:* or child::text())"/>
          <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
@@ -14,16 +14,14 @@
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'grc'] and
-            (number(@value) or number(@atLeast) or number(@atMost))
-            and not(contains((@value,@atLeast,@atMost),'/'))">
-            <xsl:if test="$edition-type='interpretive'
-               and (@value &gt;= 1000 or @atLeast &gt;= 1000 or @atMost &gt;= 1000)">
+         <xsl:when test="$edition-type='interpretive' and ancestor::t:*[@xml:lang][1][@xml:lang = 'grc']
+            and (number(@value) or number(@atLeast) or number(@atMost))
+            and not(contains(@value,'/') or contains(@atLeast,'/') or contains(@atMost,'/'))">
+            <xsl:if test="@value &gt;= 1000 or @atLeast &gt;= 1000 or @atMost &gt;= 1000">
                <xsl:text>͵</xsl:text>
             </xsl:if>
             <xsl:apply-templates/>
-            <xsl:if test="$edition-type='interpretive' and
-               not(@value mod 1000 = 0 or @atLeast mod 1000 = 0 or @atMost mod 1000 = 0)">
+            <xsl:if test="not(@value mod 1000 = 0 or @atLeast mod 1000 = 0 or @atMost mod 1000 = 0)">
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
