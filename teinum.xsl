@@ -7,7 +7,7 @@
   
   <xsl:template match="t:num[child::node()]">
       <xsl:choose>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
             <xsl:apply-templates/>
             <xsl:if test="@rend='tick'">
                <xsl:text>´</xsl:text>
@@ -21,12 +21,11 @@
                <xsl:text>͵</xsl:text>
             </xsl:if>
             <xsl:apply-templates/>
-            <xsl:if test="$edition-type='interpretive' and not((@value mod 1000 = 0 or @atLeast mod 1000 = 0 or @atMost mod 1000 = 0))">
+            <xsl:if test="$edition-type='interpretive' and
+               not(@value mod 1000 = 0 or @atLeast mod 1000 = 0 or @atMost mod 1000 = 0)">
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
-      
-      
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
