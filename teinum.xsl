@@ -10,11 +10,13 @@
          <xsl:when test="ancestor::t:*[@xml:lang][1][@xml:lang = 'grc'] and
             not(($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')) and
             number(@value) and not(contains(@value,'/'))">
-            <xsl:if test="$edition-type='interpretive' and number(@value) and not(contains(@value,'/')) and @value &gt;= 1000">
+            <xsl:if test="$edition-type='interpretive' and (number(@value) or number(@atLeast) or number(@atMost))
+               and not(contains((@value,@atLeast,@atMost),'/'))
+               and (@value &gt;= 1000 or @atLeast &gt;= 1000 or @atMost &gt;= 1000)">
                <xsl:text>͵</xsl:text>
             </xsl:if>
             <xsl:apply-templates/>
-            <xsl:if test="$edition-type='interpretive' and not(@value mod 1000 = 0)">
+            <xsl:if test="$edition-type='interpretive' and not((@value mod 1000 = 0 or @atLeast mod 1000 = 0 or @atMost mod 1000 = 0))">
                <xsl:text>´</xsl:text>
             </xsl:if>
          </xsl:when>
