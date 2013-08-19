@@ -62,7 +62,7 @@
                   <!-- templates (including tests for parent::unclear) are in teig.xsl -->
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:variable name="text" select="normalize-space(normalize-unicode(.))"/>
+                  <xsl:variable name="text" select="normalize-space(normalize-unicode($text-content))"/>
                   <xsl:for-each select="1 to string-length()">
                      <xsl:value-of select="concat(substring($text,.,1),'&#x0323;')"/>
                   </xsl:for-each>
