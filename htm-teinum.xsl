@@ -6,7 +6,7 @@
    <!-- Template in teinum.xsl -->
    <xsl:import href="teinum.xsl"/>
 
-   <xsl:template match="t:num">%%
+   <xsl:template match="t:num">
       <xsl:choose>
          <xsl:when
             test="$leiden-style=('ddbdp','sammelbuch') 

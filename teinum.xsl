@@ -5,7 +5,7 @@
                 version="2.0">  
   <!-- latinnum span added in htm-teinum.xsl -->
   
-  <xsl:template match="t:num">%%
+  <xsl:template match="t:num">
       <xsl:choose>
          <xsl:when test="not(child::t:* or child::text())"/>
          <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
