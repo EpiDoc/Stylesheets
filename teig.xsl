@@ -110,11 +110,11 @@
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type = 'staurogram'">
-            <xsl:text>&#x2ce8;</xsl:text>
+            <xsl:text>&#x2627;</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type = 'leaf'">
-            <xsl:text>&#x2664;</xsl:text>
+            <xsl:text>&#x2766;</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type = 'dipunct'">
