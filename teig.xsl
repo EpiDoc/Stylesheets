@@ -110,7 +110,7 @@
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type = 'staurogram'">
-            <xsl:text>&#x2627;</xsl:text>
+            <xsl:text>&#x2ce8;</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type = 'leaf'">
@@ -143,7 +143,7 @@
                   <span class="smaller" style="font-style:italic;">
                      <xsl:text> </xsl:text>
                      <xsl:value-of select="@type"/>
-                     <xsl:call-template name="g-unclear-symbol"/>
+                     <xsl:call-template name="g-unclear-string"/>
                      <xsl:text> </xsl:text>
                   </span>
                </xsl:otherwise>
