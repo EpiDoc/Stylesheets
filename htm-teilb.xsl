@@ -29,8 +29,8 @@
                </xsl:if>
             </xsl:variable>
 
+            <!-- print hyphen if break=no  -->
             <xsl:if test="(@break='no' or @type='inWord')">
-               <!-- print hyphen if break=no  -->
                <xsl:choose>
                   <!--    *unless* diplomatic edition  -->
                   <xsl:when test="$edition-type='diplomatic'"/>
@@ -53,6 +53,20 @@
                   </xsl:otherwise>
                </xsl:choose>
             </xsl:if>
+            
+            <!-- print arrows right of line if R2L or explicitly L2R -->
+            <!-- arrows after final line handled in htm-teiab.xsl -->
+            <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+               and not(position() = 1)
+               and preceding::t:lb[1][@rend='left-to-right']">
+               <xsl:text>&#xa0;&#xa0;→</xsl:text>
+            </xsl:if>
+            <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+               and not(position() = 1)
+               and preceding::t:lb[1][@rend='right-to-left']">
+               <xsl:text>&#xa0;&#xa0;←</xsl:text>
+            </xsl:if>
+            
             <xsl:choose>
                <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])">
                   <a id="a{$div-loc}l{$line}">

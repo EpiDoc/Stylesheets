@@ -22,6 +22,15 @@
          <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($edition-type='diplomatic')">
             <xsl:text>-</xsl:text>
          </xsl:if>
+         <!-- if final lb in ab is L2R or R2L, then print arrow here -->
+         <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+            and descendant::t:lb[last()][@rend='left-to-right']">
+            <xsl:text>&#xa0;&#xa0;→</xsl:text>
+         </xsl:if>
+         <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+            and descendant::t:lb[last()][@rend='right-to-left']">
+            <xsl:text>&#xa0;&#xa0;←</xsl:text>
+         </xsl:if>
          <!-- in IOSPE, if followed by lg, include it here (and suppress in htm-teilgandl.xsl) -->
          <xsl:if test="$leiden-style='iospe' and following-sibling::t:*[1][self::t:lg]">
             <xsl:apply-templates select="following-sibling::t:lg/*"/>
