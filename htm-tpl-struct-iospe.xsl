@@ -47,90 +47,76 @@
                <xsl:value-of select="$title"/>
             </h1>
             <div id="stone">
-               <h3>Stone</h3>
-               <table border="0">
-                     <tr>
-                     <th width="150" align="left">Type of monument:</th>
-                        <td>
+               <h3 class="iospe">Monument</h3>
+               <dl class="iospe">
+                    <dt width="150" align="left">Type of monument</dt>
+                        <dd>
                            <xsl:choose>
                               <xsl:when test="//t:support//t:objectType//text()">
                                  <xsl:value-of select="//t:support//t:objectType"/>
                               </xsl:when>
                               <xsl:otherwise>Not specified</xsl:otherwise>
                            </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Material:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Material</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:support//t:material//text()">
                               <xsl:value-of select="//t:support//t:material"/>
                            </xsl:when>
                            <xsl:otherwise>Not specified</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Description and condition</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Description and condition</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:support//t:p//text()">
                               <xsl:value-of select="//t:support//t:p"/>
                            </xsl:when>
                            <xsl:otherwise>Not specified</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-               </table>
-               <table border="0">
-                  <tr>
-                     <th width="150" align="left">Find place:</th>
-                     <td>
+                     </dd>
+               </dl>
+               
+               <dl class="iospe">
+                     <dt width="150" align="left">Find place</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:provenance[@type='found']//t:placeName[@type='ancientFindspot']//text()">
                               <xsl:value-of select="//t:provenance[@type='found']//t:placeName[@type='ancientFindspot']"/>
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Find circumstances:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Find circumstances</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:provenance[@type='found']//t:rs[@type='circumstances']//text()">
                               <xsl:value-of select="//t:provenance[@type='found']//t:rs[@type='circumstances']"/>
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Find context:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Find context</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:provenance[@type='found']//t:rs[@type='context']//text()">
                               <xsl:value-of select="//t:provenance[@type='found']//t:rs[@type='context']"/>
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Modern location:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Modern location</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:provenance[@type='observed']//text()">
                               <xsl:value-of select="//t:provenance[@type='observed']"/>
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Dimensions:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Dimensions</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:support/t:dimensions//text()[not(normalize-space(.)=' ')]">
                               <xsl:if test="//t:support/t:dimensions/t:height/text()[not(normalize-space(.)=' ')]">H. <xsl:value-of select="//t:support/t:dimensions/t:height"/>,</xsl:if>
@@ -140,11 +126,9 @@
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Institution and inventory:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Institution and inventory</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:msIdentifier//t:repository/text() and //t:msIdentifier//t:idno/text()">
                               <xsl:value-of select="//t:msIdentifier//t:repository"/>
@@ -156,70 +140,79 @@
                            </xsl:when>
                            <xsl:otherwise>Unknown</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-               </table>
+                     </dd>
+               </dl>
             </div>
+            
             <div id="text-field">
-               <h3>Text field</h3>
-               <table border="0">
-                  <xsl:if test="//t:layout/@ana"><tr>
-                     <th width="150" align="left">Faces code:</th>
-                     <td><xsl:value-of select="//t:layout/@ana"/></td>
-                  </tr></xsl:if>
-                  <tr>
-                     <th width="150" align="left">Placement of text:</th>
-                     <td>
+               <h3 class="iospe">Inscribed field</h3>
+               <dl class="iospe">
+                  <xsl:if test="//t:layout/@ana">
+                     <dt width="150" align="left">Faces code</dt>
+                     <dd><xsl:value-of select="//t:layout/@ana"/></dd>
+                  </xsl:if>
+                     <dt width="150" align="left">Placement of text</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:layout/text()">
                               <xsl:value-of select="//t:layout"/>
                            </xsl:when>
                            <xsl:otherwise>Not specified</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Style of lettering:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Style of lettering</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:handNote//text()[not(ancestor::t:height)]">
                               <xsl:value-of select="/t:handNote//text()[not(ancestor::t:height)]"/>
                            </xsl:when>
                            <xsl:otherwise>Not specified</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th width="150" align="left">Letterheights:</th>
-                     <td>
+                     </dd>
+                     <dt width="150" align="left">Letterheights</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:handNote//t:height/text()">
                               <xsl:value-of select="//t:handNote//t:height"/>
                            </xsl:when>
                            <xsl:otherwise>Not specified</xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-               </table>
+                     </dd>
+               </dl>
             </div>
+            
             <div id="text">
-               <h3>Text</h3>
-               <table border="0">
-                  <tr>
-                     <th align="left" width="150">Origin:</th>
-                     <td><xsl:value-of select="//t:origin/t:origPlace"/></td>
-                  </tr>
-                  <tr>
-                     <th align="left" width="150">Category:</th>
-                     <td><xsl:value-of select="//t:msContents/t:summary"/></td>
-                  </tr>
-                  <tr>
-                     <th align="left" width="150">Date:</th>
-                     <td><xsl:value-of select="//t:origin/t:origDate"/></td>
-                  </tr>
-                  <tr>
-                     <th align="left" width="150">Dating criteria:</th>
-                     <td>
+               <h3 class="iospe">Text</h3>
+               <dl class="iospe">
+                  
+                     <dt>Origin</dt>
+                  <dd>
+                     <xsl:choose>
+                        <xsl:when test="//t:origin/t:origPlace/text()">
+                           <xsl:value-of select="//t:origin/t:origPlace"/>
+                     </xsl:when>
+                     <xsl:otherwise>Not specified</xsl:otherwise>
+                  </xsl:choose>
+                  </dd>
+                     <dt>Category</dt>
+                     <dd>
+                        <xsl:choose>
+                           <xsl:when test="//t:msContents/t:summary/text()">
+                              <xsl:value-of select="//t:msContents/t:summary"/>
+                           </xsl:when>
+                           <xsl:otherwise>Not specified</xsl:otherwise>
+                        </xsl:choose>
+                     </dd>
+                     <dt>Date</dt>
+                     <dd>
+                        <xsl:choose>
+                           <xsl:when test="//t:origin/t:origDate/text()">
+                              <xsl:value-of select="//t:origin/t:origDate"/>
+                           </xsl:when>
+                           <xsl:otherwise>Not specified</xsl:otherwise>
+                        </xsl:choose></dd>
+                     <dt>Dating criteria</dt>
+                     <dd>
                         <xsl:choose>
                            <xsl:when test="//t:origin/t:origDate/@evidence">
                               <xsl:for-each select="tokenize(//t:origin/t:origDate[@evidence],' ')">
@@ -233,14 +226,18 @@
                               <xsl:text>n/a</xsl:text>
                            </xsl:otherwise>
                         </xsl:choose>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th align="left" width="150">Editions:</th>
-                     <td><xsl:value-of select="//t:body//t:div[@type='bibliography']"/></td>
-                  </tr>
-               </table>
-               <div id="edition">
+                     </dd>
+                     <dt>Editions</dt>
+                     <dd>
+                        <xsl:choose>
+                           <xsl:when test="//t:body//t:div[@type='bibliography']//text()">
+                              <xsl:apply-templates select="//t:body//t:div[@type='bibliography']"/>
+                           </xsl:when>
+                           <xsl:otherwise>Unpublished</xsl:otherwise>
+                        </xsl:choose></dd>
+               </dl>
+               
+               <div id="edition" class="iospe">
                   <!-- Edited text output -->
                   <xsl:variable name="edtxt">
                      <xsl:apply-templates select="//t:div[@type='edition']"/>
@@ -248,29 +245,29 @@
                   <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
                   <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
                </div>
-               <div id="apparatus">
-                  <h4>Apparatus</h4>
+               <div id="apparatus" class="iospe">
+                  <h4 class="iospe">Apparatus</h4>
                   <!-- Apparatus text output -->
                   <xsl:variable name="apptxt">
-                     <xsl:apply-templates select="//t:div[@type='apparatus']"/>
+                     <xsl:apply-templates select="//t:div[@type='apparatus']/t:listApp"/>
                   </xsl:variable>
                   <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
                   <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
                </div>
-               <div id="translation">
-                  <h4>Translation</h4>
+               <div id="translation" class="iospe">
+                  <h4 class="iospe">Translation</h4>
                   <!-- Translation text output -->
                   <xsl:variable name="transtxt">
-                     <xsl:apply-templates select="//t:div[@type='translation']"/>
+                     <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
                   </xsl:variable>
                   <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
                   <xsl:apply-templates select="$transtxt" mode="sqbrackets"/>
                </div>
-               <div id="commentary">
-                  <h4>Commentary</h4>
+               <div id="commentary" class="iospe">
+                  <h4 class="iospe">Commentary</h4>
                   <!-- Commentary text output -->
                   <xsl:variable name="commtxt">
-                     <xsl:apply-templates select="//t:div[@type='commentary']"/>
+                     <xsl:apply-templates select="//t:div[@type='commentary']//t:p"/>
                   </xsl:variable>
                   <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
                   <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
