@@ -65,8 +65,7 @@ How to use it:
 		values are 'interpretive' (default) and 'diplomatic' (prints edition
 		in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
-		values are 'default', 'ddbdp', 'hgv', 'london', 'petrae-en',
-		'petrae-fr', 'petrae-ru', and 'sammelbuch'
+		implemented values are 'default' (no metadata), 'inslib', 'iospe'
 	$hgv-gloss
 		value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
