@@ -5,11 +5,12 @@
                 version="2.0">
 
   <xsl:template match="t:ab">
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:text>
 </xsl:text>
       <xsl:apply-templates/>
       <!-- if next div or ab begins with lb[break=no], then add hyphen -->
-      <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($edition-type='diplomatic')">
+      <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($parm-edition-type='diplomatic')">
           <xsl:text>-</xsl:text>
       </xsl:if>
   </xsl:template>

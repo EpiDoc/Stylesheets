@@ -5,11 +5,12 @@
    exclude-result-prefixes="t" version="2.0">
 
    <xsl:template name="space-content">
-      <xsl:param name="vacat"/>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
 
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'london'">
+          <xsl:when test="$parm-leiden-style = 'london'">
             <i>
                <!-- Found in teispace.xsl -->
                <xsl:call-template name="space-content-1">
@@ -17,7 +18,7 @@
                </xsl:call-template>
             </i>
          </xsl:when>
-         <xsl:when test="$leiden-style = 'panciera'">
+          <xsl:when test="$parm-leiden-style = 'panciera'">
             <!-- Found in teispace.xsl -->
             <xsl:call-template name="space-content-2">
                <xsl:with-param name="vacat" select="$vacat"/>

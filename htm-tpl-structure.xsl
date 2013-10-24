@@ -19,11 +19,12 @@
    </xsl:template>
    
    <xsl:template name="default-structure">
-      <html>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <html>
          <head>
             <title>
                <xsl:choose>
-                  <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                      <xsl:choose>
                         <xsl:when test="//t:sourceDesc//t:bibl/text()">
                            <xsl:value-of select="//t:sourceDesc//t:bibl"/>
@@ -56,8 +57,9 @@
    </xsl:template>
 
    <xsl:template name="default-body-structure">
-      <!-- Heading for a ddb style file -->
-      <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <!-- Heading for a ddb style file -->
+       <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
          <h1>
             <xsl:choose>
                <xsl:when test="//t:sourceDesc//t:bibl/text()">

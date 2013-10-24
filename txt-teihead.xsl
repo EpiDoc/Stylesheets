@@ -5,8 +5,9 @@
                 version="2.0">
   
   <xsl:template match="t:div/t:head">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')"/>
+          <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
          <xsl:otherwise>
             <xsl:apply-templates/>
             <xsl:text>

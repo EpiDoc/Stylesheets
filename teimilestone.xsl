@@ -17,7 +17,8 @@
   </xsl:template>
 
   <xsl:template match="t:milestone[@rend = 'box']">
-      <xsl:if test="$apparatus-style = 'ddbdp'">
+      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
       <!-- Adds links/indication to apparatus - found in [htm|txt]-tpl-apparatus -->
       <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>

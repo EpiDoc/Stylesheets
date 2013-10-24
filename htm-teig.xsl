@@ -8,21 +8,27 @@
   <xsl:import href="teig.xsl"/>
 
   <xsl:template match="t:g">
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:call-template name="lb-dash"/>
       <xsl:call-template name="w-space"/>
     
      <xsl:choose>
-        <xsl:when test="starts-with($leiden-style, 'edh')"/>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+         <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
         <!-- Found in teig.xsl -->
         <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
-        <xsl:when test="$leiden-style = 'london'">
+         <xsl:when test="$parm-leiden-style = 'london'">
            <xsl:call-template name="g-london"/>
-        </xsl:when><xsl:when test="$leiden-style = 'iospe'">
+         </xsl:when>
+         <xsl:when test="$parm-leiden-style = 'iospe'">
            <xsl:call-template name="g-iospe"/>
         </xsl:when>
-         <xsl:when test="$edition-type = 'diplomatic'">
+         <xsl:when test="$parm-leiden-style = 'rib'">
+             <xsl:call-template name="g-rib"/>
+         </xsl:when>
+         <xsl:when test="$parm-edition-type = 'diplomatic'">
             <xsl:text> </xsl:text>
             <em>
                <span class="smaller">
@@ -31,7 +37,7 @@
             </em>
             <xsl:text> </xsl:text>
          </xsl:when>
-        <xsl:when test="$leiden-style = 'dohnicht'">
+         <xsl:when test="$parm-leiden-style = 'dohnicht'">
            <xsl:text>⊂</xsl:text>
            <xsl:apply-imports/>
            <xsl:text>⊃</xsl:text>

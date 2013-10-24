@@ -6,9 +6,11 @@
   <!-- seg[@type='autopsy'] span added in htm-teiseg.xsl -->
   
   <xsl:template match="t:seg | t:w">
-      <xsl:if test="leiden-style='london' and (@part='M' or @part='F')
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:if test="$parm-leiden-style='london' and (@part='M' or @part='F')
          and not(preceding-sibling::node()[1][self::t:gap])
-         and not($edition-type='diplomatic')">
+         and not($parm-edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
     
@@ -17,10 +19,10 @@
       <!-- Found in tpl-certlow.xsl -->
     <xsl:call-template name="cert-low"/>
     
-      <xsl:if test="leiden-style='london' and (@part='I' or @part='M')
+      <xsl:if test="$parm-leiden-style='london' and (@part='I' or @part='M')
          and not(following-sibling::node()[1][self::t:gap])
          and not(descendant::ex[last()])
-         and not($edition-type='diplomatic')">
+         and not($parm-edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
   </xsl:template>

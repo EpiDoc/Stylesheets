@@ -12,12 +12,14 @@
 
 
   <xsl:template match="t:l">
+      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$verse-lines = 'yes'">
+          <xsl:when test="$parm-verse-lines = 'yes'">
             <xsl:text>
 &#xD;</xsl:text>
             <xsl:choose>
-               <xsl:when test="number(@n) and @n mod $line-inc = 0 and not(@n = 0)">
+                <xsl:when test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0)">
                   <xsl:text>	</xsl:text>
                   <xsl:value-of select="@n"/>
                   <xsl:text>	</xsl:text>

@@ -34,14 +34,16 @@
    </xsl:template>
 
    <xsl:template match="t:g">
-      <xsl:if test="not(starts-with($leiden-style, 'edh'))">
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:if test="not(starts-with($parm-leiden-style, 'edh'))">
          <xsl:value-of select="@type"/>
       </xsl:if>
    </xsl:template>
 
    <!-- London specific template -->
    <xsl:template name="g-london">
-      <xsl:choose>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
          <xsl:when test="@type = 'chirho'">
             <xsl:text>&#x2ce9;</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -50,7 +52,7 @@
             <xsl:text>&#x2ce8;</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="$edition-type='diplomatic'">
+           <xsl:when test="$parm-edition-type='diplomatic'">
             <xsl:choose>
                <xsl:when test="@type='crux' or @type='cross'">
                   <xsl:text>&#x2020;</xsl:text>
@@ -104,7 +106,8 @@
    <!-- IOSPE specific template -->
    <!-- called from htm-teig.xml -->
    <xsl:template name="g-iospe">
-      <xsl:choose>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
          <xsl:when test="@type = 'stauros'">
             <xsl:text>+</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -121,7 +124,7 @@
             <xsl:text>:</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="$edition-type='diplomatic'">
+           <xsl:when test="$parm-edition-type='diplomatic'">
             <xsl:choose>
                <!--<xsl:when test="@type='denarius'">
                   <xsl:text>&#x10196;</xsl:text>
@@ -305,7 +308,82 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   
+
+    <!-- RIB specific template -->
+    <xsl:template name="g-rib">
+        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+        <xsl:choose>
+            <xsl:when test="@type = 'chirho'">
+                <xsl:text>&#x2627;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='century'">
+                <xsl:text>&#x1019B;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='milliaria'">
+                <xsl:text>&#x2180;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='leaf'">
+                <xsl:text>&#x2766;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='palm'">
+                <xsl:text>&#x2020;&#x2020;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='star'">
+                <xsl:text>*</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='interpunct' and not(node())">
+                <xsl:text>&#xB7;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='interpunct' and node()">
+                <xsl:apply-templates/>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='sestertius' and not(node())">
+                <xsl:text>&#x10198;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='sestertius' and node()">
+                <xsl:apply-templates/>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='denarius'">
+                <xsl:text>&#x2E19;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='barless-A'">
+                <xsl:text>&#x039B;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='dot'">
+                <xsl:text>&#x2E;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='stop'">
+                <xsl:text>•</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:when test="@type='crux' or @type='cross'">
+                <xsl:text>&#x2020;</xsl:text>
+                <xsl:call-template name="g-unclear-symbol"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="smaller" style="font-style:italic;">
+                    <xsl:text> </xsl:text>
+                    <xsl:value-of select="@type"/>
+                    <xsl:call-template name="g-unclear-string"/>
+                    <xsl:text> </xsl:text>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
    <xsl:template name="g-unclear-symbol">
       <!-- adds underdot below symbol if parent:unclear -->
       <xsl:if test="parent::t:unclear">

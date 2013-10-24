@@ -8,7 +8,8 @@
   <!-- Called from htm-tpl-structure.xsl -->
    
    <xsl:template name="hgv-structure">
-      <html>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <html>
          <head>
             <title>
                <xsl:choose>
@@ -30,7 +31,7 @@
          <body>
             
             <!-- Heading for a ddb style file -->
-            <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+             <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                <h1>
                   <xsl:choose>
                      <xsl:when test="//t:sourceDesc//t:bibl/text()">

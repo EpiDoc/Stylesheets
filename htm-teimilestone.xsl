@@ -6,9 +6,10 @@
    <!-- More specific templates in teimilestone.xsl -->
 
    <xsl:template match="t:milestone">
-      <xsl:choose>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
          <xsl:when
-            test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
+             test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
             <xsl:if test="@rend = 'break'">
                <br/>
             </xsl:if>
@@ -19,7 +20,7 @@
             </sup>
             <xsl:text> </xsl:text>
          </xsl:when>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+           <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
             <xsl:choose>
                <xsl:when test="@rend = 'wavy-line'">
                   <xsl:if test="not(parent::t:supplied)">

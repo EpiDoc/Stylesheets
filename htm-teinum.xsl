@@ -7,9 +7,10 @@
    <xsl:import href="teinum.xsl"/>
 
    <xsl:template match="t:num">
-      <xsl:choose>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
          <xsl:when
-            test="$leiden-style=('ddbdp','sammelbuch') 
+             test="$parm-leiden-style=('ddbdp','sammelbuch') 
             and string(.)">
             <span>
                <xsl:attribute name="title">
@@ -45,7 +46,7 @@
             </span>
          </xsl:when>
          <xsl:when
-            test="$leiden-style = 'panciera' and
+             test="$parm-leiden-style = 'panciera' and
             ancestor::t:*[@xml:lang][1][@xml:lang = 'la']">
             <span class="latinnum">
                <xsl:apply-imports/>

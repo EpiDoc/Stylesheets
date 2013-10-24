@@ -7,9 +7,10 @@
    <!-- Imported by htm-teiaddanddel.xsl or called directly from start-txt.xsl -->
    
    <xsl:template match="t:subst">
-      <xsl:apply-templates/>
+       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:apply-templates/>
 
-      <xsl:if test="$apparatus-style = 'ddbdp'">
+       <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <!-- Found in [htm|txt]-tpl-apparatus -->
          <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>
@@ -19,8 +20,9 @@
 
 
    <xsl:template match="t:add">
-      <xsl:choose>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+           <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -37,7 +39,7 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
-         <xsl:when test="$leiden-style=('petrae','iospe')">
+           <xsl:when test="$parm-leiden-style=('petrae','iospe')">
             <xsl:text>\</xsl:text>
          </xsl:when>
          <xsl:otherwise>
@@ -55,7 +57,7 @@
       <xsl:call-template name="cert-low"/>
 
       <xsl:choose>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
             <xsl:choose>
                <!-- if my parent is subst which in turn is in the appcrit-part of a further app-like element 
                   (i.e. my ancestor is reg, corr, rdg, or del[corrected]), then include value of my sibling del in parens -->
@@ -85,7 +87,7 @@
                </xsl:when>
             </xsl:choose>
          </xsl:when>
-         <xsl:when test="$leiden-style=('petrae','iospe')">
+          <xsl:when test="$parm-leiden-style=('petrae','iospe')">
             <xsl:text>/</xsl:text>
          </xsl:when>
          <xsl:otherwise>
@@ -103,7 +105,9 @@
 
 
    <xsl:template match="t:del">
-      <xsl:if test="$apparatus-style = 'ddbdp'">
+       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <xsl:if test="@rend = 'slashes' or @rend = 'cross-strokes'">
             <!-- Found in [htm | txt]-tpl-apparatus -->
             <xsl:call-template name="app-link">
@@ -113,18 +117,29 @@
       </xsl:if>
 
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh') or $leiden-style=('petrae','iospe')">
+          <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style=('petrae','iospe')">
             <xsl:text>[[</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>]]</xsl:text>
          </xsl:when>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @rend='slashes'">
+          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @rend='slashes'">
             <xsl:apply-templates/>
          </xsl:when>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @rend='cross-strokes'">
+          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @rend='cross-strokes'">
             <xsl:apply-templates/>
          </xsl:when>
-         <xsl:when test="parent::t:subst"/>
+          <xsl:when test="$parm-leiden-style = 'rib'">
+              <xsl:choose>
+                  <xsl:when test="@rend='erasure'">
+                      <span class="erasure"><xsl:apply-templates/></span>
+                  </xsl:when>
+                  <xsl:when test="not(@rend)"/>
+                  <xsl:otherwise>
+                      <xsl:apply-templates/>
+                  </xsl:otherwise>
+              </xsl:choose>
+          </xsl:when>
+          <xsl:when test="parent::t:subst"/>
          <xsl:otherwise>
             <xsl:text>&#x27e6;</xsl:text>
             <xsl:apply-templates/>

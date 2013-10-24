@@ -4,13 +4,14 @@
                 version="2.0">
 
   <xsl:template match="t:figure">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="@href">
             <a href="{@href}">
                <xsl:apply-templates/>
             </a>
          </xsl:when>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
             <xsl:text>(</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>)</xsl:text>

@@ -12,8 +12,9 @@
   </xsl:template>
    
    <xsl:template match="t:body/t:head">
-      <xsl:choose>
-         <xsl:when test="$leiden-style='ddbdp'">
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+           <xsl:when test="$parm-leiden-style='ddbdp'">
             <xsl:element name="p">
                <xsl:apply-templates/>
             </xsl:element>

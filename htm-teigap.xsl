@@ -7,7 +7,8 @@
   <xsl:import href="teigap.xsl"/>
   
   <xsl:template match="t:gap[@reason = 'lost']">
-      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') 
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') 
          and not(preceding-sibling::t:*[1][local-name() = 'lb'])">
          <!--     adds a newline character before gap-extent-line in DDbDP unless <lb/> present    -->
          <br/>

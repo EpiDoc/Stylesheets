@@ -6,6 +6,9 @@
   <!-- Imported by [htm|txt]-teilb.xsl -->
   
   <xsl:template match="t:lb">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
       <xsl:if test="ancestor::t:l">
          <xsl:choose>
             <xsl:when test="@break='no' or @type='inWord'">
@@ -17,15 +20,15 @@
          </xsl:choose>
          <xsl:choose>
         <!-- If verse-line is needed in ddbdp and @n is not a number eg 2a -->
-        <xsl:when test="$verse-lines = 'on' and not(number(@n)) and ($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+             <xsl:when test="$parm-verse-lines = 'on' and not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
-            <xsl:when test="number(@n) and @n mod $line-inc = 0 and not(@n = 0) and not(starts-with($leiden-style, 'edh'))">
+             <xsl:when test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0) and not(starts-with($parm-leiden-style, 'edh'))">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
          </xsl:choose>
       </xsl:if>
-     <xsl:if test="$leiden-style=('ddbdp','sammelbuch') and @rend">
+      <xsl:if test="$parm-leiden-style=('ddbdp','sammelbuch') and @rend">
         <xsl:text> (</xsl:text>
         <xsl:value-of select="@rend"/>
         <xsl:text>) </xsl:text>

@@ -5,8 +5,10 @@
                 version="2.0">
   
   <xsl:template match="t:ab">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <div class="textpart">
-         <xsl:if test="$leiden-style='iospe'">
+          <xsl:if test="$parm-leiden-style='iospe'">
             <xsl:variable name="div-loc">
                <xsl:for-each select="ancestor::t:div[@type='textpart']">
                   <xsl:value-of select="@n"/>
@@ -19,7 +21,7 @@
          </xsl:if>
          <xsl:apply-templates/>
          <!-- if next div or ab begins with lb[break=no], then add hyphen -->
-         <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($edition-type='diplomatic')">
+          <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($parm-edition-type='diplomatic')">
             <xsl:text>-</xsl:text>
          </xsl:if>
          <!-- if final lb in ab is L2R or R2L, then print arrow here -->
@@ -32,7 +34,7 @@
             <xsl:text>&#xa0;&#xa0;←</xsl:text>
          </xsl:if>
          <!-- in IOSPE, if followed by lg, include it here (and suppress in htm-teilgandl.xsl) -->
-         <xsl:if test="$leiden-style='iospe' and following-sibling::t:*[1][self::t:lg]">
+          <xsl:if test="$parm-leiden-style='iospe' and following-sibling::t:*[1][self::t:lg]">
             <xsl:apply-templates select="following-sibling::t:lg/*"/>
          </xsl:if>
       </div>

@@ -6,6 +6,7 @@
   <!-- Called by [htm|txt]-teilgandl.xsl -->
 
   <xsl:template name="line-context">
+      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
       <xsl:if test="@met='pentameter'">
          <xsl:text>   </xsl:text>
       </xsl:if>
@@ -13,7 +14,7 @@
          <xsl:variable name="pre-lb">
             <xsl:value-of select="preceding-sibling::t:lb[1]/@n"/>
          </xsl:variable>
-         <xsl:if test="number($pre-lb) and $pre-lb mod $line-inc = 0 and not($pre-lb = 0)">
+          <xsl:if test="number($pre-lb) and $pre-lb mod $parm-line-inc = 0 and not($pre-lb = 0)">
             <xsl:choose>
                <xsl:when test="@break='no' or @type='inWord'">
                   <xsl:text>(</xsl:text>

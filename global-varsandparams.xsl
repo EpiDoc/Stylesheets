@@ -32,7 +32,9 @@
                         select="document($param-file)//parameter[name = 'line-inc']/value"/>
             <xsl:param name="css-loc"
                         select="document($param-file)//parameter[name = 'css-loc']/value"/>
-
+            <xsl:param name="js-dir"
+                        select="document($param-file)//parameter[name = 'js-dir']/value"/>
+    
             <xsl:param name="docroot">../output/data</xsl:param>
 
             <xsl:variable name="all-grc">

@@ -1352,9 +1352,9 @@
    </xsl:template>
 
    <xsl:template name="trans-string">
-      <!-- transforms context of <hi> into lowercase unaccented for rendering in app -->
+       <!-- transforms context of <hi> into lowercase unaccented for rendering in app -->
       <xsl:param name="trans-text" select="."/>
-      <xsl:value-of select="translate($trans-text, $all-grc, $grc-lower-strip)"/>
+       <xsl:value-of select="translate($trans-text, $all-grc, $grc-lower-strip)"/>
    </xsl:template>
 
    <xsl:template name="childCertainty">

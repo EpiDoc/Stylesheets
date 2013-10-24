@@ -6,11 +6,19 @@
   <!-- Contains template for surplus -->
    
    <xsl:template match="t:surplus">
-      <xsl:text>{</xsl:text>
-      <xsl:apply-templates/>
-      <!-- cert-low template found in tpl-certlow.xsl -->
-      <xsl:call-template name="cert-low"/>
-      <xsl:text>}</xsl:text>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+           <xsl:when test="$parm-edn-structure = 'rib'">
+               <xsl:text>&lt; </xsl:text><xsl:apply-templates/><xsl:text> &gt;</xsl:text>
+           </xsl:when>
+           <xsl:otherwise>
+               <xsl:text>{</xsl:text>
+               <xsl:apply-templates/>
+               <!-- cert-low template found in tpl-certlow.xsl -->
+               <xsl:call-template name="cert-low"/>
+               <xsl:text>}</xsl:text>
+           </xsl:otherwise>
+       </xsl:choose>
    </xsl:template>
 
 </xsl:stylesheet>

@@ -8,15 +8,16 @@
   <xsl:import href="teig.xsl"/>
 
   <xsl:template match="t:g">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:call-template name="lb-dash"/>
       <xsl:call-template name="w-space"/>
 
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')"/>
-         <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+          <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
             <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
-         <xsl:when test="$leiden-style = 'dohnicht'">
+          <xsl:when test="$parm-leiden-style = 'dohnicht'">
             <xsl:text>⊂</xsl:text>
             <xsl:apply-imports/>
             <xsl:text>⊃</xsl:text>

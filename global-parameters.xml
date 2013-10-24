@@ -67,4 +67,9 @@
     <value>../xsl/global.css</value>
   </parameter>
   
+<parameter>
+    <name>js-dir</name>
+    <value>../js/</value>
+  </parameter>
+  
 </parameters>

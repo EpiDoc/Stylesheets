@@ -7,6 +7,7 @@
   <!-- Contains app and its children rdg, ptr, note and lem -->
 
   <xsl:template match="t:app">
+      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="@resp='previous'">
             <span class="previouslyread">
@@ -20,7 +21,7 @@
       </xsl:choose>
 
       <!-- Found in htm-tpl-apparatus - creates links to footnote in apparatus -->
-    <xsl:if test="$apparatus-style = 'ddbdp'">
+      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>
          </xsl:call-template>
@@ -29,8 +30,9 @@
 
 
   <xsl:template match="t:rdg">
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic'">
+          <xsl:when test="$parm-edition-type = 'diplomatic'">
             <xsl:choose>
                <xsl:when test="@resp='previous'"/> 
                <xsl:when test="@resp='autopsy'">
@@ -62,8 +64,10 @@
   </xsl:template>
 
   <xsl:template match="t:lem">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-hgv-gloss" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:div[@type='translation']">
+          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch') and ancestor::t:div[@type='translation']">
             <xsl:variable name="wit-val" select="@resp"/>
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <span class="term">
@@ -84,21 +88,21 @@
                   </xsl:when>
                 </xsl:choose></b>
                 <xsl:for-each select=".//t:term[@target]">
-                  <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:term"/>
+                    <xsl:value-of select="document($parm-hgv-gloss)//t:item[@xml:id = current()/@target]/t:term"/>
                   <xsl:text>. </xsl:text>
-                  <xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = current()/@target]/t:gloss[@xml:lang = $lang]"/>
+                    <xsl:value-of select="document($parm-hgv-gloss)//t:item[@xml:id = current()/@target]/t:gloss[@xml:lang = $lang]"/>
                   <xsl:text>; </xsl:text>
                 </xsl:for-each>
                 <xsl:value-of select="$wit-val"/>
               </span>                 
             </span>
          </xsl:when>
-         <xsl:when test="$leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('reg','corr','rdg') 
+          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('reg','corr','rdg') 
             or self::t:del[@rend='corrected']]">
             <xsl:apply-templates/>
             <xsl:if test="@resp">
                <xsl:choose>
-                  <xsl:when test="$leiden-style='ddbdp'"><xsl:text> FNORD-SPLIT </xsl:text></xsl:when>
+                   <xsl:when test="$parm-leiden-style='ddbdp'"><xsl:text> FNORD-SPLIT </xsl:text></xsl:when>
                   <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
                </xsl:choose>              
                <xsl:if test="parent::t:app[@type='BL']">
@@ -111,7 +115,7 @@
                   <xsl:text> (via PE)</xsl:text>
                </xsl:if>
                <xsl:choose>
-                  <xsl:when test="$leiden-style='ddbdp'"><xsl:text> FNORD-DELIM </xsl:text></xsl:when>
+                   <xsl:when test="$parm-leiden-style='ddbdp'"><xsl:text> FNORD-DELIM </xsl:text></xsl:when>
                   <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
                </xsl:choose>  
             </xsl:if>
@@ -139,7 +143,7 @@
                <xsl:apply-templates/>
             </span>
          </xsl:when>
-         <xsl:when test="$leiden-style='iospe' and ../t:rdg">
+          <xsl:when test="$parm-leiden-style='iospe' and ../t:rdg">
             <xsl:apply-templates/>
             <xsl:text> resp. </xsl:text>
             <xsl:for-each select="../t:rdg">

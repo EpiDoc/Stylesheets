@@ -8,12 +8,14 @@
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
-      <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows space -->
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows space -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>
       <xsl:choose>
-         <xsl:when test="$edition-type = 'diplomatic'">
+          <xsl:when test="$parm-edition-type = 'diplomatic'">
             <xsl:choose>
                <xsl:when test="@unit='line'">
                   <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
@@ -43,7 +45,7 @@
 
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch')">
+                <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                   <xsl:text> vac. </xsl:text>
                   <xsl:choose>
                      <xsl:when test="@quantity">
@@ -81,7 +83,7 @@
                   </xsl:if>
                </xsl:when>
                
-               <xsl:when test="$leiden-style='london'">
+                <xsl:when test="$parm-leiden-style='london'">
                   <xsl:choose>
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
@@ -124,7 +126,7 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="$leiden-style='iospe'">
+                <xsl:when test="$parm-leiden-style='iospe'">
                   <xsl:variable name="vacat" select="' vac. '"/>
                   <xsl:choose>
                      <xsl:when test="@quantity and @unit='character'">
@@ -146,7 +148,7 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="$leiden-style='panciera'">
+                <xsl:when test="$parm-leiden-style='panciera'">
                   <xsl:variable name="precision">
                      <xsl:if test="@precision = 'low'">?</xsl:if>
                   </xsl:variable>
@@ -222,9 +224,10 @@
 
    <!-- Called from [htm|txt]-teispace.xsl -->
    <xsl:template name="space-content-2">
-      <xsl:param name="vacat"/>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
-     <xsl:if test="$leiden-style='panciera'"><xsl:text>(</xsl:text></xsl:if>
+       <xsl:if test="$parm-leiden-style='panciera'"><xsl:text>(</xsl:text></xsl:if>
       <xsl:value-of select="$vacat"/>
       <xsl:if test="child::t:certainty[starts-with(@match,'..')]">
          <xsl:text>(?)</xsl:text>
@@ -233,7 +236,7 @@
          <xsl:text> </xsl:text>
          <xsl:value-of select="$extent"/>
       </xsl:if>
-      <xsl:if test="$leiden-style='panciera'"><xsl:text>)</xsl:text></xsl:if>
+       <xsl:if test="$parm-leiden-style='panciera'"><xsl:text>)</xsl:text></xsl:if>
    </xsl:template>
 
 </xsl:stylesheet>

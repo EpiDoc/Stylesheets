@@ -6,8 +6,10 @@
    <!-- Contains templates for choice/sic and choice/corr and surplus -->
 
    <xsl:template match="t:choice/t:sic">
-      <xsl:choose>
-         <xsl:when test="$edition-type='diplomatic' or $leiden-style=('ddbdp','sammelbuch')">
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+           <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','sammelbuch')">
             <xsl:apply-templates/>
             <!-- if context is inside the app-part of an app-like element... -->
             <xsl:if test="ancestor::t:*[local-name()=('reg','corr','rdg') 
@@ -25,18 +27,20 @@
       MOVED TO teisurplus.xsl -->
 
    <xsl:template match="t:choice/t:corr">
-      <xsl:choose>
-         <xsl:when test="$edition-type='diplomatic' or $leiden-style=('ddbdp','sammelbuch')"/>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+           <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','sammelbuch')"/>
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="$leiden-style = 'seg'">
+                <xsl:when test="$parm-leiden-style = 'seg'">
                   <xsl:text>&lt;</xsl:text>
                   <xsl:apply-templates/>
                   <!-- cert-low template found in tpl-certlow.xsl -->
                   <xsl:call-template name="cert-low"/>
                   <xsl:text>&gt;</xsl:text>
                </xsl:when>
-               <xsl:when test="starts-with($leiden-style, 'edh')">
+                <xsl:when test="starts-with($parm-leiden-style, 'edh')">
                   <xsl:apply-templates/>
                </xsl:when>
                <xsl:otherwise>

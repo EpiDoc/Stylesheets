@@ -8,13 +8,14 @@
 
    <!-- Text edition div -->
    <xsl:template match="t:div[@type = 'edition']" priority="1">
-      <div id="edition">
+       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+       <div id="edition">
          <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
          <xsl:apply-templates/>
 
          <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
-         <xsl:if test="$apparatus-style = 'ddbdp'">
+           <xsl:if test="$parm-apparatus-style = 'ddbdp'">
             <!-- Framework found in htm-tpl-apparatus.xsl -->
             <xsl:call-template name="tpl-apparatus"/>
          </xsl:if>
@@ -25,6 +26,7 @@
 
    <!-- Textpart div -->
    <xsl:template match="t:div[@type='textpart']" priority="1">
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:variable name="div-type">
            <xsl:for-each select="ancestor::t:div[@type!='edition']">
                <xsl:value-of select="@type"/>
@@ -40,7 +42,7 @@
       <xsl:if test="@n">
          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
            <!-- add ancestor textparts -->
-           <xsl:if test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and @subtype">
+             <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
               <xsl:value-of select="@subtype"/>
               <xsl:text> </xsl:text>
            </xsl:if>

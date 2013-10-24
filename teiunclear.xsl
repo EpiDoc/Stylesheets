@@ -4,10 +4,12 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t"  version="2.0">
 
    <xsl:template match="t:unclear">
-      <xsl:param name="text-content">
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="text-content">
          <xsl:choose>
             <xsl:when test="ancestor::t:orig[not(ancestor::t:choice)]">
-               <xsl:value-of select="translate(., $all-grc, $grc-upper-strip)"/>
+                <xsl:value-of select="translate(., $all-grc, $grc-upper-strip)"/>
             </xsl:when>
             <xsl:otherwise>
                <xsl:value-of select="."/>
@@ -16,10 +18,10 @@
       </xsl:param>
 
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')">
+          <xsl:when test="starts-with($parm-leiden-style, 'edh')">
             <xsl:apply-templates/>
          </xsl:when>
-         <xsl:when test="$edition-type = 'diplomatic'">
+          <xsl:when test="$parm-edition-type = 'diplomatic'">
             <!-- Calculates the number of middots to output -->
             <xsl:variable name="un-len-all">
                <!-- collects all children text together -->
@@ -39,10 +41,10 @@
             
             <xsl:for-each select="1 to $un-len-all">
                <xsl:choose>
-                  <xsl:when test="$leiden-style='london'">
+                   <xsl:when test="$parm-leiden-style='london'">
                      <xsl:text>·</xsl:text>
                   </xsl:when>
-                  <xsl:when test="$leiden-style=('ddbdp','sammelbuch')">
+                   <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
                      <xsl:text>&#xa0;&#xa0;&#x0323;</xsl:text>
                   </xsl:when>
                   <xsl:otherwise>

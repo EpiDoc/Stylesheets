@@ -5,9 +5,12 @@
                 version="2.0">
   
   <xsl:template match="t:term">
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-hgv-gloss" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
       <!-- Adds caption for hgv translations -->
-      <xsl:when test="($leiden-style = 'ddbdp' or $leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation'] and @target">
+          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation'] and @target">
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <xsl:variable name="term" select="@target"/>
         
@@ -17,9 +20,9 @@
                </xsl:when>
                <xsl:otherwise>
                   <xsl:choose>
-                    <xsl:when test="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]/text()"><span class="term">
+                      <xsl:when test="document($parm-hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]/text()"><span class="term">
                     <xsl:apply-templates/>
-                    <span class="gloss" style="display:none"><xsl:value-of select="document($hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]"/></span>                 
+                          <span class="gloss" style="display:none"><xsl:value-of select="document($parm-hgv-gloss)//t:item[@xml:id = $term]/t:gloss[@xml:lang = $lang]"/></span>                 
                     </span></xsl:when>
                     <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
                   </xsl:choose>
@@ -27,8 +30,16 @@
             </xsl:choose>
          </xsl:when>
       
-      
-         <xsl:otherwise>
+          <xsl:when test="$parm-edn-structure = 'rib'">
+              <xsl:choose>
+                  <xsl:when test="@xml:lang='grc'"><span class="greek"><xsl:apply-templates/></span></xsl:when>
+                  <xsl:when test="@rend='diplo'"><span class="sc"><xsl:apply-templates/></span></xsl:when>
+                  <xsl:when test="@xml:lang"><span class="em"><xsl:apply-templates/></span></xsl:when>
+                  <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+              </xsl:choose>
+          </xsl:when>
+
+          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>

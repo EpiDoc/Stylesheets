@@ -7,9 +7,11 @@
   <!-- General div match found in txt-teidiv.xsl -->
 
   <xsl:template match="t:div[@type = 'edition']" priority="1">
-    <!-- Two line breaks to give space -->
+      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <!-- Two line breaks to give space -->
     <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')"/>
+        <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
          <xsl:otherwise>
             <xsl:text>
 &#xD;
@@ -20,7 +22,7 @@
       <xsl:apply-templates/>
     
       <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation -->
-    <xsl:if test="$apparatus-style = 'ddbdp'">
+      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
       <!-- Framework found in txt-tpl-apparatus.xsl -->
       <xsl:call-template name="tpl-apparatus"/>
       </xsl:if>
@@ -28,8 +30,9 @@
 
 
   <xsl:template match="t:div[@type = 'textpart']" priority="1">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="starts-with($leiden-style, 'edh')">
+          <xsl:when test="starts-with($parm-leiden-style, 'edh')">
             <xsl:variable name="cur_parent" select="generate-id(parent::node())"/>
             <xsl:if test="preceding::t:div[@type='textpart'][1][generate-id(parent::node())=$cur_parent]">
                <xsl:text>// </xsl:text>

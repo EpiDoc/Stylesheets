@@ -6,9 +6,10 @@
   <xsl:include href="teilgandl.xsl"/>
 
   <xsl:template match="t:lg">
-     <xsl:choose>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:choose>
         <!-- in IOSPE, if preceded by ab, will be called inside that div (in htm-teiab.xsl) -->
-        <xsl:when test="$leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
+          <xsl:when test="$parm-leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
         <xsl:otherwise>
         <div class="textpart">
          <!-- Found in htm-tpl-lang.xsl -->
@@ -21,8 +22,10 @@
 
 
   <xsl:template match="t:l">
+      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$verse-lines = 'on'">   
+          <xsl:when test="$parm-verse-lines = 'on'">   
             <xsl:variable name="div-loc">
                <xsl:for-each select="ancestor::t:div[@type='textpart']">
                   <xsl:value-of select="@n"/>
@@ -30,7 +33,7 @@
                </xsl:for-each>
             </xsl:variable>
             <br id="a{$div-loc}l{@n}"/>
-            <xsl:if test="number(@n) and @n mod $line-inc = 0 and not(@n = 0)">
+              <xsl:if test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0)">
                <span class="linenumber">
                   <xsl:value-of select="@n"/>
                </span>
