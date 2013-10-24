@@ -1,4 +1,4 @@
-ï»¿XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXX     README.txt for example-p5-xslt              XXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -8,6 +8,14 @@ What it is:
 	versions in Leiden. Includes various XML files containing parameters
 	and other options.
 
+	To cite these stylesheets in a conventional bibliography, please
+	include the following information:
+
+	Tom Elliott, Zaneta Au, Gabriel Bodard, Hugh Cayless, Carmen Lanz,
+	Faith Lawrence, Scott Vandebilt, Raffaele Viglianti, et al. (2008-2013),
+	EpiDoc Example Stylesheets. Available:
+	<https://sourceforge.net/p/epidoc/wiki/Stylesheets/>
+
 License:
 
 	These scripts are copyright Zaneta Au, Gabriel Bodard and all other contributors.
@@ -16,7 +24,7 @@ License:
 Technical requirements:
 
 	These scripts are written in XSLT 2.0 and may be transformed using any
-	conformant XSLT processor. (Tested with Saxon-HEâ„¢ 9.2.0.6.)
+	conformant XSLT processor. (Tested with Saxon-HE™ 9.2.0.6.)
 
 How to obtain the stylesheets:
 
@@ -38,9 +46,9 @@ How to obtain the stylesheets:
 How to use it:
 
 	XSLT may be run on an individual EpiDoc XML file, creating a single file output
-	(e.g. via a command-line Saxonâ„¢ call or an Oxygenâ„¢ transformation scenario)
+	(e.g. via a command-line Saxon™ call or an Oxygen™ transformation scenario)
 	or batch-run upon a large collection of files via some other process (e.g. an
-	Oxygenâ„¢ project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create
+	Oxygen™ project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create
 	a HTML version of the output (this xsl calls both generic and specialized files needed),
 	or start-txt.xsl to create a text-only version of the text output.
 
