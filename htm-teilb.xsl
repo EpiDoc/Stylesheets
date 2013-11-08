@@ -62,12 +62,12 @@
             
             <!-- print arrows right of line if R2L or explicitly L2R -->
             <!-- arrows after final line handled in htm-teiab.xsl -->
-            <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+            <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
                and not(position() = 1)
                and preceding::t:lb[1][@rend='left-to-right']">
                <xsl:text>&#xa0;&#xa0;→</xsl:text>
             </xsl:if>
-            <xsl:if test="not($leiden-style=('ddbdp','sammelbuch')) 
+            <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
                and not(position() = 1)
                and preceding::t:lb[1][@rend='right-to-left']">
                <xsl:text>&#xa0;&#xa0;←</xsl:text>

@@ -30,25 +30,7 @@
        <xsl:sequence select="$dot"/>
    </xsl:function>
 
-    <!-- REPLACED BY EDF:dotchar() FUNCTION
-        <xsl:variable name="XXX-cur-dot">
-       <xsl:choose>
-           <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-           </xsl:when>
-           <xsl:when test="$leiden-style = 'panciera' and @reason='illegible'">
-               <xsl:text>+</xsl:text>
-           </xsl:when>
-           <xsl:when test="$leiden-style='london'">
-               <xsl:text>&#xb7;</xsl:text>
-           </xsl:when>
-           <xsl:otherwise>
-               <xsl:text>.</xsl:text>
-           </xsl:otherwise>
-       </xsl:choose>
-   </xsl:variable>-->
-
-   <!-- The highest value of @quantity that will have dots produced -->
+    <!-- The highest value of @quantity that will have dots produced -->
     <xsl:function name="EDF:dotmax" as="xs:double">
         <xsl:param name="leidenStyle"></xsl:param>
         <xsl:variable name="maxnum">
@@ -64,21 +46,7 @@
         <xsl:sequence select="$maxnum"/>
     </xsl:function>
     
-    <!-- REPLACED BY EDF:dotmax() FUNCTION
-        <xsl:variable name="XXX-cur-max">
-      <xsl:choose>
-          <xsl:when test="$leiden-style = ('ddbdp','sammelbuch')">
-            <xsl:number value="8"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:number value="3"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:variable>-->
-
-
-
-   <xsl:template match="t:gap[@reason='omitted']">
+    <xsl:template match="t:gap[@reason='omitted']">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
            <xsl:when test="$parm-edition-type = 'diplomatic'"/>
@@ -89,8 +57,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
-
+   
    <xsl:template match="t:gap[@reason='ellipsis']">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
