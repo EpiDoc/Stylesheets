@@ -13,7 +13,7 @@ What it is:
 
 	Tom Elliott, Zaneta Au, Gabriel Bodard, Hugh Cayless, Carmen Lanz,
 	Faith Lawrence, Scott Vandebilt, Raffaele Viglianti, et al. (2008-2013),
-	EpiDoc Example Stylesheets. Available:
+	EpiDoc Example Stylesheets (version 8). Available:
 	<https://sourceforge.net/p/epidoc/wiki/Stylesheets/>
 
 License:

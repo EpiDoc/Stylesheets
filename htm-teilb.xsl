@@ -12,7 +12,7 @@
        <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-line-inc" tunnel="yes" required="no" as="xs:double"></xsl:param>
+       <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="location"/>
       
@@ -119,7 +119,7 @@
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when
-                   test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0) and 
+                  test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and 
                   not(following::t:*[1][local-name() = 'gap' or local-name()='space'][@unit = 'line'] and 
                   ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'))">
                   <!-- prints line-nos divisible by stated increment, unless zero
