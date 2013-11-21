@@ -10,16 +10,12 @@
       <xsl:variable name="title">
          <xsl:choose>
             <xsl:when test="//t:titleStmt/t:title/text()">
-               <xsl:choose>
-                  <xsl:when test="//t:idno[@type='filename'][starts-with(.,'byz')]">
-                     <xsl:value-of
-                        select="substring-after(//t:idno[@type='filename'],'byz')"/>
-                     <xsl:text>. </xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:value-of select="//t:idno[@type='filename']"/>
-                  </xsl:otherwise>
-               </xsl:choose>
+               <xsl:number value="substring-before(t:idno[@type='filename'],'.')" format="I"/>
+               <xsl:text>&#xa0;</xsl:text>
+               <xsl:number value="substring-after(t:idno[@type='filename'],'.')" format="1"/>
+               <xsl:text>.&#xa0;</xsl:text>
+               <xsl:value-of select="//origPlace"/>
+               <xsl:text>.&#xa0;</xsl:text>
                <xsl:value-of select="//t:titleStmt/t:title"/>
             </xsl:when>
             <xsl:when test="//t:sourceDesc//t:bibl/text()">
