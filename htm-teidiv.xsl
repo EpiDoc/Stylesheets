@@ -15,6 +15,8 @@
           <!-- Temporary headings so we know what is where -->
           <xsl:if test="not(t:head)">
             <xsl:choose>
+              <xsl:when test="@type='commentary' and @subtype='frontmatter'"><h3>Introduction</h3></xsl:when>
+              <xsl:when test="@type='commentary' and @subtype='linebyline'"><h3>Notes</h3></xsl:when>
               <xsl:when test="@type = 'translation'">
                   <h2>
                      <xsl:value-of select="/t:TEI/t:teiHeader/t:profileDesc/t:langUsage/t:language[@ident = current()/@xml:lang]"/>
