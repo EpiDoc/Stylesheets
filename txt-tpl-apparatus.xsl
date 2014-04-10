@@ -28,7 +28,33 @@ Apparatus
             </xsl:call-template>
         
             <!-- Found in tpl-apparatus.xsl -->
-        <xsl:call-template name="ddbdp-app"/>
+        <xsl:call-template name="ddbdp-app">
+          <xsl:with-param name="apptype">
+            <xsl:choose>
+              <xsl:when test="self::t:choice[child::t:orig and child::t:reg]">
+                <xsl:text>origreg</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:choice[child::t:sic and child::t:corr]">
+                <xsl:text>siccorr</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:subst">
+                <xsl:text>subst</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:app[@type='alternative']">
+                <xsl:text>appalt</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'BL ')]">
+                <xsl:text>appbl</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'PN ')]">
+                <xsl:text>apppn</xsl:text>
+              </xsl:when>
+              <xsl:when test="self::t:app[@type='editorial']">
+                <xsl:text>apped</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
         
             <!-- Only creates a new line if the following is not true -->
         <!--<xsl:if test="not(descendant::t:choice | descendant::t:subst | descendant::t:app)">
@@ -40,8 +66,7 @@ Apparatus
       <xsl:text>
 &#xD;
 &#xD;</xsl:text>
-     </xsl:if>
-     
+      </xsl:if>
   </xsl:template>
 
 
@@ -63,9 +88,6 @@ Apparatus
          <xsl:choose>
             <xsl:when test="$location = 'text'">
                <xsl:text>(*)</xsl:text>
-            </xsl:when>
-            <xsl:when test="$location = 'apparatus'">
-               <xsl:text>^ </xsl:text>
             </xsl:when>
          </xsl:choose>
       </xsl:if>
