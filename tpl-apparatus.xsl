@@ -991,23 +991,27 @@
                </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
+         <!-- If there's no following step, and we're directly inside orig|reg|sic|corr|abbr|expan 
+              then we should assume we're at word-end and stop-->
          <xsl:when test="not($step/following-sibling::node()[1])">
-            <xsl:choose>
-               <xsl:when test="$step/t:hi[generate-id()=$origin_id]"/>
-               <xsl:when test="$step/t:hi">
-                  <xsl:for-each select="$step/t:hi">
-                     <xsl:call-template name="hirend_print"/>
-                  </xsl:for-each>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:apply-templates select="$step"/>
-               </xsl:otherwise>
-            </xsl:choose>
-            <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
-               <xsl:call-template name="recurse_forward">
-                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-               </xsl:call-template>
-            </xsl:for-each>
+            <xsl:if test="not($step/local-name() = ('orig','reg','sic','corr','abbr','expan'))">
+               <xsl:choose>
+                  <xsl:when test="$step/t:hi[generate-id()=$origin_id]"/>
+                  <xsl:when test="$step/t:hi">
+                     <xsl:for-each select="$step/t:hi">
+                        <xsl:call-template name="hirend_print"/>
+                     </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:apply-templates select="$step"/>
+                  </xsl:otherwise>
+               </xsl:choose>
+               <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:for-each>
+            </xsl:if>
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
