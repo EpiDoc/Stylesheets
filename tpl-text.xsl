@@ -21,11 +21,11 @@
             following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus' or @lemma='filia' or @lemma='liberta'] and
             preceding-sibling::t:*[1][descendant-or-self::t:expan]"/>
          <xsl:otherwise>
-            <xsl:if test="matches(., '^\s') and not(matches(., '^\s+$')) and not(preceding-sibling::t:*[1][self::t:lb])">
+            <xsl:if test="matches(., '^\s') and not(matches(., '^\s+$')) and not(preceding-sibling::t:*[1][self::t:lb[@break='no']])">
                <xsl:text> </xsl:text>
             </xsl:if>
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="matches(.,'\s$') and not(following-sibling::t:*[1][self::t:lb])">
+            <xsl:if test="matches(.,'\s$') and not(following-sibling::t:*[1][self::t:lb[@break='no']])">
                <xsl:text> </xsl:text>
             </xsl:if>
          </xsl:otherwise>
