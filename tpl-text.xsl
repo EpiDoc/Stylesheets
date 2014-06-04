@@ -15,7 +15,7 @@
             </xsl:variable>
               <xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>
          </xsl:when>
-         <!-- omit words that are "f." or "l." from EDH names mode -->
+         <!-- omit space between abbreviation and (deleted) "f." or "l." from EDH names mode -->
           <xsl:when test="$parm-leiden-style='edh-names' and 
             normalize-space(.) = '' and 
             following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus' or @lemma='filia' or @lemma='liberta'] and
@@ -24,7 +24,14 @@
             <xsl:if test="matches(., '^\s') and not(matches(., '^\s+$')) and not(preceding-sibling::t:*[1][self::t:lb[@break='no']])">
                <xsl:text> </xsl:text>
             </xsl:if>
-            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:choose>
+               <xsl:when test="$parm-leiden-style='edh-names'">
+                  <xsl:value-of select="."/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:value-of select="normalize-space(.)"/>
+               </xsl:otherwise>
+            </xsl:choose>
             <xsl:if test="matches(.,'\s$') and not(following-sibling::t:*[1][self::t:lb[@break='no']])">
                <xsl:text> </xsl:text>
             </xsl:if>
