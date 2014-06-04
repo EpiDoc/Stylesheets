@@ -63,8 +63,11 @@
             <xsl:call-template name="cert-low"/>
             <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows supplied -->
             <xsl:if test="EDF:f-wwrap(.) = true()">
-               <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
-                <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))">
+               <!-- unless this is in the app part of a choice/subst/app in ddbdp
+                      or an EDH leiden style, which doesn't use hyphens-->
+                <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') 
+                   or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))
+                   and not(starts-with($parm-leiden-style, 'edh'))">
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>

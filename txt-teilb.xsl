@@ -29,15 +29,18 @@
             <xsl:if
                test="(@break='no' or @type='inWord')">
                
+               <!-- print a hyphen for any word-dividing line break... -->
                <xsl:choose>
                   <!--    *unless* diplomatic edition  -->
                    <xsl:when test="$parm-edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
+                  <!--   *or unless* one of the EDH leiden-styles, which don't use hyphens -->
+                  <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
                   <!--   *or unless* the second part of an app in ddbdp  -->
                    <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
                      (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
-                  <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
+                  <!--  *or unless* previous line ends with space / g / supplied[reason=lost]  -->
                   <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
                      (tested by EDF:f-wwrap in teig.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
