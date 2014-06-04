@@ -8,23 +8,24 @@
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
+         <!-- strip all spaces and punctuation in diplomatic edition -->
           <xsl:when test="$parm-edition-type = 'diplomatic' and ancestor::t:div[@type='edition'] and not(ancestor::t:head)">
             <xsl:variable name="apos">
                <xsl:text><![CDATA[']]></xsl:text>
             </xsl:variable>
               <xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>
          </xsl:when>
+         <!-- omit words that are "f." or "l." from EDH names mode -->
           <xsl:when test="$parm-leiden-style='edh-names' and 
             normalize-space(.) = '' and 
             following-sibling::t:*[1][local-name()='w'][@lemma='filius' or @lemma='libertus' or @lemma='filia' or @lemma='liberta'] and
             preceding-sibling::t:*[1][descendant-or-self::t:expan]"/>
          <xsl:otherwise>
-            <xsl:if test="matches(., '^\s.')">
+            <xsl:if test="matches(., '^\s') and not(preceding-sibling::t:*[1][self::t:lb])">
                <xsl:text> </xsl:text>
             </xsl:if>
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="matches(.,'\s$') and not(local-name(following-sibling::t:*[1]) = 'lb')">
-               <!--<xsl:if test="substring(., string-length(.)) = ' ' and not(local-name(following-sibling::t:*[1]) = 'lb')">-->
+            <xsl:if test="matches(.,'\s$') and not(following-sibling::t:*[1][self::t:lb])">
                <xsl:text> </xsl:text>
             </xsl:if>
          </xsl:otherwise>

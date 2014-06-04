@@ -54,6 +54,7 @@
                </xsl:choose>
                
             </xsl:if>
+            <!-- following test decides whether there should be a hyphen at the end of previous line or not -->
             <xsl:choose>
                 <xsl:when test="starts-with($parm-leiden-style, 'edh')">
                   <xsl:variable name="cur_anc"
@@ -62,7 +63,7 @@
                      test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
                         <xsl:when
-                           test="ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                           test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                            <xsl:text>/</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -72,21 +73,18 @@
                   </xsl:if>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>
-</xsl:text>
+                  <xsl:text>&#xd;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
+            
+            <!-- following test decides if and how line numbers should be displayed -->
             <xsl:choose>
+               <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
                 <xsl:when test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                 <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0)">
-                  <xsl:choose>
-                      <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
-                     <xsl:otherwise>
-                        <xsl:call-template name="margin-num"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
+                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when test="preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
                   <xsl:call-template name="margin-num"/>
