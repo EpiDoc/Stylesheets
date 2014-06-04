@@ -29,7 +29,7 @@
             <xsl:if
                test="(@break='no' or @type='inWord')">
                
-               <!-- print a hyphen for any word-dividing line break... -->
+               <!-- following test decides whether there should be a hyphen at the end of previous line or not -->
                <xsl:choose>
                   <!--    *unless* diplomatic edition  -->
                    <xsl:when test="$parm-edition-type='diplomatic'"/>
@@ -54,8 +54,9 @@
                </xsl:choose>
                
             </xsl:if>
-            <!-- following test decides whether there should be a hyphen at the end of previous line or not -->
+            <!-- following test decides whether line breaks should be '/' or hard carriage return -->
             <xsl:choose>
+               <xsl:when test="$parm-leiden-style='edh-names'"/>
                 <xsl:when test="starts-with($parm-leiden-style, 'edh')">
                   <xsl:variable name="cur_anc"
                      select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
