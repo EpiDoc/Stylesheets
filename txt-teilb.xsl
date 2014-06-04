@@ -41,7 +41,7 @@
                    <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
                      (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *or unless* previous line ends with space / g / supplied[reason=lost]  -->
-                  <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
+                  <!-- in which case the hyphen will be inserted before the space/g or final ']' of supplied
                      (tested by EDF:f-wwrap in teig.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
                      local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
@@ -56,13 +56,17 @@
             </xsl:if>
             <!-- following test decides whether line breaks should be '/' or hard carriage return -->
             <xsl:choose>
-               <xsl:when test="$parm-leiden-style='edh-names'"/>
                 <xsl:when test="starts-with($parm-leiden-style, 'edh')">
                   <xsl:variable name="cur_anc"
                      select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
                   <xsl:if
                      test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
+               <xsl:when test="$parm-leiden-style='edh-names'
+                  and not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+                  <xsl:text> </xsl:text>
+               </xsl:when>
+                        <xsl:when test="$parm-leiden-style='edh-names'"/>
                         <xsl:when
                            test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                            <xsl:text>/</xsl:text>
