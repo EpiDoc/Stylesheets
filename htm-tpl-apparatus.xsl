@@ -6,7 +6,7 @@
   <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation -->
   <xsl:include href="tpl-apparatus.xsl"/>
 
-  <!-- Apparatus framework -->
+  <!-- DDBDP Apparatus framework -->
   <xsl:template name="tpl-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
      <xsl:if test=".//t:choice | .//t:subst | .//t:app |
@@ -120,5 +120,17 @@
        </xsl:when>
     </xsl:choose>
   </xsl:template>
+   
+   <!-- IOSPE "mini apparatus" framework  -->
+   
+   <xsl:template name="tpl-iospe-apparatus">
+      <xsl:if test="//t:div[@type='edition']//t:choice or //t:div[@type='edition']//t:subst">
+         <p>
+            <xsl:for-each select="//t:div[@type='edition']//(t:choice|t:subst)">
+               <xsl:text>;</xsl:text>
+            </xsl:for-each>
+         </p>
+      </xsl:if>
+   </xsl:template>
 
 </xsl:stylesheet>
