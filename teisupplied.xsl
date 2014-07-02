@@ -103,10 +103,15 @@
   
 
   <xsl:template match="t:supplied[@reason='subaudible']">
-      <xsl:text>(</xsl:text>
-     <xsl:apply-templates/>
-     <xsl:call-template name="cert-low"/>
-     <xsl:text>)</xsl:text>
+     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:choose>
+        <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+        <xsl:otherwise>   
+           <xsl:text>(</xsl:text>
+           <xsl:apply-templates/>
+           <xsl:call-template name="cert-low"/>
+           <xsl:text>)</xsl:text>
+        </xsl:otherwise> </xsl:choose>
   </xsl:template>
   
 
