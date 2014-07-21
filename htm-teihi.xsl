@@ -120,6 +120,9 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='subscript'">
             <xsl:choose>
+               <xsl:when test="$parm-leiden-style = 'iospe'">
+                  <xsl:apply-templates/>
+               </xsl:when>
                 <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
                   <span style="vertical-align:sub;">
                      <xsl:apply-imports/>
@@ -136,6 +139,9 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='superscript'">
             <xsl:choose>
+               <xsl:when test="$parm-leiden-style = 'iospe'">
+                  <xsl:apply-templates/>
+               </xsl:when>
                 <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
                   <span style="vertical-align:super;">
                      <xsl:apply-imports/>
