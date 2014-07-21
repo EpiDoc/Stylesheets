@@ -4,7 +4,7 @@
    xmlns:t="http://www.tei-c.org/ns/1.0"
    exclude-result-prefixes="t" version="2.0">
 
-   <!-- Other div matches can be found in htm-teidiv.xsl -->
+   <!-- Other div matches can be found in htm-teidiv*.xsl -->
 
    <!-- Text edition div -->
    <xsl:template match="t:div[@type = 'edition']" priority="1">
