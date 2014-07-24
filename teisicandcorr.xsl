@@ -30,7 +30,7 @@
            <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','sammelbuch')"/>
          <xsl:otherwise>
             <xsl:choose>
-                <xsl:when test="$parm-leiden-style = 'seg'">
+                <xsl:when test="$parm-leiden-style = ('seg','iospe')">
                   <xsl:text>&lt;</xsl:text>
                   <xsl:apply-templates/>
                   <!-- cert-low template found in tpl-certlow.xsl -->
