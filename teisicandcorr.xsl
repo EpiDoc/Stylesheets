@@ -3,7 +3,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:t="http://www.tei-c.org/ns/1.0"
    exclude-result-prefixes="t" version="2.0">
-   <!-- Contains templates for choice/sic and choice/corr and surplus -->
+   <!-- Contains templates for choice/sic and choice/corr -->
 
    <xsl:template match="t:choice/t:sic">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
@@ -22,9 +22,6 @@
          <xsl:otherwise/>
       </xsl:choose>
    </xsl:template>
-
-   <!--<xsl:template match="t:surplus">
-      MOVED TO teisurplus.xsl -->
 
    <xsl:template match="t:choice/t:corr">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
