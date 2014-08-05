@@ -19,7 +19,7 @@
             <!-- Framework found in htm-tpl-apparatus.xsl -->
             <xsl:call-template name="tpl-apparatus"/>
          </xsl:if>
-          
+
           <xsl:if test="$parm-apparatus-style = 'iospe'">
              <!-- Framework found in htm-tpl-apparatus.xsl -->
              <xsl:call-template name="tpl-iospe-apparatus"/>
