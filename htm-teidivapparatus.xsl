@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: htm-teidivedition.xsl 2090 2013-10-24 15:23:22Z gabrielbodard $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
+  xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  exclude-result-prefixes="#all" version="2.0">
 
 
   <!-- only triggered if there is a <div type="apparatus"> (i.e. "external appartus") in the XML -->
@@ -44,22 +44,32 @@
     </t:ref>
   </xsl:template>
 
-  <xsl:template match="t:bibl" mode="parse-name-year">
+  <xsl:template match="t:bibl | t:biblStruct" mode="parse-name-year">
     <t:name>
-      <xsl:value-of select="t:author[@xml:lang=$default-language or not(@xml:lang)]"/>
+      <xsl:for-each select=".//t:author[1]">
+        <xsl:choose>
+          <xsl:when test=".//t:surname">
+            <xsl:value-of select=".//t:surname[@xml:lang=$default-language or not(@xml:lang)]"/>
+          </xsl:when>
+          <xsl:when test=".//t:forename">
+            <xsl:value-of select=".//t:forename[@xml:lang=$default-language or not(@xml:lang)]"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="."/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
     </t:name>
     <t:date>
-      <xsl:value-of select="t:date"/>
-    </t:date>
-  </xsl:template>
+      <xsl:choose>
+        <xsl:when test=".//t:imprint[1]">
+          <xsl:value-of select=".//t:imprint[1]//t:date"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select=".//t:date[1]"/>
+        </xsl:otherwise>
+      </xsl:choose>
 
-  <xsl:template match="t:biblStruct" mode="parse-name-year">
-    <t:name>
-      <xsl:value-of
-        select=".//t:author[1]//t:surname[@xml:lang=$default-language or not(@xml:lang)]"/>
-    </t:name>
-    <t:date>
-      <xsl:value-of select=".//tei:imprint[1]//tei:date"/>
     </t:date>
   </xsl:template>
 
