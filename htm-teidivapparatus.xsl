@@ -38,7 +38,7 @@
             mode="parse-name-year"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="document($source_location)" mode="parse-name-year"/>
+          <xsl:apply-templates select="document($source_location, $root)" mode="parse-name-year"/>
         </xsl:otherwise>
       </xsl:choose>
     </t:ref>
