@@ -77,7 +77,10 @@
          <xsl:apply-templates/>
       </xsl:variable>
       <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+      <xsl:variable name="maintxt2">
       <xsl:apply-templates select="$maintxt" mode="sqbrackets"/>
+      </xsl:variable>
+      <xsl:apply-templates select="$maintxt2" mode="sqbrackets"/>
       
       <!-- Found in htm-tpl-license.xsl -->
       <xsl:call-template name="license"/>
