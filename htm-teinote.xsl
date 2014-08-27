@@ -6,7 +6,8 @@
   <!-- Template in teinote.xsl -->
   <xsl:import href="teinote.xsl"/>
 
-  <xsl:template match="t:note">
+   <xsl:template match="t:note">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
      <xsl:choose>
         <xsl:when test="$parm-leiden-style='iospe' and (ancestor::t:p or ancestor::t:l or ancestor::t:ab)">
            <xsl:apply-imports/>
