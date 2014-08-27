@@ -7,10 +7,13 @@
   <xsl:import href="teinote.xsl"/>
 
   <xsl:template match="t:note">
-      <xsl:choose>
-         <xsl:when test="ancestor::t:p or ancestor::t:l or ancestor::t:ab">
-            <i><xsl:apply-imports/></i>
-         </xsl:when>
+     <xsl:choose>
+        <xsl:when test="$parm-leiden-style='iospe' and (ancestor::t:p or ancestor::t:l or ancestor::t:ab)">
+           <xsl:apply-imports/>
+        </xsl:when>
+        <xsl:when test="ancestor::t:p or ancestor::t:l or ancestor::t:ab">
+           <i><xsl:apply-imports/></i>
+        </xsl:when>
          <xsl:otherwise>
             <p class="note">
                <xsl:apply-imports/>
