@@ -145,12 +145,9 @@
          </xsl:when>
           <xsl:when test="$parm-leiden-style='iospe' and ../t:rdg">
             <xsl:apply-templates/>
-            <xsl:text> resp. </xsl:text>
             <xsl:for-each select="../t:rdg">
+               <xsl:text> resp. </xsl:text>
                <xsl:apply-templates/>
-               <xsl:if test="not(position()=last())">
-                  <xsl:text>, </xsl:text>
-               </xsl:if>
             </xsl:for-each>
          </xsl:when>
          <xsl:otherwise>
