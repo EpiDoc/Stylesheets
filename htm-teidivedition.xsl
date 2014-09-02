@@ -20,8 +20,8 @@
             <xsl:call-template name="tpl-apparatus"/>
          </xsl:if>
 
-          <xsl:if test="$parm-apparatus-style = 'iospe'">
-             <!-- Framework found in htm-tpl-apparatus.xsl -->
+          <xsl:if test="$parm-apparatus-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
+             <!-- Template found in htm-tpl-apparatus.xsl -->
              <xsl:call-template name="tpl-iospe-apparatus"/>
           </xsl:if>
 
@@ -30,8 +30,9 @@
 
 
    <!-- Textpart div -->
-   <xsl:template match="t:div[@type='textpart']" priority="1">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+    <xsl:template match="t:div[@type='textpart']" priority="1">
+        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
        <xsl:variable name="div-type">
            <xsl:for-each select="ancestor::t:div[@type!='edition']">
                <xsl:value-of select="@type"/>
@@ -44,7 +45,7 @@
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-      <xsl:if test="@n">
+      <xsl:if test="@n"><!-- prints div number -->
          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
            <!-- add ancestor textparts -->
              <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
@@ -55,5 +56,9 @@
          </span>
       </xsl:if>
       <xsl:apply-templates/>
+       <xsl:if test="$parm-apparatus-style = 'iospe' and @n">
+           <!-- Template found in htm-tpl-apparatus.xsl -->
+           <xsl:call-template name="tpl-iospe-apparatus"/>
+       </xsl:if>
    </xsl:template>
 </xsl:stylesheet>
