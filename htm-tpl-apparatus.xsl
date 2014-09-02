@@ -161,6 +161,15 @@
             </xsl:for-each>
          </xsl:variable>
          <p class="miniapp">
+            <xsl:if test="ancestor-or-self::t:div[@type='textpart'][@n]">
+               <xsl:attribute name="id">
+                  <xsl:text>miniapp-</xsl:text>
+                  <xsl:for-each select="ancestor-or-self::t:div[@type='textpart'][@n]">
+                     <xsl:value-of select="@n"/>
+                     <xsl:text>-</xsl:text>
+                  </xsl:for-each>
+               </xsl:attribute>
+            </xsl:if>
             <xsl:for-each select="$listapp/app">
                <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
                   <xsl:value-of select="@n"/>
