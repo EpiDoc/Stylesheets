@@ -127,7 +127,7 @@
 
   <!-- called from htm-teidivedition.xsl -->
   <xsl:template name="tpl-iospe-apparatus">
-    <xsl:if test=".//t:choice or .//t:subst or .//t:hi[@rend=('subscript','superscript')]">
+    <xsl:if test=".//t:choice[child::t:corr] or .//t:subst or .//t:hi[@rend=('subscript','superscript')]">
       <xsl:variable name="listapp">
         <!-- generate a list of app entries, with line numbers for each (and render them later) -->
         <xsl:for-each
