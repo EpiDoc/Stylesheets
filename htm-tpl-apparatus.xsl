@@ -206,7 +206,6 @@
     />
   </xsl:template>
   <xsl:template mode="iospe-context" match="t:gap|t:supplied[@reason='lost']">
-    <xsl:if test="@reason='lost'">[</xsl:if>
     <xsl:choose>
       <xsl:when test="@quantity ">
       <xsl:for-each select="1 to @quantity"><xsl:text>.</xsl:text></xsl:for-each>
@@ -219,7 +218,6 @@
       </xsl:when>
       <xsl:otherwise><xsl:text>...</xsl:text></xsl:otherwise>
     </xsl:choose>
-    <xsl:if test="@reason='lost'">]</xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
