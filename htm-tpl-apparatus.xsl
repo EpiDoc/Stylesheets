@@ -197,13 +197,29 @@
 
   <xsl:template name="iospe-appcontext">
     <xsl:param name="context"/>
-    <xsl:variable name="text">
       <xsl:apply-templates mode="iospe-context" select="$context"/>
-    </xsl:variable>
+  </xsl:template>
+  <xsl:template mode="iospe-context" match="t:reg|t:corr|t:add|t:ex|t:rdg"/>
+  <xsl:template mode="iospe-context" match="text()">
     <xsl:value-of
-      select="upper-case(translate(normalize-unicode($text,'NFD'),'&#x0301;&#x0313;&#x0314;&#x0342;',''))"
+      select="upper-case(translate(normalize-unicode(.,'NFD'),'&#x0301;&#x0313;&#x0314;&#x0342;',''))"
     />
   </xsl:template>
-  <xsl:template mode="iospe-context" match="t:reg|t:corr|t:add|t:ex|t:supplied|t:rdg"/>
+  <xsl:template mode="iospe-context" match="t:gap|t:supplied[@reason='lost']">
+    <xsl:if test="@reason='lost'">[</xsl:if>
+    <xsl:choose>
+      <xsl:when test="@quantity ">
+      <xsl:for-each select="1 to @quantity"><xsl:text>.</xsl:text></xsl:for-each>
+    </xsl:when>
+      <xsl:when test="@atMost">
+        <xsl:for-each select="1 to @quantity"><xsl:text>.</xsl:text></xsl:for-each>
+      </xsl:when>
+      <xsl:when test="not(string(normalize-space(self::node())) = '')">
+        <xsl:for-each select="1 to string-length(self::node())"><xsl:text>.</xsl:text></xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise><xsl:text>...</xsl:text></xsl:otherwise>
+    </xsl:choose>
+    <xsl:if test="@reason='lost'">]</xsl:if>
+  </xsl:template>
 
 </xsl:stylesheet>
