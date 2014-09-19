@@ -21,7 +21,7 @@
                   * del or milestone.
         -->
         <xsl:for-each
-          select="(.//t:choice[child::t:reg] | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
+          select="(.//t:choice | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
                .//t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')][not(ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                or self::t:del[@rend='corrected'] 
                or self::t:add[@place='inline']][1][local-name()=('reg','corr','rdg') 
@@ -131,11 +131,11 @@
       <xsl:variable name="listapp">
         <!-- generate a list of app entries, with line numbers for each (and render them later) -->
         <xsl:for-each
-          select=".//(t:choice|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
+          select=".//(t:choice[child::t:corr]|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
           <xsl:element name="app">
             <xsl:attribute name="n">
               <xsl:value-of select="preceding::t:lb[1]/@n"/>
-              <!-- NOTE: can we handle line ranges? -->
+              <!-- NOTE: need to handle line ranges -->
             </xsl:attribute>
             <xsl:choose>
               <xsl:when test="self::t:choice">
