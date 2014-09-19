@@ -21,7 +21,7 @@
                   * del or milestone.
         -->
         <xsl:for-each
-          select="(.//t:choice | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
+          select="(.//t:choice[child::t:reg] | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
                .//t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')][not(ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                or self::t:del[@rend='corrected'] 
                or self::t:add[@place='inline']][1][local-name()=('reg','corr','rdg') 
