@@ -54,6 +54,7 @@
       <xsl:if test="$parm-leiden-style='iospe'">
          <xsl:text>Col. </xsl:text>
          <xsl:value-of select="@n"/>
+         <xsl:element name="br"/>
       </xsl:if>
    </xsl:template>
 
