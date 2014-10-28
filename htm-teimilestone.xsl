@@ -48,5 +48,12 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+   
+   <xsl:template match="t:cb">
+      <xsl:if test="$parm-leiden-style='iospe'">
+         <xsl:text>Col. </xsl:text>
+         <xsl:value-of select="@n"/>
+      </xsl:if>
+   </xsl:template>
 
 </xsl:stylesheet>
