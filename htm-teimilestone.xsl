@@ -54,6 +54,7 @@
       <xsl:if test="$parm-leiden-style='iospe'">
          <xsl:element name="span">
             <xsl:attribute name="class" select="'textpartnumber'"/>
+            <xsl:attribute name="style" select="'left: -4em;'"/>
             <xsl:text>Col. </xsl:text>
             <xsl:value-of select="@n"/>
             <xsl:element name="br"/>
