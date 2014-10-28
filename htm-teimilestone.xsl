@@ -52,9 +52,12 @@
    <xsl:template match="t:cb">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:if test="$parm-leiden-style='iospe'">
-         <xsl:text>Col. </xsl:text>
-         <xsl:value-of select="@n"/>
-         <xsl:element name="br"/>
+         <xsl:element name="span">
+            <xsl:attribute name="class" select="'textpartnumber'"/>
+            <xsl:text>Col. </xsl:text>
+            <xsl:value-of select="@n"/>
+            <xsl:element name="br"/>
+         </xsl:element>
       </xsl:if>
    </xsl:template>
 
