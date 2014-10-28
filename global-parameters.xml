@@ -39,8 +39,8 @@
   
   <parameter>
     <name>verse-lines</name>
-    <value on="yes">off</value>
-    <value>on</value>
+    <value on="yes">off</value><!-- print epigraphic lines at all times, whether text in ab or lg/l -->
+    <value>on</value><!-- print verse lines when text in lg/l; interpret gaps as metre where so tagged -->
   </parameter>
   
   <parameter>
@@ -50,10 +50,21 @@
   </parameter>
   
   <parameter>
+    <name>internal-app-style</name>
+    <value on="yes">none</value>
+    <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
+    <value>iospe</value>
+  </parameter>
+  
+  <parameter>
+    <name>external-app-style</name>
+    <value on="yes">default</value>
+    <value>iospe</value>
+  </parameter>
+  
+  <parameter><!-- DEPRECATED -->
     <name>apparatus-style</name>
     <value on="yes">default</value>
-    <value>ddbdp</value>
-    <!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
   </parameter>
   
   <!-- Line-numbering increment -->

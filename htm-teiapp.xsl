@@ -6,8 +6,9 @@
                 version="2.0">
   <!-- Contains app and its children rdg, ptr, note and lem -->
 
-  <xsl:template match="t:app">
-      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+   <xsl:template match="t:app">
+      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-external-app-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="@resp='previous'">
             <span class="previouslyread">
@@ -21,7 +22,7 @@
       </xsl:choose>
 
       <!-- Found in htm-tpl-apparatus - creates links to footnote in apparatus -->
-      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+      <xsl:if test="$parm-internal-app-style = 'ddbdp'">
          <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>
          </xsl:call-template>

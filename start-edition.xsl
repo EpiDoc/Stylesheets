@@ -78,8 +78,9 @@
       <xsl:choose>
          <xsl:when test="$edn-structure = 'london'">
             <!-- this and other structure templates found in htm-tpl-struct-*.xsl -->
-            <xsl:call-template name="london-structure">
-                <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+             <xsl:call-template name="london-structure">
+                 <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                 <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                 <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
@@ -89,8 +90,9 @@
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'hgv'">
-            <xsl:call-template name="hgv-structure">
-                <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+             <xsl:call-template name="hgv-structure">
+                 <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                 <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                 <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
@@ -100,8 +102,9 @@
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'inslib'">
-            <xsl:call-template name="inslib-structure">
-                <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+             <xsl:call-template name="inslib-structure">
+                 <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                 <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                 <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
@@ -111,8 +114,9 @@
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'iospe'">
-            <xsl:call-template name="iospe-structure">
-                <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+             <xsl:call-template name="iospe-structure">
+                 <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                 <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                 <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
@@ -123,8 +127,9 @@
          </xsl:when>
          <xsl:when test="$edn-structure = 'ddbdp'">
             <div>
-              <xsl:call-template name="default-body-structure">
-                  <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+                <xsl:call-template name="default-body-structure">
+                    <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                    <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                   <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                   <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                   <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
@@ -135,8 +140,9 @@
             </div>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:call-template name="default-structure">
-                <xsl:with-param name="parm-apparatus-style" select="$apparatus-style" tunnel="yes"/>
+             <xsl:call-template name="default-structure">
+                 <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                 <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                 <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>

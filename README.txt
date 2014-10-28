@@ -24,7 +24,7 @@ License:
 Technical requirements:
 
 	These scripts are written in XSLT 2.0 and may be transformed using any
-	conformant XSLT processor. (Tested with Saxon-HE™ 9.2.0.6.)
+	conformant XSLT processor. (Tested with Saxon-HE 9.2.0.6.)
 
 How to obtain the stylesheets:
 
@@ -46,9 +46,9 @@ How to obtain the stylesheets:
 How to use it:
 
 	XSLT may be run on an individual EpiDoc XML file, creating a single file output
-	(e.g. via a command-line Saxon™ call or an Oxygen™ transformation scenario)
+	(e.g. via a command-line Saxon call or an Oxygen transformation scenario)
 	or batch-run upon a large collection of files via some other process (e.g. an
-	Oxygen™ project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create
+	Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create
 	a HTML version of the output (this xsl calls both generic and specialized files needed),
 	or start-txt.xsl to create a text-only version of the text output.
 
@@ -60,15 +60,21 @@ How to use it:
 
 	The parameters currently defined include:
 
-	$apparatus-style:
-		values are 'default' (generate apparatus from tei:div[@type='apparatus'])
-		and 'ddbdp' (generate apparatus from tei:app, tei:subst, tei:choice,
-		tei:hi etc. elements in the text.
+	$internal-app-style:
+	             Generate a paragraph of apparatus immediately below the text unless value is "none" (default);
+	             via equivalent of TEI "Parallel Segmentation" apparatus encoding.
+	             Values defined include: 'ddbdp' (generate very rich apparatus from tei:app, tei:subst, tei:choice,
+		tei:hi etc. elements in the text); 'iospe' (generate simple apparatus from tei:choice and
+		children in text only).
+	$external-app-style:
+	             Variant ways to interpret the markup in `div[@type='apparatus']`, assumed to follow
+	             equivalent of TEI "Location-Referenced" apparatus encoding.
+		The only specialized value defined is 'iospe', which processes bibliography richly.
 	$css-loc
-		value is '../xsl/global.css'. Path of CSS file referenced in
+		Default value is '../xsl/global.css'. Path of CSS file referenced in
 		the resulting HTML file.
 	$docroot
-		value is '../output/data'
+		Default value is '../output/data'
 	$edition-type:
 		values are 'interpretive' (default) and 'diplomatic' (prints edition
 		in uppercase, no restored, corrected, expanded characters, etc.)
@@ -77,6 +83,7 @@ How to use it:
 	$hgv-gloss
 		value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
+		Used by Papyrological Navigator only.
 	$leiden-style:
 		values include 'panciera' (default), 'ddbdp', 'dohnicht',
 		'edh-web' (and 'edh-itx', 'edh-names'), 'ila', 'london',

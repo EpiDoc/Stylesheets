@@ -7,20 +7,21 @@
    <!-- Other div matches can be found in htm-teidiv*.xsl -->
 
    <!-- Text edition div -->
-   <xsl:template match="t:div[@type = 'edition']" priority="1">
-       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+    <xsl:template match="t:div[@type = 'edition']" priority="1">
+        <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
        <div id="edition">
          <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
          <xsl:apply-templates/>
 
          <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
-           <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+           <xsl:if test="$parm-internal-app-style = 'ddbdp'">
             <!-- Framework found in htm-tpl-apparatus.xsl -->
             <xsl:call-template name="tpl-apparatus"/>
          </xsl:if>
 
-          <xsl:if test="$parm-apparatus-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
+           <xsl:if test="$parm-internal-app-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
              <!-- Template found in htm-tpl-apparatus.xsl -->
              <xsl:call-template name="tpl-iospe-apparatus"/>
           </xsl:if>
@@ -32,7 +33,7 @@
    <!-- Textpart div -->
     <xsl:template match="t:div[@type='edition']//t:div[@type='textpart']" priority="1">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
        <xsl:variable name="div-type">
            <xsl:for-each select="ancestor::t:div[@type!='edition']">
                <xsl:value-of select="@type"/>
@@ -56,7 +57,7 @@
          </span>
       </xsl:if>
       <xsl:apply-templates/>
-       <xsl:if test="$parm-apparatus-style = 'iospe' and @n">
+        <xsl:if test="$parm-internal-app-style = 'iospe' and @n">
            <!-- Template found in htm-tpl-apparatus.xsl -->
            <xsl:call-template name="tpl-iospe-apparatus"/>
        </xsl:if>

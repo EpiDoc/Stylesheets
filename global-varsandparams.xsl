@@ -26,8 +26,10 @@
                         select="document($param-file)//parameter[name = 'edn-structure']/value[@on = 'yes']"/>
             <xsl:param name="edition-type"
                         select="document($param-file)//parameter[name = 'edition-type']/value[@on = 'yes']"/>
-            <xsl:param name="apparatus-style"
-                        select="document($param-file)//parameter[name = 'apparatus-style']/value[@on = 'yes']"/>
+            <xsl:param name="internal-app-style"
+                        select="document($param-file)//parameter[name = 'internal-app-style']/value[@on = 'yes']"/>
+            <xsl:param name="external-app-style"
+                        select="document($param-file)//parameter[name = 'external-app-style']/value[@on = 'yes']"/>
             <xsl:param name="line-inc"
                         select="document($param-file)//parameter[name = 'line-inc']/value"/>
             <xsl:param name="css-loc"

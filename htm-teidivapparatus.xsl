@@ -10,12 +10,13 @@
   <!--<xsl:import href="teidivapparatus.xsl"/>-->
 
   <!-- Other div matches can be found in htm-teidiv.xsl -->
-  <xsl:param name="parm-apparatus-style" />
+  <xsl:param name="parm-internal-app-style" />
+  <xsl:param name="parm-external-app-style" />
 
   <xsl:variable name="default-language" select="'en'"/>
 
   <xsl:variable name="local-bibliography">
-    <xsl:if test="$parm-apparatus-style = 'iospe'">
+    <xsl:if test="$parm-external-app-style = 'iospe'">
       <xsl:for-each select="//t:div[@type='bibliography']//(t:bibl | t:biblStruct)">
         <xsl:choose>
           <xsl:when test="t:ptr/@target">
@@ -23,7 +24,7 @@
             <xsl:for-each select="t:ptr/@target">
               <xsl:call-template name="source">
                 <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
-                <xsl:with-param name="parm-apparatus-style" select="'iospe'"/>
+                <xsl:with-param name="parm-external-app-style" select="'iospe'"/>
               </xsl:call-template>
             </xsl:for-each>
           </xsl:when>
@@ -39,7 +40,7 @@
 
   <xsl:template name="source">
     <xsl:param name="root"/>
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
 
     <xsl:variable name="source_location">
       <xsl:choose>
@@ -58,7 +59,7 @@
     </xsl:variable>
     <t:ref>
       <xsl:choose>
-        <xsl:when test="$parm-apparatus-style = 'iospe'">
+        <xsl:when test="$parm-external-app-style = 'iospe'">
           <xsl:text>not collated</xsl:text>
         </xsl:when>
         <xsl:when test="starts-with($source_location, '#')">
@@ -131,7 +132,7 @@
   </xsl:template>
 
   <xsl:template match="t:bibl | t:biblStruct" mode="parse-name-year">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <t:name>
       <xsl:for-each select=".//t:author[1]">
         <xsl:choose>
@@ -161,7 +162,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type='apparatus']" priority="1">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <div id="apparatus">
       <h2>apparatus</h2>
       <p>
@@ -171,7 +172,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type='apparatus']//t:app">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <span>
       <xsl:attribute name="class">
         <xsl:value-of select="@loc"/>
@@ -195,7 +196,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type = 'apparatus']//t:rdg">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
 
     <xsl:call-template name="sources">
@@ -209,7 +210,7 @@
 
 
   <xsl:template match="t:div[@type = 'apparatus']//t:lem">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
 
     <xsl:call-template name="sources">
@@ -223,7 +224,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type = 'apparatus']//t:note">
-    <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <span>
       <xsl:if test="ancestor::t:app">
         <xsl:apply-templates/>
