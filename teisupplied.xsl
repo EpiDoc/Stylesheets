@@ -67,7 +67,7 @@
                       or an EDH leiden style, which doesn't use hyphens-->
                 <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') 
                    or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))
-                   and not(starts-with($parm-leiden-style, 'edh'))">
+                   and not(starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt')">
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>
@@ -105,7 +105,7 @@
   <xsl:template match="t:supplied[@reason='subaudible']">
      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
      <xsl:choose>
-        <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+        <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
         <xsl:otherwise>   
            <xsl:text>(</xsl:text>
            <xsl:apply-templates/>
@@ -122,5 +122,19 @@
       <xsl:text>)</xsl:text>
   </xsl:template>
 
+
+<xsl:template match="t:supplied[@reason='undefined' and @evidence='previouseditor']">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:choose>
+         <xsl:when test="$parm-leiden-style='panciera'">
+      <xsl:analyze-string select="." regex="([A-Za-z])">
+<xsl:matching-substring><xsl:for-each select="regex-group(1)">
+   <xsl:value-of select="concat(.,'&#818;')"/>
+      </xsl:for-each>
+</xsl:matching-substring>
+</xsl:analyze-string>
+         </xsl:when>
+      </xsl:choose>
+   </xsl:template>
 
 </xsl:stylesheet>
