@@ -18,7 +18,7 @@
       </xsl:param>
 
       <xsl:choose>
-          <xsl:when test="starts-with($parm-leiden-style, 'edh')">
+          <xsl:when test="$parm-leiden-style=('edh-names','edh-itx')">
             <xsl:apply-templates/>
          </xsl:when>
           <xsl:when test="$parm-edition-type = 'diplomatic'">
