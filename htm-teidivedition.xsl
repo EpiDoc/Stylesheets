@@ -11,21 +11,31 @@
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
        <div id="edition">
-         <!-- Found in htm-tpl-lang.xsl -->
+        
+<!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
          <xsl:apply-templates/>
 
-         <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
-           <xsl:if test="$parm-internal-app-style = 'ddbdp'">
-            <!-- Framework found in htm-tpl-apparatus.xsl -->
-            <xsl:call-template name="tpl-apparatus"/>
-         </xsl:if>
-
-           <xsl:if test="$parm-internal-app-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
-             <!-- Template found in htm-tpl-apparatus.xsl -->
-             <xsl:call-template name="tpl-iospe-apparatus"/>
-          </xsl:if>
-
+         
+           <xsl:choose>
+               <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
+               <xsl:when test="$parm-internal-app-style = 'ddbdp'">
+                   <!-- Framework found in htm-tpl-apparatus.xsl -->
+                   <xsl:call-template name="tpl-apparatus"/>
+               </xsl:when>
+               <xsl:when test="$parm-internal-app-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
+                   <!-- Template found in htm-tpl-apparatus.xsl -->
+                   <xsl:call-template name="tpl-iospe-apparatus"/>
+               </xsl:when>
+               <xsl:when test="$parm-internal-app-style ='defaultmax' and not(descendant::t:div[@type='textpart'][@n])">
+                   <!-- Template to be added in htm-tpl-apparatus.xsl -->
+                   <xsl:call-template name="tpl-defaultmax-apparatus"/>
+               </xsl:when>
+               <!--           <xsl:when test="$parm-internal-app-style = 'defaultmin' and not(descendant::t:div[@type='textpart'][@n])">
+                   Template to be added in htm-tpl-apparatus.xsl 
+               <xsl:call-template name="tpl-defaultmin-apparatus"/>
+               </xsl:when>-->
+           </xsl:choose>
       </div>
    </xsl:template>
 
