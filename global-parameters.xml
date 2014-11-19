@@ -13,7 +13,7 @@
     <value>dohnicht</value>
     <value>edh-itx</value>
     <value>edh-names</value>
-    <value>edh-web</value>
+    <value>edh-web</value> 
     <value>ila</value>
     <value>iospe</value>
     <value>london</value>
@@ -22,6 +22,7 @@
     <value>rib</value>
     <value>seg</value>
     <value>sammelbuch</value>
+    <value>eagletxt</value>
   </parameter>
   
   <parameter>
@@ -35,6 +36,8 @@
     <value>edh-db</value>
     <value>rib</value>
     <value>sammelbuch</value>
+    <value>eagle</value>
+    <value>igcyr</value>
   </parameter>
   
   <parameter>
@@ -54,6 +57,7 @@
     <value on="yes">none</value>
     <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
     <value>iospe</value>
+<value>defaultmax</value>
   </parameter>
   
   <parameter>
