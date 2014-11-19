@@ -31,7 +31,9 @@
                
                <!-- following test decides whether there should be a hyphen at the end of previous line or not -->
                <xsl:choose>
-                  <!--    *unless* diplomatic edition  -->
+                  <!--    *unless* eagle txt  -->
+                  <xsl:when test="$parm-edition-type='eagletxt'"/>                  
+<!--    *unless* diplomatic edition  -->
                    <xsl:when test="$parm-edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>

@@ -12,7 +12,7 @@
       <xsl:apply-templates/>
       <!-- if next div or ab begins with lb[break=no], then add hyphen -->
       <xsl:if test="following::t:lb[1][@break='no' or @type='inWord'] and not($parm-edition-type='diplomatic')
-          and not(starts-with($parm-leiden-style, 'edh'))">
+          and not(starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt')">
           <xsl:text>-</xsl:text>
       </xsl:if>
   </xsl:template>
