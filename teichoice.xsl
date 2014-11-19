@@ -5,11 +5,10 @@
    exclude-result-prefixes="t" version="2.0">
 
    <xsl:template match="t:choice">
-      <xsl:param name="parm-external-app-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="child::t:sic and child::t:corr and starts-with($parm-leiden-style, 'edh')">
+           <xsl:when test="child::t:sic and child::t:corr and $parm-leiden-style=('edh-names','edh-itx')">
             <xsl:text>&lt;</xsl:text>
             <xsl:apply-templates select="t:corr"/>
             <xsl:text>=</xsl:text>
@@ -23,7 +22,7 @@
 
       <!-- Found in [htm|txt]-tpl-apparatus -->
       <xsl:if
-         test="$parm-internal-app-style = 'ddbdp' and ((child::t:sic and child::t:corr) or (child::t:orig and child::t:reg))">
+          test="$parm-apparatus-style = 'ddbdp' and ((child::t:sic and child::t:corr) or (child::t:orig and child::t:reg))">
          <xsl:call-template name="app-link">
             <xsl:with-param name="location" select="'text'"/>
          </xsl:call-template>
