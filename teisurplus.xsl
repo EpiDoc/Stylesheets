@@ -13,7 +13,7 @@
            <xsl:when test="$parm-edition-type = 'diplomatic'">
                <xsl:apply-templates/>
            </xsl:when>
-           <xsl:when test="$parm-edn-structure = 'rib'">
+           <xsl:when test="$parm-leiden-style = 'rib'">
                <xsl:text>&lt; </xsl:text><xsl:apply-templates/><xsl:text> &gt;</xsl:text>
            </xsl:when>
            <xsl:otherwise>
