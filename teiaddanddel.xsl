@@ -91,15 +91,11 @@
           <xsl:when test="$parm-leiden-style=('petrae','iospe')">
             <xsl:text>/</xsl:text>
          </xsl:when>
+         <xsl:when test="parent::t:subst or @place='overstrike'">
+            <xsl:text>»</xsl:text>
+         </xsl:when>
          <xsl:otherwise>
-            <xsl:choose>
-               <xsl:when test="parent::t:subst or @place='overstrike'">
-                  <xsl:text>»</xsl:text>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:text>´</xsl:text>
-               </xsl:otherwise>
-            </xsl:choose>
+            <xsl:text>´</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
