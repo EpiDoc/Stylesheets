@@ -90,7 +90,7 @@
                   <xsl:text> / </xsl:text>
                </xsl:when>
                <xsl:when test="$parm-leiden-style='eagletxt'
-                  and @break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                  and (@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
                   <xsl:text>/</xsl:text>
                </xsl:when>
                
