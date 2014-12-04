@@ -9,7 +9,130 @@
    <xsl:template match="t:app">
       <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-external-app-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
+         <xsl:when test="$parm-edn-structure = 'igcyr'">
+         <xsl:for-each select=".">
+            <p>
+               <xsl:value-of select="@loc"/><xsl:text> </xsl:text>
+               <xsl:if test="t:lem">
+                  <xsl:for-each select="t:lem[@resp]">
+                     <xsl:variable name="authors">
+                     <xsl:variable name="resp" select="tokenize(./@resp,' ')"/>
+                     <xsl:for-each select="$resp">
+                           <xsl:variable name="indresp">
+                              <xsl:sequence select="substring-after(.,'#')"/>
+                           </xsl:variable>
+                     <xsl:choose>
+                              <xsl:when test="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $indresp]">
+                                 <xsl:for-each
+                                    select="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $indresp]">
+                                    <xsl:text> </xsl:text>
+                                    <xsl:choose><xsl:when test="t:author"><xsl:value-of select="t:author[1]/t:name[@type='surname']"/>
+                                       <xsl:if test="t:author[2]">
+                                          <xsl:text>-</xsl:text>
+                                          <xsl:value-of select="t:author[2]/t:name[@type='surname']"/>
+                                       </xsl:if></xsl:when>
+                                       <xsl:when test="t:editor">
+                                          <xsl:value-of select="t:editor[1]/t:name[@type='surname']"/>
+                                          <xsl:if test="t:editor[2]">
+                                             <xsl:text>-</xsl:text>
+                                             <xsl:value-of select="t:editor[2]/t:name[@type='surname']"/>
+                                          </xsl:if>
+                                       </xsl:when></xsl:choose>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="t:date"/>
+                                 </xsl:for-each>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'SEG')">
+                                 <xsl:text> SEG </xsl:text><xsl:value-of select="substring-after($indresp, 'SEG')"/>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'SECir')">
+                                 <xsl:text> SECir </xsl:text><xsl:value-of select="substring-after($indresp, 'SECir')"/>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'Sammelbuch')">
+                                 <xsl:text> Sammelbuch </xsl:text><xsl:value-of select="$indresp"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                 <xsl:text> !</xsl:text><xsl:value-of select="$indresp"/><xsl:text>!</xsl:text>
+                              </xsl:otherwise>
+                           </xsl:choose>
+                           <xsl:if test="not(position()=last())">
+                              <xsl:text>, </xsl:text>
+                           </xsl:if>
+                        </xsl:for-each>
+                        </xsl:variable>
+                     <xsl:apply-templates><xsl:with-param name="location" tunnel="yes">apparatus</xsl:with-param></xsl:apply-templates>
+                     <xsl:text> </xsl:text>
+                     <xsl:value-of select="$authors"/>
+                     </xsl:for-each>
+               </xsl:if>
+               <xsl:text> </xsl:text>
+               <xsl:for-each select="t:rdg">
+                  <xsl:variable name="authors">
+                     <xsl:choose><xsl:when test="./@resp">
+                        <xsl:variable name="resp" select="tokenize(./@resp,' ')"/>
+                        <xsl:for-each select="$resp">
+                           <xsl:variable name="indresp">
+                              <xsl:sequence select="substring-after(.,'#')"/>
+                           </xsl:variable>
+                           <xsl:choose>
+                              <xsl:when test="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $indresp]">
+                                 <xsl:for-each
+                                    select="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $indresp]">
+                                    <xsl:text> </xsl:text>
+                                    <xsl:choose><xsl:when test="t:author"><xsl:value-of select="t:author[1]/t:name[@type='surname']"/>
+                                       <xsl:if test="t:author[2]">
+                                          <xsl:text>-</xsl:text>
+                                          <xsl:value-of select="t:author[2]/t:name[@type='surname']"/>
+                                       </xsl:if></xsl:when>
+                                       <xsl:when test="t:editor">
+                                          <xsl:value-of select="t:editor[1]/t:name[@type='surname']"/>
+                                          <xsl:if test="t:editor[2]">
+                                             <xsl:text>-</xsl:text>
+                                             <xsl:value-of select="t:editor[2]/t:name[@type='surname']"/>
+                                          </xsl:if>
+                                       </xsl:when></xsl:choose>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="t:date"/>
+                                 </xsl:for-each>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'SEG')">
+                                 <xsl:text> SEG </xsl:text><xsl:value-of select="substring-after($indresp, 'SEG')"/>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'SECir')">
+                                 <xsl:text> SECir </xsl:text><xsl:value-of select="substring-after($indresp, 'SECir')"/>
+                              </xsl:when>
+                              <xsl:when test="contains($indresp,'Sammelbuch')">
+                                 <xsl:text> Sammelbuch </xsl:text><xsl:value-of select="$indresp"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                 <xsl:text> !</xsl:text><xsl:value-of select="$indresp"/><xsl:text>!</xsl:text>
+                              </xsl:otherwise>
+                           </xsl:choose>
+                           <xsl:if test="not(position()=last())">
+                              <xsl:text>, </xsl:text>
+                           </xsl:if>
+                        </xsl:for-each>
+                     </xsl:when>
+                        <xsl:otherwise>
+                           <xsl:text>Other reading</xsl:text>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                     </xsl:variable>
+                  <xsl:apply-templates><xsl:with-param name="location" tunnel="yes">apparatus</xsl:with-param></xsl:apply-templates>
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="$authors"/>
+                  <xsl:if test="./note"><xsl:value-of select="./note"/></xsl:if>
+                  <xsl:choose><xsl:when test="not(position() = last())"><xsl:text>; </xsl:text></xsl:when><xsl:otherwise><xsl:text>.</xsl:text></xsl:otherwise></xsl:choose>
+               </xsl:for-each>
+               <xsl:text> </xsl:text>
+               <xsl:for-each select="t:note">
+                  <xsl:value-of select="."/>
+               </xsl:for-each>
+            </p>
+            </xsl:for-each>
+      </xsl:when>
          <xsl:when test="@resp='previous'">
             <span class="previouslyread">
                <xsl:apply-templates/>
