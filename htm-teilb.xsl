@@ -83,21 +83,27 @@
                   </xsl:if>
                </xsl:when>
                
-               <xsl:when test="$parm-leiden-style='eagletxt'
-                  and position()=1 or position()=last()"/>
-               <xsl:when test="$parm-leiden-style='eagletxt'
-                  and not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+               <xsl:when test="$parm-leiden-style='eagletxt'">
+                  <xsl:variable name="cur_anc" select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
+                  <xsl:if
+                     test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
+                        
+               <xsl:choose>
+<xsl:when test="not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
                   <xsl:text> / </xsl:text>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style='eagletxt'
-                  and (@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+               <xsl:when test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                   <xsl:text>/</xsl:text>
                </xsl:when>
-               
+              </xsl:choose>
+                  </xsl:if>
+               </xsl:when>
+
                <xsl:otherwise>
                   <xsl:text>&#xd;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
+
             
             
             <!-- print arrows right of line if R2L or explicitly L2R -->
