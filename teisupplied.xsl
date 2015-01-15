@@ -28,11 +28,12 @@
             <xsl:text>[</xsl:text>
             <xsl:choose>
                 <xsl:when test="$parm-edition-type = 'diplomatic'">
-                  <xsl:variable name="supplied-content">
-                     <xsl:value-of select="descendant::text()"/>
+                  <xsl:variable name="orig-supplied-content">
+                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex
+                        or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
-                     <xsl:value-of select="string-length(normalize-space($supplied-content))"/>
+                     <xsl:value-of select="string-length(translate(normalize-space($orig-supplied-content),' ',''))"/>
                   </xsl:variable>
                   <xsl:variable name="space-ex">
                      <xsl:choose>
