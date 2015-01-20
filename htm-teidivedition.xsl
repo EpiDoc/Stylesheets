@@ -27,14 +27,18 @@
                    <!-- Template found in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-iospe-apparatus"/>
                </xsl:when>
-               <xsl:when test="$parm-internal-app-style ='defaultmax' and not(descendant::t:div[@type='textpart'][@n])">
+               <xsl:when test="$parm-internal-app-style ='fullex'">
                    <!-- Template to be added in htm-tpl-apparatus.xsl -->
-                   <xsl:call-template name="tpl-defaultmax-apparatus"/>
+                   <xsl:call-template name="tpl-fullex-apparatus"/>
                </xsl:when>
-               <!--           <xsl:when test="$parm-internal-app-style = 'defaultmin' and not(descendant::t:div[@type='textpart'][@n])">
-                   Template to be added in htm-tpl-apparatus.xsl 
-               <xsl:call-template name="tpl-defaultmin-apparatus"/>
-               </xsl:when>-->
+               
+<xsl:when test="$parm-internal-app-style ='minex'">
+                   <!-- Template to be added in htm-tpl-apparatus.xsl -->
+                   <xsl:call-template name="tpl-minex-apparatus"/>
+               </xsl:when>
+
+
+               <!--     the default if nothing is selected is to print no internal apparatus      -->
            </xsl:choose>
       </div>
    </xsl:template>

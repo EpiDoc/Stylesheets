@@ -225,7 +225,7 @@
 
 <!--this is the intended default which will deal with the widest range of simple apparatus note marked up inside the text
 -->
-  <xsl:template name="tpl-defaultmax-apparatus">
+  <xsl:template name="tpl-fullex-apparatus">
 
 <xsl:variable name="listapp"><!-- generate a list of app entries, with line numbers for each (and render them later) -->
 
@@ -309,6 +309,16 @@
               </xsl:element>
             </xsl:for-each>
 
+  <xsl:for-each select=".//t:app[@type=('editorial','alternative')]">
+    <xsl:element name="app">
+      <xsl:attribute name="n">
+        <xsl:value-of select="preceding::t:lb[1]/@n"/>
+        <!-- NOTE: need to handle line ranges -->
+      </xsl:attribute>
+      <xsl:call-template name="intappapp"/>
+    </xsl:element>
+  </xsl:for-each>
+
        </xsl:variable>
 
 <!--generate the actual apparatus printing the separators between each info and the reference to line number-->
@@ -323,9 +333,9 @@
           </xsl:attribute>
         </xsl:if>
         <xsl:for-each select="$listapp/app">
-<xsl:sort select="@n"/>
+<xsl:sort select="@n" data-type="number"/>
           <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
-            <xsl:text>l. </xsl:text>
+            <xsl:text>l.</xsl:text>
 <xsl:value-of select="@n"/>
             <xsl:text> </xsl:text>
           </xsl:if>
@@ -338,21 +348,85 @@
   </xsl:template>
   
 
+<!--this only renders choice and app-->
+  <xsl:template name="tpl-minex-apparatus">
+    
+    <xsl:variable name="listapp"><!-- generate a list of app entries, with line numbers for each (and render them later) -->
+      
+      <xsl:for-each select=".//t:choice[child::t:reg and not(ancestor::t:rdg)]">
+        <xsl:element name="app">
+          <xsl:attribute name="n">
+            <xsl:value-of select="preceding::t:lb[1]/@n"/>
+            <!-- NOTE: need to handle line ranges -->
+          </xsl:attribute>
+          <xsl:call-template name="intappchoice"/>
+        </xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select=".//t:choice[child::t:corr and not(ancestor::t:rdg)]">
+        <xsl:element name="app">
+          <xsl:attribute name="n">
+            <xsl:value-of select="preceding::t:lb[1]/@n"/>
+            <!-- NOTE: need to handle line ranges -->
+          </xsl:attribute>
+          <xsl:call-template name="intappsiccorr"/>
+        </xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select=".//t:app[@type=('editorial','alternative')]">
+        <xsl:element name="app">
+          <xsl:attribute name="n">
+            <xsl:value-of select="preceding::t:lb[1]/@n"/>
+            <!-- NOTE: need to handle line ranges -->
+          </xsl:attribute>
+          <xsl:call-template name="intappapp"/>
+        </xsl:element>
+      </xsl:for-each>
+      
+    </xsl:variable>
+    
+    <!--generate the actual apparatus printing the separators between each info and the reference to line number-->
+    <p class="miniapp">
+      <xsl:if test="ancestor-or-self::t:div[@type='textpart'][@n]">
+        <xsl:attribute name="id">
+          <xsl:text>miniapp</xsl:text>
+          <xsl:for-each select="ancestor-or-self::t:div[@type='textpart'][@n]">
+            <xsl:value-of select="@n"/>
+            <xsl:text>-</xsl:text>
+          </xsl:for-each>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:for-each select="$listapp/app">
+        <xsl:sort select="@n" data-type="number"/>
+        <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
+          <xsl:text>l.</xsl:text>
+          <xsl:value-of select="@n"/>
+          <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:value-of select="."/>
+        <xsl:if test="not(position()=last())">
+          <xsl:text> | </xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+    </p>
+  </xsl:template>
+
 <!--templates for each internal apparatus feature -->
 
+<xsl:template name="intappapp">
+<xsl:if test="t:lem/@source"><xsl:value-of select="t:lem/@source"/><xsl:text>; </xsl:text></xsl:if>
+<xsl:value-of select="t:rdg"/>
+  <xsl:if test="t:rdg/@source"><xsl:text> </xsl:text><xsl:value-of select="t:rdg/@source"/><xsl:text>; </xsl:text></xsl:if>
+  <xsl:apply-templates/>
+
+</xsl:template>
+  
 <!--Correction Without Specification-->
 
   <xsl:template name="intappcorr">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-      <!--do nothing if iospe-->
-      <xsl:when test="$parm-leiden-style=('iospe')"/>
-      <!--write lapis if default panciera style (TESTING ONLY!!)-->
-      <xsl:when test="$parm-leiden-style=('panciera')">
-        <xsl:value-of select="."/><xsl:text> corrected for unknown reason </xsl:text>
+    
+        <xsl:value-of select="."/><xsl:text> corr.</xsl:text>
        
-      </xsl:when>
-    </xsl:choose>
   </xsl:template>
 
   <!--   Erroneous Substitution
@@ -361,39 +435,17 @@ choice with sic and corr
 
 -->
   <xsl:template name="intappsiccorr">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-<!--do nothing if iospe-->
-      <xsl:when test="$parm-leiden-style=('iospe')"/>
-<!--write lapis if default panciera style (TESTING ONLY!!)-->
-      <xsl:when test="$parm-leiden-style=('panciera')">
-        <xsl:text>lapis: </xsl:text>
+    
+        <xsl:text>sic, orig. </xsl:text>
         <xsl:value-of select="t:sic"/>
-      </xsl:when>
-    </xsl:choose>
   </xsl:template>
 
   <!-- Regularization
 
 choice with reg and orig -->
   <xsl:template name="intappchoice">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-<xsl:when test="$parm-leiden-style=('iospe')">  
     <xsl:if test="self::t:choice">
-      <xsl:text>orig. </xsl:text>
-      <xsl:call-template name="iospe-appcontext">
-        <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-        <xsl:with-param name="context"
-          select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
-        />
-      </xsl:call-template>
-    </xsl:if>
-    <xsl:value-of select="t:orig"/>
- </xsl:when>
-<xsl:when test="$parm-leiden-style=('london','panciera')">
-  <xsl:if test="self::t:choice">
-    <xsl:text>Orig. </xsl:text>
+    <xsl:text>reg., orig. </xsl:text>
     <xsl:call-template name="iospe-appcontext">
       <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
       <xsl:with-param name="context"
@@ -402,8 +454,6 @@ choice with reg and orig -->
     </xsl:call-template>
   </xsl:if>
   <xsl:value-of select="t:orig"/>
-</xsl:when>
-    </xsl:choose>
 </xsl:template>
   
 
@@ -413,22 +463,13 @@ handled in the default to render in the text only one unclear or preferred lette
 
 -->
   <xsl:template name="intappunclear">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-<xsl:when test="$parm-leiden-style=('iospe')"/>
-<xsl:when test="$parm-leiden-style=('panciera')">
+   
 <xsl:if test="self::t:choice">
-      <xsl:call-template name="iospe-appcontext">
-        <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-        <xsl:with-param name="context"
-          select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
-        />
-      </xsl:call-template>
-    </xsl:if>
+      </xsl:if>
     <xsl:for-each select="t:unclear">
       <xsl:if test="not(position()=1)">
-        <xsl:text> or </xsl:text></xsl:if>
-<xsl:value-of select="."/></xsl:for-each></xsl:when></xsl:choose>
+        <xsl:text> aut </xsl:text></xsl:if>
+<xsl:value-of select="."/></xsl:for-each>
   </xsl:template>
 
 
@@ -438,23 +479,9 @@ subst with del and add
 in the text the text  after correction is printed, in apparatus instead the text originally written
 -->
   <xsl:template name="intappsubst">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-<xsl:when test="$parm-leiden-style=('iospe')">
-    <xsl:if test="self::t:subst and child::t:add and child::t:del">
-      <xsl:text>corr. ex </xsl:text>
-      <xsl:call-template name="iospe-appcontext">
-        <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-        <xsl:with-param name="context"
-          select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
-        />
-      </xsl:call-template>
-    </xsl:if>
-    <xsl:value-of select="t:del"/>
-</xsl:when>
-<xsl:when test=" $parm-leiden-style=('panciera')">
+     
   <xsl:if test="self::t:subst and child::t:add and child::t:del">
-    <xsl:text>corrected text: </xsl:text>
+    <xsl:text>del </xsl:text>
     <xsl:call-template name="iospe-appcontext">
       <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
       <xsl:with-param name="context"
@@ -463,23 +490,14 @@ in the text the text  after correction is printed, in apparatus instead the text
     </xsl:call-template>
   </xsl:if>
   <xsl:value-of select="t:del"/>
-</xsl:when>
-    </xsl:choose>
+
   </xsl:template>
   
 
 
   <!-- Ancient Corrections (Old Text Lost) -->
   <xsl:template name="intappoverstrike">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-      <!--do nothing if iospe-->
-      <xsl:when test="$parm-leiden-style=('iospe')"/>
-      <!--write lapis if default panciera style (TESTING ONLY!!)-->
-      <xsl:when test="$parm-leiden-style=('panciera')">
-        <xsl:value-of select="."/><xsl:text> overstriked </xsl:text>
-      </xsl:when>
-    </xsl:choose>
+         <xsl:value-of select="."/><xsl:text> del</xsl:text>
   </xsl:template>
 
 
@@ -490,36 +508,16 @@ in the text the text  after correction is printed, in apparatus instead the text
 
   <xsl:template name="intappaddabovebelow">
     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-    <xsl:choose>
-      <!--do nothing if iospe-->
-      <xsl:when test="$parm-leiden-style=('iospe')"/>
-      <!--write lapis if default panciera style (TESTING ONLY!!)-->
-      <xsl:when test="$parm-leiden-style=('panciera')">
-        <xsl:value-of select="."/><xsl:text> added </xsl:text><xsl:value-of select="@place"/>
-      </xsl:when>
-    </xsl:choose>
+   
+        <xsl:value-of select="."/><xsl:text> add </xsl:text><xsl:value-of select="@place"/>
   </xsl:template>
 
 
   <!--Raised/Lowered Characters -->
   <xsl:template name="intapphi">
     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-  <xsl:choose><xsl:when test="$parm-leiden-style=('iospe')">
-<xsl:if test="self::t:hi[@rend=('subscript','superscript')]">
-      <xsl:apply-templates/>
-      <xsl:choose>
-        <xsl:when test="@rend='subscript'">
-          <xsl:text> i.l.</xsl:text>
-        </xsl:when>
-        <xsl:when test="@rend='superscript'">
-          <xsl:text> s.l.</xsl:text>
-        </xsl:when>
-      </xsl:choose>
-    </xsl:if></xsl:when>
-<xsl:otherwise>
-  <xsl:value-of select="."/><xsl:text> </xsl:text><xsl:value-of select="@rend"/>
-</xsl:otherwise>
-  </xsl:choose>
+ 
+  <xsl:value-of select="@rend"/>
   </xsl:template>
 
 

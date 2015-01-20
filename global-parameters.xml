@@ -57,7 +57,8 @@
     <value on="yes">none</value>
     <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
     <value>iospe</value>
-<value>defaultmax</value>
+    <value>fullex</value> <!--this example uses all the currently specified internal apparatus features-->
+<value>minex</value> <!--this is the same as above but only uses some common examples-->
   </parameter>
   
   <parameter>
