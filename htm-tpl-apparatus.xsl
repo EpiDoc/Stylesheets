@@ -309,7 +309,17 @@
               </xsl:element>
             </xsl:for-each>
 
-  <xsl:for-each select=".//t:app[@type=('editorial','alternative')]">
+  <xsl:for-each select=".//t:app[@type='editorial']">
+    <xsl:element name="app">
+      <xsl:attribute name="n">
+        <xsl:value-of select="preceding::t:lb[1]/@n"/>
+        <!-- NOTE: need to handle line ranges -->
+      </xsl:attribute>
+      <xsl:call-template name="intappedit"/>
+    </xsl:element>
+  </xsl:for-each>
+
+  <xsl:for-each select=".//t:app[@type='alternative']">
     <xsl:element name="app">
       <xsl:attribute name="n">
         <xsl:value-of select="preceding::t:lb[1]/@n"/>
@@ -373,7 +383,17 @@
         </xsl:element>
       </xsl:for-each>
       
-      <xsl:for-each select=".//t:app[@type=('editorial','alternative')]">
+      <xsl:for-each select=".//t:app[@type='editorial']">
+        <xsl:element name="app">
+          <xsl:attribute name="n">
+            <xsl:value-of select="preceding::t:lb[1]/@n"/>
+            <!-- NOTE: need to handle line ranges -->
+          </xsl:attribute>
+          <xsl:call-template name="intappedit"/>
+        </xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select=".//t:app[@type='alternative']">
         <xsl:element name="app">
           <xsl:attribute name="n">
             <xsl:value-of select="preceding::t:lb[1]/@n"/>
@@ -414,12 +434,14 @@
 <!--templates for each internal apparatus feature -->
 
 <xsl:template name="intappapp">
-<xsl:if test="t:lem/@source"><xsl:value-of select="t:lem/@source"/><xsl:text>; </xsl:text></xsl:if>
-<xsl:value-of select="t:rdg"/>
-  <xsl:if test="t:rdg/@source"><xsl:text> </xsl:text><xsl:value-of select="t:rdg/@source"/><xsl:text>; </xsl:text></xsl:if>
-  <xsl:apply-templates/>
-
+<xsl:apply-templates select="t:rdg"/>
 </xsl:template>
+
+  <xsl:template name="intappedit">
+    <xsl:if test="t:lem/@source"><xsl:value-of select="t:lem/@source"/><xsl:text>; </xsl:text></xsl:if>
+      <xsl:apply-templates select="t:rdg"/>
+      <xsl:if test="t:rdg/@source"><xsl:text> </xsl:text><xsl:value-of select="t:rdg/@source"/><xsl:text>; </xsl:text></xsl:if>
+  </xsl:template>
   
 <!--Correction Without Specification-->
 
