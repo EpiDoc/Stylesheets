@@ -29,32 +29,46 @@
             <xsl:choose>
                 <xsl:when test="$parm-edition-type = 'diplomatic'">
                   <xsl:variable name="orig-supplied-content">
-                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex or parent::t:ex
+                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex 
                         or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
                      <xsl:value-of select="string-length(translate(normalize-space($orig-supplied-content),' ',''))"/>
                   </xsl:variable>
                   <xsl:variable name="space-ex">
-                     <xsl:choose>
+                     <xsl:for-each select="descendant::t:space">
+                        <xsl:choose>
+                           <xsl:when test="@quantity">
+                              <xsl:for-each select="1 to @quantity">
+                                 <xsl:text>.</xsl:text>
+                              </xsl:for-each>
+                           </xsl:when>
+                           <xsl:otherwise>
+                              <xsl:text>...</xsl:text>
+                           </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:for-each>
+                     <!--<xsl:choose>
                         <xsl:when test="number(descendant::t:space/@extent)">
                            <xsl:number value="descendant::t:space/@extent"/>
                         </xsl:when>
                         <xsl:otherwise>
                            <xsl:number value="1"/>
                         </xsl:otherwise>
-                     </xsl:choose>
+                     </xsl:choose>-->
                   </xsl:variable>
-                  <xsl:for-each select="t:g|t:expan[not(child::abbr)]">
-                     <xsl:text>.</xsl:text>
-                  </xsl:for-each>
+                    <xsl:variable name="symbol-ex">
+                     <xsl:for-each select="t:g|t:expan[not(child::abbr)]">
+                        <xsl:text>.</xsl:text>
+                     </xsl:for-each>
+                   </xsl:variable>
                   <!-- Found in teigap.xsl -->
-            <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="$sup-context-length"/>
-                  </xsl:call-template>
                   <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="$space-ex"/>
+                     <xsl:with-param name="cur-num" select="number($sup-context-length+string-length($space-ex)+string-length($symbol-ex))"/>
                   </xsl:call-template>
+                  <!--<xsl:call-template name="dot-out">
+                     <xsl:with-param name="cur-num" select="$space-ex"/>
+                  </xsl:call-template>-->
                </xsl:when>
                <xsl:otherwise>
                   <xsl:apply-templates/>
