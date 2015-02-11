@@ -162,6 +162,9 @@
                <xsl:when test="@resp='autopsy'">
                   <xsl:apply-templates/>
                </xsl:when>
+               <xsl:when test="not(preceding-sibling::t:lem or preceding-sibling::t:rdg)">
+                  <xsl:apply-templates/>
+               </xsl:when>
                <xsl:otherwise/>
             </xsl:choose>
          </xsl:when>
@@ -187,7 +190,8 @@
       </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="t:lem">
+   <xsl:template match="t:lem">
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-hgv-gloss" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
@@ -267,7 +271,7 @@
                <xsl:apply-templates/>
             </span>
          </xsl:when>
-          <xsl:when test="$parm-leiden-style='iospe' and ../t:rdg">
+          <xsl:when test="$parm-leiden-style='iospe' and $parm-edition-type='interpretive' and ../t:rdg">
             <xsl:apply-templates/>
             <xsl:for-each select="../t:rdg">
                <xsl:text> resp. </xsl:text>
