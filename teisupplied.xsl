@@ -29,7 +29,7 @@
             <xsl:choose>
                 <xsl:when test="$parm-edition-type = 'diplomatic'">
                   <xsl:variable name="orig-supplied-content">
-                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex
+                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex or parent::t:ex
                         or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
@@ -46,7 +46,7 @@
                      </xsl:choose>
                   </xsl:variable>
                   <xsl:for-each select="t:g|t:expan[not(child::abbr)]">
-                     <xsl:text>·</xsl:text>
+                     <xsl:text>.</xsl:text>
                   </xsl:for-each>
                   <!-- Found in teigap.xsl -->
             <xsl:call-template name="dot-out">
