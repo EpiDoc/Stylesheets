@@ -33,9 +33,9 @@
                         or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
-                     <xsl:value-of select="string-length(translate(normalize-space($orig-supplied-content),' ',''))"/>
-                  </xsl:variable>
-                  <xsl:variable name="space-ex">
+                     <!-- take all text content that is not restored or expanded -->
+                     <xsl:value-of select="translate(normalize-space($orig-supplied-content),' ','')"/>
+                     <!-- also add characters for vacats -->
                      <xsl:for-each select="descendant::t:space">
                         <xsl:choose>
                            <xsl:when test="@quantity">
@@ -48,23 +48,14 @@
                            </xsl:otherwise>
                         </xsl:choose>
                      </xsl:for-each>
-                     <!--<xsl:choose>
-                        <xsl:when test="number(descendant::t:space/@extent)">
-                           <xsl:number value="descendant::t:space/@extent"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                           <xsl:number value="1"/>
-                        </xsl:otherwise>
-                     </xsl:choose>-->
-                  </xsl:variable>
-                    <xsl:variable name="symbol-ex">
+                     <!-- also add characters for symbols and abbreviations -->
                      <xsl:for-each select="t:g|t:expan[not(child::abbr)]">
                         <xsl:text>.</xsl:text>
                      </xsl:for-each>
                    </xsl:variable>
                   <!-- Found in teigap.xsl -->
                   <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="number($sup-context-length+string-length($space-ex)+string-length($symbol-ex))"/>
+                     <xsl:with-param name="cur-num" select="number($sup-context-length)"/>
                   </xsl:call-template>
                   <!--<xsl:call-template name="dot-out">
                      <xsl:with-param name="cur-num" select="$space-ex"/>
