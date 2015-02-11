@@ -55,7 +55,7 @@
                    </xsl:variable>
                   <!-- Found in teigap.xsl -->
                   <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="number($sup-context-length)"/>
+                     <xsl:with-param name="cur-num" select="string-length($sup-context-length)"/>
                   </xsl:call-template>
                   <!--<xsl:call-template name="dot-out">
                      <xsl:with-param name="cur-num" select="$space-ex"/>
