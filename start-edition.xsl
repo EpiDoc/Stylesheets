@@ -87,8 +87,9 @@
                 <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                 <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
-                <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
+                 <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'hgv'">
@@ -100,7 +101,8 @@
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                 <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'inslib'">
@@ -112,7 +114,8 @@
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                 <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'iospe'">
@@ -124,7 +127,8 @@
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                 <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
             </xsl:call-template>
          </xsl:when>
          <xsl:when test="$edn-structure = 'ddbdp'">
@@ -137,7 +141,8 @@
                   <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                   <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                   <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                  <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                    <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                    <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
               </xsl:call-template>
             </div>
          </xsl:when>
@@ -151,6 +156,7 @@
         <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
         <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
         <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+        <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
     </xsl:call-template>
 </xsl:when>
           <xsl:when test="$edn-structure='igcyr'">
@@ -163,6 +169,7 @@
                   <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                   <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
                   <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                  <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
               </xsl:call-template>
           </xsl:when>
           <xsl:otherwise>
@@ -174,7 +181,8 @@
                 <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                 <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
-                <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                 <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
             </xsl:call-template>
          </xsl:otherwise>
       </xsl:choose>
