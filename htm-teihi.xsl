@@ -40,7 +40,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='intraline'">
             <xsl:element name="span">
-               <xsl:attribute name="class">line-through</xsl:attribute>
+               <xsl:attribute name="class">intraline</xsl:attribute>
+               <xsl:attribute name="title">line through</xsl:attribute>
                <xsl:apply-templates/>
             </xsl:element>
          </xsl:when>
