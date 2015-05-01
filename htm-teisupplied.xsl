@@ -5,10 +5,16 @@
                 version="2.0">
   <!-- Called from teisupplied.xsl -->
 
-  <xsl:template name="supplied-parallel">
-      <span class="underline">
-         <xsl:apply-templates/>
-      </span>
-  </xsl:template>
+    <xsl:template name="supplied-parallel">
+        <span class="underline">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template name="supplied-previouseditor">
+        <span class="underline">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
 
 </xsl:stylesheet>

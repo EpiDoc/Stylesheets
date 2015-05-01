@@ -14,16 +14,32 @@
          <br/>
       </xsl:if>
       <xsl:choose>
-         <xsl:when test="@evidence = 'parallel'">
-        <!-- Found in [htm|txt]-teisupplied.xsl -->
-        <xsl:call-template name="supplied-parallel"/>
+         <xsl:when test="@evidence">
+            <xsl:if test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+               <xsl:text>[</xsl:text>
+            </xsl:if>
+            <xsl:choose>
+               <xsl:when test="@evidence = 'parallel'">
+                  <!-- Found in [htm|txt]-teisupplied.xsl -->
+                  <xsl:call-template name="supplied-parallel"/>
+               </xsl:when>
+               <xsl:when test="@evidence = 'previouseditor'">
+                  <!-- Found in [htm|txt]-teisupplied.xsl -->
+                  <xsl:call-template name="supplied-previouseditor"/>
+               </xsl:when>
+            </xsl:choose>
+            <xsl:if test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+               <xsl:text>]</xsl:text>
+            </xsl:if>
          </xsl:when>
+         
          <xsl:otherwise>
-        <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
-           are no longer used in this version of the stylesheets. They used to serve to limit
-           the superfluous square brackets between adjacent gap and supplied elements,
-           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
-           which is called after all other templates are completed.
+        <!--
+           *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+           are no longer used in the EpiDoc Example Stylesheets since November 2011.
+           They used to serve to limit the superfluous square brackets between adjacent gap
+           and supplied elements, but this function is now performed by regex in
+           [htm|txt]-tpl-sqbrackets.xsl which is called after all other templates are completed.
         -->
             <xsl:text>[</xsl:text>
             <xsl:choose>
@@ -77,12 +93,13 @@
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>
-            <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
-           are no longer used in this version of the stylesheets. They used to serve to limit
-           the superfluous square brackets between adjacent gap and supplied elements,
-           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
-           which is called after all other templates are completed.
-        -->
+            <!--
+               *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+               are no longer used in the EpiDoc Example Stylesheets since November 2011.
+               They used to serve to limit the superfluous square brackets between adjacent gap
+               and supplied elements, but this function is now performed by regex in
+               [htm|txt]-tpl-sqbrackets.xsl which is called after all other templates are completed.
+           -->
             <xsl:text>]</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
@@ -129,16 +146,16 @@
   </xsl:template>
 
 
-<xsl:template match="t:supplied[@reason='undefined' and @evidence='previouseditor']">
+<xsl:template match="t:supplied[@reason='undefined' and @evidence]">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$parm-leiden-style='panciera'">
-      <xsl:analyze-string select="." regex="([A-Za-z])">
-<xsl:matching-substring><xsl:for-each select="regex-group(1)">
-   <xsl:value-of select="concat(.,'&#818;')"/>
-      </xsl:for-each>
-</xsl:matching-substring>
-</xsl:analyze-string>
+         <xsl:when test="@evidence = 'parallel'">
+            <!-- Found in [htm|txt]-teisupplied.xsl -->
+            <xsl:call-template name="supplied-parallel"/>
+         </xsl:when>
+         <xsl:when test="@evidence = 'previouseditor'">
+            <!-- Found in [htm|txt]-teisupplied.xsl -->
+            <xsl:call-template name="supplied-previouseditor"/>
          </xsl:when>
       </xsl:choose>
    </xsl:template>
