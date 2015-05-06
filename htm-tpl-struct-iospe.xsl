@@ -218,7 +218,7 @@
                      <dd>
                         <xsl:choose>
                            <xsl:when test="//t:origin/t:origDate/@evidence">
-                              <xsl:for-each select="tokenize(//t:origin/t:origDate[@evidence],' ')">
+                              <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
                                  <xsl:value-of select="translate(.,'-',' ')"/>
                                  <xsl:if test="position()!=last()">
                                     <xsl:text>, </xsl:text>
