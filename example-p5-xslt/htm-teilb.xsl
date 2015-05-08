@@ -54,6 +54,9 @@
                         (normalize-space(.)='' 
                                  and preceding-sibling::node()[1][local-name() = 'space' or
                                  local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>              
+                  <!-- *or unless* this break is accompanied by a paragraphos mark -->
+                  <!-- in which case the hypen will be inserted before the paragraphos by code in htm-teimilestone.xsl -->
+                  <xsl:when test="preceding-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:milestone[@rend='paragraphos']"/>
                   <xsl:otherwise>
                       <xsl:text>-</xsl:text>
                   </xsl:otherwise>
