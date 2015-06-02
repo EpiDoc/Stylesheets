@@ -10,13 +10,14 @@
    <xsl:template name="inslib-structure">
       <xsl:variable name="title">
          <xsl:choose>
+            <xsl:when test="//t:titleStmt/t:title/text() and number(substring(//t:publicationStmt/t:idno[@type='filename']/text(),2,5))">
+               <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
+               <xsl:text>. </xsl:text>
+               <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],2,5)) div 100"/> 
+               <xsl:text>. </xsl:text>
+               <xsl:value-of select="//t:titleStmt/t:title"/>
+            </xsl:when>
             <xsl:when test="//t:titleStmt/t:title/text()">
-               <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
-                  <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
-                  <xsl:text>. </xsl:text>
-                  <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],2,5)) div 100"/> 
-                  <xsl:text>. </xsl:text>
-               </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
             </xsl:when>
             <xsl:when test="//t:sourceDesc//t:bibl/text()">
@@ -47,9 +48,12 @@
             </h1>
               
                <p><b>Description: </b>
-               <xsl:choose>
+                  <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
                         <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
+                     </xsl:when>
+                     <xsl:when test="//t:support//text()">
+                        <xsl:apply-templates select="//t:support" mode="inslib-dimensions"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
