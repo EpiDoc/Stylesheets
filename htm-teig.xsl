@@ -22,9 +22,10 @@
          <xsl:when test="$parm-leiden-style = 'london'">
            <xsl:call-template name="g-london"/>
          </xsl:when>
-         <xsl:when test="$parm-leiden-style = 'iospe'">
+         <!--   removing customization of IOSPE from stylesheets   -->
+         <!--<xsl:when test="$parm-leiden-style = 'iospe'">
            <xsl:call-template name="g-iospe"/>
-        </xsl:when>
+        </xsl:when>-->
          <xsl:when test="$parm-leiden-style = 'rib'">
              <xsl:call-template name="g-rib"/>
          </xsl:when>
