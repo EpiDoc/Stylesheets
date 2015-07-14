@@ -24,7 +24,7 @@
             <xsl:for-each select="t:ptr/@target">
               <xsl:call-template name="source">
                 <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
-                <xsl:with-param name="parm-external-app-style" select="'iospe'"/>
+                <xsl:with-param name="parm-external-app-style" select="'iospe'" tunnel="yes"/>
               </xsl:call-template>
             </xsl:for-each>
           </xsl:when>
