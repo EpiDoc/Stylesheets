@@ -127,11 +127,11 @@
 
   <!-- called from htm-teidivedition.xsl -->
   <xsl:template name="tpl-iospe-apparatus">
-    <xsl:if test=".//t:choice[child::t:corr] or .//t:subst or .//t:hi[@rend=('subscript','superscript')]">
+    <xsl:if test=".//t:choice[child::t:corr] or .//t:supplied[@reason='omitted'] or .//t:subst or .//t:hi[@rend=('subscript','superscript')]">
       <xsl:variable name="listapp">
         <!-- generate a list of app entries, with line numbers for each (and render them later) -->
         <xsl:for-each
-          select=".//(t:choice[child::t:corr]|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
+          select=".//(t:choice[child::t:corr]|t:supplied[@reason='omitted']|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
           <xsl:element name="app">
             <xsl:attribute name="n">
               <xsl:value-of select="preceding::t:lb[1]/@n"/>
@@ -144,6 +144,15 @@
                   <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
                   <xsl:with-param name="context"
                     select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
+                  />
+                </xsl:call-template>
+              </xsl:when>
+              <xsl:when test="self::t:supplied">
+                <xsl:text>orig. </xsl:text>
+                <xsl:call-template name="iospe-appcontext">
+                  <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
+                  <xsl:with-param name="context"
+                    select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]/text()"
                   />
                 </xsl:call-template>
               </xsl:when>
@@ -199,12 +208,15 @@
     <xsl:param name="context"/>
       <xsl:apply-templates mode="iospe-context" select="$context"/>
   </xsl:template>
+  
   <xsl:template mode="iospe-context" match="t:reg|t:corr|t:add|t:ex|t:rdg"/>
+  
   <xsl:template mode="iospe-context" match="text()">
     <xsl:value-of
       select="upper-case(translate(normalize-unicode(.,'NFD'),'&#x0301;&#x0313;&#x0314;&#x0342;',''))"
     />
   </xsl:template>
+  
   <xsl:template mode="iospe-context" match="t:gap|t:supplied[@reason='lost']">
     <xsl:choose>
       <xsl:when test="@quantity ">
