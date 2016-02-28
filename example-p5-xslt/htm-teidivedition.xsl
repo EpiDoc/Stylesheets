@@ -49,6 +49,55 @@
               <xsl:value-of select="@n"/>
          </span>
       </xsl:if>
+      
+      <!-- Custodial events here -->
+      <!-- first get the value of the columns @corresp -->
+      <xsl:variable name="corresp" select="@corresp"/>
+      <!-- then find each custEvent with a matching @corresp value -->
+      
+      <!--<xsl:if test="//t:custEvent[@type='unrolled']">
+         <xsl:variable name="unroll-corresp" select="//t:custEvent[@type='unrolled']/@corresp"/>
+         <xsl:variable name="unrolled-date" select="//t:custEvent[@type='unrolled']/@when"/>
+         <xsl:variable name="unrolled-by" select="concat(//t:custEvent[@type='unrolled']/t:forename,' ',//t:custEvent[@type='unrolled']/t:surname)"/>
+         <xsl:if test="contains($unroll-corresp,@corresp)">
+            <span class="unrolled" id="ur{$div-loc}{@n}">
+               Unrolled <xsl:value-of select="$unrolled-date"/> by <xsl:value-of select="$unrolled-by"/>
+            </span>
+            <br/>
+            
+         </xsl:if>
+      </xsl:if>-->
+      
+      <xsl:for-each select="//t:custEvent">
+         
+         <xsl:if test="contains(@corresp,$corresp)">
+            <span class="custevent" id="ce{$div-loc}{@n}">
+               
+               <!-- type of event -->
+               <xsl:if test="@type">
+               <xsl:value-of select="concat(upper-case(substring(@type, 1, 1)), substring(@type, 2))"/>
+                  <xsl:if test="@when"><xsl:text> </xsl:text><xsl:value-of select="@when"/></xsl:if><xsl:text> by </xsl:text>
+               </xsl:if> 
+               
+               <!-- responsible individual -->
+               <xsl:choose>
+               <xsl:when test="t:forename or t:surname">
+                  <xsl:value-of select="t:forename"/>
+                  <xsl:if test="t:forename and t:surname">
+                     <xsl:text> </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="t:surname"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  [unidentified responsible individual]
+               </xsl:otherwise>
+            </xsl:choose></span>
+            <br/>
+         </xsl:if>
+         
+      </xsl:for-each>
+      
+      <br/>
       <xsl:apply-templates/>
    </xsl:template>
 </xsl:stylesheet>
