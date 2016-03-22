@@ -16,4 +16,8 @@
       <span lang="en" class="gap"><xsl:apply-imports/></span>
   </xsl:template>
   
+  <xsl:template match="t:gap">
+    <span lang="en" class="gap"><xsl:apply-imports/></span>
+  </xsl:template>
+  
 </xsl:stylesheet>
