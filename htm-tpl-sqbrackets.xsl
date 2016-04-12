@@ -52,13 +52,22 @@
                 <xsl:variable name="plastletter" select="substring(normalize-space($previous), string-length(normalize-space($previous)))"/>
                                 
                 <xsl:choose>
-                    <xsl:when test="$plastletter = ']' and $afirstletter = '[' and $afterprevbr != . and $beforenextbr != .">
-                        <xsl:value-of select="substring($current, 2, string-length($current)-2)"/>                                                
+                    <xsl:when test="$firstletter = '[' and $lastletter = ']' 
+                        and $plastletter = ']' and $afirstletter = '[' 
+                        and generate-id($afterprevbr) != generate-id(.) 
+                        and generate-id($beforenextbr) != generate-id(.)">
+                        <xsl:value-of select="substring($current, 2, string-length($current)-2)"/>
                     </xsl:when>
-                    <xsl:when test="$plastletter = ']' and $afterprevbr != .">
+                    <xsl:when test="$plastletter = ']' and $firstletter = '[' and generate-id($afterprevbr) != generate-id(.)">
+                        <xsl:value-of select="substring($current, 2, string-length($current)-1)"/>
+                    </xsl:when>
+                    <xsl:when test="$afirstletter = '[' and $lastletter = ']' and generate-id($beforenextbr) != generate-id(.)">
+                        <xsl:value-of select="substring($current, 1, string-length($current)-1)"/>
+                    </xsl:when>
+                    <xsl:when test="$plastletter = ']' and $firstletter = '[' and generate-id($afterprevbr) != generate-id(.)">
                         <xsl:value-of select="substring($current, 2)"/>
                     </xsl:when>
-                    <xsl:when test="$afirstletter = '[' and $beforenextbr != .">
+                    <xsl:when test="$afirstletter = '[' and $lastletter = ']' and generate-id($beforenextbr) != generate-id(.)">
                         <xsl:value-of select="substring($current, 1, string-length($current)-1)"/>
                     </xsl:when>
                     <xsl:otherwise>
