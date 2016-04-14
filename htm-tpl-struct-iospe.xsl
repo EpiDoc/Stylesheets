@@ -9,13 +9,13 @@
 <xsl:template name="iospe-structure">
       <xsl:variable name="title">
          <xsl:choose>
-            <xsl:when test="//t:titleStmt/t:title/text() and matches(//t:idno[@type='filename'], '\d+\.\d+')">
+            <xsl:when test="//t:titleStmt/t:title/text() and matches(//t:idno[@type='filename'], '^\d\.\d{1,4}$')">
                <xsl:number value="substring-before(//t:idno[@type='filename'],'.')" format="I"/>
                <xsl:text>&#xa0;</xsl:text>
                <xsl:number value="substring-after(//t:idno[@type='filename'],'.')" format="1"/>
                <xsl:text>.&#xa0;</xsl:text>
-               <xsl:value-of select="//t:origPlace[1]"/>
-               <xsl:text>.&#xa0;</xsl:text>
+               <xsl:if test="string(normalize-space(//t:origPlace[1]))"><xsl:value-of select="normalize-space(//t:origPlace[1])"/>
+               <xsl:text>.&#xa0;</xsl:text></xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title[child::text()][1]"/>
                <xsl:if test="not(//t:titleStmt/t:title[child::text()][1][child::t:origDate])">
                   <xsl:text>,&#xa0;</xsl:text>
