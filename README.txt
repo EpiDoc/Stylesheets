@@ -55,7 +55,7 @@ How to use it:
 	Oxygen transformation scenario) or batch-run upon a large
 	collection of files via some other process (e.g. an Oxygen project,
 	set of batch files, etc.). Call the start-edition.xsl stylesheet to create
-	a HTML version of the output (this xsl calls both generic and
+	a HTML version of the output (this XSL calls both generic and
 	specialized files needed), or start-txt.xsl to create a text-only
 	version of the text output.
 
@@ -72,31 +72,31 @@ How to use it:
 		Generate a paragraph of apparatus immediately below
 		the text unless value is "none" (default); via equivalent of
 		TEI "Parallel Segmentation" apparatus encoding.
-		Values defined include: 'ddbdp' (generate very rich
+		Supported values include: 'ddbdp' (generate very rich
 		apparatus from tei:app, tei:subst, tei:choice, tei:hi etc.
 		elements in the text); 'iospe' (generate simple apparatus
 		from tei:choice and children in text only).
 	$external-app-style:
 		Variant ways to interpret the markup in `div[@type='apparatus']`,
 		assumed to follow equivalent of TEI "Location-Referenced"
-		apparatus encoding. The only specialized value defined is 'iospe',
+		apparatus encoding. The only value supported is 'iospe',
 		which processes bibliography richly.
 	$css-loc
-		Default value is '../xsl/global.css'. Path of CSS file referenced in
-		the resulting HTML file.
+		Default value is '../xsl/global.css'.
+		Path of CSS file referenced in the resulting HTML file.
 	$docroot
 		Default value is '../output/data'
 	$edition-type:
-		values are 'interpretive' (default) and 'diplomatic' (prints edition
-		in uppercase, no restored, corrected, expanded characters, etc.)
+		Values supported are 'interpretive' (default) and 'diplomatic' (prints
+		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
-		implemented values are 'default' (no metadata), 'inslib', 'iospe'
+		Values supported are 'default' (no metadata), 'inslib', 'iospe'
 	$hgv-gloss
-		value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
+		Value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
 		Used by Papyrological Navigator only.
 	$leiden-style:
-		values include 'panciera' (default), 'ddbdp', 'dohnicht',
+		Values supported include 'panciera' (default), 'ddbdp', 'dohnicht',
 		'edh-web' (and 'edh-itx', 'edh-names'), 'ila', 'london',
 		'petrae', 'rib', 'seg', and 'sammelbuch'. These change minor
 		variations in local Leiden usage; brackets for corrected text,
