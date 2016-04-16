@@ -13,7 +13,9 @@
             <xsl:variable name="apos">
                <xsl:text><![CDATA[']]></xsl:text>
             </xsl:variable>
-              <xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>
+             <xsl:value-of select="upper-case(translate(normalize-unicode(translate(translate(translate(.,'&#x03f2;','&#x03f9;'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
+            <!--<xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>-->
+             <!-- &#x02bc;&#x02bd;&#x0301;&#x0302;&#x0303;&#x0308;&#x0340;&#x0341;&#x0342;&#x0343;&#x0344;&#x0345; -->
          </xsl:when>
          <!-- omit space between abbreviation and (deleted) "f." or "l." from EDH names mode -->
           <xsl:when test="$parm-leiden-style='edh-names' and 
