@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: htm-tpl-struct-inslib.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
+<!-- $Id: htm-tpl-struct-dol.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
-  <!-- Contains named templates for InsLib file structure (aka "metadata" aka "supporting data") -->  
+  <!-- Contains named templates for the DOL file structure -->  
    
    <!-- Called from htm-tpl-structure.xsl -->
    
@@ -47,7 +47,7 @@
                <xsl:value-of select="$title"/>
             </h1>
               
-               <p><b>Tablette: </b>
+               <p><b>Tablet: </b>
                   <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
                         <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
@@ -60,7 +60,7 @@
                   
                   
                <br />
-                  <b>Texte: </b>
+                  <b>Dialect: </b>
                <xsl:choose>
                   <xsl:when test="//t:layoutDesc/t:layout//text()">
                         <xsl:value-of select="//t:layoutDesc/t:layout"/>
@@ -68,7 +68,7 @@
                   <xsl:otherwise>Unknown.</xsl:otherwise>
                </xsl:choose>
                   <br />
-                  <b>Lettres: </b>
+                  <b>Alphabet: </b>
                      <xsl:if test="//t:handDesc/t:handNote/text()">
                         <xsl:value-of select="//t:handDesc/t:handNote"/>
                      </xsl:if>
