@@ -47,7 +47,7 @@
                <xsl:value-of select="$title"/>
             </h1>
               
-               <p><b>Description: </b>
+               <p><b>Tablette: </b>
                   <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
                         <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
@@ -60,7 +60,7 @@
                   
                   
                <br />
-                  <b>Text: </b>
+                  <b>Texte: </b>
                <xsl:choose>
                   <xsl:when test="//t:layoutDesc/t:layout//text()">
                         <xsl:value-of select="//t:layoutDesc/t:layout"/>
@@ -68,7 +68,7 @@
                   <xsl:otherwise>Unknown.</xsl:otherwise>
                </xsl:choose>
                   <br />
-                  <b>Letters: </b>
+                  <b>Lettres: </b>
                      <xsl:if test="//t:handDesc/t:handNote/text()">
                         <xsl:value-of select="//t:handDesc/t:handNote"/>
                      </xsl:if>
@@ -165,7 +165,7 @@
                <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
             </div>
             
-               <p><b>Bibliography: </b>
+               <p><b>Bibliographie: </b>
                <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
                   <br/>
                  <b>Text constituted from: </b>
