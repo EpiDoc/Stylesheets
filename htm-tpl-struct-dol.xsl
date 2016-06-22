@@ -174,7 +174,7 @@
             
          
             <p><b>Themes / Keywords: </b>
-            <xsl:if test="//t:textClass/t:keywords/text()">
+               <xsl:if test="//t:textClass/t:keywords/t:list/t:item/text()">
                <xsl:value-of select="//t:textClass/t:keywords/t:list/t:item"/>
             </xsl:if>
             </p>
