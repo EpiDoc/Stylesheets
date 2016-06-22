@@ -125,11 +125,14 @@
                   </xsl:choose> 
                </p>
 
-            <p><b>Bibliography: </b>
+            <p>
+               <b>Contributor: </b>
+               <xsl:apply-templates select="//t:creation"/>
+               <b>Text constituted from: </b>
+               <xsl:apply-templates select="//t:editor"/>
+               <b>Bibliography: </b>
                <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
                <br/>
-               <b>Text constituted from: </b>
-               <xsl:apply-templates select="//t:creation"/>
             </p>            
             
                <div id="edition">
