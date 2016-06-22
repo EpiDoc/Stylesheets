@@ -126,12 +126,12 @@
                </p>
 
             <p>
-               <b>Contributor: </b>
-               <xsl:apply-templates select="//t:creation"/>
-               <b>Text constituted from: </b>
-               <xsl:apply-templates select="//t:editor"/>
                <b>Bibliography: </b>
-               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
+               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/>
+               <b>Editor: </b>
+               <xsl:apply-templates select="//t:editor"/>
+               <b>Text constituted from: </b>
+               <xsl:apply-templates select="//t:creation"/>
                <br/>
             </p>            
             
