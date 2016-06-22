@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: htm-tpl-struct-dol.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
+<!-- $Id: htm-tpl-struct-dol.xsl 1434 2016-06-21 18:23:56Z gabrielbodard jmcarbon $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
@@ -109,7 +109,7 @@
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
                   <br/>
-                  <b>Last recorded location: </b>
+                  <b>Current location: </b>
                   <xsl:choose>
                      <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/> 
@@ -124,10 +124,18 @@
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose> 
                </p>
+
+            <p><b>Bibliography: </b>
+               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
+               <br/>
+               <b>Text constituted from: </b>
+               <xsl:apply-templates select="//t:creation"/>
+            </p>            
             
                <div id="edition">
-                  <p><b>Edition:</b></p>
+                  <p></p>
                   <!-- Edited text output -->
+                  <h4 class="slimmer">Edition:</h4>
                <xsl:variable name="edtxt">
                   <xsl:apply-templates select="//t:div[@type='edition']"/>
                </xsl:variable>
@@ -137,6 +145,7 @@
             
             
             <div id="apparatus">
+               <h4 class="slimmer">Apparatus:</h4>
                <!-- Apparatus text output -->
                <xsl:variable name="apptxt">
                   <xsl:apply-templates select="//t:div[@type='apparatus']"/>
@@ -165,12 +174,12 @@
                <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
             </div>
             
-               <p><b>Bibliographie: </b>
-               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
-                  <br/>
-                 <b>Text constituted from: </b>
-                  <xsl:apply-templates select="//t:creation"/>
-               </p>            
+         
+            <p><b>Themes / Keywords: </b>
+            <xsl:if test="//t:textClass/t:keywords/text()">
+               <xsl:value-of select="//t:textClass/t:keywords"/>
+            </xsl:if>
+            </p>
                
          </body>
       </html>
