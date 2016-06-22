@@ -133,9 +133,7 @@
             </p>            
             
                <div id="edition">
-                  <p></p>
                   <!-- Edited text output -->
-                  <h4 class="slimmer">Edition:</h4>
                <xsl:variable name="edtxt">
                   <xsl:apply-templates select="//t:div[@type='edition']"/>
                </xsl:variable>
@@ -148,7 +146,7 @@
                <h4 class="slimmer">Apparatus:</h4>
                <!-- Apparatus text output -->
                <xsl:variable name="apptxt">
-                  <xsl:apply-templates select="//t:div[@type='apparatus']"/>
+                  <xsl:apply-templates select="//t:div[@type='apparatus']//t:p"/>
                </xsl:variable>
                <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
                <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
@@ -177,7 +175,7 @@
          
             <p><b>Themes / Keywords: </b>
             <xsl:if test="//t:textClass/t:keywords/text()">
-               <xsl:value-of select="//t:textClass/t:keywords"/>
+               <xsl:value-of select="//t:textClass/t:keywords/t:list/t:item"/>
             </xsl:if>
             </p>
                
