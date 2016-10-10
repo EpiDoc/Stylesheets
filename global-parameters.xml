@@ -72,6 +72,27 @@
     <value on="yes">default</value>
   </parameter>
   
+  <parameter><!--old paramter for local tests to be removed soon... -->
+    <name>bibliography</name>
+    <value on="yes">default</value>
+    <value>igcyr</value><!--test of a different rendering from a different group bibliography (common IRT, IRCyr and IGCyr)-->
+    <value>irt</value><!--test of a different rendering from a different group bibliography-->
+    <value>localTEI</value> <!--looks up a local TEI bibliography-->
+    <value>zotero</value> <!--looks at the api and renders the html from there-->
+  </parameter>
+  
+  <parameter>
+    <name>ZoteroGroupKey</name>
+    <value on="yes">default</value>
+    <value>eaglebpn</value> <!--EAGLE open group bibliography-->
+  </parameter>
+  
+  <parameter>
+    <name>ZoteroStyleName</name>
+    <value on="yes">default</value>
+    <value>chicago-author-date</value> <!--sample value-->
+  </parameter>
+  
   <!-- Line-numbering increment -->
   <parameter>
     <name>line-inc</name>
