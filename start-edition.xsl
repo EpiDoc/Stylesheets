@@ -172,6 +172,12 @@
         <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
         <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
         <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
+        <xsl:with-param name="parm-bib" select="$bibliography" tunnel="yes"/>
+        <xsl:with-param name="parm-bibloc" select="$localbibl" tunnel="yes"/>
+        <xsl:with-param name="parm-zoteroUorG" select="$ZoteroUorG" tunnel="yes"/>
+        <xsl:with-param name="parm-zoteroKey" select="$ZoteroKey" tunnel="yes"/>
+        <xsl:with-param name="parm-zoteroNS" select="$ZoteroNS" tunnel="yes"/>
+        <xsl:with-param name="parm-zoteroStyle" select="$ZoteroStyle" tunnel="yes"/>
     </xsl:call-template>
 </xsl:when>
           <xsl:when test="$edn-structure='igcyr'">

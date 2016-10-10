@@ -36,6 +36,18 @@
                         select="document($param-file)//parameter[name = 'css-loc']/value"/>
             <xsl:param name="js-dir"
                         select="document($param-file)//parameter[name = 'js-dir']/value"/>
+            <xsl:param name="bibliography"
+                        select="document($param-file)//parameter[name = 'bibliography']/value[@on = 'yes']"/>
+            <xsl:param name="localbibl"
+                        select="document($param-file)//parameter[name = 'localbibl']/value"/>
+            <xsl:param name="ZoteroUorG" 
+                        select="document($param-file)//parameter[name = 'ZoteroUorG']/value[@on = 'yes']"/>
+            <xsl:param name="ZoteroKey"
+                        select="document($param-file)//parameter[name = 'ZoteroKey']/value[@on = 'yes']"/>
+            <xsl:param name="ZoteroNS"
+                        select="document($param-file)//parameter[name = 'ZoteroNS']/value[@on='yes']"/>
+            <xsl:param name="ZoteroStyle"
+                        select="document($param-file)//parameter[name = 'ZoteroStyle']/value[@on = 'yes']"/>
     
             <xsl:param name="docroot">../output/data</xsl:param>
 
