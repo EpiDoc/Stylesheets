@@ -77,8 +77,19 @@
                <!-- type of event -->
                <xsl:variable name="type-string" select="concat(upper-case(substring(@type, 1, 1)), substring(@type, 2))"/>
                <xsl:choose>
-                  <xsl:when test="@type='imaged' and t:graphic">
-                     <a href="{t:graphic/@url}" title="image of {$div-subtype} {$div-n}">
+                  <xsl:when test="t:graphic[@url]">
+                     <xsl:variable name="gtype">
+                        <xsl:choose>
+                           <xsl:when test="@type = 'sketched'">sketch</xsl:when>
+                           <xsl:when test="@type = 'imaged'">photograph</xsl:when>
+                           <xsl:when test="@type = 'engraved'">engraving</xsl:when>
+                           <xsl:otherwise>
+                              <xsl:value-of select="@type"/>
+                              <xsl:message>WARNING (<xsl:value-of select="//t:idno[@type='dclp']"/>): unexpected type value for custodial event: <xsl:value-of select="@type"/></xsl:message>
+                           </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:variable>
+                     <a href="{t:graphic/@url}" title="digital image of {$gtype} of {$div-subtype} {$div-n}">
                         <xsl:value-of select="$type-string"/>
                      </a>
                   </xsl:when>
