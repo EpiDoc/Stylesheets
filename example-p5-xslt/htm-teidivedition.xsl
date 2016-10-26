@@ -75,21 +75,31 @@
             <span class="custevent" id="ce{$div-loc}{$div-n}">
 
                <!-- type of event -->
-               <xsl:variable name="type-string" select="concat(upper-case(substring(@type, 1, 1)), substring(@type, 2))"/>
+               <xsl:variable name="type-string">
+                  <xsl:choose>
+                     <xsl:when test="@type='MSI'">
+                        <xsl:text>Multi-spectral image captured</xsl:text>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:value-of select="concat(upper-case(substring(@type, 1, 1)), substring(@type, 2))"/>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:variable>
                <xsl:choose>
                   <xsl:when test="t:graphic[@url]">
                      <xsl:variable name="gtype">
                         <xsl:choose>
-                           <xsl:when test="@type = 'sketched'">sketch</xsl:when>
-                           <xsl:when test="@type = 'imaged'">photograph</xsl:when>
-                           <xsl:when test="@type = 'engraved'">engraving</xsl:when>
+                           <xsl:when test="@type = 'sketched'">scan of sketch</xsl:when>
+                           <xsl:when test="@type = 'imaged'">digital photograph</xsl:when>
+                           <xsl:when test="@type = 'engraved'">scan of engraving</xsl:when>
+                           <xsl:when test="@type='MSI'">multi-spectral image</xsl:when>
                            <xsl:otherwise>
                               <xsl:value-of select="@type"/>
                               <xsl:message>WARNING (<xsl:value-of select="//t:idno[@type='dclp']"/>): unexpected type value for custodial event: <xsl:value-of select="@type"/></xsl:message>
                            </xsl:otherwise>
                         </xsl:choose>
                      </xsl:variable>
-                     <a href="{t:graphic/@url}" title="digital image of {$gtype} of {$div-subtype} {$div-n}">
+                     <a href="{t:graphic/@url}" title="{$gtype} of {$div-subtype} {$div-n}">
                         <xsl:value-of select="$type-string"/>
                      </a>
                   </xsl:when>
