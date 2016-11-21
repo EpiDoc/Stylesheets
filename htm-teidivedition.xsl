@@ -45,7 +45,7 @@
 
 
    <!-- Textpart div -->
-    <xsl:template match="t:div[@type='edition']//t:div[@type='textpart']" priority="1">
+    <xsl:template match="t:div[@type='edition']//t:div[@type='textpart'][not(child::t:div[@type='textpart'])]" priority="1">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
        <xsl:variable name="div-type">
