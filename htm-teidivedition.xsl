@@ -69,6 +69,7 @@
            </xsl:if>
               <xsl:value-of select="@n"/>
          </span>
+          <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]"><br /></xsl:if>
       </xsl:if>
       <xsl:apply-templates/>
         <xsl:if test="$parm-internal-app-style = 'iospe' and @n">
