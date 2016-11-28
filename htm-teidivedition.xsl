@@ -23,9 +23,10 @@
                    <!-- Framework found in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-apparatus"/>
                </xsl:when>
-               <xsl:when test="$parm-internal-app-style = 'iospe' and not(descendant::t:div[@type='textpart'][@n])">
-                   <!-- Template found in htm-tpl-apparatus.xsl -->
-                   <xsl:call-template name="tpl-iospe-apparatus"/>
+               <xsl:when test="$parm-internal-app-style = 'iospe'">
+                   <!--<xsl:if test="not(descendant::t:div[@type='textpart'][@n])">-->
+                    <!-- Template found in htm-tpl-apparatus.xsl -->
+                    <xsl:call-template name="tpl-iospe-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style ='fullex'">
                    <!-- Template to be added in htm-tpl-apparatus.xsl -->
