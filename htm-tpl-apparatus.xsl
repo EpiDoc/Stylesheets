@@ -134,6 +134,9 @@
         <xsl:for-each
           select=".//(t:choice[child::t:corr]|t:supplied[@reason='omitted']|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
           <xsl:element name="app">
+            <!-- pseudo-id to avoid duplication of content words in miniapp -->
+            <xsl:attribute name="psid" select="generate-id((ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1])"/>
+            <!-- number to group together miniapps from a single line -->
             <xsl:attribute name="n">
               <xsl:value-of select="preceding::t:lb[1]/@n"/>
               <!-- NOTE: need to handle line ranges -->
@@ -191,7 +194,7 @@
             </xsl:for-each>
           </xsl:attribute>
         </xsl:if>
-        <xsl:for-each select="$listapp/app">
+        <xsl:for-each select="$listapp/app[not(preceding-sibling::app[@psid=current()/@psid])]">
           <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
             <xsl:value-of select="@n"/>
             <xsl:text>: </xsl:text>
