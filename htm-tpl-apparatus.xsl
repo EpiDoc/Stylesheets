@@ -199,7 +199,7 @@
             <xsl:value-of select="@n"/>
             <xsl:text>: </xsl:text>
           </xsl:if>
-          <xsl:value-of select="."/>
+          <xsl:value-of select="."/> {<xsl:value-of select="@psid"/>}
           <xsl:if test="not(position()=last())">
             <xsl:text>; </xsl:text>
           </xsl:if>
