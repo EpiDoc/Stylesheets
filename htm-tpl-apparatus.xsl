@@ -195,13 +195,13 @@
           </xsl:attribute>
         </xsl:if>
         <xsl:for-each select="$listapp/app">
-          <xsl:if test="not(following-sibling::app[@psid=current()/@psid])">
+          <xsl:if test="not(preceding-sibling::app[@psid=current()/@psid])">
             <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
               <xsl:value-of select="@n"/>
               <xsl:text>: </xsl:text>
             </xsl:if>
             <xsl:value-of select="."/>
-            <xsl:if test="not(position()=last())">
+            <xsl:if test="not(position()=last()) and not(following-sibling::app[@psid=current()/@psid])">
               <xsl:text>; </xsl:text>
             </xsl:if>
           </xsl:if>
