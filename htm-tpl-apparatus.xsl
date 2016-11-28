@@ -194,14 +194,16 @@
             </xsl:for-each>
           </xsl:attribute>
         </xsl:if>
-        <xsl:for-each select="$listapp/app[not(preceding-sibling::app[@psid=current()/@psid])]">
-          <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
-            <xsl:value-of select="@n"/>
-            <xsl:text>: </xsl:text>
-          </xsl:if>
-          <xsl:value-of select="."/> {<xsl:value-of select="@psid"/>}
-          <xsl:if test="not(position()=last())">
-            <xsl:text>; </xsl:text>
+        <xsl:for-each select="$listapp/app">
+          <xsl:if test="not(preceding-sibling::app[@psid=current()/@psid])">
+            <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
+              <xsl:value-of select="@n"/>
+              <xsl:text>: </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="."/> {<xsl:value-of select="@psid"/>}
+            <xsl:if test="not(position()=last())">
+              <xsl:text>; </xsl:text>
+            </xsl:if>
           </xsl:if>
         </xsl:for-each>
       </p>
