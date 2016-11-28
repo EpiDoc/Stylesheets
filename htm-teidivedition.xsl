@@ -24,7 +24,6 @@
                    <xsl:call-template name="tpl-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style = 'iospe'">
-                   <!--<xsl:if test="not(descendant::t:div[@type='textpart'][@n])">-->
                     <!-- Template found in htm-tpl-apparatus.xsl -->
                     <xsl:call-template name="tpl-iospe-apparatus"/>
                </xsl:when>
@@ -46,7 +45,7 @@
 
 
    <!-- Textpart div -->
-    <xsl:template match="t:div[@type='edition']//t:div[@type='textpart'][not(child::t:div[@type='textpart'])]" priority="1">
+    <xsl:template match="t:div[@type='edition']//t:div[@type='textpart']" priority="1">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
        <xsl:variable name="div-type">
