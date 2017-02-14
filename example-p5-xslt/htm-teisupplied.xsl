@@ -6,9 +6,11 @@
   <!-- Called from teisupplied.xsl -->
 
   <xsl:template name="supplied-parallel">
-      <span class="underline">
-         <xsl:apply-templates/>
-      </span>
+      <xsl:choose>
+          <xsl:when test="$collection = 'dclp'">⎣<xsl:apply-templates/>⎦</xsl:when>
+          <xsl:otherwise><span class="underline"><xsl:apply-templates/></span></xsl:otherwise>
+      </xsl:choose>
+      
   </xsl:template>
 
 </xsl:stylesheet>

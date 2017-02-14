@@ -5,6 +5,14 @@
    xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
                 exclude-result-prefixes="t EDF" 
                 version="2.0">
+   
+  <xsl:template match="t:supplied[@evidence='parallel']">
+     <xsl:choose>
+        <xsl:when test="$collection = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
+        <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+     </xsl:choose>
+     
+  </xsl:template>
 
   <xsl:template match="t:supplied[@reason='lost']">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
