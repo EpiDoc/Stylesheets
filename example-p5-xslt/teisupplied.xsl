@@ -6,7 +6,7 @@
                 exclude-result-prefixes="t EDF" 
                 version="2.0">
    
-  <xsl:template match="t:supplied[@evidence='parallel']">
+  <xsl:template match="t:supplied[@evidence='parallel']" priority="1">
      <xsl:choose>
         <xsl:when test="$collection = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
         <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
