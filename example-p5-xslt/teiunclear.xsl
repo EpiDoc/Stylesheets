@@ -9,7 +9,8 @@
        <xsl:param name="text-content">
          <xsl:choose>
             <xsl:when test="ancestor::t:orig[not(ancestor::t:choice)]">
-                <xsl:value-of select="translate(., $all-grc, $grc-upper-strip)"/>
+               <xsl:value-of select="upper-case(translate(normalize-unicode(translate(.,'&#x03f2;','&#x03f9;'),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
+                <!--<xsl:value-of select="translate(., $all-grc, $grc-upper-strip)"/>-->
             </xsl:when>
             <xsl:otherwise>
                <xsl:value-of select="."/>
@@ -18,7 +19,7 @@
       </xsl:param>
 
       <xsl:choose>
-          <xsl:when test="starts-with($parm-leiden-style, 'edh')">
+          <xsl:when test="$parm-leiden-style=('edh-names','edh-itx')">
             <xsl:apply-templates/>
          </xsl:when>
           <xsl:when test="$parm-edition-type = 'diplomatic'">

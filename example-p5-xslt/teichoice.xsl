@@ -8,7 +8,7 @@
        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="child::t:sic and child::t:corr and starts-with($parm-leiden-style, 'edh')">
+           <xsl:when test="child::t:sic and child::t:corr and $parm-leiden-style=('edh-names','edh-itx')">
             <xsl:text>&lt;</xsl:text>
             <xsl:apply-templates select="t:corr"/>
             <xsl:text>=</xsl:text>

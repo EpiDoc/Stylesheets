@@ -38,6 +38,8 @@
             <!-- print hyphen if break=no  -->
             <xsl:if test="(@break='no' or @type='inWord')">
                <xsl:choose>
+                  <!--    *unless* edh web  -->
+                  <xsl:when test="$parm-leiden-style='eagletxt'"/>
                   <!--    *unless* diplomatic edition  -->
                    <xsl:when test="$parm-edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
@@ -62,6 +64,50 @@
                   </xsl:otherwise>
                </xsl:choose>
             </xsl:if>
+
+            <xsl:choose>
+               <xsl:when test="$parm-leiden-style=('edh-itx','edh-names')">
+                  <xsl:variable name="cur_anc" select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
+                  <xsl:if
+                     test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
+                     <xsl:choose>
+                        <xsl:when test="$parm-leiden-style='edh-names'
+                           and not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+                           <xsl:text> </xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$parm-leiden-style=('edh-names')"/>
+                        <xsl:when test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                           <xsl:text>/</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <xsl:text> / </xsl:text>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:if>
+               </xsl:when>
+               
+               <xsl:when test="$parm-leiden-style='eagletxt'">
+                  <xsl:variable name="cur_anc" select="generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])"/>
+                  <xsl:if
+                     test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
+                        
+               <xsl:choose>
+<xsl:when test="not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+                  <xsl:text> / </xsl:text>
+               </xsl:when>
+               <xsl:when test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                  <xsl:text>/</xsl:text>
+               </xsl:when>
+              </xsl:choose>
+                  </xsl:if>
+               </xsl:when>
+
+               <xsl:otherwise>
+                  <xsl:text>&#xd;</xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
+
+            
             
             <!-- print arrows right of line if R2L or explicitly L2R -->
             <!-- arrows after final line handled in htm-teiab.xsl -->
@@ -146,7 +192,8 @@
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
          <!-- don't print marginal line number inside tags that are relegated to the apparatus (ddbdp) -->
-         <xsl:when
+          <xsl:when test="$parm-leiden-style = 'eagletxt'"/>
+<xsl:when
              test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') 
             and (ancestor::t:sic
             or ancestor::t:reg

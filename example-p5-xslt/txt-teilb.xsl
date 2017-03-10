@@ -29,16 +29,21 @@
             <xsl:if
                test="(@break='no' or @type='inWord')">
                
+               <!-- following test decides whether there should be a hyphen at the end of previous line or not -->
                <xsl:choose>
-                  <!--    *unless* diplomatic edition  -->
+                  <!--    *unless* eagle txt  -->
+                  <xsl:when test="$parm-edition-type='eagletxt'"/>                  
+<!--    *unless* diplomatic edition  -->
                    <xsl:when test="$parm-edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
+                  <!--   *or unless* one of the EDH leiden-styles, which don't use hyphens -->
+                  <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
                   <!--   *or unless* the second part of an app in ddbdp  -->
                    <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
                      (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
-                  <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
-                  <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
+                  <!--  *or unless* previous line ends with space / g / supplied[reason=lost]  -->
+                  <!-- in which case the hyphen will be inserted before the space/g or final ']' of supplied
                      (tested by EDF:f-wwrap in teig.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
                      local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
@@ -51,6 +56,7 @@
                </xsl:choose>
                
             </xsl:if>
+            <!-- following test decides whether line breaks should be '/' or hard carriage return -->
             <xsl:choose>
                 <xsl:when test="starts-with($parm-leiden-style, 'edh')">
                   <xsl:variable name="cur_anc"
@@ -58,8 +64,13 @@
                   <xsl:if
                      test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
+               <xsl:when test="$parm-leiden-style='edh-names'
+                  and not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
+                  <xsl:text> </xsl:text>
+               </xsl:when>
+                        <xsl:when test="$parm-leiden-style='edh-names'"/>
                         <xsl:when
-                           test="ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
+                           test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
                            <xsl:text>/</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -69,21 +80,18 @@
                   </xsl:if>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>
-</xsl:text>
+                  <xsl:text>&#xd;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
+            
+            <!-- following test decides if and how line numbers should be displayed -->
             <xsl:choose>
+               <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
                 <xsl:when test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-                <xsl:when test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0)">
-                  <xsl:choose>
-                      <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
-                     <xsl:otherwise>
-                        <xsl:call-template name="margin-num"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
+                <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0)">
+                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                <xsl:when test="preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
                   <xsl:call-template name="margin-num"/>

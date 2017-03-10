@@ -14,7 +14,7 @@
       <xsl:call-template name="w-space"/>
     
      <xsl:choose>
-         <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+         <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
         <!-- Found in teig.xsl -->
         <xsl:call-template name="g-ddbdp"/>
@@ -23,7 +23,9 @@
            <xsl:call-template name="g-london"/>
          </xsl:when>
          <xsl:when test="$parm-leiden-style = 'iospe'">
-           <xsl:call-template name="g-iospe"/>
+           <xsl:apply-imports/>
+           <!--   removed customization of IOSPE from stylesheets   -->
+           <!--<xsl:call-template name="g-iospe"/>-->
         </xsl:when>
          <xsl:when test="$parm-leiden-style = 'rib'">
              <xsl:call-template name="g-rib"/>

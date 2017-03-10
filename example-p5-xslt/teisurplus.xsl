@@ -5,10 +5,15 @@
                 version="2.0">
   <!-- Contains template for surplus -->
    
-   <xsl:template match="t:surplus">
-       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
+    <xsl:template match="t:surplus">
+        <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
+        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="$parm-edn-structure = 'rib'">
+           <xsl:when test="$parm-edition-type = 'diplomatic'">
+               <xsl:apply-templates/>
+           </xsl:when>
+           <xsl:when test="$parm-leiden-style = 'rib'">
                <xsl:text>&lt; </xsl:text><xsl:apply-templates/><xsl:text> &gt;</xsl:text>
            </xsl:when>
            <xsl:otherwise>

@@ -4,10 +4,23 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0"
                 version="2.0">
   <!-- Called from teisupplied.xsl -->
-
+  
   <xsl:template name="supplied-parallel">
-    <!-- Need to find out how to underline in text -->
-    <xsl:apply-templates/>
+    <xsl:call-template name="unicode-underline"/>
+  </xsl:template>
+  
+  <xsl:template name="supplied-previouseditor">
+    <xsl:call-template name="unicode-underline"/>
+  </xsl:template>
+  
+  <xsl:template name="unicode-underline">
+    <xsl:analyze-string select="." regex="([A-Za-z])">
+      <xsl:matching-substring>
+        <xsl:for-each select="regex-group(1)">
+          <xsl:value-of select="concat(.,'&#818;')"/>
+        </xsl:for-each>
+      </xsl:matching-substring>
+    </xsl:analyze-string>
   </xsl:template>
 
 </xsl:stylesheet>

@@ -13,7 +13,7 @@
     <value>dohnicht</value>
     <value>edh-itx</value>
     <value>edh-names</value>
-    <value>edh-web</value>
+    <value>edh-web</value> 
     <value>ila</value>
     <value>iospe</value>
     <value>london</value>
@@ -22,6 +22,7 @@
     <value>rib</value>
     <value>seg</value>
     <value>sammelbuch</value>
+    <value>eagletxt</value>
   </parameter>
   
   <parameter>
@@ -35,12 +36,14 @@
     <value>edh-db</value>
     <value>rib</value>
     <value>sammelbuch</value>
+    <value>eagle</value>
+    <value>igcyr</value>
   </parameter>
   
   <parameter>
     <name>verse-lines</name>
-    <value on="yes">off</value>
-    <value>on</value>
+    <value on="yes">off</value><!-- print epigraphic lines at all times, whether text in ab or lg/l -->
+    <value>on</value><!-- print verse lines when text in lg/l; interpret gaps as metre where so tagged -->
   </parameter>
   
   <parameter>
@@ -50,10 +53,61 @@
   </parameter>
   
   <parameter>
+    <name>internal-app-style</name>
+    <value on="yes">none</value>
+    <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
+    <value>iospe</value>
+    <value>fullex</value> <!--this example uses all the currently specified internal apparatus features-->
+<value>minex</value> <!--this is the same as above but only uses some common examples-->
+  </parameter>
+  
+  <parameter>
+    <name>external-app-style</name>
+    <value on="yes">default</value>
+    <value>iospe</value>
+  </parameter>
+  
+  <parameter><!-- DEPRECATED -->
     <name>apparatus-style</name>
     <value on="yes">default</value>
-    <value>ddbdp</value>
-    <!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
+  </parameter>
+  
+  <parameter><!--old paramter for local tests to be removed soon... -->
+    <name>bibliography</name>
+    <value on="yes">none</value>
+    <value>localTEI</value> <!--looks up a local TEI bibliography-->
+    <value>zotero</value> <!--looks at the api and renders the html from there-->
+  </parameter>
+  
+  <parameter> <!--path to local TEI XML bibliography if this is the bibliography used-->
+    <name>localbibl</name>
+    <value>../BIBLIOGRAPHY.xml</value>
+  </parameter>
+  
+  <parameter> if the zotero bibliography is used, select whether it is a group library or a user's library
+    <name>ZoteroUorG</name>
+    <value on="yes">groups</value>
+    <value>users</value>
+  </parameter>
+  
+  
+  <parameter> <!--the key of the library-->
+    <name>ZoteroKey</name>
+    <value on="yes">247748</value><!--EAGLE open group bibliography-->
+    <value>epidig</value> <!--sample value-->
+  </parameter>
+  
+  <parameter> <!--the namespace of tags in the zotero library if any-->
+    <name>ZoteroNS</name>
+    <value on="yes"/> <!--default on no namespace although the htm-teibibl.xsl takes this value only if selected-->
+    <value>igcyr:</value>
+  </parameter>
+  
+  
+  <parameter> <!--the style selected for output-->
+    <name>ZoteroStyle</name>
+    <value on="yes">chicago-author-date</value><!--sample value if nothing is specified Zotero will default to this anyway-->
+    <value>transactions-of-the-american-philological-association</value> <!--sample value-->
   </parameter>
   
   <!-- Line-numbering increment -->

@@ -22,46 +22,68 @@
          <br/>
       </xsl:if>
       <xsl:choose>
-         <xsl:when test="@evidence = 'parallel'">
-        <!-- Found in [htm|txt]-teisupplied.xsl -->
-        <xsl:call-template name="supplied-parallel"/>
+         <xsl:when test="@evidence">
+            <xsl:if test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+               <xsl:text>[</xsl:text>
+            </xsl:if>
+            <xsl:choose>
+               <xsl:when test="@evidence = 'parallel'">
+                  <!-- Found in [htm|txt]-teisupplied.xsl -->
+                  <xsl:call-template name="supplied-parallel"/>
+               </xsl:when>
+               <xsl:when test="@evidence = 'previouseditor'">
+                  <!-- Found in [htm|txt]-teisupplied.xsl -->
+                  <xsl:call-template name="supplied-previouseditor"/>
+               </xsl:when>
+            </xsl:choose>
+            <xsl:if test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+               <xsl:text>]</xsl:text>
+            </xsl:if>
          </xsl:when>
+         
          <xsl:otherwise>
-        <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
-           are no longer used in this version of the stylesheets. They used to serve to limit
-           the superfluous square brackets between adjacent gap and supplied elements,
-           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
-           which is called after all other templates are completed.
+        <!--
+           *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+           are no longer used in the EpiDoc Example Stylesheets since November 2011.
+           They used to serve to limit the superfluous square brackets between adjacent gap
+           and supplied elements, but this function is now performed by regex in
+           [htm|txt]-tpl-sqbrackets.xsl which is called after all other templates are completed.
         -->
             <xsl:text>[</xsl:text>
             <xsl:choose>
                 <xsl:when test="$parm-edition-type = 'diplomatic'">
-                  <xsl:variable name="supplied-content">
-                     <xsl:value-of select="descendant::text()"/>
+                  <xsl:variable name="orig-supplied-content">
+                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex 
+                        or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
-                     <xsl:value-of select="string-length(normalize-space($supplied-content))"/>
-                  </xsl:variable>
-                  <xsl:variable name="space-ex">
-                     <xsl:choose>
-                        <xsl:when test="number(descendant::t:space/@extent)">
-                           <xsl:number value="descendant::t:space/@extent"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                           <xsl:number value="1"/>
-                        </xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:variable>
-                  <xsl:for-each select="t:g">
-                     <xsl:text>··</xsl:text>
-                  </xsl:for-each>
+                     <!-- take all text content that is not restored or expanded -->
+                     <xsl:value-of select="translate(normalize-space($orig-supplied-content),' ','')"/>
+                     <!-- also add characters for vacats -->
+                     <xsl:for-each select="descendant::t:space">
+                        <xsl:choose>
+                           <xsl:when test="@quantity">
+                              <xsl:for-each select="1 to @quantity">
+                                 <xsl:text>.</xsl:text>
+                              </xsl:for-each>
+                           </xsl:when>
+                           <xsl:otherwise>
+                              <xsl:text>...</xsl:text>
+                           </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:for-each>
+                     <!-- also add characters for symbols and abbreviations -->
+                     <xsl:for-each select="t:g|t:expan[not(child::abbr)]">
+                        <xsl:text>.</xsl:text>
+                     </xsl:for-each>
+                   </xsl:variable>
                   <!-- Found in teigap.xsl -->
-            <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="$sup-context-length"/>
-                  </xsl:call-template>
                   <xsl:call-template name="dot-out">
-                     <xsl:with-param name="cur-num" select="$space-ex"/>
+                     <xsl:with-param name="cur-num" select="string-length($sup-context-length)"/>
                   </xsl:call-template>
+                  <!--<xsl:call-template name="dot-out">
+                     <xsl:with-param name="cur-num" select="$space-ex"/>
+                  </xsl:call-template>-->
                </xsl:when>
                <xsl:otherwise>
                   <xsl:apply-templates/>
@@ -71,17 +93,21 @@
             <xsl:call-template name="cert-low"/>
             <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows supplied -->
             <xsl:if test="EDF:f-wwrap(.) = true()">
-               <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
-                <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))">
+               <!-- unless this is in the app part of a choice/subst/app in ddbdp
+                      or an EDH leiden style, which doesn't use hyphens-->
+                <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') 
+                   or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))
+                   and not(starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt')">
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>
-            <!-- *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
-           are no longer used in this version of the stylesheets. They used to serve to limit
-           the superfluous square brackets between adjacent gap and supplied elements,
-           but this function is now performed by regex in [htm|txt]-tpl-sqbrackets.xsl
-           which is called after all other templates are completed.
-        -->
+            <!--
+               *NB* the lost-opener and lost-closer templates, found in tpl-reasonlost.xsl,
+               are no longer used in the EpiDoc Example Stylesheets since November 2011.
+               They used to serve to limit the superfluous square brackets between adjacent gap
+               and supplied elements, but this function is now performed by regex in
+               [htm|txt]-tpl-sqbrackets.xsl which is called after all other templates are completed.
+           -->
             <xsl:text>]</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
@@ -108,10 +134,15 @@
   
 
   <xsl:template match="t:supplied[@reason='subaudible']">
-      <xsl:text>(</xsl:text>
-     <xsl:apply-templates/>
-     <xsl:call-template name="cert-low"/>
-     <xsl:text>)</xsl:text>
+     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:choose>
+        <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
+        <xsl:otherwise>   
+           <xsl:text>(</xsl:text>
+           <xsl:apply-templates/>
+           <xsl:call-template name="cert-low"/>
+           <xsl:text>)</xsl:text>
+        </xsl:otherwise> </xsl:choose>
   </xsl:template>
   
 
@@ -122,5 +153,19 @@
       <xsl:text>)</xsl:text>
   </xsl:template>
 
+
+<xsl:template match="t:supplied[@reason='undefined' and @evidence]">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:choose>
+         <xsl:when test="@evidence = 'parallel'">
+            <!-- Found in [htm|txt]-teisupplied.xsl -->
+            <xsl:call-template name="supplied-parallel"/>
+         </xsl:when>
+         <xsl:when test="@evidence = 'previouseditor'">
+            <!-- Found in [htm|txt]-teisupplied.xsl -->
+            <xsl:call-template name="supplied-previouseditor"/>
+         </xsl:when>
+      </xsl:choose>
+   </xsl:template>
 
 </xsl:stylesheet>

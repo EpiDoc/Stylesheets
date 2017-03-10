@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: htm-tpl-struct-iospe.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
+<!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Contains named templates for IOSPE file structure (aka "metadata" aka "supporting data") -->
@@ -9,18 +9,21 @@
 <xsl:template name="iospe-structure">
       <xsl:variable name="title">
          <xsl:choose>
-            <xsl:when test="//t:titleStmt/t:title/text() and matches(//t:idno[@type='filename'], '\d+\.\d+')">
-               <xsl:number value="substring-before(t:idno[@type='filename'],'.')" format="I"/>
+            <xsl:when test="//t:titleStmt/t:title/text() and matches(//t:idno[@type='filename'], '^\d\.\d{1,4}$')">
+               <xsl:number value="substring-before(//t:idno[@type='filename'],'.')" format="I"/>
                <xsl:text>&#xa0;</xsl:text>
-               <xsl:number value="substring-after(t:idno[@type='filename'],'.')" format="1"/>
+               <xsl:number value="substring-after(//t:idno[@type='filename'],'.')" format="1"/>
                <xsl:text>.&#xa0;</xsl:text>
-               <xsl:value-of select="//origPlace[1]"/>
-               <xsl:text>.&#xa0;</xsl:text>
+               <xsl:if test="string(normalize-space(//t:origPlace[1]))"><xsl:value-of select="normalize-space(//t:origPlace[1])"/>
+               <xsl:text>.&#xa0;</xsl:text></xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title[child::text()][1]"/>
                <xsl:if test="not(//t:titleStmt/t:title[child::text()][1][child::t:origDate])">
                   <xsl:text>,&#xa0;</xsl:text>
-               <xsl:value-of select="//t:origDate[1]"/>
+                  <xsl:value-of select="//t:origDate[1]"/>
                </xsl:if>
+            </xsl:when>
+            <xsl:when test="//t:titleStmt/t:title/text()">
+               <xsl:value-of select="//t:titleStmt/t:title"/>
             </xsl:when>
             <xsl:when test="//t:sourceDesc//t:bibl/text()">
                <xsl:value-of select="//t:sourceDesc//t:bibl"/>
@@ -215,7 +218,7 @@
                      <dd>
                         <xsl:choose>
                            <xsl:when test="//t:origin/t:origDate/@evidence">
-                              <xsl:for-each select="tokenize(//t:origin/t:origDate[@evidence],' ')">
+                              <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
                                  <xsl:value-of select="translate(.,'-',' ')"/>
                                  <xsl:if test="position()!=last()">
                                     <xsl:text>, </xsl:text>
