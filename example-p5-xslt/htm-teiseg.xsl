@@ -8,7 +8,7 @@
   
   <xsl:template match="t:seg">
       <xsl:choose>
-         <xsl:when test="@type='observed' and @subtype='autopsy'">
+         <xsl:when test="@type='autopsy'">
             <span class="autopsy">
                <xsl:apply-imports/>
             </span>

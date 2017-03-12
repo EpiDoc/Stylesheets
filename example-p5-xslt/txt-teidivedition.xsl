@@ -7,7 +7,7 @@
   <!-- General div match found in txt-teidiv.xsl -->
 
   <xsl:template match="t:div[@type = 'edition']" priority="1">
-      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <!-- Two line breaks to give space -->
     <xsl:choose>
@@ -22,7 +22,7 @@
       <xsl:apply-templates/>
     
       <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation -->
-      <xsl:if test="$parm-internal-app-style = 'ddbdp'">
+      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
       <!-- Framework found in txt-tpl-apparatus.xsl -->
       <xsl:call-template name="tpl-apparatus"/>
       </xsl:if>

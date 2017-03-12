@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ -->
+<!-- $Id: htm-tpl-struct-inslib.xsl 2517 2017-03-10 19:53:37Z sarcanon $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
@@ -10,14 +10,13 @@
    <xsl:template name="inslib-structure">
       <xsl:variable name="title">
          <xsl:choose>
-            <xsl:when test="//t:titleStmt/t:title/text() and number(substring(//t:publicationStmt/t:idno[@type='filename']/text(),2,5))">
-               <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
-               <xsl:text>. </xsl:text>
-               <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],2,5)) div 100"/> 
-               <xsl:text>. </xsl:text>
-               <xsl:value-of select="//t:titleStmt/t:title"/>
-            </xsl:when>
             <xsl:when test="//t:titleStmt/t:title/text()">
+               <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
+                  <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,1)"/> 
+                  <xsl:text>. </xsl:text>
+                  <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],2,5)) div 100"/> 
+                  <xsl:text>. </xsl:text>
+               </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
             </xsl:when>
             <xsl:when test="//t:sourceDesc//t:bibl/text()">
@@ -48,12 +47,9 @@
             </h1>
               
                <p><b>Description: </b>
-                  <xsl:choose>
+               <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
                         <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
-                     </xsl:when>
-                     <xsl:when test="//t:support//text()">
-                        <xsl:apply-templates select="//t:support" mode="inslib-dimensions"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
@@ -114,12 +110,12 @@
                      <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/> 
                         <!-- Named template found below. -->
-                        <xsl:call-template name="dol-invno"/> 
+                        <xsl:call-template name="inslib-invno"/> 
                      </xsl:when>
                      <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
                         <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
                         <!-- Named template found below. -->
-                        <xsl:call-template name="dol-invno"/>
+                        <xsl:call-template name="inslib-invno"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose> 
@@ -212,7 +208,7 @@
       </xsl:choose>
    </xsl:template>
    
-   <xsl:template name="dol-invno">
+   <xsl:template name="inslib-invno">
       <xsl:if test="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
          <xsl:text> (Inv. no. </xsl:text>
          <xsl:for-each select="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">

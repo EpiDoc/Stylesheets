@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ -->
+<!-- $Id: htm-tpl-structure.xsl 2517 2017-03-10 19:53:37Z sarcanon $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
@@ -77,10 +77,7 @@
          <xsl:apply-templates/>
       </xsl:variable>
       <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-      <xsl:variable name="maintxt2">
       <xsl:apply-templates select="$maintxt" mode="sqbrackets"/>
-      </xsl:variable>
-      <xsl:apply-templates select="$maintxt2" mode="sqbrackets"/>
       
       <!-- Found in htm-tpl-license.xsl -->
       <xsl:call-template name="license"/>

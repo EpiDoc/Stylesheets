@@ -3,9 +3,8 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t"  version="2.0">
    <!-- html hi part of transformation in htm-teihi.xsl -->
 
-    <xsl:template match="t:hi">
-        <xsl:param name="parm-external-app-style" tunnel="yes" required="no"></xsl:param>
-        <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+   <xsl:template match="t:hi">
+       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
            <xsl:when test="@rend='ligature'">
@@ -31,7 +30,7 @@
              <xsl:apply-templates/>
              <xsl:choose>
                  <!-- if context is inside the app-part of an app-like element, print diacritic in parens here -->
-                 <xsl:when test="$parm-internal-app-style = 'ddbdp' and
+                 <xsl:when test="$parm-apparatus-style = 'ddbdp' and
                      ancestor::t:*[local-name()=('reg','corr','rdg') 
                      or self::t:del[@rend='corrected']]">
                      <!--ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg')
@@ -44,7 +43,7 @@
                      </xsl:call-template>
                      <xsl:text>)</xsl:text>
                  </xsl:when>
-                 <xsl:when test="$parm-internal-app-style = 'ddbdp'">
+                 <xsl:when test="$parm-apparatus-style = 'ddbdp'">
                      <!-- found in [htm|txt]-tpl-apparatus.xsl -->
                      <xsl:call-template name="app-link">
                          <xsl:with-param name="location" select="'text'"/>
