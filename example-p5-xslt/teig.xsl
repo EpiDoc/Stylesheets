@@ -301,10 +301,10 @@
          </xsl:when>
          <!-- Interim error reporting -->
          <xsl:otherwise>
-            <xsl:text> ((</xsl:text>
+            <text> ((</text>
             <xsl:value-of select="@type"/>
             <xsl:call-template name="g-unclear-string"/>
-            <xsl:text>)) </xsl:text>
+            <text>)) </text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
