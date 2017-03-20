@@ -50,10 +50,10 @@
                <p><b>Tablet: </b>
                   <xsl:choose>
                      <xsl:when test="//t:support/t:p/text()">
-                        <xsl:apply-templates select="//t:support/t:p" mode="inslib-dimensions"/>
+                        <xsl:apply-templates select="//t:support/t:p" mode="dol-dimensions"/>
                      </xsl:when>
                      <xsl:when test="//t:support//text()">
-                        <xsl:apply-templates select="//t:support" mode="inslib-dimensions"/>
+                        <xsl:apply-templates select="//t:support" mode="dol-dimensions"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
@@ -96,7 +96,7 @@
                <p><b>Findspot: </b>
                <xsl:choose>
                   <xsl:when test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
-                        <xsl:apply-templates select="//t:provenance[@type='found']" mode="inslib-placename"/>
+                        <xsl:apply-templates select="//t:provenance[@type='found']" mode="dol-placename"/>
                   </xsl:when>
                   <xsl:otherwise>Unknown</xsl:otherwise>
                </xsl:choose>
@@ -104,7 +104,7 @@
                   <b>Original location: </b>
                   <xsl:choose>
                      <xsl:when test="//t:origin/t:origPlace/text()">
-                        <xsl:apply-templates select="//t:origin/t:origPlace" mode="inslib-placename"/>
+                        <xsl:apply-templates select="//t:origin/t:origPlace" mode="dol-placename"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose>
@@ -112,14 +112,14 @@
                   <b>Current location: </b>
                   <xsl:choose>
                      <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
-                        <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/> 
+                        <xsl:apply-templates select="//t:provenance[@type='observed']" mode="dol-placename"/> 
                         <!-- Named template found below. -->
-                        <xsl:call-template name="inslib-invno"/> 
+                        <xsl:call-template name="dol-invno"/> 
                      </xsl:when>
                      <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
                         <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
                         <!-- Named template found below. -->
-                        <xsl:call-template name="inslib-invno"/>
+                        <xsl:call-template name="dol-invno"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose> 
@@ -187,7 +187,7 @@
       </html>
    </xsl:template>
    
-   <xsl:template match="t:dimensions" mode="inslib-dimensions">
+   <xsl:template match="t:dimensions" mode="dol-dimensions">
       <xsl:if test="text()">
          <xsl:if test="t:width/text()">w: 
             <xsl:value-of select="t:width"/>
@@ -207,7 +207,7 @@
       </xsl:if>
    </xsl:template>
    
-   <xsl:template match="t:placeName|t:rs" mode="inslib-placename">
+   <xsl:template match="t:placeName|t:rs" mode="dol-placename">
       <xsl:choose>
          <xsl:when test="contains(@ref,'pleiades.stoa.org') or contains(@ref,'geonames.org')">
             <a>
@@ -223,7 +223,7 @@
       </xsl:choose>
    </xsl:template>
    
-   <xsl:template name="inslib-invno">
+   <xsl:template name="dol-invno">
       <xsl:if test="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
          <xsl:text> (Inv. no. </xsl:text>
          <xsl:for-each select="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
