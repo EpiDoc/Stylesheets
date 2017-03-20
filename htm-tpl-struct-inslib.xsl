@@ -114,12 +114,12 @@
                      <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/> 
                         <!-- Named template found below. -->
-                        <xsl:call-template name="dol-invno"/> 
+                        <xsl:call-template name="inslib-invno"/> 
                      </xsl:when>
                      <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
                         <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
                         <!-- Named template found below. -->
-                        <xsl:call-template name="dol-invno"/>
+                        <xsl:call-template name="inslib-invno"/>
                      </xsl:when>
                      <xsl:otherwise>Unknown</xsl:otherwise>
                   </xsl:choose> 
@@ -212,7 +212,7 @@
       </xsl:choose>
    </xsl:template>
    
-   <xsl:template name="dol-invno">
+   <xsl:template name="inslib-invno">
       <xsl:if test="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
          <xsl:text> (Inv. no. </xsl:text>
          <xsl:for-each select="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
