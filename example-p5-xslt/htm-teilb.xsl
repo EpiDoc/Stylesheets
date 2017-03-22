@@ -95,7 +95,7 @@
                         <xsl:text>|</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:text> | </xsl:text>
+                        <br id="a{$div-loc}l{$line}"/>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
