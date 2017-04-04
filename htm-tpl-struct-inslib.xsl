@@ -177,7 +177,7 @@
    </xsl:template>
    
    <xsl:template match="t:dimensions" mode="inslib-dimensions">
-      <xsl:if test="text()">
+      <xsl:if test="//text()">
          <xsl:if test="t:width/text()">w: 
             <xsl:value-of select="t:width"/>
             <xsl:if test="t:height/text()">
