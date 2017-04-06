@@ -921,6 +921,7 @@
 
       <xsl:variable name="origin" select="name()"/>
       <xsl:variable name="origin_id" select="generate-id()"/>
+
       <xsl:choose>
          <xsl:when test="$step[self::t:lb[not(@break='no')]]"/>
          <xsl:when test="$step[self::text()]">
@@ -1053,22 +1054,7 @@
                         </xsl:for-each>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:variable name="str">
-                           <xsl:choose>
-                              <xsl:when test="$step[self::t:hi]">   
-                                 <xsl:call-template name="hirend_print"/>
-                              </xsl:when>
-                              <xsl:otherwise>
-                                 <xsl:call-template name="trans-string">
-                                    <xsl:with-param name="trans-text">
-                                       <xsl:apply-templates select="$step"/>
-                                    </xsl:with-param>
-                                 </xsl:call-template>
-                              </xsl:otherwise>
-                           </xsl:choose>
-                        </xsl:variable>
-                        <xsl:value-of select="$str"/>
-                        <!--<xsl:apply-templates select="$step"/>-->
+                        <xsl:apply-templates select="$step"/>
                      </xsl:otherwise>
                   </xsl:choose>
                   <xsl:call-template name="recurse_forward">
@@ -1184,7 +1170,7 @@
       <xsl:call-template name="hirend_print"/>
 
       <xsl:if test="$hicontext != 'no'">
-         
+
          <xsl:choose>
             <xsl:when test="not(following-sibling::node()[1])">
                <xsl:call-template name="recurse_forward">
