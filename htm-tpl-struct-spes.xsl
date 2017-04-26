@@ -93,38 +93,45 @@
                </xsl:choose>
                </p>
                
-               <p><b>Findspot: </b>
-               <xsl:choose>
-                  <xsl:when test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
-                        <xsl:apply-templates select="//t:provenance[@type='found']" mode="spes-placename"/>
-                  </xsl:when>
-                  <xsl:otherwise>Unknown</xsl:otherwise>
-               </xsl:choose>
-                  <br/>
-                  <b>Original location: </b>
-                  <xsl:choose>
-                     <xsl:when test="//t:origin/t:origPlace/text()">
+               <p>
+                  <xsl:if test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
+                     <b>Findspot: </b>
+                     <xsl:apply-templates select="//t:provenance[@type='found']" mode="spes-placename"/>
+                  </xsl:if>
+               
+                  
+                     <xsl:if test="//t:origin/t:origPlace/text()">
+                        <br/>
+                        <b>Original location: </b>
                         <xsl:apply-templates select="//t:origin/t:origPlace" mode="spes-placename"/>
-                     </xsl:when>
-                     <xsl:otherwise>Unknown</xsl:otherwise>
-                  </xsl:choose>
-                  <br/>
-                  <b>Last recorded location: </b>
-                  <xsl:choose>
-                     <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
+                     </xsl:if>
+                  
+                  <xsl:if test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))] or
+                     //t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
+                     <br/>
+                     <b>Last recorded location: </b>
+                     <xsl:if test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
                         <xsl:apply-templates select="//t:provenance[@type='observed']" mode="spes-placename"/> 
-                        <!-- Named template found below. -->
-                        <xsl:call-template name="spes-invno"/> 
-                     </xsl:when>
-                     <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
+                     </xsl:if>
+                     <xsl:text> </xsl:text>
+                     <xsl:if test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
                         <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
-                        <!-- Named template found below. -->
-                        <xsl:call-template name="spes-invno"/>
-                     </xsl:when>
-                     <xsl:otherwise>Unknown</xsl:otherwise>
-                  </xsl:choose> 
+                        <xsl:if test="//t:msIdentifier//t:idno[string(translate(normalize-space(.),' ',''))]">
+                           <xsl:text> (inv. </xsl:text>
+                           <xsl:value-of select="//t:msIdentifier//t:idno[1]"/>
+                           <xsl:text>)</xsl:text>
+                        </xsl:if>
+                     </xsl:if>
+                  </xsl:if>
                </p>
             
+               <p><b>Bibliography: </b>
+               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
+                  <br/>
+                 <b>Text constituted from: </b>
+                  <xsl:apply-templates select="//t:creation"/>
+               </p>            
+               
                <div id="edition">
                   <p><b>Edition:</b></p>
                   <!-- Edited text output -->
@@ -165,13 +172,6 @@
                <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
             </div>
             
-               <p><b>Bibliography: </b>
-               <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/> 
-                  <br/>
-                 <b>Text constituted from: </b>
-                  <xsl:apply-templates select="//t:creation"/>
-               </p>            
-               
          </body>
       </html>
    </xsl:template>
@@ -212,17 +212,6 @@
       </xsl:choose>
    </xsl:template>
    
-   <xsl:template name="spes-invno">
-      <xsl:if test="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
-         <xsl:text> (Inv. no. </xsl:text>
-         <xsl:for-each select="//t:idno[@type='invNo'][string(translate(normalize-space(.),' ',''))]">
-            <xsl:value-of select="."/>
-            <xsl:if test="position()!=last()">
-               <xsl:text>, </xsl:text>
-            </xsl:if>
-         </xsl:for-each>
-         <xsl:text>)</xsl:text>
-      </xsl:if>
-   </xsl:template>
+   
    
    </xsl:stylesheet>
