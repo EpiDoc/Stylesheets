@@ -130,7 +130,7 @@
      <xsl:choose>
         <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
         <xsl:otherwise>   
-           <xsl:text>(</xsl:text>
+           <xsl:text>(scil. </xsl:text>
            <xsl:apply-templates/>
            <xsl:call-template name="cert-low"/>
            <xsl:text>)</xsl:text>
