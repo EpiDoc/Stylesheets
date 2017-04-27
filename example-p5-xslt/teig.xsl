@@ -275,6 +275,10 @@
             <xsl:text>⋮</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='double-vertical-bar'">
             <xsl:text>‖</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
