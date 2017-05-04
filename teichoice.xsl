@@ -15,6 +15,9 @@
              <xsl:value-of select="translate(t:sic, $all-grc, $grc-upper-strip)"/>
             <xsl:text>&gt;</xsl:text>
          </xsl:when>
+          <xsl:when test="child::t:unclear[2] and not(child::t:reg or child::t:sic or child::t:corr or child::t:orig)">
+             <xsl:apply-templates select="child::t:unclear[1]"/>
+          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>
