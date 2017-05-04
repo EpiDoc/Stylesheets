@@ -20,43 +20,52 @@
                   * hi not nested in the app part of an app;
                   * del or milestone.
         -->
-            <xsl:for-each select="(.//t:choice | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
-               .//t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')][not(ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
-               or self::t:del[@rend='corrected'] 
-               or self::t:add[@place='inline']][1][local-name()=('reg','corr','rdg') 
-               or self::t:del[@rend='corrected']]
-               or ancestor::t:hi)] |
-           .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
-               
-               <!-- Found in tpl-apparatus.xsl -->
-               <xsl:call-template name="ddbdp-app">
-                  <xsl:with-param name="apptype">
-                     <xsl:choose>
-                        <xsl:when test="self::t:choice[child::t:orig and child::t:reg]">
-                           <xsl:text>origreg</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:choice[child::t:sic and child::t:corr]">
-                           <xsl:text>siccorr</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:subst">
-                           <xsl:text>subst</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:app[@type='alternative']">
-                           <xsl:text>appalt</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'BL ')]">
-                           <xsl:text>appbl</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'PN ')]">
-                           <xsl:text>apppn</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="self::t:app[@type='editorial']">
-                           <xsl:text>apped</xsl:text>
-                        </xsl:when>
-                     </xsl:choose>
-                  </xsl:with-param>
-               </xsl:call-template>
-            </xsl:for-each>
+            <xsl:variable name="app">
+               <xsl:for-each select="(.//t:choice | .//t:subst | .//t:app)[not(ancestor::t:*[local-name()=('choice','subst','app')])] |
+                  .//t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')][not(ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
+                  or self::t:del[@rend='corrected'] 
+                  or self::t:add[@place='inline']][1][local-name()=('reg','corr','rdg') 
+                  or self::t:del[@rend='corrected']]
+                  or ancestor::t:hi)] |
+                  .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
+                  <app>
+                     
+                  <!-- Found in tpl-apparatus.xsl -->
+                  <xsl:call-template name="ddbdp-app">
+                     <xsl:with-param name="apptype">
+                        <xsl:choose>
+                           <xsl:when test="self::t:choice[child::t:orig and child::t:reg]">
+                              <xsl:text>origreg</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:choice[child::t:sic and child::t:corr]">
+                              <xsl:text>siccorr</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:subst">
+                              <xsl:text>subst</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:app[@type='alternative']">
+                              <xsl:text>appalt</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'BL ')]">
+                              <xsl:text>appbl</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:app[@type='editorial'][starts-with(t:lem/@resp,'PN ')]">
+                              <xsl:text>apppn</xsl:text>
+                           </xsl:when>
+                           <xsl:when test="self::t:app[@type='editorial']">
+                              <xsl:text>apped</xsl:text>
+                           </xsl:when>
+                        </xsl:choose>
+                     </xsl:with-param>
+                  </xsl:call-template>
+                  </app>
+               </xsl:for-each>               
+            </xsl:variable>
+            <xsl:for-each-group select="$app/*:app" group-by=".">
+               <xsl:for-each select=".">
+                  <xsl:copy-of select="node()"/>
+               </xsl:for-each>
+            </xsl:for-each-group>
          </div>
       </xsl:if>
   </xsl:template>
