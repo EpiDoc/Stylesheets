@@ -12,7 +12,11 @@
                <xsl:choose>
                    <xsl:when test="$parm-leiden-style = 'rib'">
                        <xsl:choose>
-                           <xsl:when test="string-length(normalize-space(.))=2"><xsl:value-of select="substring(.,1,1)"/><xsl:text>&#x0361;</xsl:text><xsl:value-of select="substring(.,2,1)"/></xsl:when>
+                           <xsl:when test="string-length(normalize-space(.))=2">
+                               <xsl:value-of select="substring(.,1,1)"/>
+                               <xsl:text>&#x0361;</xsl:text>
+                               <xsl:value-of select="substring(.,2,1)"/>
+                           </xsl:when>
                            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
                        </xsl:choose>
                    </xsl:when>
