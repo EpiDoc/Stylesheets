@@ -24,7 +24,8 @@
                .//t:hi[@rend=('diaeresis','grave','acute','asper','lenis','circumflex')][not(ancestor::t:*[local-name()=('orig','reg','sic','corr','lem','rdg') 
                or self::t:del[@rend='corrected'] 
                or self::t:add[@place='inline']][1][local-name()=('reg','corr','rdg') 
-               or self::t:del[@rend='corrected']])] |
+               or self::t:del[@rend='corrected']]
+               or ancestor::t:hi)] |
            .//t:del[@rend='slashes' or @rend='cross-strokes'] | .//t:milestone[@rend = 'box']">
                
                <!-- Found in tpl-apparatus.xsl -->

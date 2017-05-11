@@ -1195,17 +1195,34 @@
       <!-- Used by hirend -->
       <xsl:choose>
          <xsl:when test="@rend = 'diaeresis'">
-            <xsl:call-template name="trans-string"/>
+            <xsl:choose>
+               <xsl:when test="child::t:hi[@rend = 'acute']">
+                  <xsl:call-template name="trans-string"/>
             <xsl:if test="t:gap">
                <xsl:if test="t:gap[@reason='lost']">
                   <xsl:text>[</xsl:text>
                </xsl:if>
                <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
             </xsl:if>
-            <xsl:text>̈</xsl:text>
+                  <xsl:text>̈</xsl:text><xsl:text>́</xsl:text>
             <xsl:if test="t:gap[@reason='lost']">
                <xsl:text>]</xsl:text>
             </xsl:if>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:call-template name="trans-string"/>
+                  <xsl:if test="t:gap">
+                     <xsl:if test="t:gap[@reason='lost']">
+                        <xsl:text>[</xsl:text>
+                     </xsl:if>
+                     <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+                  </xsl:if>
+                  <xsl:text>̈</xsl:text>
+                  <xsl:if test="t:gap[@reason='lost']">
+                     <xsl:text>]</xsl:text>
+                  </xsl:if>
+               </xsl:otherwise>
+            </xsl:choose>
          </xsl:when>
          <xsl:when test="@rend = 'grave'">
             <xsl:call-template name="trans-string"/>
@@ -1221,7 +1238,21 @@
             </xsl:if>
          </xsl:when>
          <xsl:when test="@rend = 'acute'">
-            <xsl:call-template name="trans-string"/>
+            <xsl:choose>
+               <xsl:when test="child::t:hi[@rend = 'diaeresis']">
+                  <xsl:call-template name="trans-string"/>
+                  <xsl:if test="t:gap">
+                     <xsl:if test="t:gap[@reason='lost']">
+                        <xsl:text>[</xsl:text>
+                     </xsl:if>
+                     <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+                  </xsl:if>
+                  <xsl:text>̈</xsl:text><xsl:text>́</xsl:text>
+                  <xsl:if test="t:gap[@reason='lost']">
+                     <xsl:text>]</xsl:text>
+                  </xsl:if>
+               </xsl:when>
+               <xsl:otherwise><xsl:call-template name="trans-string"/>
             <xsl:if test="t:gap">
                <xsl:if test="t:gap[@reason='lost']">
                   <xsl:text>[</xsl:text>
@@ -1231,8 +1262,9 @@
             <xsl:text>́</xsl:text>
             <xsl:if test="t:gap[@reason='lost']">
                <xsl:text>]</xsl:text>
-            </xsl:if>
+            </xsl:if></xsl:otherwise></xsl:choose>
          </xsl:when>
+         
          <xsl:when test="@rend = 'asper'">
             <xsl:call-template name="trans-string"/>
             <xsl:if test="t:gap">
@@ -1273,6 +1305,7 @@
             </xsl:if>
          </xsl:when>
       </xsl:choose>
+      
    </xsl:template>
 
    <xsl:template name="multreg">
