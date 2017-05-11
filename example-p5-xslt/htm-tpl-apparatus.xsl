@@ -60,8 +60,9 @@
                   </app>
                </xsl:for-each>
             </xsl:variable>
+            <!-- XSL for-each-group effectively suppresses any duplicate apparati generated due to sibling triggers.   -->
             <xsl:for-each-group select="$apparatus/*:app" group-by=".">
-               <xsl:copy-of select="."/>
+               <xsl:copy-of select="node()"/>
             </xsl:for-each-group>
          </div>
       </xsl:if>
