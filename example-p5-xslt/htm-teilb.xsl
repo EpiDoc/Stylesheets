@@ -84,6 +84,7 @@
                   </a>
                   <!-- for the first lb in a div, create an empty anchor instead of a line-break -->
                </xsl:when>
+               <!-- Commented out, causes incorrect formatting. '|' should only appear in apparatus. See: https://github.com/DCLP/dclpxsltbox/issues/119
                <xsl:when
                    test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') 
                   and (ancestor::t:sic 
@@ -99,6 +100,7 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
+               -->
                <xsl:when
                    test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI']))  or $location='apparatus')">
                   <xsl:choose>
