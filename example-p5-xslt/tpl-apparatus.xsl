@@ -1174,7 +1174,13 @@
             </xsl:choose>
          </xsl:variable>
          <!-- This removes unnecessary line breaks that could've come through -->
-         <xsl:value-of select="normalize-space($text-before)"/>
+         <!--<xsl:value-of select="normalize-space($text-before)"/>-->
+         <xsl:for-each select="$text-before//node()">
+            <xsl:choose>
+               <xsl:when test="self::*:br">|</xsl:when>
+               <xsl:otherwise><xsl:copy-of select="normalize-space(.)"/></xsl:otherwise>
+            </xsl:choose>
+         </xsl:for-each>
       </xsl:if>
 
       <xsl:call-template name="hirend_print"/>
