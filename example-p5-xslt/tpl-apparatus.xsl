@@ -923,6 +923,18 @@
       <xsl:variable name="origin_id" select="generate-id()"/>
 
       <xsl:choose>
+         <!--
+         <xsl:when test="$step[self::t:lb[@break='no']]">
+            <xsl:choose>
+               <xsl:when test="$step[self::t:lb[@break='no' or @type='inWord']]">
+                  <xsl:text>|</xsl:text>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:text> | </xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         -->
          <xsl:when test="$step[self::t:lb[not(@break='no')]]"/>
          <xsl:when test="$step[self::text()]">
             <xsl:choose>
@@ -1145,8 +1157,8 @@
    <xsl:template name="hirend">
       <!-- prints the value of diacritical <hi> values, either in text (with full word context, called from teihi.xsl) or in app (highlighted character only) -->
       <xsl:param name="hicontext" select="'yes'"/>
+     
       <xsl:if test="$hicontext != 'no'">
-
          <xsl:variable name="text-before">
             <xsl:choose>
                <xsl:when test="not(preceding-sibling::node()[1])">
@@ -1161,29 +1173,34 @@
                </xsl:otherwise>
             </xsl:choose>
          </xsl:variable>
-
          <!-- This removes unnecessary line breaks that could've come through -->
          <xsl:value-of select="normalize-space($text-before)"/>
-
       </xsl:if>
 
       <xsl:call-template name="hirend_print"/>
 
       <xsl:if test="$hicontext != 'no'">
-
-         <xsl:choose>
-            <xsl:when test="not(following-sibling::node()[1])">
-               <xsl:call-template name="recurse_forward">
-                  <xsl:with-param name="step" select="parent::*"/>
-               </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:call-template name="recurse_forward">
-                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-               </xsl:call-template>
-            </xsl:otherwise>
-         </xsl:choose>
-
+         <xsl:variable name="text-after">
+            <xsl:choose>
+               <xsl:when test="not(following-sibling::node()[1])">
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="parent::*"/>
+                  </xsl:call-template>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <!-- Loop through generated apparatus and replace br with '|' -->
+         <xsl:for-each select="$text-after//node()">
+            <xsl:choose>
+               <xsl:when test="self::*:br">|</xsl:when>
+               <xsl:otherwise><xsl:copy-of select="normalize-space(.)"/></xsl:otherwise>
+            </xsl:choose>
+         </xsl:for-each>
          <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
          <xsl:call-template name="support"/>
       </xsl:if>
