@@ -4,12 +4,17 @@
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">  
   
-    <xsl:template match="t:orig[not(parent::t:choice)]" priority="1">
-        <xsl:variable name="origChildren">
-            <xsl:apply-templates/>                    
-        </xsl:variable>
-        <!-- Emit all uppercase characters for all text children of t:orig -->
-        <xsl:value-of select="translate($origChildren, $all-grc, $grc-upper-strip)"/>
+    <xsl:template match="t:orig" priority="1">
+        <xsl:choose>
+            <xsl:when test="parent::t:choice"/>
+            <xsl:otherwise>
+                <xsl:variable name="origChildren">
+                    <xsl:apply-templates/>                    
+                </xsl:variable>
+                <!-- Emit all uppercase characters for all text children of t:orig -->
+                <xsl:value-of select="translate($origChildren, $all-grc, $grc-upper-strip)"/>                
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
   
   
