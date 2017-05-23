@@ -70,7 +70,10 @@
 
       <xsl:variable name="div-n" select="@n"/>
       <xsl:variable name="div-subtype" select="@subtype"/>
-      <xsl:for-each select="//t:custEvent[@corresp = $corresp]">
+      <xsl:for-each select="//t:idno[@xml:id = (tokenize(replace($corresp,'#',''),' '))]">
+         <span class="corresp idno"><xsl:value-of select="."/></span><br/>
+      </xsl:for-each>
+      <xsl:for-each select="//t:custEvent[@corresp = (tokenize($corresp,' '))]">
          
             <span class="custevent" id="ce{$div-loc}{$div-n}">
 
