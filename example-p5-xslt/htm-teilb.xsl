@@ -7,21 +7,21 @@
    exclude-result-prefixes="#all" version="2.0">
    <!-- Actual display and increment calculation found in teilb.xsl -->
    <xsl:import href="teilb.xsl"/>
-   
+
    <xsl:template match="t:lb">
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="location"/>
       
       <xsl:choose>
-         <xsl:when test="ancestor::t:lg and $parm-verse-lines = 'on'">
+          <xsl:when test="ancestor::t:lg and $parm-verse-lines = 'on'">
             <xsl:apply-imports/>
             <!-- use the particular templates in teilb.xsl -->
          </xsl:when>
-         
+
          <xsl:otherwise>
             <xsl:variable name="div-loc">
                <xsl:for-each select="ancestor::t:div[@type= 'textpart']">
@@ -34,31 +34,31 @@
                   <xsl:value-of select="@n"/>
                </xsl:if>
             </xsl:variable>
-            
+
             <!-- print hyphen if break=no  -->
             <xsl:if test="(@break='no' or @type='inWord')">
                <xsl:choose>
                   <!--    *unless* diplomatic edition  -->
-                  <xsl:when test="$parm-edition-type='diplomatic'"/>
+                   <xsl:when test="$parm-edition-type='diplomatic'"/>
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
-                  <xsl:when test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')" />                                      
+                   <xsl:when test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')" />                                      
                   <!--   *or unless* the second part of an app in ddbdp  -->
-                  <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
-                     (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
+                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
+                           (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
                   <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
                      (tested by EDF:f-wwrap in teig.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                   <xsl:when test="preceding-sibling::node()[1][local-name() = 'space' or
-                     local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
-                     (normalize-space(.)='' 
-                     and preceding-sibling::node()[1][local-name() = 'space' or
-                     local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>              
+                        local-name() = 'g' or (local-name()='supplied' and @reason='lost') or
+                        (normalize-space(.)='' 
+                                 and preceding-sibling::node()[1][local-name() = 'space' or
+                                 local-name() = 'g' or (local-name()='supplied' and @reason='lost')])]"/>              
                   <!-- *or unless* this break is accompanied by a paragraphos mark -->
                   <!-- in which case the hypen will be inserted before the paragraphos by code in htm-teimilestone.xsl -->
                   <xsl:when test="preceding-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:milestone[@rend='paragraphos']"/>
                   <xsl:otherwise>
-                     <xsl:text>-</xsl:text>
+                      <xsl:text>-</xsl:text>
                   </xsl:otherwise>
                </xsl:choose>
             </xsl:if>
@@ -102,7 +102,7 @@
                </xsl:when>
                -->
                <xsl:when
-                  test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI']))  or $location='apparatus')">
+                   test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI']))  or $location='apparatus')">
                   <xsl:choose>
                      <xsl:when test="@break='no' or @type='inWord'">
                         <xsl:text>|</xsl:text>
@@ -119,7 +119,7 @@
             <xsl:choose>
                <xsl:when test="$location = 'apparatus'" />
                <xsl:when
-                  test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+                   test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                   <!--         non-numerical line-nos always printed in DDbDP         -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
@@ -131,11 +131,11 @@
                      and unless it is a gap line or vacat in DDbDP -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'ddbdp' and preceding-sibling::t:*[1][local-name()='gap'][@unit = 'line']">
+                <xsl:when test="$parm-leiden-style = 'ddbdp' and preceding-sibling::t:*[1][local-name()='gap'][@unit = 'line']">
                   <!-- always print line-no after gap line in ddbdp -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
+                <xsl:when test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                   <!-- always print line-no when broken orig in line, in ddbdp -->
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
@@ -143,27 +143,38 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   
+
    <xsl:template name="margin-num">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <span>
-         <xsl:choose>
-            <xsl:when test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
-               <xsl:attribute name="class">
-                  <xsl:text>linenumberbroken</xsl:text>
-               </xsl:attribute>
-               <xsl:attribute name="title">
-                  <xsl:text>line-break missing in orig</xsl:text>
-               </xsl:attribute>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:attribute name="class">
-                  <xsl:text>linenumber</xsl:text>
-               </xsl:attribute>
-            </xsl:otherwise>
-         </xsl:choose>
-         <xsl:value-of select="@n"/>
-      </span>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:choose>
+         <!-- don't print marginal line number inside tags that are relegated to the apparatus (ddbdp) -->
+         <xsl:when
+             test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') 
+            and (ancestor::t:sic
+            or ancestor::t:reg
+            or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
+            or ancestor::t:del[@rend='corrected'][parent::t:subst]"/>
+         <xsl:otherwise>
+            <span>
+                  <xsl:choose>
+                      <xsl:when test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
+                        <xsl:attribute name="class">
+                           <xsl:text>linenumberbroken</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="title">
+                           <xsl:text>line-break missing in orig</xsl:text>
+                        </xsl:attribute>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:attribute name="class">
+                           <xsl:text>linenumber</xsl:text>
+                         </xsl:attribute>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               <xsl:value-of select="@n"/>
+            </span>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
-   
+
 </xsl:stylesheet>

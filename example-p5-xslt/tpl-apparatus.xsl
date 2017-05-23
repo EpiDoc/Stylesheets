@@ -283,7 +283,7 @@
          <!-- *APPED* -->
          <xsl:when test="$apptype=('appbl','apppn','apped')">
              <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]">
-                <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+                <xsl:with-param name="location" select="'apparatus'"/>
              </xsl:apply-templates> 
          </xsl:when>         
          <!-- *ORIG*  (repeatable) -->
@@ -294,7 +294,7 @@
                   <xsl:sort select="position()" order="descending"/>
                   <!-- <xsl:value-of select="."/> -->
                   <xsl:apply-templates>
-                     <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+                     <xsl:with-param name="location" select="'apparatus'"/>
                   </xsl:apply-templates>
                </xsl:for-each>
             </xsl:if>
@@ -303,7 +303,7 @@
                   <xsl:sort select="position()" order="descending"/>
                   <!-- <xsl:value-of select="."/> -->
                   <xsl:apply-templates>
-                     <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+                     <xsl:with-param name="location" select="'apparatus'"/>
                   </xsl:apply-templates>
               </xsl:for-each>
             </xsl:if>
@@ -314,12 +314,12 @@
             <xsl:choose>
                <xsl:when test="child::t:*[local-name()=('orig','sic','add','lem')]/t:choice/t:sic/node()">
                   <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]/t:choice/t:sic/node()">
-                     <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+                     <xsl:with-param name="location" select="'apparatus'"/>
                   </xsl:apply-templates>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]">
-                     <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+                     <xsl:with-param name="location" select="'apparatus'"/>
                   </xsl:apply-templates>
                </xsl:otherwise>
             </xsl:choose>
@@ -327,19 +327,19 @@
          <!-- *SUBST* -->
          <xsl:when test="$childtype=('subst') or $apptype=('subst')">
             <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]">
-               <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+               <xsl:with-param name="location" select="'apparatus'"/>
             </xsl:apply-templates>
          </xsl:when>
          <!-- *APPALT* -->
          <xsl:when test="$childtype=('appalt') or $apptype=('appalt')">
             <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]">
-               <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+               <xsl:with-param name="location" select="'apparatus'"/>
             </xsl:apply-templates>
          </xsl:when>
          <!-- *APPED* -->
          <xsl:when test="$childtype=('appbl','apppn','apped')">
             <xsl:apply-templates select="child::t:*[local-name()=('orig','sic','add','lem')]">
-               <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+               <xsl:with-param name="location" select="'apparatus'"/>
             </xsl:apply-templates>
          </xsl:when>    
       </xsl:choose>
@@ -599,9 +599,7 @@
          <xsl:when test="$apptype=('siccorr')">
             <!-- **CORR - <xsl:value-of select="$path/t:corr/node()"/>** -->
             <xsl:text>l. </xsl:text>
-            <xsl:apply-templates select="$path/t:corr/node()">
-               <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-            </xsl:apply-templates>
+            <xsl:apply-templates select="$path/t:corr/node()"/>
             <xsl:text> (corr)</xsl:text>
          </xsl:when>
          <!-- *SUBST* -->
@@ -622,13 +620,9 @@
                <xsl:text> or </xsl:text>
                <xsl:if test="(not(.//text())) and (not(.//t:gap))">
                   <xsl:text>not </xsl:text>
-                  <xsl:apply-templates select="preceding-sibling::t:lem">
-                     <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-                  </xsl:apply-templates>
+                  <xsl:apply-templates select="preceding-sibling::t:lem"/>
                </xsl:if>
-               <xsl:apply-templates>
-                  <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-               </xsl:apply-templates>
+               <xsl:apply-templates/>
             </xsl:for-each>
          </xsl:when>
          <!-- *ED* (repeatable) -->
@@ -819,9 +813,7 @@
                            </xsl:for-each>
                         </xsl:when>
                         <xsl:otherwise>
-                           <xsl:apply-templates select="$step">
-                              <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-                           </xsl:apply-templates>
+                           <xsl:apply-templates select="$step"/>
                         </xsl:otherwise>
                      </xsl:choose>
                      <xsl:copy-of select="$buildup"/>
@@ -931,6 +923,18 @@
       <xsl:variable name="origin_id" select="generate-id()"/>
 
       <xsl:choose>
+         <!--
+         <xsl:when test="$step[self::t:lb[@break='no']]">
+            <xsl:choose>
+               <xsl:when test="$step[self::t:lb[@break='no' or @type='inWord']]">
+                  <xsl:text>|</xsl:text>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:text> | </xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         -->
          <xsl:when test="$step[self::t:lb[not(@break='no')]]"/>
          <xsl:when test="$step[self::text()]">
             <xsl:choose>
@@ -1011,9 +1015,7 @@
                      </xsl:for-each>
                   </xsl:when>
                   <xsl:otherwise>
-                     <xsl:apply-templates select="$step">
-                        <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-                     </xsl:apply-templates>
+                     <xsl:apply-templates select="$step"/>
                   </xsl:otherwise>
                </xsl:choose>
                <xsl:for-each select="$step/ancestor::*[following-sibling::node()][1]">
@@ -1051,9 +1053,7 @@
                      </xsl:call-template>
                   </xsl:variable>
                   <xsl:variable name="resolve">
-                     <xsl:apply-templates select="$builddown/node()">
-                        <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-                     </xsl:apply-templates>
+                     <xsl:apply-templates select="$builddown/node()"/>
                   </xsl:variable>
                   <xsl:value-of select="$resolve"/>
                </xsl:when>
@@ -1066,9 +1066,7 @@
                         </xsl:for-each>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:apply-templates select="$step">
-                           <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-                        </xsl:apply-templates>
+                        <xsl:apply-templates select="$step"/>
                      </xsl:otherwise>
                   </xsl:choose>
                   <xsl:call-template name="recurse_forward">
@@ -1159,8 +1157,8 @@
    <xsl:template name="hirend">
       <!-- prints the value of diacritical <hi> values, either in text (with full word context, called from teihi.xsl) or in app (highlighted character only) -->
       <xsl:param name="hicontext" select="'yes'"/>
+     
       <xsl:if test="$hicontext != 'no'">
-
          <xsl:variable name="text-before">
             <xsl:choose>
                <xsl:when test="not(preceding-sibling::node()[1])">
@@ -1175,29 +1173,40 @@
                </xsl:otherwise>
             </xsl:choose>
          </xsl:variable>
-
          <!-- This removes unnecessary line breaks that could've come through -->
-         <xsl:value-of select="normalize-space($text-before)"/>
-
+         <!--<xsl:value-of select="normalize-space($text-before)"/>-->
+         <xsl:for-each select="$text-before//node()">
+            <xsl:choose>
+               <xsl:when test="self::*:br">|</xsl:when>
+               <xsl:otherwise><xsl:copy-of select="normalize-space(.)"/></xsl:otherwise>
+            </xsl:choose>
+         </xsl:for-each>
       </xsl:if>
 
       <xsl:call-template name="hirend_print"/>
 
       <xsl:if test="$hicontext != 'no'">
-
-         <xsl:choose>
-            <xsl:when test="not(following-sibling::node()[1])">
-               <xsl:call-template name="recurse_forward">
-                  <xsl:with-param name="step" select="parent::*"/>
-               </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:call-template name="recurse_forward">
-                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>
-               </xsl:call-template>
-            </xsl:otherwise>
-         </xsl:choose>
-
+         <xsl:variable name="text-after">
+            <xsl:choose>
+               <xsl:when test="not(following-sibling::node()[1])">
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="parent::*"/>
+                  </xsl:call-template>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:call-template name="recurse_forward">
+                     <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <!-- Loop through generated apparatus and replace br with '|' -->
+         <xsl:for-each select="$text-after//node()">
+            <xsl:choose>
+               <xsl:when test="self::*:br">|</xsl:when>
+               <xsl:otherwise><xsl:copy-of select="normalize-space(.)"/></xsl:otherwise>
+            </xsl:choose>
+         </xsl:for-each>
          <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
          <xsl:call-template name="support"/>
       </xsl:if>
@@ -1341,9 +1350,7 @@
             <xsl:with-param name="lang" select="@xml:lang"/>
          </xsl:call-template>
       </xsl:if>
-      <xsl:apply-templates>
-         <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
-      </xsl:apply-templates>
+      <xsl:apply-templates/>
       <xsl:if test="position()!=last()">
          <xsl:text>, </xsl:text>
       </xsl:if>
@@ -1375,7 +1382,6 @@
       <xsl:param name="check"/>
       <xsl:if test="$check='fnord'">FNORD-SPLIT </xsl:if>
       <xsl:apply-templates>
-         <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
          <xsl:with-param name="check">fnord</xsl:with-param>
       </xsl:apply-templates>
       <xsl:if test="$check='fnord'"> FNORD-SPLIT </xsl:if>
