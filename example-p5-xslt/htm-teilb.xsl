@@ -12,7 +12,7 @@
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-line-inc" tunnel="yes" required="no"/>
         <xsl:param name="parm-verse-lines" tunnel="yes" required="no"/>
-        <xsl:param name="location"/>
+        <xsl:param name="location" tunnel="yes" required="no"/>
 
         <xsl:choose>
             <xsl:when test="ancestor::t:lg and $parm-verse-lines = 'on'">
@@ -158,17 +158,7 @@
 
     <xsl:template name="margin-num">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-        <xsl:choose>
-            <!-- don't print marginal line number inside tags that are relegated to the apparatus (ddbdp) -->
-            <xsl:when
-                test="
-                    ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')
-                    and (ancestor::t:sic
-                    or ancestor::t:reg
-                    or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])
-                    or ancestor::t:del[@rend = 'corrected'][parent::t:subst]"/>
-            <xsl:otherwise>
-                <span>
+        <span>
                     <xsl:choose>
                         <xsl:when
                             test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
@@ -187,8 +177,6 @@
                     </xsl:choose>
                     <xsl:value-of select="@n"/>
                 </span>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
+            </xsl:template>
 
 </xsl:stylesheet>
