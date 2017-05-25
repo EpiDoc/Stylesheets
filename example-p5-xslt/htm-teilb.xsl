@@ -127,7 +127,7 @@
                             <span>
                                 <xsl:if test="@rend">
                                     <xsl:attribute name="class">
-                                        <xsl:value-of select="concat('br ',@rend)"/>
+                                        <xsl:value-of select="concat('lb ',@rend)"/>
                                     </xsl:attribute>
                                 </xsl:if> 
                             </span>                     
