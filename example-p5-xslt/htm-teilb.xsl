@@ -123,6 +123,15 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <br id="a{$div-loc}l{$line}"/>
+                        <xsl:if test="@rend">
+                            <span>
+                                <xsl:if test="@rend">
+                                    <xsl:attribute name="class">
+                                        <xsl:value-of select="concat('br ',@rend)"/>
+                                    </xsl:attribute>
+                                </xsl:if> 
+                            </span>                     
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
