@@ -17,7 +17,7 @@
   <xsl:template match="t:supplied[@reason='lost']">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" />
+     <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
          <br/>
       </xsl:if>

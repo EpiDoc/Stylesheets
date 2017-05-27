@@ -872,8 +872,8 @@
             <xsl:copy-of select="$buildup"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:element name="{$step/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-               <xsl:sequence select="$step/@*"/>
+<!--            <xsl:element name="{$step/name()}" xmlns="http://www.tei-c.org/ns/1.0">-->
+<!--               <xsl:sequence select="$step/@*"/>-->
                <xsl:choose>
                   <xsl:when test="$step/text() and not($step/*)">
                      <xsl:choose>
@@ -917,7 +917,7 @@
                      </xsl:for-each>
                   </xsl:otherwise>
                </xsl:choose>
-            </xsl:element>
+<!--            </xsl:element>-->
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
