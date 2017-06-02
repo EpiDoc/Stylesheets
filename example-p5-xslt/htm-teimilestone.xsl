@@ -32,11 +32,20 @@
                </xsl:when>
                <xsl:when test="@rend = 'paragraphos'">
                   <!-- <xsl:message><xsl:text>    </xsl:text>paragraphos!</xsl:message> -->
-                  <xsl:if test="following-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:lb[@break='no']">-</xsl:if>
+                  <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+                  <xsl:if test="following-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:lb[@break='no'] and not(preceding-sibling::*[1][self::t:supplied[@reason='lost']])">-</xsl:if>
                   <xsl:if test="not(parent::t:supplied)">
                      <br/>
                   </xsl:if>
                   <xsl:text>——</xsl:text>
+               </xsl:when>
+               <xsl:when test="@rend = 'diple-obelismene' and @unit='undefined'">
+                  <!-- <xsl:message><xsl:text>    </xsl:text>paragraphos!</xsl:message> -->
+                  <xsl:if test="following-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:lb[@break='no']">-</xsl:if>
+                  <xsl:if test="not(parent::t:supplied)">
+                     <br/>
+                  </xsl:if>
+                  <xsl:text>>---</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'horizontal-rule'">
                   <xsl:if test="not(parent::t:supplied)">

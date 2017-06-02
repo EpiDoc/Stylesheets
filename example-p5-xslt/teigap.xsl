@@ -151,10 +151,12 @@
          </xsl:when>
          <xsl:otherwise>
             <!-- Don't display again if there is a preceding adjecent gap of the same kind -->
-            <xsl:if test="not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='lost']]])
+            <!--<xsl:if test="not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='lost']]])
                and not(preceding::node()[1][self::t:gap[@reason='lost']])">
                <xsl:call-template name="extent-string"/>
-            </xsl:if>
+            </xsl:if>-->
+            <!-- DP commented this out for issue 55 to allow the display of adjecent gaps-->
+            <xsl:call-template name="extent-string"/>
          </xsl:otherwise>
       </xsl:choose>
 
