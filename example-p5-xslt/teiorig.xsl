@@ -6,7 +6,7 @@
   
     <xsl:template match="t:orig" priority="1">
         <xsl:choose>
-            <xsl:when test="parent::t:choice"/>
+            <xsl:when test="parent::t:choice"><xsl:apply-templates/></xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="origChildren">
                     <xsl:apply-templates/>                    
