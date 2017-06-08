@@ -129,7 +129,11 @@
                                     <xsl:attribute name="class">
                                         <xsl:value-of select="concat('lb ',@rend)"/>
                                     </xsl:attribute>
-                                </xsl:if> 
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="@rend='inverse'">(inverse) </xsl:when>
+                                    <xsl:when test="@rend='perpendicular'">(perpendicular) </xsl:when>
+                                </xsl:choose>
                             </span>                     
                         </xsl:if>
                     </xsl:otherwise>
