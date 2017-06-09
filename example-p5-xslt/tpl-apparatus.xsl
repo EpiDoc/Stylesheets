@@ -871,6 +871,29 @@
             </xsl:for-each>
             <xsl:copy-of select="$buildup"/>
          </xsl:when>
+         <!-- Special handling for t:orig -->
+         <xsl:when test="$step[self::t:orig[parent::t:choice]]">
+            <xsl:for-each select="$step/node()">
+               <xsl:variable name="curstep-id" select="generate-id($step)"/>               
+               <xsl:choose>               
+                  <xsl:when test="matches(., '[\s\n\r\t]')"/>                  
+                  <xsl:when test="following::text()[generate-id(ancestor::node()[1])=$curstep-id and matches(., '[\s\n\r\t]')]">
+                     <xsl:call-template name="recurse_down_back">
+                        <xsl:with-param name="step" select="following-sibling::node()[1]"/>
+                        <xsl:with-param name="buildup" select="buildup"/>
+                        <xsl:with-param name="origin" select="$origin"/>
+                     </xsl:call-template>         
+                  </xsl:when>                  
+                  <xsl:otherwise>
+                     <xsl:call-template name="recurse_down_back">
+                        <xsl:with-param name="step" select="."/>
+                        <xsl:with-param name="buildup" select="buildup"/>
+                        <xsl:with-param name="origin" select="$origin"/>
+                     </xsl:call-template>                           
+                  </xsl:otherwise>                  
+               </xsl:choose>               
+            </xsl:for-each>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:element name="{$step/name()}" xmlns="http://www.tei-c.org/ns/1.0">
                <xsl:sequence select="$step/@*"/>
