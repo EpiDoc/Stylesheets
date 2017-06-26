@@ -19,32 +19,10 @@
    </xsl:template>
    
    <xsl:template name="default-structure">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <html>
+      <html>
          <head>
             <title>
-               <xsl:choose>
-                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
-                     <xsl:choose>
-                        <xsl:when test="//t:sourceDesc//t:bibl/text()">
-                           <xsl:value-of select="//t:sourceDesc//t:bibl"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                           <xsl:value-of select="//t:idno[@type='filename']"/>
-                        </xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:when>
-                  <xsl:when test="//t:titleStmt/t:title/text()">
-                     <xsl:if test="//t:idno[@type='filename']/text()">
-                        <xsl:value-of select="//t:idno[@type='filename']"/>
-                        <xsl:text>. </xsl:text>
-                     </xsl:if>
-                     <xsl:value-of select="//t:titleStmt/t:title"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:text>EpiDoc example output, default style</xsl:text>
-                  </xsl:otherwise>
-               </xsl:choose>
+               <xsl:call-template name="default-title" />
             </title>
             <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
             <!-- Found in htm-tpl-cssandscripts.xsl -->
@@ -85,5 +63,31 @@
       <!-- Found in htm-tpl-license.xsl -->
       <xsl:call-template name="license"/>
    </xsl:template>
-   
+
+   <xsl:template name="default-title">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:choose>
+         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+            <xsl:choose>
+               <xsl:when test="//t:sourceDesc//t:bibl/text()">
+                  <xsl:value-of select="//t:sourceDesc//t:bibl"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:value-of select="//t:idno[@type='filename']"/>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         <xsl:when test="//t:titleStmt/t:title/text()">
+            <xsl:if test="//t:idno[@type='filename']/text()">
+               <xsl:value-of select="//t:idno[@type='filename']"/>
+               <xsl:text>. </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="//t:titleStmt/t:title"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>EpiDoc example output, default style</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
 </xsl:stylesheet>
