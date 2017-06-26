@@ -2,6 +2,7 @@ import glob
 import os.path
 import shlex
 import subprocess
+import tempfile
 import unittest
 
 
@@ -15,8 +16,8 @@ class HTMLFullOutputTestCase(unittest.TestCase):
 
     """
 
-    _command = 'java net.sf.saxon.Transform -s:{source} -xsl:{xsl} ' \
-               '-versionmsg:off edn-structure={structure}'
+    _command = 'java net.sf.saxon.Transform -o:{output} -s:{source} ' \
+               '-xsl:{xsl} -versionmsg:off edn-structure={structure}'
     _structures = ('default', 'dol', 'edak', 'inslib', 'iospe', 'spes')
 
     def setUp(self):
@@ -25,35 +26,35 @@ class HTMLFullOutputTestCase(unittest.TestCase):
         xslt_dir = os.path.dirname(base_dir)
         self._expected_dir = os.path.join(data_dir, 'expected', 'full_html')
         self._html_xslt = os.path.join(xslt_dir, 'start-edition.xsl')
-        self._source_files = os.path.join(data_dir, 'source', '*.xml')
+        self._source_dir = os.path.join(data_dir, 'source')
+        self._source_files = os.path.join(self._source_dir, '*.xml')
 
-    def _check_output(self, args):
-        """Asserts that the output of transformation with `args` matches the
-        contents of the file corresponding to the source file
-        specified in `args`."""
-        actual = subprocess.check_output(shlex.split(self._command.format(
-            **args)))
-        expected = self._get_expected(args['structure'], args['source'])
-        self.assertEqual(actual.decode('utf-8'), expected)
-
-    def _get_expected(self, structure, source):
-        """Returns the string contents of the expected file corresponding to
-        `structure` and `source`."""
-        expected = os.path.splitext(os.path.basename(source))[0] + '-' + \
-                   structure + '.html'
-        full_expected = os.path.join(self._expected_dir, expected)
-        with open(full_expected, 'r', encoding='utf-8') as fh:
+    def _get_contents(self, path):
+        """Return the contents of `path`."""
+        with open(path, 'r', encoding='utf-8') as fh:
             contents = fh.read()
         return contents
 
     def test_edition_structure(self):
         """Test full HTML output with various edition structures."""
-        for source in glob.glob(self._source_files):
-            for structure in self._structures:
-                with self.subTest(source=source, structure=structure):
-                    args = {'source': source, 'structure': structure,
-                            'xsl': self._html_xslt}
-                    self._check_output(args)
+        for structure in self._structures:
+            with tempfile.TemporaryDirectory() as actual_dir:
+                args = {'output': actual_dir, 'source': self._source_dir,
+                        'structure': structure, 'xsl': self._html_xslt}
+                subprocess.run(shlex.split(self._command.format(**args)))
+                for source in glob.glob(self._source_files):
+                    self._test_edition_structure(source, structure, actual_dir)
+
+    def _test_edition_structure(self, source, structure, actual_dir):
+        with self.subTest(source=source, structure=structure):
+            base_filename = os.path.basename(source)
+            expected_path = os.path.join(
+                self._expected_dir, '{}-{}.html'.format(os.path.splitext(
+                    base_filename)[0], structure))
+            expected = self._get_contents(expected_path)
+            actual_path = os.path.join(actual_dir, base_filename)
+            actual = self._get_contents(actual_path)
+            self.assertEqual(actual, expected)
 
 
 if __name__ == '__main__':
