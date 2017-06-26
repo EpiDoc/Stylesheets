@@ -41,7 +41,8 @@ class HTMLFullOutputTestCase(unittest.TestCase):
             with tempfile.TemporaryDirectory() as actual_dir:
                 args = {'output': actual_dir, 'source': self._source_dir,
                         'structure': structure, 'xsl': self._html_xslt}
-                subprocess.run(shlex.split(self._command.format(**args)))
+                subprocess.run(shlex.split(self._command.format(**args)),
+                               check=True)
                 for source in glob.glob(self._source_files):
                     self._test_edition_structure(source, structure, actual_dir)
 
