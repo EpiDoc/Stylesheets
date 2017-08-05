@@ -10,7 +10,7 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="not(child::t:* or child::text())"/>
-         <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+         <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
             <xsl:apply-templates/>
             <xsl:if test="@rend='tick'">
                <xsl:text>´</xsl:text>

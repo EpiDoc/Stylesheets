@@ -6,7 +6,7 @@
    <xsl:template match="t:certainty">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch','iospe')">
+          <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch','iospe')">
             <xsl:if test="@match='..'">
                <xsl:text>(?)</xsl:text>
             </xsl:if>

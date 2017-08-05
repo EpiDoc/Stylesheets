@@ -22,7 +22,7 @@
    <xsl:template match="t:add">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
+          <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -57,7 +57,7 @@
       <xsl:call-template name="cert-low"/>
 
       <xsl:choose>
-          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
             <xsl:choose>
                <!-- if my parent is subst which in turn is in the appcrit-part of a further app-like element 
                   (i.e. my ancestor is reg, corr, rdg, or del[corrected]), then include value of my sibling del in parens -->
@@ -122,10 +122,10 @@
             <xsl:apply-templates/>
             <xsl:text>]]</xsl:text>
          </xsl:when>
-          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @rend='slashes'">
+         <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @rend='slashes'">
             <xsl:apply-templates/>
          </xsl:when>
-          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @rend='cross-strokes'">
+         <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @rend='cross-strokes'">
             <xsl:apply-templates/>
          </xsl:when>
           <xsl:when test="$parm-leiden-style = 'rib'">

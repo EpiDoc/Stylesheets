@@ -35,7 +35,7 @@
                   <!--    *or unless* the lb is first in its ancestor div  -->
                   <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
                   <!--   *or unless* the second part of an app in ddbdp  -->
-                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
+                  <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and
                      (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
                   <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
@@ -74,7 +74,7 @@
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
-                <xsl:when test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+               <xsl:when test="not(number(@n)) and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                 <xsl:when test="number(@n) and @n mod $parm-line-inc = 0 and not(@n = 0)">

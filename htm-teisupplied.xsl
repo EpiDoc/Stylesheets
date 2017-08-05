@@ -7,7 +7,7 @@
 
   <xsl:template name="supplied-parallel">
       <xsl:choose>
-          <xsl:when test="$collection = 'dclp'">⎣<xsl:apply-templates/>⎦</xsl:when>
+          <xsl:when test="$leiden-style = 'dclp'">⎣<xsl:apply-templates/>⎦</xsl:when>
           <xsl:otherwise><span class="underline"><xsl:apply-templates/></span></xsl:otherwise>
       </xsl:choose>
       
