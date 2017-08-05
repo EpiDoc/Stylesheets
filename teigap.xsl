@@ -13,7 +13,7 @@
        <xsl:param name="gapReason"></xsl:param>
        <xsl:variable name="dot">
            <xsl:choose>
-               <xsl:when test="$leidenStyle = ('ddbdp','sammelbuch')">
+              <xsl:when test="$leidenStyle = ('ddbdp','dclp','sammelbuch')">
                    <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
                </xsl:when>
                <xsl:when test="$leidenStyle = 'panciera' and $gapReason='illegible'">
@@ -35,7 +35,7 @@
         <xsl:param name="leidenStyle"></xsl:param>
         <xsl:variable name="maxnum">
             <xsl:choose>
-                <xsl:when test="$leidenStyle = ('ddbdp','sammelbuch')">
+               <xsl:when test="$leidenStyle = ('ddbdp','dclp','sammelbuch')">
                     <xsl:number value="8"/>
                 </xsl:when>
                 <xsl:otherwise>
