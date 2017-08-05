@@ -7,8 +7,9 @@
    version="2.0">
    
    <xsl:template match="t:supplied[@evidence='parallel']" priority="1">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$leiden-style = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
+         <xsl:when test="$parm-leiden-style = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
       </xsl:choose>
 

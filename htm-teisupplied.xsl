@@ -6,8 +6,9 @@
   <!-- Called from teisupplied.xsl -->
 
   <xsl:template name="supplied-parallel">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-          <xsl:when test="$leiden-style = 'dclp'">⎣<xsl:apply-templates/>⎦</xsl:when>
+          <xsl:when test="$parm-leiden-style = 'dclp'">⎣<xsl:apply-templates/>⎦</xsl:when>
           <xsl:otherwise><span class="underline"><xsl:apply-templates/></span></xsl:otherwise>
       </xsl:choose>
       
