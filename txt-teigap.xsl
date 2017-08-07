@@ -8,7 +8,7 @@
   
   <xsl:template match="t:gap[@reason = 'lost']">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+      <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
          <xsl:text>
 &#xD;</xsl:text>
       </xsl:if>

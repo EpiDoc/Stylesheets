@@ -13,7 +13,7 @@
        <xsl:param name="gapReason"></xsl:param>
        <xsl:variable name="dot">
            <xsl:choose>
-               <xsl:when test="$leidenStyle = ('ddbdp','sammelbuch')">
+              <xsl:when test="$leidenStyle = ('ddbdp','dclp','sammelbuch')">
                    <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
                </xsl:when>
                <xsl:when test="$leidenStyle = 'panciera' and $gapReason='illegible'">
@@ -35,7 +35,7 @@
         <xsl:param name="leidenStyle"></xsl:param>
         <xsl:variable name="maxnum">
             <xsl:choose>
-                <xsl:when test="$leidenStyle = ('ddbdp','sammelbuch')">
+               <xsl:when test="$leidenStyle = ('ddbdp','dclp','sammelbuch')">
                     <xsl:number value="8"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -61,7 +61,7 @@
    <xsl:template match="t:gap[@reason='ellipsis']">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+          <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
             <xsl:if test="string(t:desc) != 'non transcribed'">
                <xsl:value-of select="t:desc"/>
                <xsl:text> </xsl:text>
@@ -125,7 +125,7 @@
        <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
          <xsl:when
-             test="$parm-leiden-style = ('ddbdp','sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
+            test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
            <xsl:when test="$parm-leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="@unit='line'">
             <xsl:text>[</xsl:text>
@@ -163,7 +163,7 @@
       <!-- certainty -->
       <xsl:if test="child::t:certainty[@match='..']">
          <xsl:choose>
-             <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+            <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                <xsl:text>(?)</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -179,7 +179,7 @@
 
       <xsl:choose>
          <xsl:when
-             test="$parm-leiden-style = ('ddbdp','sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
+            test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch') and @unit = 'line' and @extent = 'unknown'"/>
           <xsl:when test="$parm-leiden-style = 'panceira' and @unit = 'line' and @extent = 'unknown'"/>
          <xsl:when test="@unit='line'">
             <xsl:text>]</xsl:text>
@@ -206,7 +206,7 @@
       <xsl:variable name="circa">
          <xsl:choose>
             <xsl:when
-                test="$parm-leiden-style = ('ddbdp','sammelbuch') and
+               test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch') and
                (@precision='low' or (@unit='character' and number(@quantity) &gt; $cur-max))">
                <xsl:text>ca.</xsl:text>
             </xsl:when>
@@ -219,7 +219,7 @@
       <xsl:choose>
          <xsl:when test="@extent='unknown'">
             <xsl:choose>
-                <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+               <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <xsl:choose>
                      <!-- lines lost -->
                      <xsl:when test="@reason='lost' and @unit='line'">
@@ -286,7 +286,7 @@
                </xsl:when>
                <xsl:when test="number(@quantity) &gt; $cur-max or (number(@quantity) &gt; 1 and @precision='low')">
                   <xsl:choose>
-                      <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+                     <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                         <xsl:choose>
                            <xsl:when test="t:desc = 'vestiges' and @reason = 'illegible'">
                               <xsl:call-template name="tpl-vest">
@@ -326,7 +326,7 @@
 
                <xsl:when test="$cur-max &gt;= number(@quantity)">
                   <xsl:choose>
-                      <xsl:when test="t:desc='vestiges' and @reason='illegible' and ($parm-leiden-style='ddbdp' or $parm-leiden-style='sammelbuch')">
+                     <xsl:when test="t:desc='vestiges' and @reason='illegible' and ($parm-leiden-style=('ddbdp','dclp','sammelbuch'))">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -342,7 +342,7 @@
                <xsl:otherwise>
                   <xsl:choose>
                      <xsl:when
-                         test="t:desc='vestiges' and @reason='illegible' and ($parm-leiden-style='ddbdp' or $parm-leiden-style='sammelbuch')">
+                        test="t:desc='vestiges' and @reason='illegible' and ($parm-leiden-style=('ddbdp','dclp','sammelbuch'))">
                         <xsl:call-template name="tpl-vest">
                            <xsl:with-param name="circa" select="$circa"/>
                         </xsl:call-template>
@@ -358,7 +358,7 @@
           <xsl:when test="@atLeast and @atMost and not(starts-with($parm-leiden-style, 'edh'))">
             <!-- reason illegible and lost caught in the otherwise -->
             <xsl:choose>
-                <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+               <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <xsl:choose>
                      <xsl:when test="t:desc='vestiges' and @reason='illegible'">
                         <xsl:call-template name="tpl-vest">
@@ -417,7 +417,7 @@
 
          <xsl:when test="@quantity and @unit='line'">
             <xsl:choose>
-                <xsl:when test="$parm-leiden-style = ('ddbdp','sammelbuch')">
+               <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <xsl:choose>
                      <xsl:when test="desc = 'vestiges' and @reason = 'illegible'">
                         <xsl:call-template name="tpl-vest">
@@ -482,7 +482,7 @@
          <xsl:when test="@quantity and @unit='cm'">
             <xsl:choose>
                <xsl:when
-                   test="desc = 'vestiges' and $parm-leiden-style = ('ddbdp','sammelbuch') and @reason = 'illegible'">
+                  test="desc = 'vestiges' and $parm-leiden-style = ('ddbdp','dclp','sammelbuch') and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
                      <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>
@@ -504,7 +504,7 @@
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when
-                   test="desc = 'vestiges' and $parm-leiden-style = ('ddbdp','sammelbuch') and @reason = 'illegible'">
+                  test="desc = 'vestiges' and $parm-leiden-style = ('ddbdp','dclp','sammelbuch') and @reason = 'illegible'">
                   <xsl:call-template name="tpl-vest">
                      <xsl:with-param name="circa" select="$circa"/>
                   </xsl:call-template>

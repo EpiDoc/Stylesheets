@@ -11,7 +11,7 @@
                <xsl:apply-templates/>
             </a>
          </xsl:when>
-          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
             <xsl:text>(</xsl:text>
             <xsl:apply-templates/>
             <xsl:text>)</xsl:text>

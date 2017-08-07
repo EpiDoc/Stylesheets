@@ -11,7 +11,7 @@
       
        <xsl:choose>
          <xsl:when
-             test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation']">
+            test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation']">
             <xsl:if test="@rend = 'break'">
                <br/>
             </xsl:if>
@@ -22,7 +22,7 @@
             </sup>
             <xsl:text> </xsl:text>
          </xsl:when>
-           <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
             <xsl:choose>
                <xsl:when test="@rend = 'wavy-line'">
                   <xsl:if test="not(parent::t:supplied)">

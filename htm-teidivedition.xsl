@@ -42,7 +42,7 @@
          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
             <!-- add ancestor textparts -->
             <xsl:if
-               test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
+               test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @subtype">
                <xsl:value-of select="@subtype"/>
                <xsl:text> </xsl:text>
             </xsl:if>
