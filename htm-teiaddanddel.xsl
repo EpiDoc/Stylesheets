@@ -13,7 +13,7 @@
    <xsl:template match="t:add">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-           <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @place='interlinear'">
+          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @place='interlinear'">
             <span style="font-size:smaller;">
                <xsl:apply-imports/>
             </span>

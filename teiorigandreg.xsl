@@ -15,7 +15,7 @@
            </xsl:when>
            <xsl:otherwise>
                <xsl:apply-templates/>
-               <xsl:if test="$parm-leiden-style = 'ddbdp'">
+               <xsl:if test="$parm-leiden-style = ('ddbdp','dclp')">
                    <!-- found in tpl-certlow.xsl -->
                    <xsl:call-template name="cert-low"/>
                    <!-- if context is inside the app-part of an app-like element, print reg as well -->

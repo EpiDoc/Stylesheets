@@ -7,8 +7,9 @@
    version="2.0">
    
    <xsl:template match="t:supplied[@evidence='parallel']" priority="1">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="$collection = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
+         <xsl:when test="$parm-leiden-style = 'dclp'"><xsl:call-template name="supplied-parallel"/></xsl:when>
          <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
       </xsl:choose>
 
@@ -18,7 +19,7 @@
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="location" />
-      <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
+      <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
          <br/>
       </xsl:if>
       <xsl:choose>
@@ -72,7 +73,7 @@
             <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows supplied -->
             <xsl:if test="EDF:f-wwrap(.) = true()">
                <!-- unless this is in the app part of a choice/subst/app in ddbdp -->
-               <xsl:if test="(not($parm-leiden-style='ddbdp' and (ancestor::t:*[local-name()=('reg','corr','rdg') or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))">
+               <xsl:if test="(not($parm-leiden-style=('ddbdp','dclp') and (ancestor::t:*[local-name()=('reg','corr','rdg') or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))">
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>

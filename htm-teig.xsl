@@ -15,7 +15,7 @@
     
      <xsl:choose>
          <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
-         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+       <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
         <!-- Found in teig.xsl -->
         <xsl:call-template name="g-ddbdp"/>
          </xsl:when>

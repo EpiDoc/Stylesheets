@@ -67,7 +67,7 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-hgv-gloss" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch') and ancestor::t:div[@type='translation']">
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') and ancestor::t:div[@type='translation']">
             <xsl:variable name="wit-val" select="@resp"/>
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <span class="term">
@@ -97,12 +97,12 @@
               </span>                 
             </span>
          </xsl:when>
-          <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch') and ancestor::t:*[local-name()=('reg','corr','rdg') 
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') and ancestor::t:*[local-name()=('reg','corr','rdg') 
             or self::t:del[@rend='corrected']]">
             <xsl:apply-templates/>
             <xsl:if test="@resp">
                <xsl:choose>
-                   <xsl:when test="$parm-leiden-style='ddbdp'"><xsl:text> FNORD-SPLIT </xsl:text></xsl:when>
+                  <xsl:when test="$parm-leiden-style=('ddbdp','dclp')"><xsl:text> FNORD-SPLIT </xsl:text></xsl:when>
                   <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
                </xsl:choose>              
                <xsl:if test="parent::t:app[@type='BL']">
@@ -115,7 +115,7 @@
                   <xsl:text> (via PE)</xsl:text>
                </xsl:if>
                <xsl:choose>
-                   <xsl:when test="$parm-leiden-style='ddbdp'"><xsl:text> FNORD-DELIM </xsl:text></xsl:when>
+                  <xsl:when test="$parm-leiden-style=('ddbdp','dclp')"><xsl:text> FNORD-DELIM </xsl:text></xsl:when>
                   <xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
                </xsl:choose>  
             </xsl:if>

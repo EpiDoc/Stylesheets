@@ -25,11 +25,11 @@
             <xsl:text>-</xsl:text>
          </xsl:if>
          <!-- if final lb in ab is L2R or R2L, then print arrow here -->
-         <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
+         <xsl:if test="not($parm-leiden-style=('ddbdp','dclp','sammelbuch')) 
             and descendant::t:lb[last()][@rend='left-to-right']">
             <xsl:text>&#xa0;&#xa0;→</xsl:text>
          </xsl:if>
-         <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
+         <xsl:if test="not($parm-leiden-style=('ddbdp','dclp','sammelbuch')) 
             and descendant::t:lb[last()][@rend='right-to-left']">
             <xsl:text>&#xa0;&#xa0;←</xsl:text>
          </xsl:if>

@@ -45,7 +45,7 @@
 
          <xsl:otherwise>
             <xsl:choose>
-                <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+               <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                   <xsl:text> vac. </xsl:text>
                   <xsl:choose>
                      <xsl:when test="@quantity">

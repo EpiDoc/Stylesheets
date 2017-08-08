@@ -42,11 +42,11 @@
                         <xsl:when
                             test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
                         <xsl:when
-                            test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location = 'apparatus')"/>
+                            test="$parm-leiden-style = ('ddbdp','dclp') and ((not(ancestor::*[name() = 'TEI'])) or $location = 'apparatus')"/>
                         <!--   *or unless* the second part of an app in ddbdp  -->
                         <xsl:when
                             test="
-                                ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
+                            ($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and
                                 (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                         <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
                         <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
@@ -72,14 +72,14 @@
                 <!-- arrows after final line handled in htm-teiab.xsl -->
                 <xsl:if
                     test="
-                        not($parm-leiden-style = ('ddbdp', 'sammelbuch'))
+                    not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch'))
                         and not(position() = 1)
                         and preceding::t:lb[1][@rend = 'left-to-right']">
                     <xsl:text>&#xa0;&#xa0;→</xsl:text>
                 </xsl:if>
                 <xsl:if
                     test="
-                        not($parm-leiden-style = ('ddbdp', 'sammelbuch'))
+                    not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch'))
                         and not(position() = 1)
                         and preceding::t:lb[1][@rend = 'right-to-left']">
                     <xsl:text>&#xa0;&#xa0;←</xsl:text>
@@ -111,7 +111,7 @@
                </xsl:when>
                -->
                     <xsl:when
-                        test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location = 'apparatus')">
+                        test="$parm-leiden-style = ('ddbdp','dclp') and ((not(ancestor::*[name() = 'TEI'])) or $location = 'apparatus')">
                         <xsl:choose>
                             <xsl:when test="@break = 'no' or @type = 'inWord'">
                                 <xsl:text>|</xsl:text>
@@ -137,7 +137,7 @@
                 <xsl:choose>
                     <xsl:when test="$location = 'apparatus'"/>
                     <xsl:when
-                        test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+                        test="not(number(@n)) and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                         <!--         non-numerical line-nos always printed in DDbDP         -->
                         <xsl:call-template name="margin-num"/>
                     </xsl:when>
@@ -145,18 +145,18 @@
                         test="
                             number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and
                             not(following::t:*[1][local-name() = 'gap' or local-name() = 'space'][@unit = 'line'] and
-                            ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'))">
+                            ($parm-leiden-style = ('ddbdp','dclp','sammelbuch')))">
                         <!-- prints line-nos divisible by stated increment, unless zero
                      and unless it is a gap line or vacat in DDbDP -->
                         <xsl:call-template name="margin-num"/>
                     </xsl:when>
                     <xsl:when
-                        test="$parm-leiden-style = 'ddbdp' and preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
+                        test="$parm-leiden-style = ('ddbdp','dclp') and preceding-sibling::t:*[1][local-name() = 'gap'][@unit = 'line']">
                         <!-- always print line-no after gap line in ddbdp -->
                         <xsl:call-template name="margin-num"/>
                     </xsl:when>
                     <xsl:when
-                        test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
+                        test="$parm-leiden-style = ('ddbdp','dclp') and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                         <!-- always print line-no when broken orig in line, in ddbdp -->
                         <xsl:call-template name="margin-num"/>
                     </xsl:when>
@@ -170,7 +170,7 @@
         <span>
                     <xsl:choose>
                         <xsl:when
-                            test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
+                            test="$parm-leiden-style = ('ddbdp','dclp') and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                             <xsl:attribute name="class">
                                 <xsl:text>linenumberbroken</xsl:text>
                             </xsl:attribute>

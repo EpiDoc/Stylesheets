@@ -31,7 +31,7 @@
          <body>
             
             <!-- Heading for a ddb style file -->
-             <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+            <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                <h1>
                   <xsl:choose>
                      <xsl:when test="//t:sourceDesc//t:bibl/text()">

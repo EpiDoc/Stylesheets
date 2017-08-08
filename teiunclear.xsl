@@ -44,7 +44,7 @@
                    <xsl:when test="$parm-leiden-style='london'">
                      <xsl:text>·</xsl:text>
                   </xsl:when>
-                   <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
+                  <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
                      <xsl:text>&#xa0;&#xa0;&#x0323;</xsl:text>
                   </xsl:when>
                   <xsl:otherwise>

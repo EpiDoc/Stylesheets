@@ -11,7 +11,7 @@
             <xsl:when test="($parm-edn-structure = 'rib')">
                 <xsl:text>&#8216;</xsl:text><xsl:apply-templates/><xsl:text>&#8217;</xsl:text>
             </xsl:when>
-            <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+            <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                 <xsl:text>'</xsl:text>
                 <xsl:apply-templates/>
                 <xsl:text>'</xsl:text>
