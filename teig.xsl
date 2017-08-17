@@ -42,6 +42,7 @@
 
    <xsl:template match="t:g">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
        <xsl:if test="not(starts-with($parm-leiden-style, 'edh'))">
          <xsl:value-of select="@type"/>
       </xsl:if>
@@ -173,10 +174,13 @@
 
    <!-- ddb specific template -->
    <xsl:template name="g-ddbdp">
+      <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="@type='apostrophe'">
-            <xsl:text>’</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
+            <xsl:if test="$location='apparatus'">
+               <xsl:text>’</xsl:text>
+               <xsl:call-template name="g-unclear-symbol"/>               
+            </xsl:if>
          </xsl:when>
          <xsl:when test="@type='check' or @type='check-mark'">
             <xsl:text>／</xsl:text>

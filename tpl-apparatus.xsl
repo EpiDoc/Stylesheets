@@ -253,6 +253,11 @@
                <xsl:call-template name="hirend"/>
             </xsl:when>
 
+            <!-- g -->
+            <xsl:when test="local-name() = 'g'">
+               <xsl:call-template name="grend"/>
+            </xsl:when>
+            
             <!-- del -->
             <xsl:when test="local-name() = 'del'">
                <xsl:choose>
@@ -1233,7 +1238,48 @@
       </xsl:if>
    </xsl:template>
    
-
+   <xsl:template name="grend">
+      <xsl:param name="gcontext" select="'yes'"/>
+      
+      <xsl:if test="$gcontext != 'no'">
+         <xsl:variable name="text-before">
+            <xsl:choose>
+               <xsl:when test="not(preceding-sibling::node()[1])">
+                  <xsl:call-template name="recurse_back">
+                     <xsl:with-param name="step" select="parent::*/preceding-sibling::node()[1]"/>
+                  </xsl:call-template>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:call-template name="recurse_back">
+                     <xsl:with-param name="step" select="preceding-sibling::node()[1]"/>   
+                  </xsl:call-template>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:variable>
+         <!-- This removes unnecessary line breaks that could've come through -->
+         <xsl:value-of select="normalize-space(replace($text-before,'’|''',''))"/>
+      </xsl:if>
+      <xsl:apply-templates select=".">
+         <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+      </xsl:apply-templates>
+      <xsl:if test="$gcontext != 'no'">
+         <xsl:choose>
+            <xsl:when test="not(following-sibling::node()[1])">
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="parent::*/following-sibling::node()[1]"/>
+               </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:call-template name="recurse_forward">
+                  <xsl:with-param name="step" select="following-sibling::node()[1]"/>   
+               </xsl:call-template>
+            </xsl:otherwise>
+         </xsl:choose>
+         <!-- found below: inserts "papyrus" or "ostrakon" depending on filename -->
+         <xsl:call-template name="support"/>
+      </xsl:if>
+   </xsl:template>
+   
    <xsl:template name="hirend_print">
       <!-- Determines the value of diacritical <hi> values -->
       <!-- Used by hirend -->
@@ -1472,7 +1518,7 @@
    <xsl:template name="trans-string">
       <!-- transforms context of <hi> into lowercase unaccented for rendering in app -->
       <xsl:param name="trans-text" select="."/>
-      <xsl:value-of select="translate($trans-text, $all-grc, $grc-lower-strip)"/>
+      <xsl:value-of select="replace(translate($trans-text, $all-grc, $grc-lower-strip),'''','')"/>
    </xsl:template>
 
    <xsl:template name="childCertainty">
