@@ -90,7 +90,19 @@
                     <xsl:when test="self::t:lb is ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1]">
                         <a id="a{$div-loc}l{$line}">
                             <xsl:comment>0</xsl:comment>
-                        </a>
+                        </a><xsl:if test="@rend">
+                            <span>
+                                <xsl:if test="@rend">
+                                    <xsl:attribute name="class">
+                                        <xsl:value-of select="concat('lb ',@rend)"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="@rend='inverse'">(inverse) </xsl:when>
+                                    <xsl:when test="@rend='perpendicular'">(perpendicular) </xsl:when>
+                                </xsl:choose>
+                            </span>                     
+                        </xsl:if>
                         <!-- for the first lb in a div, create an empty anchor instead of a line-break -->
                     </xsl:when>
                     <!-- Commented out, causes incorrect formatting. '|' should only appear in apparatus. See: https://github.com/DCLP/dclpxsltbox/issues/119
