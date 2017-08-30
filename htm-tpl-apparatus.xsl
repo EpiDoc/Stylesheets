@@ -112,7 +112,8 @@
                <xsl:text>(*)</xsl:text>
             </a>
          </xsl:when>
-         <xsl:when test="$location = 'apparatus'">
+         <!-- Output at begining of each apparatus entry, suppresses duplicate output at end of apparatus. if $location='apparatus' -->
+         <xsl:when test="$location = 'apparatus-link-back'">
             <a>
                <xsl:attribute name="id">
                   <xsl:text>to-app-</xsl:text>

@@ -53,7 +53,7 @@
             <xsl:call-template name="lbrk-app"/>
             <!-- in htm-tpl-apparatus.xsl or txt-tpl-apparatus.xsl -->
             <xsl:call-template name="app-link">
-               <xsl:with-param name="location" select="'apparatus'"/>
+               <xsl:with-param name="location" select="'apparatus-link-back'"/>
             </xsl:call-template>
             <xsl:value-of select="$div-loc"/>
             <xsl:value-of select="preceding::t:*[local-name() = 'lb'][1]/@n"/>
@@ -109,10 +109,8 @@
                   </xsl:call-template>
                </xsl:variable>
                <xsl:variable name="titleagg">
-                  
                   <xsl:choose>                       
                      <xsl:when test="$apptype=('appbl','apppn','apped')">
-                        
                            <xsl:choose>   
                               <xsl:when test="($childtype = '' and normalize-space($part4) = '') or ($childtype != '' and normalize-space($part2) = '')"><xsl:call-template name="fnord-seperator">
                                     <xsl:with-param name="part"><xsl:value-of select="$part3" /></xsl:with-param>
@@ -121,15 +119,11 @@
                               <xsl:when test="contains($part3, ' : ') and lem/@resp"><xsl:value-of select="substring-before($part3, ' :')"/></xsl:when>
                               <xsl:otherwise>Current edition</xsl:otherwise>
                            </xsl:choose>
-                           
                           <!-- <xsl:if test="starts-with(normalize-space($part3), 'cf.')"> which</xsl:if> --> 
-                        
                         <xsl:choose>
                            <xsl:when test="$childtype='subst'"> reports </xsl:when>
                            <xsl:otherwise> gives </xsl:otherwise>
                         </xsl:choose> 
-                        
-                        
                         <xsl:choose>
                            <xsl:when test="$childtype = 'subst'"><xsl:value-of select="normalize-space($part1)" />, then changed to <xsl:value-of select="normalize-space($part2)" /></xsl:when>
                            <xsl:when test="$childtype != ''"><xsl:value-of select="normalize-space($part2)" /><xsl:text>, </xsl:text><xsl:value-of select="normalize-space($part1)" /></xsl:when>
@@ -138,27 +132,19 @@
                            <xsl:with-param name="part"><xsl:value-of select="$part3" /></xsl:with-param>
                            <xsl:with-param name="pos">second</xsl:with-param>
                         </xsl:call-template> 
-                        
-                        
                      </xsl:when>
                      <xsl:when test="$apptype = 'subst'">
-                        
-                        
                         <xsl:choose>
                            <xsl:when test="count(tokenize($part3, 'corr. ex')) > 2">
-                              
                               <xsl:variable name="bracketed" select="normalize-space(substring-before(substring-after($part3, '('), ')'))" />
-                              
                               Scribe wrote <xsl:value-of select="substring-after($bracketed, 'corr. ex ')" /> <xsl:value-of select="normalize-space(replace(substring-before($part3, '('), 'corr. ex', ', then changed to'))" />
-                           
                            </xsl:when>
                            <xsl:otherwise><xsl:value-of select="normalize-space($part3)"/></xsl:otherwise>
                         </xsl:choose>                                               
                         <xsl:choose>
                            <xsl:when test="$childtype != ''"><xsl:value-of select="normalize-space($part2)" /><xsl:if test="(not(ends-with(normalize-space($part2), ',')))">,</xsl:if><xsl:text> </xsl:text><xsl:value-of select="normalize-space($part1)" /></xsl:when>
                            <xsl:otherwise><xsl:if test="(not(ends-with(normalize-space($part3), ',')))">,</xsl:if> then changed to <xsl:value-of select="normalize-space($part4)"/></xsl:otherwise>
-                        </xsl:choose>
-                        
+                        </xsl:choose>                        
                      </xsl:when>
                      <xsl:otherwise>
                         <xsl:choose>
@@ -172,33 +158,27 @@
                                  <xsl:with-param name="part"><xsl:value-of select="$part3" /></xsl:with-param>
                                  <xsl:with-param name="pos">second</xsl:with-param>
                               </xsl:call-template> 
-                           
                            </xsl:when>
                            <xsl:when test="contains($part3, 'FNORD-SPLIT')"> 
                               <xsl:choose>
                                  <xsl:when test="$childtype != ''"><xsl:value-of select="normalize-space($part2)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space($part1)" /><xsl:if test="not(ends-with(normalize-space($part1), ',')) and not($apptype = 'appalt' and $childtype = '')">,</xsl:if></xsl:when>
                                  <xsl:otherwise><xsl:if test="$apptype = 'appalt' and $childtype = ''">Scribe wrote</xsl:if> <xsl:value-of select="normalize-space($part4)"/><xsl:if test="not(ends-with(normalize-space($part4), ',')) and not($apptype = 'appalt' and $childtype = '')">,</xsl:if></xsl:otherwise>
                               </xsl:choose><xsl:text> </xsl:text>
-                              
-                              
                               <xsl:variable name="pt3">
                                  <xsl:call-template name="fnord-seperator">
                                     <xsl:with-param name="part"><xsl:value-of select="$part3" /></xsl:with-param>
                                     <xsl:with-param name="pos">first</xsl:with-param>
                                  </xsl:call-template>
                               </xsl:variable>
-                              
                               <xsl:choose>
                                  <xsl:when test="$apptype = 'appalt'">
                                     <xsl:choose>
-                                       <xsl:when test="contains($part3, 'l.')"><xsl:text>, </xsl:text><xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')(*)'), ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/></xsl:when>
+                                       <xsl:when test="contains($part3, 'l.')"><xsl:text>, </xsl:text><xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')'), ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/></xsl:when>
                                        <xsl:otherwise><xsl:value-of select="normalize-space($part3)"/></xsl:otherwise>
                                     </xsl:choose>
                                  </xsl:when>
                                  <xsl:otherwise><xsl:if test="$apptype='origreg'">for which </xsl:if><xsl:value-of select="$pt3" /></xsl:otherwise>
                               </xsl:choose>
-                              
-                              
                            </xsl:when>
                            <xsl:when test="contains($part1, 'FNORD-SPLIT')"> 
                               <xsl:call-template name="childpart">
@@ -207,12 +187,12 @@
                                  <xsl:with-param name="part1"><xsl:value-of select="$part1" /></xsl:with-param>
                                  <xsl:with-param name="part2"><xsl:value-of select="$part2" /></xsl:with-param>
                               </xsl:call-template>
-                                                     
                               <xsl:choose>
-                                 <xsl:when test="contains($part3, 'l.') and $apptype = 'appalt'"><xsl:text>, </xsl:text><xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')(*)'), ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/></xsl:when>
+                                 <xsl:when test="contains($part3, 'l.') and $apptype = 'appalt'"><xsl:text>, </xsl:text>
+                                    <xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')'), ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/>
+                                 </xsl:when>
                                  <xsl:otherwise><xsl:value-of select="normalize-space($part3)"/></xsl:otherwise>
                               </xsl:choose>
-                              
                            </xsl:when>
                            <xsl:otherwise>
                               <xsl:if test="($apptype = ('appalt') and $childtype = '') or $childtype = ('appalt')">Scribe wrote </xsl:if>
@@ -221,12 +201,10 @@
                                  <xsl:when test="$childtype != ''"><xsl:value-of select="normalize-space($part2)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space($part1)" /><xsl:if test="(not(ends-with(normalize-space($part1), ',')) and $apptype != 'appalt')">,</xsl:if></xsl:when>
                                  <xsl:otherwise><xsl:value-of select="normalize-space($part4)"/><xsl:if test="(not(ends-with(normalize-space($part4), ',')) and $apptype != 'appalt')">,</xsl:if></xsl:otherwise>
                               </xsl:choose><xsl:text> </xsl:text>
-                              
                               <xsl:choose>
-                                 <xsl:when test="contains($part3, 'l.') and ($apptype = 'appalt' and $childtype != '')"><xsl:text>, </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')(*)'), ' ('))"/></xsl:when>
+                                 <xsl:when test="contains($part3, 'l.') and ($apptype = 'appalt' and $childtype != '')"><xsl:text>, </xsl:text><xsl:value-of select="normalize-space(substring-before($part3, ' ('))"/><xsl:text> </xsl:text><xsl:value-of select="normalize-space(substring-after(substring-before($part3, ')'), ' ('))"/></xsl:when>
                                  <xsl:otherwise><xsl:value-of select="normalize-space($part3)"/></xsl:otherwise>
                               </xsl:choose>
-                           
                            </xsl:otherwise>
                         </xsl:choose>                      
                      </xsl:otherwise>
@@ -241,12 +219,8 @@
                   </xsl:call-template>
                </xsl:variable>
               <xsl:attribute name="title"><xsl:apply-templates select="$title" mode="sqbrackets"/></xsl:attribute>
-               <!-- <xsl:if test="$apptype = ('appbl')"> and $childtype != ''">  'siccorr', 'subst', 'origreg', 'appalt' and $childtype='subst'"> -->
-               <xsl:value-of select="normalize-space(replace(replace($part1, 'FNORD(\S)*', ''), '\(\*\)', ''))"/>               
-               <xsl:if test="normalize-space($part1) != '' and (not(ends-with(normalize-space($part1), ','))) and (not(ends-with(normalize-space($part1), '.')))">,</xsl:if> <!--  --><xsl:text> </xsl:text><xsl:value-of select="normalize-space(replace(replace($part3, 'FNORD(\S)*', ''), '\(\*\)', ''))"/>
-               <!-- if there are more app elements inside the app part of the element,
-      these are handled in the individual templates for the elements in question -->
-                <!--[[<xsl:value-of select="$title"/>]]  <xsl:value-of select="$titleagg" />  </xsl:if>-->
+               <!-- Parse app content to include html elements see: https://github.com/DCLP/dclpxsltbox/issues/137 -->
+               <xsl:call-template name="parse-app-parts"><xsl:with-param name="part" select="$part1"/></xsl:call-template><xsl:if test="normalize-space($part1) != '' and (not(ends-with(normalize-space($part1), ','))) and (not(ends-with(normalize-space($part1), '.')))">,</xsl:if><!--  --><xsl:text> </xsl:text><xsl:call-template name="parse-app-parts"><xsl:with-param name="part" select="$part3"/></xsl:call-template>
             </xsl:when>
             <!-- hi -->
             <xsl:when test="local-name() = 'hi'">
@@ -279,6 +253,66 @@
       </span>
    </xsl:template>
 
+   <!-- Parse app content to include html elements see: https://github.com/DCLP/dclpxsltbox/issues/137 -->
+   <xsl:template name="parse-app-parts">
+      <xsl:param name="part" xml:space="preserve"/>
+      <xsl:choose>
+         <xsl:when test="matches(normalize-space($part),'FNORD(\S)*')"><xsl:value-of select="normalize-space(replace(replace($part, 'FNORD(\S)*', ''), '\(\*\)', ''))"/></xsl:when>
+         <xsl:otherwise>
+            <xsl:for-each select="$part/node() | $part/text()">
+               <xsl:choose>
+                  <xsl:when test="matches(normalize-space(.),'FNORD(\S)*')"><xsl:value-of select="normalize-space(replace(replace(., 'FNORD(\S)*', ''), '\(\*\)', ''))"/></xsl:when>
+                  <xsl:when test="position() = last()">
+                     <xsl:for-each select=".">
+                        <xsl:choose>
+                           <xsl:when test="self::text()">
+                              <xsl:choose>
+                                 <xsl:when test="position() = last()">
+                                    <xsl:value-of select="replace(.,'\s+$','')"/>
+                                 </xsl:when>
+                                 <xsl:otherwise>
+                                    <xsl:copy xml:space="preserve"/>
+                                 </xsl:otherwise>
+                              </xsl:choose>
+                           </xsl:when>
+                           <xsl:when test="name(.)='span'">
+                              <xsl:element name="{name(.)}">
+                                 <xsl:copy-of select="@*"/>
+                                 <xsl:call-template name="parse-app-parts">
+                                    <xsl:with-param name="part" select="." xml:space="preserve"/>
+                                 </xsl:call-template>
+                              </xsl:element>
+                           </xsl:when>
+                           <xsl:otherwise>
+                              <xsl:call-template name="parse-app-parts">
+                                 <xsl:with-param name="part" select="." xml:space="preserve"/>
+                              </xsl:call-template>
+                           </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:for-each>
+                  </xsl:when>
+                  <xsl:when test="name(.)='span'">
+                     <xsl:element name="{name(.)}">
+                        <xsl:copy-of select="@*"/>
+                        <xsl:call-template name="parse-app-parts">
+                           <xsl:with-param name="part" select="." xml:space="preserve"/>
+                        </xsl:call-template>
+                     </xsl:element>
+                  </xsl:when>
+                  <xsl:when test="self::text()">
+                     <xsl:copy xml:space="preserve"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:call-template name="parse-app-parts">
+                        <xsl:with-param name="part" select="." xml:space="preserve"/>
+                     </xsl:call-template>
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:for-each>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   
    <xsl:template name="nonTxPtchild">
       <!-- prints the other bit of apparatus content for apps nested in the part of an app not normally printed in edition -->
       <xsl:param name="apptype"/>
@@ -355,6 +389,7 @@
       <!-- Deals with old/new encoding of subst -->
       <!-- Used by: txPtchild, appcontent, teiaddanddel.xsl#t:add -->
       <xsl:param name="addpath" select="''"/>
+      <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:param name="delpath"/><xsl:choose>
          <!-- Old encoding: (still supported) -->
          <xsl:when test="(
@@ -593,6 +628,7 @@
                <xsl:sort select="position()" order="descending"/>
                <!-- <xsl:value-of select="."/> -->
                <xsl:call-template name="multreg">
+                  <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
                   <xsl:with-param name="parent-lang"><xsl:value-of select="$parent-lang" /></xsl:with-param>
                </xsl:call-template>
             </xsl:for-each>
@@ -613,6 +649,7 @@
          <xsl:when test="$apptype='subst'">
             <!--**SUBST - <xsl:value-of select="$path/t:del/node()"/>/<xsl:value-of select="$path/t:add/node()"/>** -->       
             <xsl:call-template name="resolvesubst">
+               <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
                <xsl:with-param name="delpath" select="$path/t:del/node()"/>
                <xsl:with-param name="addpath" select="$path/t:add/node()"/>
             </xsl:call-template>
@@ -631,7 +668,7 @@
                      <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
                   </xsl:apply-templates>
                </xsl:if>
-               <xsl:apply-templates>
+               <xsl:apply-templates select=".">
                   <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
                </xsl:apply-templates>
             </xsl:for-each>
@@ -1399,6 +1436,7 @@
    </xsl:template>
 
    <xsl:template name="multreg">
+      <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:param name="parent-lang" />
       <!-- prints multiple regs in a single choice in sequence -->
       <xsl:choose>
