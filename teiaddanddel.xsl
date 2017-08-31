@@ -8,13 +8,19 @@
    
    <xsl:template match="t:subst">
        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="location" tunnel="yes" required="no"/>
        <xsl:apply-templates/>
 
        <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <!-- Found in [htm|txt]-tpl-apparatus -->
-         <xsl:call-template name="app-link">
-            <xsl:with-param name="location" select="'text'"/>
-         </xsl:call-template>
+          <xsl:call-template name="app-link">
+             <xsl:with-param name="location">
+                <xsl:choose>
+                   <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+                   <xsl:otherwise>text</xsl:otherwise>
+                </xsl:choose>
+             </xsl:with-param>
+          </xsl:call-template>
       </xsl:if>
    </xsl:template>
 
@@ -107,11 +113,17 @@
    <xsl:template match="t:del">
        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="location" tunnel="yes" required="no"/>
        <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <xsl:if test="@rend = 'slashes' or @rend = 'cross-strokes'">
             <!-- Found in [htm | txt]-tpl-apparatus -->
             <xsl:call-template name="app-link">
-               <xsl:with-param name="location" select="'text'"/>
+               <xsl:with-param name="location">
+                  <xsl:choose>
+                     <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+                     <xsl:otherwise>text</xsl:otherwise>
+                  </xsl:choose>
+               </xsl:with-param>
             </xsl:call-template>
          </xsl:if>
       </xsl:if>

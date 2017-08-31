@@ -7,7 +7,8 @@
   <!-- Contains app and its children rdg, ptr, note and lem -->
 
   <xsl:template match="t:app">
-      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+     <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="@resp='previous'">
             <span class="previouslyread">
@@ -19,18 +20,23 @@
             <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
-
-      <!-- Found in htm-tpl-apparatus - creates links to footnote in apparatus -->
-      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
-         <xsl:call-template name="app-link">
-            <xsl:with-param name="location" select="'text'"/>
-         </xsl:call-template>
-      </xsl:if>
+     
+     <!-- Found in htm-tpl-apparatus - creates links to footnote in apparatus -->
+     <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+        <xsl:call-template name="app-link">
+           <xsl:with-param name="location">
+              <xsl:choose>
+                 <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+                 <xsl:otherwise>text</xsl:otherwise>
+              </xsl:choose>
+           </xsl:with-param>
+        </xsl:call-template>
+     </xsl:if>
   </xsl:template>
 
 
   <xsl:template match="t:rdg">
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:choose>
           <xsl:when test="$parm-edition-type = 'diplomatic'">
             <xsl:choose>
