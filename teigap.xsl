@@ -118,8 +118,8 @@
          <xsl:call-template name="extent-string"/>
       </xsl:if>
       
-      <!-- Apparatus display-->
-      <xsl:if test="$location = 'apparatus' and not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='illegible']]]) and not(preceding-sibling::node()[1][self::t:gap[@reason='illegible']])">
+      <!-- Apparatus display supress  @extent='unknown' in apparatus possibly need to add: and not(self::t:gap[@reason='illegible'][@extent='unknown'])-->
+      <xsl:if test="$location = 'apparatus'  and not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='illegible']]]) and not(preceding-sibling::node()[1][self::t:gap[@reason='illegible']])">
          <xsl:call-template name="extent-string"/>
       </xsl:if>
    </xsl:template>
