@@ -18,7 +18,8 @@ class HTMLFullOutputTestCase(unittest.TestCase):
 
     _command = 'java net.sf.saxon.Transform -o:{output} -s:{source} ' \
                '-xsl:{xsl} -versionmsg:off edn-structure={structure}'
-    _structures = ('default', 'dol', 'edak', 'inslib', 'iospe', 'spes')
+    _structures = ('default', 'dol', 'edak', 'inslib', 'iospe', 'sigidoc',
+                   'spes')
 
     def setUp(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -49,12 +50,12 @@ class HTMLFullOutputTestCase(unittest.TestCase):
     def _test_edition_structure(self, source, structure, actual_dir):
         with self.subTest(source=source, structure=structure):
             base_filename = os.path.basename(source)
+            actual_path = os.path.join(actual_dir, base_filename)
+            actual = self._get_contents(actual_path)
             expected_path = os.path.join(
                 self._expected_dir, '{}-{}.html'.format(os.path.splitext(
                     base_filename)[0], structure))
             expected = self._get_contents(expected_path)
-            actual_path = os.path.join(actual_dir, base_filename)
-            actual = self._get_contents(actual_path)
             self.assertEqual(actual, expected)
 
 
