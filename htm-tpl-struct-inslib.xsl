@@ -84,50 +84,17 @@
        <xsl:otherwise>Unknown</xsl:otherwise>
      </xsl:choose>
      </p>
-     
-     <div id="inslib-text">
-       <div id="edition">
-         <p><b>Interpretive edition:</b></p>
-         <!-- Edited text output -->
-         <xsl:variable name="edtxt">
-           <xsl:apply-templates select="//t:div[@type='edition']">
-             <xsl:with-param name="parm-edition-type" tunnel="yes" select="'interpretive'"/>
-             <xsl:with-param name="parm-verse-lines" tunnel="yes" select="'no'"/>
-           </xsl:apply-templates>
-         </xsl:variable>
-         <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-         <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
-       </div>
-       
-       <xsl:if test="//t:div[@type='edition']//t:lg">
-         <div id="verse">
-           <p><b>Verse edition:</b></p>
-           <!-- Edited text output -->
-           <xsl:variable name="edtxt">
-             <xsl:apply-templates select="//t:div[@type='edition']">
-               <xsl:with-param name="parm-edition-type" tunnel="yes" select="'interpretive'"/>
-               <xsl:with-param name="parm-verse-lines" tunnel="yes" select="'yes'"/>
-             </xsl:apply-templates>
-           </xsl:variable>
-           <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-           <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
-         </div>
-      </xsl:if>
-       
-       <div id="diplomatic">
-         <p><b>Diplomatic edition:</b></p>
-         <!-- Edited text output -->
-         <xsl:variable name="edtxt">
-           <xsl:apply-templates select="//t:div[@type='edition']">
-             <xsl:with-param name="parm-edition-type" tunnel="yes" select="'diplomatic'"/>
-             <xsl:with-param name="parm-verse-lines" tunnel="yes" select="'no'"/>
-           </xsl:apply-templates>
-         </xsl:variable>
-         <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-         <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
-       </div>
+
+     <div id="edition">
+       <p><b>Edition:</b></p>
+       <!-- Edited text output -->
+       <xsl:variable name="edtxt">
+         <xsl:apply-templates select="//t:div[@type='edition']"/>
+       </xsl:variable>
+       <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+       <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
      </div>
-     
+
      <div id="apparatus">
        <!-- Apparatus text output -->
        <xsl:variable name="apptxt">
@@ -193,16 +160,16 @@
          <xsl:if test="t:width/text()">w: 
             <xsl:value-of select="t:width"/>
             <xsl:if test="t:height/text()">
-               <xsl:text> x </xsl:text>
+               <xsl:text> × </xsl:text>
             </xsl:if>
          </xsl:if>
          <xsl:if test="t:height/text()">h: 
             <xsl:value-of select="t:height"/>
          </xsl:if>
-         <xsl:if test="t:depth/text()">x d:
+          <xsl:if test="t:depth/text()"><xsl:text> × d:</xsl:text>
             <xsl:value-of select="t:depth"/>
          </xsl:if>
-         <xsl:if test="t:dim[@type='diameter']/text()">x diam.:
+          <xsl:if test="t:dim[@type='diameter']/text()"><xsl:text> × diam.:</xsl:text>
             <xsl:value-of select="t:dim[@type='diameter']"/>
          </xsl:if>
       </xsl:if>
