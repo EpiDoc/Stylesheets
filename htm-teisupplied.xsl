@@ -17,4 +17,11 @@
         </span>
     </xsl:template>
 
+    <xsl:template name="supplied-subaudible">
+        <xsl:text>(</xsl:text><em><xsl:text>scil.</xsl:text></em><xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:call-template name="cert-low"/>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
+
 </xsl:stylesheet>

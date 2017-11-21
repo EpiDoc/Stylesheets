@@ -23,4 +23,11 @@
     </xsl:analyze-string>
   </xsl:template>
 
+    <xsl:template name="supplied-subaudible">
+        <xsl:text>(scil. </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:call-template name="cert-low"/>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
+
 </xsl:stylesheet>

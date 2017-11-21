@@ -129,11 +129,9 @@
      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
      <xsl:choose>
         <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
-        <xsl:otherwise>   
-           <xsl:text>(scil. </xsl:text>
-           <xsl:apply-templates/>
-           <xsl:call-template name="cert-low"/>
-           <xsl:text>)</xsl:text>
+        <xsl:otherwise>
+            <!-- Found in [htm|txt]-teisupplied.xsl -->
+            <xsl:call-template name="supplied-subaudible"/>
         </xsl:otherwise> </xsl:choose>
   </xsl:template>
   
