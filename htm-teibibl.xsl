@@ -85,9 +85,9 @@ bibliography. All examples only cater for book and article.
 							select="
 								if ($parm-zoteroNS)
 								then
-									concat($parm-zoteroNS, substring-after(./t:ptr/@target, '#'))
+									concat($parm-zoteroNS, ./t:ptr/@target)
 								else
-									substring-after(./t:ptr/@target, '#')"/>
+									./t:ptr/@target"/>
 
 						<xsl:variable name="zoteroapitei">
 
@@ -102,6 +102,8 @@ bibliography. All examples only cater for book and article.
 								select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=json&amp;style=',$parm-zoteroStyle,'&amp;include=citation')"
 							/>
 						</xsl:variable>
+			
+						
 						<xsl:variable name="unparsedtext" select="unparsed-text($zoteroapijson)"/>
 						<xsl:variable name="zoteroitemKEY">
 
@@ -177,7 +179,6 @@ bibliography. All examples only cater for book and article.
 							necessary.</xsl:message>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:value-of select="t:citedRange"/>
 			</xsl:when>
 
 

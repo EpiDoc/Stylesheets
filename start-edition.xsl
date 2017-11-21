@@ -70,6 +70,7 @@
     <xsl:include href="htm-tpl-struct-igcyr.xsl"/>
     <xsl:include href="htm-tpl-struct-inslib.xsl"/>
     <xsl:include href="htm-tpl-struct-iospe.xsl"/>
+    <xsl:include href="htm-tpl-struct-sigidoc.xsl"/>
     <xsl:include href="htm-tpl-struct-rib.xsl"/>
     <xsl:include href="htm-tpl-struct-spes.xsl"/>
 
