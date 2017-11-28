@@ -17,7 +17,7 @@ class HTMLFullOutputTestCase(unittest.TestCase):
     """
 
     _command = 'java net.sf.saxon.Transform -o:{output} -s:{source} ' \
-               '-xsl:{xsl} -versionmsg:off edn-structure={structure}'
+               '-xsl:{xsl} -versionmsg:off !indent=yes edn-structure={structure}'
     _structures = ('default', 'dol', 'edak', 'inslib', 'iospe', 'sigidoc',
                    'spes')
 
