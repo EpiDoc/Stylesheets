@@ -73,8 +73,9 @@
     <xsl:include href="htm-tpl-struct-sigidoc.xsl"/>
     <xsl:include href="htm-tpl-struct-rib.xsl"/>
     <xsl:include href="htm-tpl-struct-spes.xsl"/>
+    <xsl:include href="htm-tpl-struct-ecg.xsl"/>
 
-   <!-- global named templates with no html, also used by start-txt -->
+    <!-- global named templates with no html, also used by start-txt  -->
    <xsl:include href="tpl-certlow.xsl"/>
    <xsl:include href="tpl-text.xsl"/>
 
