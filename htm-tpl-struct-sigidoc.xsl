@@ -8,9 +8,12 @@
 
   <xsl:template name="sigidoc-body-structure">
     <div id="stone">
-      <h3 class="sigidoc">Monument</h3>
+      <h3 class="sigidoc">Object</h3>
       <dl class="sigidoc">
-        <dt width="150" align="left">Type of monument</dt>
+        <dt width="150" align="left">Physical description</dt>
+        
+        <!-- e.g. fragmented seal, seal inscripted on two sides -->
+        
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:objectType//text()">
@@ -20,6 +23,9 @@
           </xsl:choose>
         </dd>
         <dt width="150" align="left">Material</dt>
+        
+        <!-- lead, gold, silver -->
+        
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:material//text()">
@@ -67,7 +73,11 @@
             <xsl:otherwise>Unknown</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left">Modern location</dt>
+        
+        <dt width="150" align="left">Current location</dt>
+        
+        <!-- country, city, institution, repository, collection, accession number --> 
+          
         <dd>
           <xsl:choose>
             <xsl:when test="//t:provenance[@type='observed']//text()">
@@ -76,7 +86,7 @@
             <xsl:otherwise>Unknown</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left">Dimensions</dt>
+        <dt width="150" align="left">Dimensions (mm)</dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support/t:dimensions//text()[not(normalize-space(.)=' ')]">
@@ -87,7 +97,10 @@
             </xsl:when>
             <xsl:otherwise>Unknown</xsl:otherwise>
           </xsl:choose>
-        </dd>
+    </dd>
+      
+        <dt width="150" align="left">Weight (gr)</dt>
+        
         <dt width="150" align="left">Institution and inventory</dt>
         <dd>
           <xsl:choose>
