@@ -27,11 +27,11 @@
              </xsl:if>
              <!-- if final lb in ab is L2R or R2L, then print arrow here -->
              <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
-                and descendant::t:lb[last()][@rend='left-to-right']">
+                 and descendant::t:lb[last()][contains(@style, 'text-direction:l-to-r') or @rend='left-to-right']">
                 <xsl:text>&#xa0;&#xa0;→</xsl:text>
              </xsl:if>
              <xsl:if test="not($parm-leiden-style=('ddbdp','sammelbuch')) 
-                and descendant::t:lb[last()][@rend='right-to-left']">
+                 and descendant::t:lb[last()][contains(@style, 'text-direction:r-to-l') or @rend='right-to-left']">
                 <xsl:text>&#xa0;&#xa0;←</xsl:text>
              </xsl:if>
              <!-- in IOSPE, if followed by lg, include it here (and suppress in htm-teilgandl.xsl) -->
