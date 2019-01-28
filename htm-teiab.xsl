@@ -8,6 +8,7 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <div class="textpart">
+      	<!-- transfers ab/@xml:lang  to the textpart-->
       	<!-- Found in htm-tpl-lang.xsl -->
       	<xsl:call-template name="attr-lang"/>
           <span class="ab">
