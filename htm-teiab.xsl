@@ -8,13 +8,9 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <div class="textpart">
-      	<!-- transfers the  @xml:lang attribute of the ab element to the textpart-->
-      	<!-- a div[@type='textpart'] is created for each ab element, independant of the textpart / ab hierarchical structure -->
-      	
-      	<xsl:if test="@xml:lang">
-      		<!-- Found in htm-tpl-lang.xsl -->
-      		<xsl:call-template name="attr-lang"/>
-      	</xsl:if>
+      	<!-- transfers ab/@xml:lang  to the textpart-->
+      	<!-- Found in htm-tpl-lang.xsl -->
+      	<xsl:call-template name="attr-lang"/>
           <span class="ab">
               <xsl:if test="$parm-leiden-style='iospe'">
                 <xsl:variable name="div-loc">
