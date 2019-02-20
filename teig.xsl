@@ -42,10 +42,30 @@
 
    <xsl:template match="t:g">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
-       <xsl:if test="not(starts-with($parm-leiden-style, 'edh'))">
-         <xsl:value-of select="@type"/>
-      </xsl:if>
+      <xsl:choose>
+         <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+         <xsl:when test="starts-with(@ref,'#') and //t:glyph[@xml:id=substring-after(current()/@ref,'#')]">
+            <xsl:for-each select="//t:glyph[@xml:id=substring-after(current()/@ref,'#')]">
+               <xsl:choose>
+                  <xsl:when test="t:charProp[t:localName='glyph-display']">
+                     <xsl:value-of select="t:charProp[t:localName='glyph-display']/t:value"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:value-of select="t:charProp[t:localName='text-display']/t:value"/>
+                  </xsl:otherwise>
+               </xsl:choose>
+            </xsl:for-each>
+         </xsl:when>
+         <xsl:when test="contains(@ref,'#')">
+            <xsl:value-of select="substring-after(@ref,'#')"/>
+         </xsl:when>
+         <xsl:when test="@ref">
+            <xsl:value-of select="@ref"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="@type"/>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
 
    <!-- London specific template -->

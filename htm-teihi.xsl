@@ -17,7 +17,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <!-- @rend='apex'                                                       -->
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@xml:lang][1][@xml:lang = 'la']">
+         <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@xml:lang][1][@xml:lang = 'la']
+            and not(child::t:unclear)">
             <xsl:element name="span">
                <xsl:attribute name="class">apex</xsl:attribute>
                <xsl:attribute name="title">apex over: <xsl:value-of select="."/>
@@ -28,7 +29,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <!-- @rend='caps'                                                       -->
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <xsl:when test="@rend='intraline'">
+         <xsl:when test="@rend='caps'">
              <xsl:element name="span">
                  <xsl:attribute name="class">caps</xsl:attribute>
                  <xsl:apply-templates/>
@@ -39,7 +40,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='intraline'">
             <xsl:element name="span">
-               <xsl:attribute name="class">line-through</xsl:attribute>
+               <xsl:attribute name="class">intraline</xsl:attribute>
+               <xsl:attribute name="title">line through</xsl:attribute>
                <xsl:apply-templates/>
             </xsl:element>
          </xsl:when>
@@ -120,7 +122,10 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='subscript'">
             <xsl:choose>
-               <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
+               <xsl:when test="$parm-leiden-style = 'iospe'">
+                  <xsl:apply-templates/>
+               </xsl:when>
+                <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <span style="vertical-align:sub;">
                      <xsl:apply-imports/>
                   </span>
@@ -136,7 +141,10 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='superscript'">
             <xsl:choose>
-               <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
+               <xsl:when test="$parm-leiden-style = 'iospe'">
+                  <xsl:apply-templates/>
+               </xsl:when>
+                <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <span style="vertical-align:super;">
                      <xsl:apply-imports/>
                   </span>

@@ -5,10 +5,10 @@
                 version="2.0">
 
   <xsl:template match="t:app">
-      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" tunnel="yes" required="no"/>
+     <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:apply-templates/>
-      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+     <xsl:if test="$parm-internal-app-style = 'ddbdp'">
       <!-- Found in txt-tpl-apparatus -->
          <xsl:call-template name="app-link">
             <xsl:with-param name="location">

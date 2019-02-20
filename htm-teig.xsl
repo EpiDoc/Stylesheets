@@ -24,7 +24,9 @@
            <xsl:call-template name="g-london"/>
          </xsl:when>
          <xsl:when test="$parm-leiden-style = 'iospe'">
-           <xsl:call-template name="g-iospe"/>
+           <xsl:apply-imports/>
+           <!--   removed customization of IOSPE from stylesheets   -->
+           <!--<xsl:call-template name="g-iospe"/>-->
         </xsl:when>
          <xsl:when test="$parm-leiden-style = 'rib'">
              <xsl:call-template name="g-rib"/>

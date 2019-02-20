@@ -26,14 +26,28 @@
                         select="document($param-file)//parameter[name = 'edn-structure']/value[@on = 'yes']"/>
             <xsl:param name="edition-type"
                         select="document($param-file)//parameter[name = 'edition-type']/value[@on = 'yes']"/>
-            <xsl:param name="apparatus-style"
-                        select="document($param-file)//parameter[name = 'apparatus-style']/value[@on = 'yes']"/>
+            <xsl:param name="internal-app-style"
+                        select="document($param-file)//parameter[name = 'internal-app-style']/value[@on = 'yes']"/>
+            <xsl:param name="external-app-style"
+                        select="document($param-file)//parameter[name = 'external-app-style']/value[@on = 'yes']"/>
             <xsl:param name="line-inc"
                         select="document($param-file)//parameter[name = 'line-inc']/value"/>
             <xsl:param name="css-loc"
                         select="document($param-file)//parameter[name = 'css-loc']/value"/>
             <xsl:param name="js-dir"
                         select="document($param-file)//parameter[name = 'js-dir']/value"/>
+            <xsl:param name="bibliography"
+                        select="document($param-file)//parameter[name = 'bibliography']/value[@on = 'yes']"/>
+            <xsl:param name="localbibl"
+                        select="document($param-file)//parameter[name = 'localbibl']/value"/>
+            <xsl:param name="ZoteroUorG" 
+                        select="document($param-file)//parameter[name = 'ZoteroUorG']/value[@on = 'yes']"/>
+            <xsl:param name="ZoteroKey"
+                        select="document($param-file)//parameter[name = 'ZoteroKey']/value[@on = 'yes']"/>
+            <xsl:param name="ZoteroNS"
+                        select="document($param-file)//parameter[name = 'ZoteroNS']/value[@on='yes']"/>
+            <xsl:param name="ZoteroStyle"
+                        select="document($param-file)//parameter[name = 'ZoteroStyle']/value[@on = 'yes']"/>
     
             <xsl:param name="docroot">../output/data</xsl:param>
 

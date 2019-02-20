@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0"
    exclude-result-prefixes="t" version="2.0">
 
-   <!-- Generates the apparatus from the edition -->
+   <!-- Generates the DDBDP-style apparatus from the edition -->
    <!-- 
     Adding to Apparatus:
     1. Add to apparatus: [htm | txt]-tpl-apparatus.xsl add case to the ifs and for-each (3 places) 

@@ -6,7 +6,7 @@
    <!-- More specific templates in teimilestone.xsl -->
 
    <xsl:template match="t:milestone">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>      
        <xsl:choose>
          <xsl:when
             test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation']">
@@ -58,6 +58,19 @@
             <xsl:value-of select="@rend"/>
          </xsl:otherwise>
       </xsl:choose>
+   </xsl:template>
+   
+   <xsl:template match="t:cb">
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+      <xsl:if test="$parm-leiden-style='iospe'">
+         <xsl:element name="span">
+            <xsl:attribute name="class" select="'textpartnumber'"/>
+            <xsl:attribute name="style" select="'left: -4em;'"/>
+            <xsl:text>Col. </xsl:text>
+            <xsl:value-of select="@n"/>
+            <xsl:element name="br"/>
+         </xsl:element>
+      </xsl:if>
    </xsl:template>
 
 </xsl:stylesheet>
