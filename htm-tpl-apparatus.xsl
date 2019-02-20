@@ -92,7 +92,6 @@
             </xsl:call-template>
          </xsl:if>
       </xsl:if>
-    </xsl:if>
   </xsl:template>
 
   <!-- Called by app-link to generate the actual HTML, so other projects can override this template for their own style -->

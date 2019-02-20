@@ -6,8 +6,6 @@
                 exclude-result-prefixes="t EDF" 
                 version="2.0">
 
-   </xsl:template>
-
    <xsl:template match="t:supplied[@reason='lost']">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
