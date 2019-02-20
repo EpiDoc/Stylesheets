@@ -16,7 +16,7 @@
        <xsl:apply-templates/>
        <xsl:if test="not(ancestor::t:expan) and not($parm-edition-type='diplomatic')">
          <xsl:text>(</xsl:text><xsl:choose>
-             <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+            <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                <xsl:text>&#xa0;&#xa0;</xsl:text>
             </xsl:when>
              <xsl:when test="$parm-leiden-style = 'rib'">
@@ -26,7 +26,7 @@
                <xsl:text>- - -</xsl:text>
             </xsl:otherwise>
          </xsl:choose><xsl:text>)</xsl:text>
-           <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+          <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
             <!-- Found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>
          </xsl:if>

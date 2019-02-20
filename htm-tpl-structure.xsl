@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: htm-tpl-structure.xsl 1434 2011-05-31 18:23:56Z gabrielbodard $ -->
+<!-- $Id: htm-tpl-structure.xsl 2517 2017-03-10 19:53:37Z sarcanon $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
@@ -24,7 +24,7 @@
          <head>
             <title>
                <xsl:choose>
-                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+                  <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                      <xsl:choose>
                         <xsl:when test="//t:sourceDesc//t:bibl/text()">
                            <xsl:value-of select="//t:sourceDesc//t:bibl"/>
@@ -59,7 +59,7 @@
    <xsl:template name="default-body-structure">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <!-- Heading for a ddb style file -->
-       <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+      <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
          <h1>
             <xsl:choose>
                <xsl:when test="//t:sourceDesc//t:bibl/text()">

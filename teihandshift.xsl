@@ -7,7 +7,7 @@
   <xsl:template match="t:handShift">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+         <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
             <xsl:text>(hand </xsl:text>
             <xsl:value-of select="substring-after(@new, 'm')"/>
             <xsl:if test="@cert='low'">

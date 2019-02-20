@@ -14,6 +14,13 @@
             or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
             <xsl:value-of select="true()"/>
          </xsl:when>
+         <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52 -->
+         <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+            or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+            and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+            or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:value-of select="false()"/>
          </xsl:otherwise>
@@ -35,6 +42,7 @@
 
    <xsl:template match="t:g">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
        <xsl:if test="not(starts-with($parm-leiden-style, 'edh'))">
          <xsl:value-of select="@type"/>
       </xsl:if>
@@ -166,10 +174,13 @@
 
    <!-- ddb specific template -->
    <xsl:template name="g-ddbdp">
+      <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
          <xsl:when test="@type='apostrophe'">
-            <xsl:text>’</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
+            <xsl:if test="$location='apparatus'">
+               <xsl:text>’</xsl:text>
+               <xsl:call-template name="g-unclear-symbol"/>               
+            </xsl:if>
          </xsl:when>
          <xsl:when test="@type='check' or @type='check-mark'">
             <xsl:text>／</xsl:text>
@@ -275,6 +286,10 @@
             <xsl:text>⋮</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='double-vertical-bar'">
             <xsl:text>‖</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -301,10 +316,10 @@
          </xsl:when>
          <!-- Interim error reporting -->
          <xsl:otherwise>
-            <text> ((</text>
+            <xsl:text> ((</xsl:text>
             <xsl:value-of select="@type"/>
             <xsl:call-template name="g-unclear-string"/>
-            <text>)) </text>
+            <xsl:text>)) </xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>

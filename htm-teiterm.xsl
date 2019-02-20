@@ -10,7 +10,7 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
       <!-- Adds caption for hgv translations -->
-          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and ancestor::t:div[@type = 'translation'] and @target">
+          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation'] and @target">
             <xsl:variable name="lang" select="ancestor::t:div[@type = 'translation']/@xml:lang"/>
             <xsl:variable name="term" select="@target"/>
         
