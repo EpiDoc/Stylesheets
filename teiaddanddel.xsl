@@ -9,6 +9,7 @@
    <xsl:template match="t:subst">
       <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
+      <xsl:param name="location" tunnel="yes" required="no"/>
        <xsl:apply-templates/>
 
       <xsl:if test="$parm-internal-app-style = 'ddbdp'">
@@ -107,10 +108,11 @@
 
 
    <xsl:template match="t:del">
-      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="location" tunnel="yes" required="no"/>
-       <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+      <xsl:param name="location" tunnel="yes" required="no"/>
+      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <xsl:if test="@rend = 'slashes' or @rend = 'cross-strokes'">
             <!-- Found in [htm | txt]-tpl-apparatus -->
             <xsl:call-template name="app-link">
