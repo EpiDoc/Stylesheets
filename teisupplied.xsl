@@ -132,8 +132,6 @@
             <xsl:call-template name="supplied-subaudible"/>
         </xsl:otherwise> </xsl:choose>
   </xsl:template>
-  
-
 
    <xsl:template match="t:supplied[@reason='explanation']">
       <xsl:text>(i.e. </xsl:text>
@@ -142,16 +140,15 @@
       <xsl:text>)</xsl:text>
    </xsl:template>
 
-   <xsl:template match="t:supplied[@evidence='apograph']">
-      <xsl:text>⌈</xsl:text>
-      <xsl:apply-templates/>
-      <xsl:call-template name="cert-low"/>
-      <xsl:text>⌉</xsl:text>
-   </xsl:template>
-
-<xsl:template match="t:supplied[@reason='undefined' and @evidence]">
+   <xsl:template match="t:supplied[@reason='undefined' and @evidence]">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
+         <xsl:when test="@evidence = 'apograph'">
+            <xsl:text>⌈</xsl:text>
+            <xsl:apply-templates/>
+            <xsl:call-template name="cert-low"/>
+            <xsl:text>⌉</xsl:text>
+         </xsl:when>
          <xsl:when test="@evidence = 'parallel'">
             <!-- Found in [htm|txt]-teisupplied.xsl -->
             <xsl:call-template name="supplied-parallel"/>
