@@ -198,10 +198,11 @@
 
 
    <xsl:template name="extent-string">
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason)"></xsl:variable>
-      <xsl:variable name="cur-max" select="EDF:dotmax($parm-leiden-style)"></xsl:variable>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
+      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason)"/>
+      <xsl:variable name="cur-max" select="EDF:dotmax($parm-leiden-style)"/>
       <!-- Precision of <gap> defined -->
       <xsl:variable name="circa">
          <xsl:choose>
@@ -272,6 +273,9 @@
                         <xsl:text>---</xsl:text>
                      </xsl:when>
                   </xsl:choose>
+               </xsl:when>
+               <xsl:when test="$parm-edn-structure = 'creta'"> <!-- added for creta -->
+                  <xsl:text>- - -</xsl:text>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:text>---</xsl:text>

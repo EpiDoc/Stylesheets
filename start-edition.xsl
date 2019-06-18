@@ -61,7 +61,8 @@
    <xsl:include href="htm-tpl-sqbrackets.xsl"/>
    
    <!-- named templates for localized layout/structure (aka "metadata") -->
-   <xsl:include href="htm-tpl-structure.xsl"/>
+    <xsl:include href="htm-tpl-structure.xsl"/>
+    <xsl:include href="htm-tpl-struct-creta.xsl"/>
     <xsl:include href="htm-tpl-struct-dol.xsl"/>
     <xsl:include href="htm-tpl-struct-edak.xsl"/>
     <xsl:include href="htm-tpl-struct-inslib.xsl"/>
@@ -201,6 +202,21 @@
                  </xsl:call-template>
              </div>
          </xsl:when>
+          <xsl:when test="$edn-structure = 'creta'">
+              <div>
+                  <xsl:call-template name="creta-structure">
+                      <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
+                      <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
+                      <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
+                      <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
+                      <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
+                      <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
+                      <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
+                      <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
+                      <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
+                  </xsl:call-template>
+              </div>
+          </xsl:when>
           <xsl:otherwise>
              <xsl:call-template name="default-structure">
                  <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
