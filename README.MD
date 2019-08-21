@@ -26,7 +26,8 @@ Three methods:
 
 ~~~
 git clone https://github.com/EpiDoc/Stylesheets.git your_directory
-~~~
+
+~~~ 
 
 2. Download the latest development version directly from: <https://github.com/EpiDoc/Stylesheets/archive/master.zip>
 
@@ -35,6 +36,7 @@ git clone https://github.com/EpiDoc/Stylesheets.git your_directory
 ### How to use it:
 
 XSLT may be run on an individual EpiDoc XML file, creating a single file output (e.g. via a command-line Saxon call or an Oxygen transformation scenario) or batch-run upon a large collection of files via some other process (e.g. an Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create a HTML version of the output (this XSL calls both generic and specialized files needed), or start-txt.xsl to create a text-only version of the text output, or start-fo to create a XSL-FO block for use in a XSL-FO based PDF production workflow. 
+
 
 Transformations are parameterised so that they may be used by different projects with only a change in local parameters, the scripts themselves being identical for all users. Change the parameters either by (a) changing the global-parameters.xml in your local copy (please do *not* commit these changes to SVN), or (b) setting local variables in your Saxon command-line, Oxygen scenario, etc.
 
@@ -59,7 +61,7 @@ The parameters currently defined include:
 	$docroot
 		Default value is '../output/data'
 	$edition-type:
-		Values supported are 'interpretive' (default) and 'diplomatic' (prints
+    Values supported are 'interpretive' (default) and 'diplomatic' (prints
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
 		Values supported are 'default' (no metadata), 'inslib', 'iospe'
