@@ -1,1 +1,6 @@
 __pycache__
+.DS_Store
+EpiDocXSL.xsl
+EpiDocXSL.xpr
+tests/OxyResults/
+tests/data/source-new/
