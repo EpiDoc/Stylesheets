@@ -49,16 +49,16 @@
         <xsl:choose>
             <xsl:when test="@rend='ligature'">
                 <xsl:choose>
-                    <xsl:when test="$parm-edition-type = ('interpretive','transcript')">
-                        <xsl:apply-templates/> <!-- omit ligatures for non-diplomatic edition types -->
+                    <xsl:when test="$parm-leiden-style='seg'">
+                        <xsl:if test="string-length(normalize-space(.))=2">
+                            <xsl:text>&#x035c;</xsl:text>
+                        </xsl:if>
                     </xsl:when>
-                    
-                    <xsl:when test="starts-with($parm-leiden-style,'rib')">
+                    <xsl:otherwise>
                         <!-- Combining char (x0361) will only render ligature line over two chars. For ligatures of >=3 chars, keep adding ligature marks -->
                         <!-- Combining characters for half-marks are: COMBINING LIGATURE LEFT HALF (U+FE20), COMBINING LIGATURE RIGHT HALF (U+FE21),
                            and COMBINING CONJOINING MACRON (U+FE26) -->
                         <!-- Also need to modify so that elements within <hi rend="ligature"> are rendered, e.g., reversed E. See RIB 1911 for example. -->
-                        
                         <!-- pro-process text content first, so formatting (e.g., underdots for unclear chars) gets applied before ligature marks -->
                         <xsl:variable name="preprocessed">
                             <xsl:apply-templates select="normalize-space($text-content)"/>
@@ -66,15 +66,6 @@
                         <xsl:call-template name="ligaturizeText">
                             <xsl:with-param name="textLigaturize" select="$preprocessed"/>
                         </xsl:call-template>
-                    </xsl:when>
-                    
-                    <xsl:otherwise>
-                        <xsl:if test="$parm-leiden-style='seg'">
-                            <xsl:if test="string-length(normalize-space(.))=2">
-                                <xsl:text>&#x035c;</xsl:text>
-                            </xsl:if>
-                        </xsl:if>
-                        <xsl:apply-templates/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
