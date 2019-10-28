@@ -26,8 +26,7 @@ Three methods:
 
 ~~~
 git clone https://github.com/EpiDoc/Stylesheets.git your_directory
-
-~~~ 
+~~~
 
 2. Download the latest development version directly from: <https://github.com/EpiDoc/Stylesheets/archive/master.zip>
 
@@ -35,8 +34,7 @@ git clone https://github.com/EpiDoc/Stylesheets.git your_directory
 
 ### How to use it:
 
-XSLT may be run on an individual EpiDoc XML file, creating a single file output (e.g. via a command-line Saxon call or an Oxygen transformation scenario) or batch-run upon a large collection of files via some other process (e.g. an Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create a HTML version of the output (this XSL calls both generic and specialized files needed), or start-txt.xsl to create a text-only version of the text output, or start-fo to create a XSL-FO block for use in a XSL-FO based PDF production workflow. 
-
+XSLT may be run on an individual EpiDoc XML file, creating a single file output (e.g. via a command-line Saxon call or an Oxygen transformation scenario) or batch-run upon a large collection of files via some other process (e.g. an Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create a HTML version of the output (this XSL calls both generic and specialized files needed), or start-txt.xsl to create a text-only version of the text output, or start-fo to create a XSL-FO block for use in a XSL-FO based PDF production workflow.
 
 Transformations are parameterised so that they may be used by different projects with only a change in local parameters, the scripts themselves being identical for all users. Change the parameters either by (a) changing the global-parameters.xml in your local copy (please do *not* commit these changes to SVN), or (b) setting local variables in your Saxon command-line, Oxygen scenario, etc.
 
@@ -61,7 +59,7 @@ The parameters currently defined include:
 	$docroot
 		Default value is '../output/data'
 	$edition-type:
-    Values supported are 'interpretive' (default) and 'diplomatic' (prints
+		Values supported are 'interpretive' (default) and 'diplomatic' (prints
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
 		Values supported are 'default' (no metadata), 'inslib', 'iospe'
@@ -84,3 +82,26 @@ The parameters currently defined include:
 		text is tagged using <lg> and <l> elements [instead of <ab>] then
 		edition is formatted and numbered in verse lines rather than
 		epigraphic lines)
+  $bibliography:
+	  the default value is 'none', but in this parameter you can set the Stylesheets
+	  to look eiterh at a local TEI encoded bibliography file with the
+	  value 'localTEI' (the path to which should be defined in $localbibl) or
+	  look at a Zotero Library openly accessible online, setting the
+	  parameter to 'zotero' and taking care to set also the other
+	  parameters starting with $Zotero
+	$localbibl:
+	   if you selected 'localTEI' as a value for $bibliography, than in this paramter
+	   you can set the relative path to this file. As an example it assumes that this will be
+	   in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
+	$ZoteroUorG:
+	    values are 'groups' (default) or 'users'. If the
+	     Zotero bibliography is used, select whether it is a group library or a user's library
+	$ZoteroKey:
+	      value is free for you to set based on the key identifying your library in Zotero,
+	     there is a default on 247748, which is the EAGLE group bibliography
+	$ZoteroNS:
+	     deafualt value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
+	$ZoteroStyle:
+	  value is the name of the desired CSL registered style in the
+	  Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not specify this parameter
+
