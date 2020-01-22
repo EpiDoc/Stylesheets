@@ -10,6 +10,10 @@ To cite these stylesheets in a conventional bibliography, please include the fol
 
 Tom Elliott, Zaneta Au, Gabriel Bodard, Hugh Cayless, Carmen Lanz, Faith Lawrence, Scott Vandebilt, Raffaele Viglianti, et al. (2008-2019), EpiDoc Example Stylesheets (version 9). Available: <https://github.com/EpiDoc/Stylesheets>
 
+### Where to report bugs or request features:
+
+Please use the unified [EpiDoc bug tracker](https://sourceforge.net/p/epidoc/bugs/) and [EpiDoc feature request tracker](https://sourceforge.net/p/epidoc/feature-requests/) at SourceForge.
+
 ### License:
 
 These scripts are copyright Zaneta Au, Gabriel Bodard and all other contributors. See LICENSE.txt for license details.
