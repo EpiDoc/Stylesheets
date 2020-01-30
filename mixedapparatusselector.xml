@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apparatusfeatures>
+<!--  this is a list of markup features which may be used to build an apparatus note and may be encoded into div[@type='edition']. 
+        This is passed to the stylesheets when setting $mixed-app-style to the value 'mixed', otherways it is not used.
+        Comment out features of your encoding which you do not want in the apparatus.-->
+    <feature>
+        <name></name>
+        <guidelines></guidelines>
+        <selector>t:corr</selector>
+    </feature>
+</apparatusfeatures>

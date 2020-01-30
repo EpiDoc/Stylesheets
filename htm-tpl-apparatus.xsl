@@ -448,6 +448,63 @@
       </xsl:for-each>
     </p>
   </xsl:template>
+  
+  <xsl:template name="tpl-mixed-apparatus">
+    <xsl:param name="elements"/> <!-- passed from htm-teidivapparatus with only elements relevant to the line in question. -->
+   
+    <xsl:variable name="listapp"><!-- generate a list of entries -->
+      
+      <xsl:for-each select="$elements//t:corr[not(ancestor::t:choice)]">
+        <xsl:element name="app"><xsl:call-template name="intappcorr"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:choice[child::t:reg and not(ancestor::t:rdg)]">
+        <xsl:element name="app"> <xsl:call-template name="intappchoice"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:choice[child::t:corr and not(ancestor::t:rdg)]">
+        <xsl:element name="app"> <xsl:call-template name="intappsiccorr"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:choice[child::t:unclear  and not(ancestor::t:rdg)]">
+        <xsl:element name="app"> <xsl:call-template name="intappunclear"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:subst[not(ancestor::t:rdg)]">
+        <xsl:element name="app"><xsl:call-template name="intappsubst"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:add[@place='overstrike' and not(ancestor::t:rdg or ancestor::t:subst)]">
+        <xsl:element name="app"><xsl:call-template name="intappoverstrike"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:add[@place=('above','below') and not(ancestor::t:subst)  and not(ancestor::t:rdg)]">
+        <xsl:element name="app"><xsl:call-template name="intappaddabovebelow"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:hi[@rend=('subscript','superscript')  and not(ancestor::t:rdg)]">
+        <xsl:element name="app"><xsl:call-template name="intapphi"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:app[@type='editorial']">
+        <xsl:element name="app"><xsl:call-template name="intappedit"/></xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:app[@type='alternative']">
+         <xsl:element name="app"><xsl:call-template name="intappapp"/></xsl:element>
+      </xsl:for-each>
+      
+    </xsl:variable>
+    
+    <!--generate the actual apparatus printing the separators between each info and the reference to line number-->
+      
+      <xsl:for-each select="$listapp/app">
+        <xsl:value-of select="."/>
+        <xsl:if test="not(position()=last())">
+          <xsl:text> | </xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+  </xsl:template>
 
 <!--templates for each internal apparatus feature -->
 
@@ -519,8 +576,8 @@ subst with del and add
 in the text the text  after correction is printed, in apparatus instead the text originally written
 -->
   <xsl:template name="intappsubst">
-     
-  <xsl:if test="self::t:subst and child::t:add and child::t:del">
+    <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
+    <xsl:if test="$parm-mixed-app-style != 'mixed' and self::t:subst and child::t:add and child::t:del">
     <xsl:text>del </xsl:text>
     <xsl:call-template name="iospe-appcontext">
       <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->

@@ -1,6 +1,6 @@
 # EpiDoc Reference Stylesheets
 
-## README.txt for EpiDoc/Stylesheets
+## README.md for EpiDoc/Stylesheets
 
 ### What it is:
 
@@ -45,18 +45,46 @@ Transformations are parameterised so that they may be used by different projects
 The parameters currently defined include:
 
 	$internal-app-style:
-		Generate a paragraph of apparatus immediately below
-		the text unless value is "none" (default); via equivalent of
-		TEI "Parallel Segmentation" apparatus encoding.
-		Supported values include: 'ddbdp' (generate very rich
-		apparatus from tei:app, tei:subst, tei:choice, tei:hi etc.
-		elements in the text); 'iospe' (generate simple apparatus
-		from tei:choice and children in text only).
+		Setting this parameters assumes TEI "Parallel Segmentation" apparatus encoding.
+		Setting this parameter will generate a div for apparatus immediately below
+		the text unless value is "none" (default).
+		Supported values include: 
+		- [deprecated] 'ddbdp' (generate very rich apparatus from tei:app, 
+        tei:subst, tei:choice, tei:hi etc. elements found in div[@type='edition'] only); 
+		- 'iospe' (generate simple apparatus
+		from tei:choice and children, tei:supplied[@reason='omitted'], 
+		tei:subst and children, tei:hi[@rend='subscript'], 
+		tei:hi[@rend='superscript')] found in div[@type='edition'] only); 
+		- 'fullex' (generate simple apparatus
+		from tei:corr occurring alone, tei:choice and children (including tei:unclear), 
+		tei:supplied[@reason='omitted'],  tei:subst and children, 
+		tei:add[@place='overstrike'], tei:add[@place='above'], 
+		tei:add[@place='below'], tei:hi[@rend='subscript'], 
+		tei:hi[@rend='superscript')], tei:app[@type='editorial'], tei:app[@type='alterantive'],  
+		found in div[@type='edition'] only); 
+		- 'minex' (generate simple apparatus
+         from tei:choice and children, tei:app[@type='editorial'], tei:app[@type='alterantive'],  
+		found in div[@type='edition'] only) .
+		If you also have TEI "Location-Referenced" apparatus, you may wish to set also
+		$external-app-style.
 	$external-app-style:
-		Variant ways to interpret the markup in `div[@type='apparatus']`,
-		assumed to follow equivalent of TEI "Location-Referenced"
-		apparatus encoding. The only value supported is 'iospe',
-		which processes bibliography richly.
+		setting this parameter assumes TEI "Location-Referenced" apparatus encoding.
+		The default behaviour is to process the contents of div[@type='apparatus'] building one paragraph 
+		with all the notes contained in this element.
+		The only alternative value supported is 'iospe', which processes bibliography richly.
+		If you also have TEI "Parallel Segmentation" apparatus, you may wish to set also
+		$internal-app-style.
+	$mixed-app-style:
+		setting this parameter assumes you have some 
+		information encoded as TEI "Location-Referenced" apparatus and some
+		TEI "Parallel Segmentation" apparatus, and hopefully no double encoding of the same feature. Unless set to a value other than 'none' 
+		it will not do anything (default). This will produce a single apparatus entry for each location
+		relevant for the apparatus collecting both relevant annotations in div[@type='edition'] and 
+		div[type='apparatus']. The same features collected by setting $internal-app-style to 'fullex' are considered.
+		You can achieve a similar result by setting separately $external-app-style,
+		$internal-app-style or both. While setting one or both of those separately will give you 
+		separated sections of apparatus, this mixed option will return only one apparatus 
+		section with information taken from both encoding strategies.
 	$css-loc
 		Default value is '../xsl/global.css'.
 		Path of CSS file referenced in the resulting HTML file.
@@ -86,25 +114,25 @@ The parameters currently defined include:
 		text is tagged using <lg> and <l> elements [instead of <ab>] then
 		edition is formatted and numbered in verse lines rather than
 		epigraphic lines)
-  $bibliography:
-	  the default value is 'none', but in this parameter you can set the Stylesheets
-	  to look eiterh at a local TEI encoded bibliography file with the
-	  value 'localTEI' (the path to which should be defined in $localbibl) or
-	  look at a Zotero Library openly accessible online, setting the
-	  parameter to 'zotero' and taking care to set also the other
-	  parameters starting with $Zotero
+            $bibliography:
+	           the default value is 'none', but in this parameter you can set the Stylesheets
+	            to look eiterh at a local TEI encoded bibliography file with the
+	            value 'localTEI' (the path to which should be defined in $localbibl) or
+	           look at a Zotero Library openly accessible online, setting the
+	            parameter to 'zotero' and taking care to set also the other
+	            parameters starting with $Zotero
 	$localbibl:
-	   if you selected 'localTEI' as a value for $bibliography, than in this paramter
-	   you can set the relative path to this file. As an example it assumes that this will be
-	   in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
+	            if you selected 'localTEI' as a value for $bibliography, than in this paramter
+	            you can set the relative path to this file. As an example it assumes that this will be
+	             in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
 	$ZoteroUorG:
-	    values are 'groups' (default) or 'users'. If the
-	     Zotero bibliography is used, select whether it is a group library or a user's library
+	            values are 'groups' (default) or 'users'. If the
+	             Zotero bibliography is used, select whether it is a group library or a user's library
 	$ZoteroKey:
-	      value is free for you to set based on the key identifying your library in Zotero,
-	     there is a default on 247748, which is the EAGLE group bibliography
+	           value is free for you to set based on the key identifying your library in Zotero,
+	           there is a default on 247748, which is the EAGLE group bibliography
 	$ZoteroNS:
-	     deafualt value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
+	           deafualt value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
 	$ZoteroStyle:
-	  value is the name of the desired CSL registered style in the
-	  Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not specify this parameter
+	           value is the name of the desired CSL registered style in the
+	           Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not specify this parameter

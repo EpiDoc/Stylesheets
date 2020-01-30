@@ -30,6 +30,8 @@
                         select="document($param-file)//parameter[name = 'internal-app-style']/value[@on = 'yes']"/>
             <xsl:param name="external-app-style"
                         select="document($param-file)//parameter[name = 'external-app-style']/value[@on = 'yes']"/>
+            <xsl:param name="mixed-app-style"
+                        select="document($param-file)//parameter[name = 'mixed-app-style']/value[@on = 'yes']"/>
             <xsl:param name="line-inc"
                         select="document($param-file)//parameter[name = 'line-inc']/value"/>
             <xsl:param name="css-loc"

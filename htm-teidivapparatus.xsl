@@ -163,12 +163,73 @@
 
   <xsl:template match="t:div[@type='apparatus']" priority="1">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
     <div id="apparatus">
-      <h2>apparatus</h2>
+      <h2>Apparatus</h2>         
       <p>
+      <xsl:choose>
+        <!--               check if mixed apparatus is set, in which case do that-->
+        <xsl:when test="$parm-mixed-app-style ='mixed'">
+<!--     you can decide which features encoded as internal apparatus (TEI Parallel segmentation) you want to have in your mixed apparatus here -->
+         <!-- <xsl:variable name="apparatusfeatures" select="document('mixedapparatusselector.xml')//feature"/>
+         this is not possible in XSLT2.0, because there is no xsl:evaluate instruction available which would allow to evaluate a string as a path 
+         <xsl:for-each select="concat('t:div[@type=&quot;edition&quot;]//', string-join($apparatusfeatures, '|'))"/> -->
+
+          <!--          check for all t:app[@loc] and for all features considered in fullex -->
+          <xsl:variable name="text" select="ancestor::t:text"/>
+          <xsl:variable name="lines" select="count($text//t:lb)"/>
+          <xsl:for-each select="1 to $lines">
+            <xsl:variable name="n" select="string(.)"/>
+            <xsl:variable name="num" select="xs:integer(.)"/>
+            <xsl:variable name="externalapp" select="$text//t:app[@loc=$n][ancestor::t:div[@type='apparatus']]"/>
+             <xsl:variable name="internalapp">
+               <features>
+                 <xsl:for-each select="$text//t:div[@type='edition']//(t:corr[not(parent::t:choice)]|t:subst|t:choice|t:add|t:app[@type]|t:hi)[count(preceding::t:lb) = $num]">
+                   <xsl:copy-of select="."/>
+                 </xsl:for-each>
+               </features>
+             </xsl:variable>
+            <xsl:if test="(count($externalapp)+count($internalapp/features/node())) ge 1">
+              <span>
+                <xsl:attribute name="class">
+                  <xsl:value-of select="$n"/>
+                </xsl:attribute>
+                 <xsl:choose>
+                   <xsl:when test="count($externalapp) ge 1"><xsl:value-of select="$n"/></xsl:when>
+                   <xsl:otherwise>
+                     <xsl:if test="$text//t:lb[count(preceding::t:lb)=($num - 1)]/ancestor::t:div[@type='textpart']">
+                       <xsl:value-of select="$text//t:lb[position()=$num]/ancestor::t:div[@type='textpart']/@xml:id"/>
+                       <xsl:text> </xsl:text>
+                     </xsl:if>
+                     <xsl:value-of select="$text//t:lb[count(preceding::t:lb)=($num - 1)]/@n"/>
+                   </xsl:otherwise>
+                 </xsl:choose>
+                  <xsl:text>: </xsl:text>
+<!--                  applies templates only to the selected elements relevant for this note-->
+                <xsl:if test="count($internalapp/features/node()) ge 1">
+                  <xsl:call-template name="tpl-mixed-apparatus">
+                    <xsl:with-param name="elements" select="$internalapp"/>
+                  </xsl:call-template>
+                  <xsl:text>; </xsl:text>
+                </xsl:if>
+                  <xsl:apply-templates select="$externalapp" mode="mixedapp"/>
+                </span>
+              <br/>
+            </xsl:if>
+          </xsl:for-each>
+
+        </xsl:when>
+        <xsl:otherwise>
         <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>  
       </p>
     </div>
+  </xsl:template>
+
+
+  <xsl:template match="t:div[@type='apparatus']//t:app" mode="mixedapp">
+     <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:div[@type='apparatus']//t:app">
