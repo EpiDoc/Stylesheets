@@ -170,10 +170,7 @@
       <xsl:choose>
         <!--               check if mixed apparatus is set, in which case do that-->
         <xsl:when test="$parm-mixed-app-style ='mixed'">
-<!--     you can decide which features encoded as internal apparatus (TEI Parallel segmentation) you want to have in your mixed apparatus here -->
-         <!-- <xsl:variable name="apparatusfeatures" select="document('mixedapparatusselector.xml')//feature"/>
-         this is not possible in XSLT2.0, because there is no xsl:evaluate instruction available which would allow to evaluate a string as a path 
-         <xsl:for-each select="concat('t:div[@type=&quot;edition&quot;]//', string-join($apparatusfeatures, '|'))"/> -->
+
 
           <!--          check for all t:app[@loc] and for all features considered in fullex -->
           <xsl:variable name="text" select="ancestor::t:text"/>
