@@ -49,7 +49,7 @@ The parameters currently defined include:
 		Setting this parameter will generate a div for apparatus immediately below
 		the text unless value is "none" (default).
 		Supported values include: 
-		- [deprecated] 'ddbdp' (generate very rich apparatus from tei:app, 
+		- 'ddbdp' (generate very rich apparatus from tei:app, 
         tei:subst, tei:choice, tei:hi etc. elements found in div[@type='edition'] only); 
 		- 'iospe' (generate simple apparatus
 		from tei:choice and children, tei:supplied[@reason='omitted'], 
@@ -57,7 +57,7 @@ The parameters currently defined include:
 		tei:hi[@rend='superscript')] found in div[@type='edition'] only); 
 		- 'fullex' (generate simple apparatus
 		from tei:corr occurring alone, tei:choice and children (including tei:unclear), 
-		tei:supplied[@reason='omitted'],  tei:subst and children, 
+		tei:del[@rend], tei:supplied[@reason='omitted'],  tei:subst and children, 
 		tei:add[@place='overstrike'], tei:add[@place='above'], 
 		tei:add[@place='below'], tei:hi[@rend='subscript'], 
 		tei:hi[@rend='superscript')], tei:app[@type='editorial'], tei:app[@type='alterantive'],  
