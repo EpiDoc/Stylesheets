@@ -25,7 +25,7 @@
                <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
                <xsl:when test="$parm-internal-app-style = 'ddbdp'">
                    <!-- Framework found in htm-tpl-apparatus.xsl -->
-                   <xsl:call-template name="tpl-apparatus"/>
+                   <xsl:call-template name="tpl-ddbdp-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style = 'iospe'">
                     <!-- Template found in htm-tpl-apparatus.xsl -->

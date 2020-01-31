@@ -181,7 +181,7 @@
             <xsl:variable name="externalapp" select="$text//t:app[@loc=$n][ancestor::t:div[@type='apparatus']]"/>
              <xsl:variable name="internalapp">
                <features>
-                 <xsl:for-each select="$text//t:div[@type='edition']//(t:corr[not(parent::t:choice)]|t:subst|t:choice|t:add|t:app[@type]|t:hi)[count(preceding::t:lb) = $num]">
+                 <xsl:for-each select="$text//t:div[@type='edition']//(t:corr[not(parent::t:choice)]|t:del[@rend]|t:supplied[@reason='omitted']|t:subst|t:choice|t:add|t:app[@type]|t:hi)[count(preceding::t:lb) = $num]">
                    <xsl:copy-of select="."/>
                  </xsl:for-each>
                </features>
@@ -226,6 +226,11 @@
 
 
   <xsl:template match="t:div[@type='apparatus']//t:app" mode="mixedapp">
+    <xsl:if test="@from">
+      <xsl:variable name="idref" select="replace(@from, '#', '')"/>
+      <xsl:apply-templates select="ancestor::t:TEI//t:*[@xml:id=$idref]"/>
+      <xsl:text> </xsl:text>
+    </xsl:if>
      <xsl:apply-templates/>
   </xsl:template>
 
@@ -237,8 +242,14 @@
       </xsl:attribute>
       <xsl:if
         test="@loc and (not(preceding-sibling::t:app) or @loc != preceding-sibling::t:app[1]/@loc)">
-        <xsl:value-of select="translate(@loc, ' ', '.')"/>
+        <xsl:choose><xsl:when test="contains(@loc, ',')"><xsl:value-of select="@loc"/></xsl:when>
+          <xsl:otherwise><xsl:value-of select="translate(@loc, ' ', '.')"/></xsl:otherwise></xsl:choose>
         <xsl:text>: </xsl:text>
+      </xsl:if>
+      <xsl:if test="@from">
+        <xsl:variable name="idref" select="replace(@from, '#', '')"/>
+        <xsl:apply-templates select="ancestor::t:TEI//t:*[@xml:id=$idref]"/>
+        <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:apply-templates/>
     </span>

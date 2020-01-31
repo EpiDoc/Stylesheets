@@ -6,7 +6,7 @@
   <xsl:include href="tpl-apparatus.xsl"/>
 
   <!-- DDBDP Apparatus framework -->
-  <xsl:template name="tpl-apparatus">
+  <xsl:template name="tpl-ddbdp-apparatus">
     <!-- An apparatus is only created if one of the following is true -->
     <xsl:if
       test=".//t:choice | .//t:subst | .//t:app |
@@ -326,6 +326,26 @@
                 <xsl:call-template name="intapphi"/>
               </xsl:element>
             </xsl:for-each>
+  
+  <xsl:for-each select=".//t:supplied[@reason='omitted']">
+    <xsl:element name="app">
+      <xsl:attribute name="n">
+        <xsl:value-of select="preceding::t:lb[1]/@n"/>
+        <!-- NOTE: need to handle line ranges -->
+      </xsl:attribute>
+      <xsl:call-template name="intappsupom"/>
+    </xsl:element>
+  </xsl:for-each>
+  
+  <xsl:for-each select=".//t:del[@rend]">
+    <xsl:element name="app">
+      <xsl:attribute name="n">
+        <xsl:value-of select="preceding::t:lb[1]/@n"/>
+        <!-- NOTE: need to handle line ranges -->
+      </xsl:attribute>
+      <xsl:call-template name="intappdelrend"/>
+    </xsl:element>
+  </xsl:for-each>
 
   <xsl:for-each select=".//t:app[@type='editorial']">
     <xsl:element name="app">
@@ -486,6 +506,18 @@
         <xsl:element name="app"><xsl:call-template name="intapphi"/></xsl:element>
       </xsl:for-each>
       
+      <xsl:for-each select="$elements//t:supplied[@reason='omitted']">
+        <xsl:element name="app">
+          <xsl:call-template name="intappsupom"/>
+        </xsl:element>
+      </xsl:for-each>
+      
+      <xsl:for-each select="$elements//t:del[@rend]">
+        <xsl:element name="app">
+          <xsl:call-template name="intappdelrend"/>
+        </xsl:element>
+      </xsl:for-each>
+      
       <xsl:for-each select="$elements//t:app[@type='editorial']">
         <xsl:element name="app"><xsl:call-template name="intappedit"/></xsl:element>
       </xsl:for-each>
@@ -508,14 +540,25 @@
 
 <!--templates for each internal apparatus feature -->
 
+
+  <xsl:template name="intappdelrend">
+    <xsl:value-of select="@rend"/>
+  </xsl:template>
+
+  <xsl:template name="intappsupom">
+    <xsl:value-of select="."/>
+    <xsl:text> omitted</xsl:text>
+  </xsl:template>
+  
 <xsl:template name="intappapp">
-<xsl:apply-templates select="t:rdg"/>
+  <xsl:text>or </xsl:text>
+<xsl:apply-templates select="t:rdg/node()"/>
 </xsl:template>
 
   <xsl:template name="intappedit">
-    <xsl:if test="t:lem/@source"><xsl:value-of select="t:lem/@source"/><xsl:text>; </xsl:text></xsl:if>
-      <xsl:apply-templates select="t:rdg"/>
-      <xsl:if test="t:rdg/@source"><xsl:text> </xsl:text><xsl:value-of select="t:rdg/@source"/><xsl:text>; </xsl:text></xsl:if>
+    <xsl:apply-templates select="child::t:rdg/node()"/>
+    <xsl:text> </xsl:text>
+    <xsl:apply-templates select="child::t:lem/@source"/>
   </xsl:template>
   
 <!--Correction Without Specification-->
@@ -542,7 +585,10 @@ choice with sic and corr
 choice with reg and orig -->
   <xsl:template name="intappchoice">
     <xsl:if test="self::t:choice">
-    <xsl:text>reg., orig. </xsl:text>
+<!--      should apply templates to t:choice/t:orig found in teiorigandreg.xsl-->
+      <xsl:apply-templates/> 
+      
+    <xsl:text>orig., reg. </xsl:text>
     <xsl:call-template name="iospe-appcontext">
       <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
       <xsl:with-param name="context"
@@ -550,7 +596,7 @@ choice with reg and orig -->
       />
     </xsl:call-template>
   </xsl:if>
-  <xsl:value-of select="t:orig"/>
+  <xsl:value-of select="t:reg"/>
 </xsl:template>
   
 
@@ -576,25 +622,15 @@ subst with del and add
 in the text the text  after correction is printed, in apparatus instead the text originally written
 -->
   <xsl:template name="intappsubst">
-    <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
-    <xsl:if test="$parm-mixed-app-style != 'mixed' and self::t:subst and child::t:add and child::t:del">
-    <xsl:text>del </xsl:text>
-    <xsl:call-template name="iospe-appcontext">
-      <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-      <xsl:with-param name="context"
-        select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
-      />
-    </xsl:call-template>
-  </xsl:if>
+   <xsl:text>del </xsl:text>
   <xsl:value-of select="t:del"/>
-
   </xsl:template>
   
 
 
   <!-- Ancient Corrections (Old Text Lost) -->
   <xsl:template name="intappoverstrike">
-         <xsl:value-of select="."/><xsl:text> del</xsl:text>
+         <xsl:value-of select="."/><xsl:text> overstrike</xsl:text>
   </xsl:template>
 
 
@@ -613,7 +649,8 @@ in the text the text  after correction is printed, in apparatus instead the text
   <!--Raised/Lowered Characters -->
   <xsl:template name="intapphi">
     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
- 
+ <xsl:value-of select="."/>
+    <xsl:text> </xsl:text>
   <xsl:value-of select="@rend"/>
   </xsl:template>
 
