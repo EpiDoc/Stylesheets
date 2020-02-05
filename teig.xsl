@@ -34,14 +34,34 @@
    </xsl:template>
 
    <xsl:template match="t:g">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
+<!--      stores the chardecl: if locally included, uses that one, otherways uses the common one, i.e. local definitions override -->
+      <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else doc('charDecl.xml')"/>
+      <xsl:variable name="glyphID" select="substring-after(current()/@ref,'#')"/>
       <xsl:choose>
          <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
-         <xsl:when test="starts-with(@ref,'#') and //t:glyph[@xml:id=substring-after(current()/@ref,'#')]">
-            <xsl:for-each select="//t:glyph[@xml:id=substring-after(current()/@ref,'#')]">
+         <xsl:when test="starts-with(@ref,'#') and $chardecl//t:glyph[@xml:id=$glyphID]">
+            <xsl:for-each select="$chardecl//t:glyph[@xml:id=$glyphID]">
                <xsl:choose>
-                  <xsl:when test="t:charProp[t:localName='glyph-display']">
-                     <xsl:value-of select="t:charProp[t:localName='glyph-display']/t:value"/>
+                  <xsl:when test="$parm-edition-type='diplomatic'">
+                     <xsl:variable name="glyphDiplomatic" select="concat($parm-glyph-variant, '-diplomatic')"/>
+                     <xsl:choose>
+                        <xsl:when test="t:charProp[t:localName=$glyphDiplomatic]">
+                           <xsl:value-of select="t:charProp[t:localName=$glyphDiplomatic]/t:value"/>
+                           <xsl:call-template name="g-unclear-symbol"/>
+                        </xsl:when>
+                        <xsl:when test="t:charProp[t:localName=$parm-glyph-variant]">
+                           <xsl:value-of select="t:charProp[t:localName=$parm-glyph-variant]/t:value"/>
+                           <xsl:call-template name="g-unclear-symbol"/>
+                        </xsl:when>
+<!--                        no fallback, it will produce nothing in a diplomatic edition unless specified by the glyph-variant -->
+                     </xsl:choose>
+                  </xsl:when>
+                  <xsl:when test="t:charProp[t:localName=$parm-glyph-variant]">
+                     <xsl:value-of select="t:charProp[t:localName=$parm-glyph-variant]/t:value"/>
+                     <xsl:call-template name="g-unclear-symbol"/>
                   </xsl:when>
                   <xsl:otherwise>
                      <xsl:value-of select="t:charProp[t:localName='text-display']/t:value"/>
@@ -57,6 +77,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:value-of select="@type"/>
+            <xsl:call-template name="g-unclear-string"/>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>

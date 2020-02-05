@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>EpiDoc Glyphs Authority List</title>
+                <author xml:id="GB">Gabriel Bodard</author>
+                <author xml:id="TE">Tom Elliott</author>
+                <author xml:id="ML">Marion Lamé</author>
+                <author xml:id="PL">Pietro Liuzzo</author>
+                <author xml:id="EMo">Emmanuelle Morlock</author>
+                <author xml:id="EM">Elli Mylonas</author>
+                <author xml:id="SS">Simona Stoyanova</author>
+                <author xml:id="CT">Charlotte Tupman</author>
+                <author xml:id="SV">Scott Vanderbilt</author>
+                <author xml:id="PY">Polina Yordanova</author>
+                <author xml:id="SJD">Scott DiGiulio</author>
+                <author xml:id="HC">Hugh Cayless</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>Released under GNU GPL 3.0</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>created electronically</p>
+            </sourceDesc>
+
+        </fileDesc>
+        <encodingDesc>
+            <charDecl>
+                <glyph xml:id="apostrophe">
+                    <glyphName>Apostrophe</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>’</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>’</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="barless-A">
+                    <glyphName>Barless A</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x039B;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x039B;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="center-brace-closing">
+                    <glyphName>Center brace closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎬</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎬</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="center-brace-opening">
+                    <glyphName>Center brace opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎨</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎨</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="century">
+                    <glyphName>Century</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x1019B;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x1019B;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="check">
+                    <glyphName>Check</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>／</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>／</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="check-mark">
+                    <glyphName>Check-mark</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>／</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>／</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="chi-rho">
+                    <glyphName>Chi-Rho</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>☧</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>☧</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>chi-rho</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="chiro">
+                    <glyphName>Chi-Rho</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2ce9;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>☧</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2627;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london</localName>
+                        <value>&#x2ce9;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="crux">
+                    <glyphName>Crux</glyphName>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x2020;</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="crosses">
+                    <glyphName>Crosses</glyphName>
+
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2020;&#x2020;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x2020;&#x2020;</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="cross">
+                    <glyphName>Crux</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2020;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x2020;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2020;</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="dash">
+                    <glyphName>Dash</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>—</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>—</value>
+                    </charProp>
+                </glyph>
+
+
+                <glyph xml:id="dipunct">
+                    <glyphName>dipunct</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>:</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>∶</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>:</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>dipunct</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="denarius">
+                    <glyphName>Denarius</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>𐆖</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>𐆖</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x10196;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2E19;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>denarius</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="dot">
+                    <glyphName>Dot</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2E;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2E;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="double-vertical-bar">
+                    <glyphName>Double vertical bar</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>‖</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>‖</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="drachma">
+                    <glyphName>Drachma</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x10175;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x10175;</value>
+                    </charProp>
+                </glyph>
+
+
+                <glyph xml:id="filled-circle">
+                    <glyphName>Filled circle</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⦿</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⦿</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="filler">
+                    <glyphName>Filler</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>―</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>―</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="interpunct">
+                    <glyphName>Interpunct</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#xB7;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#xB7;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="latin-interpunct">
+                    <glyphName>Latin interpunct</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>·</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>·</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="leaf">
+                    <glyphName>Leaf</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>❦</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2766;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>❦</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>leaf</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="long-vertical-bar">
+                    <glyphName>Long vertical bar</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>|</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>|</value>
+                    </charProp>
+                </glyph>
+                
+                <glyph xml:id="lower-brace-closing">
+                    <glyphName>Lower brace closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎭</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎭</value>
+                    </charProp>
+                </glyph>
+                
+                <glyph xml:id="lower-brace-opening">
+                    <glyphName>Lower brace opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎩</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎩</value>
+                    </charProp>
+                </glyph>
+
+
+                <glyph xml:id="middot">
+                    <glyphName>Middot</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value/>
+                    </charProp>
+                    <charProp>
+                        <localName>g-</localName>
+                        <value/>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="mid-punctus">
+                    <glyphName>Mid punctus</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value/>
+                    </charProp>
+                    <charProp>
+                        <localName>g-</localName>
+                        <value/>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="milliaria">
+                    <glyphName>Milliaria</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2180;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2180;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="monogram">
+                    <glyphName>Monogram</glyphName>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>monogr.</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="palm">
+                    <glyphName>Palm</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2020;&#x2020;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x2020;&#x2020;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-middle-closing">
+                    <glyphName>Parens middle closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎟</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎟</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-middle-opening">
+                    <glyphName>Parens middle opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎜</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎜</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-lower-closing">
+                    <glyphName>Parens lower closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎠</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎠</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-lower-opening">
+                    <glyphName>Parens lower opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎝</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎝</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-upper-closing">
+                    <glyphName>Parens upper closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎞</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎞</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="parens-upper-opening">
+                    <glyphName>Parens upper opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎛</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎛</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="rho-cross">
+                    <glyphName>Rho cross</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2ce8;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>&#x2ce8;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="sestercius">
+                    <glyphName>Sestercius</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x10198;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london-diplomatic</localName>
+                        <value>&#x10198;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="sestertius">
+                    <glyphName>Sestertius</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x10198;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>&#x10198;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="slanting-stroke">
+                    <glyphName>Slanting stroke</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>/</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>/</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="star">
+                    <glyphName>Star</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>*</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>*</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="stauros">
+                    <glyphName>Stauros</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>+</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>+</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>†</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>stauros</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="staurogram">
+                    <glyphName>Staurogram</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⳨</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>⳨</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>staurogram</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="stop">
+                    <glyphName>Stop</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>•</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-iospe</localName>
+                        <value>•</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london</localName>
+                        <value>•</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-rib</localName>
+                        <value>•</value>
+                    </charProp>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>stop</value>
+                    </charProp>
+                </glyph>
+
+                <glyph xml:id="tachygraphic_marks">
+                    <glyphName>Tachygraphic marks</glyphName>
+                    <charProp>
+                        <localName>text-display</localName>
+                        <value>tachygr. marks</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>tachygr. marks</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="taurho">
+                    <glyphName>Tau-Rho</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>&#x2ce8;</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london</localName>
+                        <value>&#x2ce9;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="tripunct">
+                    <glyphName>Tripunct</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⋮</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⋮</value>
+                    </charProp>
+                </glyph>
+                
+                <glyph xml:id="upper-brace-closing">
+                    <glyphName>Upper brace closing</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎫</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎫</value>
+                    </charProp>
+                </glyph>
+                
+                <glyph xml:id="upper-brace-opening">
+                    <glyphName>Upper brace opening</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⎧</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>⎧</value>
+                    </charProp>
+                </glyph>
+               
+                <glyph xml:id="year">
+                    <glyphName>Year</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>L</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-london</localName>
+                        <value>L</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="x">
+                    <glyphName>X</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>☓</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>☓</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="xs">
+                    <glyphName>Xs</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>☓☓☓☓☓</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-ddbdp</localName>
+                        <value>☓☓☓☓☓</value>
+                    </charProp>
+                </glyph>
+            </charDecl>
+        </encodingDesc>
+
+        <revisionDesc>
+            <change when="2020-02-05" who="#PL">Compiled proposal list from content of the XSLT in
+                response to FR81</change>
+            <change when="2020-02-05" who="#PL">Copied values from IOSPE xincluded charDecl</change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <ab/>
+        </body>
+    </text>
+</TEI>

@@ -126,4 +126,14 @@
     <value>../js/</value>
   </parameter>
   
+  <parameter>
+    <name>glyph-variant</name>
+    <value on="yes">glyph-display</value>
+    <value>text-display</value>
+    <value>g-london</value>
+    <value>g-iospe</value>
+    <value>g-ddbdp</value>
+    <value>g-rib</value>
+  </parameter>
+  
 </parameters>
