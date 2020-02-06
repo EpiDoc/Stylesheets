@@ -33,9 +33,11 @@
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
 <!--      stores the chardecl: if locally included, uses that one, otherways uses the common one, i.e. local definitions override -->
       <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else doc('charDecl.xml')"/>
-      <xsl:variable name="glyphID" select="substring-after(current()/@ref,'#')"/>
+      <xsl:variable name="glyphID" select="EDF:refID(current()/@ref)"/>
       <xsl:choose>
          <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+     
+<!--     if there is ref AND there actually is a glyph in the list with that id, then check what to print from the values in that glyph-->
          <xsl:when test="starts-with(@ref,'#') and $chardecl//t:glyph[@xml:id=$glyphID]">
             <xsl:for-each select="$chardecl//t:glyph[@xml:id=$glyphID]">
                <xsl:choose>
@@ -63,12 +65,35 @@
                </xsl:choose>
             </xsl:for-each>
          </xsl:when>
-         <xsl:when test="contains(@ref,'#')">
-            <xsl:value-of select="substring-after(@ref,'#')"/>
-         </xsl:when>
+         
+<!--         If there is a ref, but it does not start with #, it should be another URI,
+         which is assumed to be like https://example.com/myCharDeclFile.xml#glyphID or
+         ../../myCharDeclFile.xml#glyphID -->
+         
          <xsl:when test="@ref">
-            <xsl:value-of select="@ref"/>
+<!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
+            <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
+            
+            <xsl:variable name="externalCharDecl" select="doc(substring-before($parsedRef, '#'))"/>
+            <xsl:message><xsl:copy-of select="$externalCharDecl//t:title"/></xsl:message>
+            <xsl:choose>
+               <xsl:when test="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
+              <xsl:for-each select="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
+<!--               do not assume localName values are like in parameter, only print the first value available -->
+               <xsl:value-of select="t:charProp[1]/t:value"/>
+                 <xsl:message><xsl:value-of select="t:charProp[1]/t:value"/>
+                 </xsl:message>
+            </xsl:for-each>  
+               </xsl:when>
+               <xsl:otherwise>
+<xsl:message>I did not match a glyph</xsl:message>
+<!--                  if the linked charDecl does not actually have that ID for a glyph element, then return the value of the id-->
+                  <xsl:value-of select="substring-after($parsedRef,'#')"/>
+               </xsl:otherwise>
+            </xsl:choose>
+           
          </xsl:when>
+         
          <xsl:otherwise>
             <xsl:value-of select="@type"/>
             <xsl:call-template name="g-unclear-string"/>
