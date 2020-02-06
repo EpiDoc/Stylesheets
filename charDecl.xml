@@ -16,6 +16,7 @@
                 <author xml:id="PY">Polina Yordanova</author>
                 <author xml:id="SJD">Scott DiGiulio</author>
                 <author xml:id="HC">Hugh Cayless</author>
+                <author xml:id="IV">Irene Vagionakis</author>
             </titleStmt>
             <publicationStmt>
                 <p>Released under GNU GPL 3.0</p>
@@ -137,6 +138,10 @@
                         <localName>g-london</localName>
                         <value>&#x2ce9;</value>
                     </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>☧</value>
+                    </charProp>
                 </glyph>
                 <glyph xml:id="crux">
                     <glyphName>Crux</glyphName>
@@ -201,6 +206,10 @@
                     <charProp>
                         <localName>g-iospe</localName>
                         <value>:</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>∶</value>
                     </charProp>
                     <charProp>
                         <localName>text-display</localName>
@@ -289,6 +298,17 @@
                     </charProp>
                 </glyph>
 
+<glyph xml:id="hourglass">
+    <glyphName>Hourglass</glyphName>
+    <charProp>
+        <localName>g-creta</localName>
+        <value>⧖</value>
+    </charProp>
+    <charProp>
+        <localName>glyph-display</localName>
+        <value>⧖</value>
+    </charProp>
+</glyph>
                 <glyph xml:id="interpunct">
                     <glyphName>Interpunct</glyphName>
                     <charProp>
@@ -327,8 +347,19 @@
                         <value>❦</value>
                     </charProp>
                     <charProp>
+                        <localName>g-creata</localName>
+                        <value>❦</value>
+                    </charProp>
+                    <charProp>
                         <localName>text-display</localName>
                         <value>leaf</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="linear-B-je">
+                    <glyphName>Probably deformation of 'je' from Linear B</glyphName>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>⨇</value>
                     </charProp>
                 </glyph>
                 <glyph xml:id="long-vertical-bar">
@@ -341,8 +372,12 @@
                         <localName>g-ddbdp</localName>
                         <value>|</value>
                     </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>|</value>
+                    </charProp>
                 </glyph>
-                
+
                 <glyph xml:id="lower-brace-closing">
                     <glyphName>Lower brace closing</glyphName>
                     <charProp>
@@ -354,7 +389,7 @@
                         <value>⎭</value>
                     </charProp>
                 </glyph>
-                
+
                 <glyph xml:id="lower-brace-opening">
                     <glyphName>Lower brace opening</glyphName>
                     <charProp>
@@ -372,22 +407,26 @@
                     <glyphName>Middot</glyphName>
                     <charProp>
                         <localName>glyph-display</localName>
-                        <value/>
+                        <value>·</value>
                     </charProp>
                     <charProp>
-                        <localName>g-</localName>
-                        <value/>
+                        <localName>g-ddbdp</localName>
+                        <value>·</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>·</value>
                     </charProp>
                 </glyph>
                 <glyph xml:id="mid-punctus">
                     <glyphName>Mid punctus</glyphName>
                     <charProp>
                         <localName>glyph-display</localName>
-                        <value/>
+                        <value>·</value>
                     </charProp>
                     <charProp>
-                        <localName>g-</localName>
-                        <value/>
+                        <localName>g-ddbdp</localName>
+                        <value>·</value>
                     </charProp>
                 </glyph>
                 <glyph xml:id="milliaria">
@@ -412,11 +451,27 @@
                     <glyphName>Palm</glyphName>
                     <charProp>
                         <localName>glyph-display</localName>
-                        <value>&#x2020;&#x2020;</value>
+                        <value>&#x2e19;</value>
                     </charProp>
                     <charProp>
                         <localName>g-rib</localName>
                         <value>&#x2020;&#x2020;</value>
+                    </charProp>
+                    
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>&#x2e19;</value>
+                    </charProp>
+                </glyph>
+                <glyph xml:id="palmula">
+                    <glyphName>Palmula</glyphName>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>⸙</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>⸙</value>
                     </charProp>
                 </glyph>
                 <glyph xml:id="parens-middle-closing">
@@ -557,6 +612,10 @@
                         <value>†</value>
                     </charProp>
                     <charProp>
+                        <localName>g-creta</localName>
+                        <value>†</value>
+                    </charProp>
+                    <charProp>
                         <localName>text-display</localName>
                         <value>stauros</value>
                     </charProp>
@@ -602,6 +661,18 @@
                     </charProp>
                 </glyph>
 
+                <glyph xml:id="swastika">
+                    <glyphName>Swastika</glyphName>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>卐</value>
+                    </charProp>
+                    <charProp>
+                        <localName>glyph-display</localName>
+                        <value>卐</value>
+                    </charProp>
+                </glyph>
+
                 <glyph xml:id="tachygraphic_marks">
                     <glyphName>Tachygraphic marks</glyphName>
                     <charProp>
@@ -634,8 +705,12 @@
                         <localName>g-ddbdp</localName>
                         <value>⋮</value>
                     </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>⋮</value>
+                    </charProp>
                 </glyph>
-                
+
                 <glyph xml:id="upper-brace-closing">
                     <glyphName>Upper brace closing</glyphName>
                     <charProp>
@@ -647,7 +722,7 @@
                         <value>⎫</value>
                     </charProp>
                 </glyph>
-                
+
                 <glyph xml:id="upper-brace-opening">
                     <glyphName>Upper brace opening</glyphName>
                     <charProp>
@@ -659,7 +734,7 @@
                         <value>⎧</value>
                     </charProp>
                 </glyph>
-               
+
                 <glyph xml:id="year">
                     <glyphName>Year</glyphName>
                     <charProp>
@@ -669,6 +744,10 @@
                     <charProp>
                         <localName>g-london</localName>
                         <value>L</value>
+                    </charProp>
+                    <charProp>
+                        <localName>g-creta</localName>
+                        <value>∟</value>
                     </charProp>
                 </glyph>
                 <glyph xml:id="x">
