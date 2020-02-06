@@ -2,7 +2,7 @@
    <xsl:output method="xml" encoding="UTF-8"/>
 
    <xsl:include href="global-varsandparams.xsl"/>
-    <xsl:include href="functions.xsl"/>
+
    <!-- html related stylesheets, these may import tei{element} stylesheets if relevant eg. htm-teigap and teigap -->
    <xsl:include href="fo-teiab.xsl"/>
    <xsl:include href="fo-teiaddanddel.xsl"/>
@@ -445,7 +445,6 @@
                       <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
                       <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
                       <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
-                      <xsl:with-param name="parm-glyph-variant" select="$glyph-variant" tunnel="yes"/>
                   </xsl:call-template>
               </fo:block-container>
                </fo:flow>
