@@ -38,7 +38,7 @@ git clone https://github.com/EpiDoc/Stylesheets.git your_directory
 
 ### How to use it:
 
-XSLT may be run on an individual EpiDoc XML file, creating a single file output (e.g. via a command-line Saxon call or an Oxygen transformation scenario) or batch-run upon a large collection of files via some other process (e.g. an Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create a HTML version of the output (this XSL calls both generic and specialized files needed), or start-txt.xsl to create a text-only version of the text output.
+XSLT may be run on an individual EpiDoc XML file, creating a single file output (e.g. via a command-line Saxon call or an Oxygen transformation scenario) or batch-run upon a large collection of files via some other process (e.g. an Oxygen project, set of batch files, etc.). Call the start-edition.xsl stylesheet to create a HTML version of the output (this XSL calls both generic and specialized files needed), or start-txt.xsl to create a text-only version of the text output, or start-fo.xsl to create a XSL-FO block for use in a XSL-FO based PDF production workflow.
 
 Transformations are parameterised so that they may be used by different projects with only a change in local parameters, the scripts themselves being identical for all users. Change the parameters either by (a) changing the global-parameters.xml in your local copy (please do *not* commit these changes to SVN), or (b) setting local variables in your Saxon command-line, Oxygen scenario, etc.
 
@@ -48,20 +48,20 @@ The parameters currently defined include:
 		Setting this parameters assumes TEI "Parallel Segmentation" apparatus encoding.
 		Setting this parameter will generate a div for apparatus immediately below
 		the text unless value is "none" (default).
-		Supported values include: 
-		- 'ddbdp' (generate very rich apparatus from tei:app, 
-        tei:subst, tei:choice, tei:hi etc. elements found in div[@type='edition'] only); 
+		Supported values include:
+		- 'ddbdp' (generate very rich apparatus from tei:app,
+        tei:subst, tei:choice, tei:hi etc. elements found in div[@type='edition'] only);
 		- 'iospe' (generate simple apparatus
-		from tei:choice and children, tei:supplied[@reason='omitted'], 
-		tei:subst and children, tei:hi[@rend='subscript'], 
-		tei:hi[@rend='superscript')] found in div[@type='edition'] only); 
+		from tei:choice and children, tei:supplied[@reason='omitted'],
+		tei:subst and children, tei:hi[@rend='subscript'],
+		tei:hi[@rend='superscript')] found in div[@type='edition'] only);
 		- 'fullex' (generate simple apparatus
-		from tei:corr occurring alone, tei:choice and children (including tei:unclear), 
-		tei:del[@rend], tei:supplied[@reason='omitted'],  tei:subst and children, 
-		tei:add[@place='overstrike'], tei:add[@place='above'], 
-		tei:add[@place='below'], tei:hi[@rend='subscript'], 
+		from tei:corr occurring alone, tei:choice and children (including tei:unclear),
+		tei:del[@rend], tei:supplied[@reason='omitted'],  tei:subst and children,
+		tei:add[@place='overstrike'], tei:add[@place='above'],
+		tei:add[@place='below'], tei:hi[@rend='subscript'],
 		tei:hi[@rend='superscript')], tei:app[@type='editorial'], tei:app[@type='alterantive'],  
-		found in div[@type='edition'] only); 
+		found in div[@type='edition'] only);
 		- 'minex' (generate simple apparatus
          from tei:choice and children, tei:app[@type='editorial'], tei:app[@type='alterantive'],  
 		found in div[@type='edition'] only) .
@@ -69,21 +69,21 @@ The parameters currently defined include:
 		$external-app-style.
 	$external-app-style:
 		setting this parameter assumes TEI "Location-Referenced" apparatus encoding.
-		The default behaviour is to process the contents of div[@type='apparatus'] building one paragraph 
+		The default behaviour is to process the contents of div[@type='apparatus'] building one paragraph
 		with all the notes contained in this element.
 		The only alternative value supported is 'iospe', which processes bibliography richly.
 		If you also have TEI "Parallel Segmentation" apparatus, you may wish to set also
 		$internal-app-style.
 	$mixed-app-style:
-		setting this parameter assumes you have some 
+		setting this parameter assumes you have some
 		information encoded as TEI "Location-Referenced" apparatus and some
-		TEI "Parallel Segmentation" apparatus, and hopefully no double encoding of the same feature. Unless set to a value other than 'none' 
+		TEI "Parallel Segmentation" apparatus, and hopefully no double encoding of the same feature. Unless set to a value other than 'none'
 		it will not do anything (default). This will produce a single apparatus entry for each location
-		relevant for the apparatus collecting both relevant annotations in div[@type='edition'] and 
+		relevant for the apparatus collecting both relevant annotations in div[@type='edition'] and
 		div[type='apparatus']. The same features collected by setting $internal-app-style to 'fullex' are considered.
 		You can achieve a similar result by setting separately $external-app-style,
-		$internal-app-style or both. While setting one or both of those separately will give you 
-		separated sections of apparatus, this mixed option will return only one apparatus 
+		$internal-app-style or both. While setting one or both of those separately will give you
+		separated sections of apparatus, this mixed option will return only one apparatus
 		section with information taken from both encoding strategies.
 	$css-loc
 		Default value is '../xsl/global.css'.
@@ -122,7 +122,7 @@ The parameters currently defined include:
 	            parameter to 'zotero' and taking care to set also the other
 	            parameters starting with $Zotero
 	$localbibl:
-	            if you selected 'localTEI' as a value for $bibliography, than in this paramter
+	            if you selected 'localTEI' as a value for $bibliography, than in this parameter
 	            you can set the relative path to this file. As an example it assumes that this will be
 	             in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
 	$ZoteroUorG:
