@@ -75,14 +75,11 @@
             <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
             
             <xsl:variable name="externalCharDecl" select="doc(substring-before($parsedRef, '#'))"/>
-            <xsl:message><xsl:copy-of select="$externalCharDecl//t:title"/></xsl:message>
             <xsl:choose>
                <xsl:when test="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
               <xsl:for-each select="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
 <!--               do not assume localName values are like in parameter, only print the first value available -->
                <xsl:value-of select="t:charProp[1]/t:value"/>
-                 <xsl:message><xsl:value-of select="t:charProp[1]/t:value"/>
-                 </xsl:message>
             </xsl:for-each>  
                </xsl:when>
                <xsl:otherwise>
