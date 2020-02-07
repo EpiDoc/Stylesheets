@@ -8,7 +8,6 @@
   <xsl:output method="text" encoding="UTF-8" indent="no" omit-xml-declaration="yes"/>
 
   <xsl:include href="global-varsandparams.xsl"/>
-  <xsl:include href="functions.xsl"/>
   
   <xsl:include href="txt-teiab.xsl"/>
   <xsl:include href="txt-teiapp.xsl"/>
@@ -52,6 +51,7 @@
   
   <xsl:include href="tpl-certlow.xsl"/>
   <xsl:include href="tpl-text.xsl"/>
+  <xsl:include href="tpl-functions.xsl"/>
   <xsl:include href="txt-tpl-sqbrackets.xsl"/>
 
 
