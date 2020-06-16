@@ -14,9 +14,9 @@
          <xsl:when test="@match='..'">
             <xsl:text>?</xsl:text>
          </xsl:when>
-         <xsl:otherwise>
+         <!--<xsl:otherwise>
             <xsl:message>no template in teicertainty.xsl for your use of certainty. Doc: <xsl:value-of select="tokenize(base-uri(),'/')[last()]"></xsl:value-of></xsl:message>
-         </xsl:otherwise>
+         </xsl:otherwise>-->
       </xsl:choose>
    </xsl:template>
 
