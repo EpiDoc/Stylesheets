@@ -28,9 +28,10 @@
     
     <xsl:template match="text()" mode="sqbrackets">
         <xsl:variable name="me" select="."/>
+        <xsl:message><xsl:value-of select="$me"/></xsl:message>
         <xsl:variable name="startspace" select="if (matches(substring(.,1,1),'[\n\r\s\t]')) then ' ' else ''"/>
         <xsl:variable name="endspace" select="if (matches(substring(.,string-length(.)),'[\n\r\s\t]')) then ' ' else ''"/>
-        <xsl:variable name="ignorableThingsBetweenSquareBrackets">
+        <xsl:variable name="ignorableThingsBetweenAdjacentBrackets">
             <regexselectors>
 <!--                space-->
                 <selector>\s</selector>
@@ -42,7 +43,25 @@
                     needs to be ignored when removing adjacent ][ -->
             </regexselectors>
         </xsl:variable>
-        <xsl:variable name="regex" select="concat('([^\]])\]([',string-join($ignorableThingsBetweenSquareBrackets//text()),']*)\[([^\[])')"/>
+        <xsl:variable name="closingadjacentbrackettypes">
+            <closingbrackets>
+<!--                supplied, square bracket must be escaped for regex-->
+                <bracket>\]</bracket>
+<!--                del-->
+                <bracket>⟧</bracket>
+            </closingbrackets>
+        </xsl:variable>
+        <xsl:variable name="openingadjacentbrackettypes">
+            <closingbrackets>
+                <!--                supplied, square bracket must be escaped for regex-->
+                <bracket>\[</bracket>
+<!--                del-->
+                <bracket>⟦</bracket>
+            </closingbrackets>
+        </xsl:variable>
+        <xsl:variable name="regex" select="concat('([^\]])[',string-join($closingadjacentbrackettypes//text()),']([',string-join($ignorableThingsBetweenAdjacentBrackets//text()),']*)[',string-join($openingadjacentbrackettypes//text()),']([^\[])')"/>
+        
+        <xsl:message><xsl:value-of select="$regex"/></xsl:message>
         <xsl:variable name="current" select="replace(normalize-space(.), $regex, '$1$2$3')" />
         <xsl:variable name="strlength" select="string-length($current)"/>
         <xsl:variable name="firstletter" select="substring($current, 1, 1)"/>
