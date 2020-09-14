@@ -60,8 +60,9 @@
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-      <xsl:if test="@n"><!-- prints div number -->
-         <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
+      <xsl:if test="@n"><!-- prints div number. -->
+          <!-- position() added (BR #176-v9.2) to guarantee uniqueness of @id for textparts with same @n values -->
+          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}-{position()}">
            <!-- add ancestor textparts -->
              <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
               <xsl:value-of select="@subtype"/>
