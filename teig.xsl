@@ -7,6 +7,14 @@
       <xsl:choose>
          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))             or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
             <xsl:value-of select="true()"/>
+      </xsl:when>
+         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
+       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
          </xsl:when>
          <xsl:otherwise>
             <xsl:value-of select="false()"/>
@@ -314,12 +322,12 @@
             <xsl:text>☓</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <!-- Interim error reporting -->
+         <!-- Interim error reporting + change from https://sourceforge.net/p/epidoc/code/2532/ -->
          <xsl:otherwise>
-            <text> ((</text>
+            <xsl:text> ((</xsl:text>
             <xsl:value-of select="@type"/>
             <xsl:call-template name="g-unclear-string"/>
-            <text>)) </text>
+            <xsl:text>)) </xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
