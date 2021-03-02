@@ -320,6 +320,50 @@
             <xsl:text>|</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='diple-obelismene'">
+            <xsl:text>⤚</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-periestigmene'">
+            <xsl:text>⸖</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-closing'">
+            <xsl:text>)</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-opening'">
+            <xsl:text>(</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='downwards-ancora'">
+            <xsl:text>⸔</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='upwards-ancora'">
+            <xsl:text>⸕</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma'">
+            <xsl:text>ͻ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma-periestigmene'">
+            <xsl:text>ͽ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='hypodiastole'">
+            <xsl:text>⸒</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='swungdash'">
+            <xsl:text>⁓</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>         
          <xsl:when test="@type='x'">
             <xsl:text>☓</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
