@@ -52,4 +52,11 @@
       </xsl:choose>
    </xsl:template>
 
+<!-- creta specific template -->
+   <xsl:template match="t:corr">
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+      <xsl:if test="$parm-edn-structure = 'creta'">
+         <xsl:text>⟨</xsl:text><xsl:apply-templates/><xsl:text>⟩</xsl:text>
+         </xsl:if>
+   </xsl:template>
 </xsl:stylesheet>

@@ -8,8 +8,9 @@
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
-       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
        <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows space -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
@@ -200,6 +201,33 @@
                         </xsl:call-template>
                      </xsl:otherwise>
                   </xsl:choose>
+               </xsl:when>
+
+               <xsl:when test="($parm-edn-structure = 'creta')"> <!-- added for creta -->
+                  <xsl:choose>
+                     <xsl:when test="@unit='character'">
+                        <xsl:choose>
+                           <xsl:when test="@quantity='1'">
+                           <i>v</i>
+                        </xsl:when>
+                        <xsl:when test="@quantity='2'">
+                           <i>vv</i>
+                        </xsl:when>
+                        <xsl:when test="@quantity='3'">
+                           <i>vvv</i>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <i>vac.</i>
+                        </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:when>
+                     <xsl:when test="@unit='line'">
+                        <i>vacat</i>
+                     </xsl:when>                
+                  </xsl:choose>
+                  <xsl:if test="@cert='low'">
+                     <i>?</i>
+                  </xsl:if>
                </xsl:when>
 
                <xsl:otherwise>
