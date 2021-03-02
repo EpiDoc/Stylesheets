@@ -58,7 +58,7 @@
                 <bracket>⟦</bracket>
             </closingbrackets>
         </xsl:variable>
-        <xsl:variable name="regex" select="concat('([^\]])[',string-join($closingadjacentbrackettypes//text()),']([',string-join($ignorableThingsBetweenAdjacentBrackets//text()),']*)[',string-join($openingadjacentbrackettypes//text()),']([^\[])')"/>
+        <xsl:variable name="regex" select="concat('([^\]])[',string-join($closingadjacentbrackettypes//text(),''),']([',string-join($ignorableThingsBetweenAdjacentBrackets//text(),''),']*)[',string-join($openingadjacentbrackettypes//text()),']([^\[])','')"/>
         
         <xsl:variable name="current" select="replace(normalize-space(.), $regex, '$1$2$3')" />
         <xsl:variable name="strlength" select="string-length($current)"/>
