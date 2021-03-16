@@ -78,19 +78,6 @@
       <xsl:variable name="corresp" select="@corresp"/>
       <!-- then find each custEvent with a matching @corresp value -->
 
-      <!--<xsl:if test="//t:custEvent[@type='unrolled']">
-         <xsl:variable name="unroll-corresp" select="//t:custEvent[@type='unrolled']/@corresp"/>
-         <xsl:variable name="unrolled-date" select="//t:custEvent[@type='unrolled']/@when"/>
-         <xsl:variable name="unrolled-by" select="concat(//t:custEvent[@type='unrolled']/t:forename,' ',//t:custEvent[@type='unrolled']/t:surname)"/>
-         <xsl:if test="contains($unroll-corresp,@corresp)">
-            <span class="unrolled" id="ur{$div-loc}{@n}">
-               Unrolled <xsl:value-of select="$unrolled-date"/> by <xsl:value-of select="$unrolled-by"/>
-            </span>
-            <br/>
-            
-         </xsl:if>
-      </xsl:if>-->
-
       <xsl:variable name="div-n" select="@n"/>
       <xsl:variable name="div-subtype" select="@subtype"/>
       <xsl:for-each select="//t:idno[@xml:id = (tokenize(replace($corresp,'#',''),' '))]">
