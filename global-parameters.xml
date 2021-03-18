@@ -128,7 +128,9 @@
   
   <parameter>
     <name>glyph-variant</name>
-    <value on="yes">glyph-display</value>
+    <value on="yes">standard</value>
+    <value>simplified</value>
+    <value>glyph-display</value>
     <value>text-display</value>
     <value>g-london</value>
     <value>g-iospe</value>

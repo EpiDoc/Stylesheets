@@ -81,23 +81,23 @@
                <xsl:when test="$parm-edition-type='diplomatic'">
                   <xsl:variable name="glyphDiplomatic" select="concat($parm-glyph-variant, '-diplomatic')"/>
                   <xsl:choose>
-                     <xsl:when test="t:charProp[t:localName=$glyphDiplomatic]">
-                        <xsl:value-of select="t:charProp[t:localName=$glyphDiplomatic]/t:value"/>
+                     <xsl:when test="t:mapping[@type=$glyphDiplomatic]">
+                        <xsl:value-of select="t:mapping[@type=$glyphDiplomatic]"/>
                         <xsl:call-template name="g-unclear-symbol"/>
                      </xsl:when>
-                     <xsl:when test="t:charProp[t:localName=$parm-glyph-variant]">
-                        <xsl:value-of select="t:charProp[t:localName=$parm-glyph-variant]/t:value"/>
+                     <xsl:when test="t:mapping[@type=$parm-glyph-variant]">
+                        <xsl:value-of select="t:mapping[@type=$parm-glyph-variant]"/>
                         <xsl:call-template name="g-unclear-symbol"/>
                      </xsl:when>
                      <!--                        no fallback, it will produce nothing in a diplomatic edition unless specified by the glyph-variant -->
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="t:charProp[t:localName=$parm-glyph-variant]">
-                  <xsl:value-of select="t:charProp[t:localName=$parm-glyph-variant]/t:value"/>
+               <xsl:when test="t:mapping[@type=$parm-glyph-variant]">
+                  <xsl:value-of select="t:mapping[@type=$parm-glyph-variant]"/>
                   <xsl:call-template name="g-unclear-symbol"/>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:value-of select="t:charProp[t:localName='text-display']/t:value"/>
+                  <xsl:value-of select="t:mapping[@type='standard']"/>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:for-each>
@@ -115,8 +115,8 @@
          <xsl:choose>
             <xsl:when test="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
                <xsl:for-each select="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
-                  <!--               do not assume localName values are like in parameter, only print the first value available -->
-                  <xsl:value-of select="t:charProp[1]/t:value"/>
+                  <!--               do not assume localName values are like in parameter, only print the standard -->
+                  <xsl:value-of select="t:mapping[@type='standard']"/>
                </xsl:for-each>  
             </xsl:when>
             <xsl:otherwise>
@@ -308,6 +308,50 @@
             <xsl:text>⎨</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='diple-obelismene'">
+            <xsl:text>⤚</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-periestigmene'">
+            <xsl:text>⸖</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-closing'">
+            <xsl:text>)</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-opening'">
+            <xsl:text>(</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='downwards-ancora'">
+            <xsl:text>⸔</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='upwards-ancora'">
+            <xsl:text>⸕</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma'">
+            <xsl:text>ͻ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma-periestigmene'">
+            <xsl:text>ͽ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='hypodiastole'">
+            <xsl:text>⸒</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='swungdash'">
+            <xsl:text>⁓</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>   
          <xsl:when test="@type='lower-brace-opening'">
             <xsl:text>⎩</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
