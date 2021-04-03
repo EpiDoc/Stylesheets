@@ -190,7 +190,7 @@
    <!-- ddb specific template -->
    <xsl:template name="g-ddbdp">
       <xsl:choose>
-         <xsl:when test="@type='apostrophe'">
+         <xsl:when test="@type='apostrophe' or @type='diastole'">
             <xsl:text>’</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
@@ -276,7 +276,7 @@
             <xsl:text>⎠</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type = 'rho-cross'">
+         <xsl:when test="@type='rho-cross'">
             <xsl:text>⳨</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
@@ -348,6 +348,38 @@
          </xsl:when>
          <xsl:when test="@type='tetrapunct'">
             <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dotted-obelos'">
+            <xsl:text>⸓</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='obelos'">
+            <xsl:text>―</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dot'">
+            <xsl:text>•</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple'">
+            <xsl:text>›</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='asteriskos'">
+            <xsl:text>※</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='low-punctus'">
+            <xsl:text>.</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='high-punctus'">
+            <xsl:text>˙</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='chi-periestigmenon'">
+            <xsl:text>Χ·</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>         
          <xsl:when test="@type='x'">
