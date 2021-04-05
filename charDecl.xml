@@ -36,6 +36,14 @@
                 <mapping type="simplified">(apostrophe)</mapping>
                <mapping type="g-ddbdp">’</mapping>
             </glyph>
+            <glyph xml:id="diastole">
+               <!--Apostrophe-->
+               <unicodeProp name="Name" value="RIGHT SINGLE QUOTATION MARK"/>
+               <mapping type="glyph-display">’</mapping>
+               <mapping type="standard">’</mapping>
+               <mapping type="simplified">(diastole)</mapping>
+               <mapping type="g-ddbdp">’</mapping>
+            </glyph>
             <glyph xml:id="barless-A">
                <!--Barless A-->
                 <!--<unicodeProp name="Name" value=""/>-->
@@ -165,6 +173,7 @@
                 <mapping type="standard">.</mapping>
                 <mapping type="simplified">(dot)</mapping>
                <mapping type="g-rib">.</mapping>
+               <mapping type="g-ddbdp">•</mapping>
             </glyph>
             <glyph xml:id="double-vertical-bar">
                <!--Double vertical bar-->
@@ -281,6 +290,22 @@
                 <mapping type="standard">·</mapping>
                 <mapping type="simplified">(mid punctus)</mapping>
                <mapping type="g-ddbdp">·</mapping>
+            </glyph>
+            <glyph xml:id="low-punctus">
+               <!--Low punctus-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">.</mapping>
+               <mapping type="standard">.</mapping>
+               <mapping type="simplified">(low punctus)</mapping>
+               <mapping type="g-ddbdp">.</mapping>
+            </glyph>
+            <glyph xml:id="high-punctus">
+               <!--High punctus-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">˙</mapping>
+               <mapping type="standard">˙</mapping>
+               <mapping type="simplified">(high punctus)</mapping>
+               <mapping type="g-ddbdp">˙</mapping>
             </glyph>
             <glyph xml:id="milliaria">
                <!--Milliaria-->
@@ -492,6 +517,15 @@
                <mapping type="g-creta">∟</mapping>
             </glyph>
              
+            <glyph xml:id="diple">
+               <!--Diple-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">›</mapping>
+               <mapping type="standard">›</mapping>
+               <mapping type="simplified">(diple)</mapping>
+               <mapping type="g-ddbdp">›</mapping>
+            </glyph>
+             
              <glyph xml:id="diple-obelismene">
                  <!--Diple Obelismene-->
                  <!--<unicodeProp name="Name" value=""/>-->
@@ -509,6 +543,15 @@
                  <mapping type="simplified">(diple obelismene)</mapping>
                  <mapping type="g-ddbdp">⸖</mapping>
              </glyph>
+            
+            <glyph xml:id="asteriskos">
+               <!--Asteriskos-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">※</mapping>
+               <mapping type="standard">※</mapping>
+               <mapping type="simplified">(asteriskos)</mapping>
+               <mapping type="g-ddbdp">※</mapping>
+            </glyph>
              
              <glyph xml:id="parens-punctuation-closing">
                  <!--Parens punctuation closing-->
@@ -590,6 +633,33 @@
                  <mapping type="simplified">⁞</mapping>
                  <mapping type="g-ddbdp">⁞</mapping>
              </glyph>
+            
+            <glyph xml:id="chi-periestigmenon">
+               <!--Chi-periestigmenon-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">Χ·</mapping>
+               <mapping type="standard">Χ·</mapping>
+               <mapping type="simplified">Χ·</mapping>
+               <mapping type="g-ddbdp">Χ·</mapping>
+            </glyph>
+            
+            <glyph xml:id="dotted-obelos">
+               <!--dotted-obelos-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">⸓</mapping>
+               <mapping type="standard">⸓</mapping>
+               <mapping type="simplified">⸓</mapping>
+               <mapping type="g-ddbdp">⸓</mapping>
+            </glyph>
+            
+            <glyph xml:id="obelos">
+               <!--obelos-->
+               <!--<unicodeProp name="Name" value=""/>-->
+               <mapping type="glyph-display">―</mapping>
+               <mapping type="standard">―</mapping>
+               <mapping type="simplified">―</mapping>
+               <mapping type="g-ddbdp">―</mapping>
+            </glyph>
                           
             <glyph xml:id="x">
                <!--X-->
