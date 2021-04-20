@@ -48,6 +48,8 @@
                         select="document($param-file)//parameter[name = 'ZoteroNS']/value[@on='yes']"/>
             <xsl:param name="ZoteroStyle"
                         select="document($param-file)//parameter[name = 'ZoteroStyle']/value[@on = 'yes']"/>
+            <xsl:param name="glyph-variant"
+                        select="document($param-file)//parameter[name = 'glyph-variant']/value[@on = 'yes']"/>
     
             <xsl:param name="docroot">../output/data</xsl:param>
 
