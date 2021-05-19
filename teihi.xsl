@@ -61,7 +61,7 @@
                         <!-- Also need to modify so that elements within <hi rend="ligature"> are rendered, e.g., reversed E. See RIB 1911 for example. -->
                         <!-- pro-process text content first, so formatting (e.g., underdots for unclear chars) gets applied before ligature marks -->
                         <xsl:variable name="preprocessed">
-                            <xsl:apply-templates select="normalize-space($text-content)"/>
+                            <xsl:value-of select="normalize-space($text-content)"/>
                         </xsl:variable>
                         <xsl:call-template name="ligaturizeText">
                             <xsl:with-param name="textLigaturize" select="$preprocessed"/>

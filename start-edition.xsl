@@ -6,7 +6,7 @@
    exclude-result-prefixes="t" version="2.0">
    <xsl:output method="xml" encoding="UTF-8"/>
 
-   <xsl:include href="global-varsandparams.xsl"/>
+    <xsl:include href="global-varsandparams.xsl"/>
 
    <!-- html related stylesheets, these may import tei{element} stylesheets if relevant eg. htm-teigap and teigap -->
    <xsl:include href="htm-teiab.xsl"/>
@@ -72,7 +72,8 @@
 
     <!-- global named templates with no html, also used by start-txt  -->
    <xsl:include href="tpl-certlow.xsl"/>
-   <xsl:include href="tpl-text.xsl"/>
+    <xsl:include href="tpl-text.xsl"/>
+    <xsl:include href="functions.xsl"/>
 
 
 

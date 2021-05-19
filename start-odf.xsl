@@ -55,6 +55,7 @@
   <xsl:include href="tpl-reasonlost.xsl"/>
   <xsl:include href="tpl-certlow.xsl"/>
   <xsl:include href="tpl-text.xsl"/>
+  <xsl:include href="functions.xsl"/>
 
   <xsl:include href="functions.xsl"/>
 

@@ -7,6 +7,14 @@
       <xsl:choose>
          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))             or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
             <xsl:value-of select="true()"/>
+      </xsl:when>
+         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
+       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
          </xsl:when>
          <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
        <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
@@ -41,16 +49,16 @@
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
       <xsl:choose>
-         <!--         if text-display set, give priority to the content of g, if any-->
+<!--         if text-display set, give priority to the content of g, if any-->
          <xsl:when test="$parm-glyph-variant = 'text-display'">
             <xsl:choose>
                <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
                <xsl:otherwise>
-                  <!--                  because the value is alternative to project specific lists, this will use defaults.-->
+<!--                  because the value is alternative to project specific lists, this will use defaults.-->
                   <xsl:call-template name="chardecl">
-                     <xsl:with-param name="g" select="."/>
-                  </xsl:call-template>
-                  </xsl:otherwise>
+                  <xsl:with-param name="g" select="."/>
+               </xsl:call-template>
+               </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
          <!--         <g>§</g>-->
@@ -60,15 +68,19 @@
                <xsl:otherwise>unspecified</xsl:otherwise>
             </xsl:choose>
          </xsl:when>
+
          <xsl:otherwise>
             <xsl:call-template name="chardecl">
          <xsl:with-param name="g" select="."/>
       </xsl:call-template>
          </xsl:otherwise>
-         </xsl:choose>
+
+      </xsl:choose>
+      
    </xsl:template>
 
-   <xsl:template name="chardecl">
+<xsl:template name="chardecl">
+
    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
@@ -117,11 +129,14 @@
       <xsl:when test="@ref">
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
-         
-         <xsl:variable name="externalCharDecl" select="doc(substring-before($parsedRef, '#'))"/>
+   
+         <xsl:variable name="externalCharDecl" select="substring-before($parsedRef, '#')"/>
          <xsl:choose>
-            <xsl:when test="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
-               <xsl:for-each select="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
+            <xsl:when test="doc-available($externalCharDecl)">
+               <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
+         <xsl:choose>
+            <xsl:when test="$externalCharDecldoc//t:glyph[@xml:id=$glyphID]">
+               <xsl:for-each select="$externalCharDecldoc//t:glyph[@xml:id=$glyphID]">
                   <!--               do not assume localName values are like in parameter, only print the standard -->
                   <xsl:value-of select="t:mapping[@type='standard']"/>
                </xsl:for-each>  
@@ -132,7 +147,14 @@
                <xsl:value-of select="if(contains($parsedRef, '#')) then substring-after($parsedRef,'#') else if(contains($parsedRef, ':')) then substring-after($parsedRef,':')  else $parsedRef "/>
             </xsl:otherwise>
          </xsl:choose>
-         
+
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:message>The XSLT could not locate <xsl:value-of select="@ref"/>.</xsl:message>
+               <xsl:value-of select="@ref"/>
+            </xsl:otherwise>
+         </xsl:choose>
+
       </xsl:when>
       
       <xsl:otherwise>
@@ -523,10 +545,10 @@
          </xsl:when>
          <!-- Interim error reporting + change from https://sourceforge.net/p/epidoc/code/2532/ -->
          <xsl:otherwise>
-            <text> ((</text>
+            <xsl:text> ((</xsl:text>
             <xsl:value-of select="@type"/>
             <xsl:call-template name="g-unclear-string"/>
-            <text>)) </text>
+            <xsl:text>)) </xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>

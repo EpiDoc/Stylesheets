@@ -152,10 +152,15 @@
             <xsl:call-template name="verse-string"/>
          </xsl:when>
          <xsl:otherwise>
-            <!-- Don't display again if there is a preceding adjecent gap of the same kind -->
+            <!-- Don't display again if there is a preceding adjecent gap with @reason='lost' and @extent='unknown' 
+            -->
             <xsl:if
-               test="not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='lost']]])
-               and not(preceding::node()[1][self::t:gap[@reason='lost']])">
+               test="
+               (
+               not(preceding::node()[1][self::text()][normalize-space(.)=''][preceding-sibling::node()[1][self::t:gap[@reason='lost'][@extent='unknown']]])
+               and not(preceding::node()[1][self::t:gap[@reason='lost'][@extent='unknown']])
+               ) 
+               or not(self::t:gap[@reason='lost'][@extent='unknown'])">
                <xsl:call-template name="extent-string"/>
             </xsl:if>
          </xsl:otherwise>
