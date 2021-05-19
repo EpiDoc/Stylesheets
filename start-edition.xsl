@@ -76,6 +76,10 @@
 
 
 
+   <xsl:include href="functions.xsl"/>
+
+
+
    <!-- HTML FILE -->
    <xsl:template match="/">
       <xsl:choose>
@@ -221,6 +225,7 @@
                 <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
                  <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
                  <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
+            <xsl:with-param name="parm-glyph-variant" select="$glyph-variant" tunnel="yes"/>
             </xsl:call-template>
          </xsl:otherwise>
       </xsl:choose>
