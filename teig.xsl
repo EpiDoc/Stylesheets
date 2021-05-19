@@ -119,10 +119,13 @@
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
          
-         <xsl:variable name="externalCharDecl" select="doc(substring-before($parsedRef, '#'))"/>
+         <xsl:variable name="externalCharDecl" select="substring-before($parsedRef, '#')"/>
          <xsl:choose>
-            <xsl:when test="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
-               <xsl:for-each select="$externalCharDecl//t:glyph[@xml:id=$glyphID]">
+            <xsl:when test="doc-available($externalCharDecl)">
+               <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
+         <xsl:choose>
+            <xsl:when test="$externalCharDecldoc//t:glyph[@xml:id=$glyphID]">
+               <xsl:for-each select="$externalCharDecldoc//t:glyph[@xml:id=$glyphID]">
                   <!--               do not assume localName values are like in parameter, only print the standard -->
                   <xsl:value-of select="t:mapping[@type='standard']"/>
                </xsl:for-each>  
@@ -133,7 +136,12 @@
                <xsl:value-of select="if(contains($parsedRef, '#')) then substring-after($parsedRef,'#') else if(contains($parsedRef, ':')) then substring-after($parsedRef,':')  else $parsedRef "/>
             </xsl:otherwise>
          </xsl:choose>
-         
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:message>The XSLT could not locate <xsl:value-of select="@ref"/>.</xsl:message>
+               <xsl:value-of select="@ref"/>
+            </xsl:otherwise>
+         </xsl:choose>
       </xsl:when>
       
       <xsl:otherwise>
