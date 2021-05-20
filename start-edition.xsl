@@ -77,10 +77,6 @@
 
 
 
-   <xsl:include href="functions.xsl"/>
-
-
-
    <!-- HTML FILE -->
    <xsl:template match="/">
       <xsl:choose>
