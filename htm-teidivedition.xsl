@@ -10,18 +10,22 @@
     <xsl:template match="t:div[@type = 'edition']" priority="1">
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
        <div id="edition">
         
 <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
          <xsl:apply-templates/>
 
-         
+           <xsl:choose>
+<!--               check if mixed apparatus is set, in which case do nothing with internal apparatus here-->
+               <xsl:when test="$parm-mixed-app-style !='none'"/>
+               <xsl:otherwise>
            <xsl:choose>
                <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
                <xsl:when test="$parm-internal-app-style = 'ddbdp'">
                    <!-- Framework found in htm-tpl-apparatus.xsl -->
-                   <xsl:call-template name="tpl-apparatus"/>
+                   <xsl:call-template name="tpl-ddbdp-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style = 'iospe'">
                     <!-- Template found in htm-tpl-apparatus.xsl -->
@@ -32,13 +36,15 @@
                    <xsl:call-template name="tpl-fullex-apparatus"/>
                </xsl:when>
                
-<xsl:when test="$parm-internal-app-style ='minex'">
+                <xsl:when test="$parm-internal-app-style ='minex'">
                    <!-- Template to be added in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-minex-apparatus"/>
                </xsl:when>
 
 
                <!--     the default if nothing is selected is to print no internal apparatus      -->
+           </xsl:choose>
+               </xsl:otherwise>
            </xsl:choose>
       </div>
    </xsl:template>

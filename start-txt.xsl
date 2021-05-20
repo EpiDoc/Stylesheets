@@ -70,7 +70,6 @@
         <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
         <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
         <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
-        <xsl:with-param name="parm-glyph-variant" select="$glyph-variant" tunnel="yes"/>
       </xsl:apply-templates>
     </xsl:variable>
         
@@ -85,7 +84,6 @@
         <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
         <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
         <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
-        <xsl:with-param name="parm-glyph-variant" select="$glyph-variant" tunnel="yes"/>
         
       </xsl:call-template>
     </xsl:for-each>

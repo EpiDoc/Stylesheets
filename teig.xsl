@@ -16,6 +16,14 @@
                or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
             <xsl:value-of select="true()"/>
          </xsl:when>
+         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
+       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
+         </xsl:when>
          <xsl:otherwise>
             <xsl:value-of select="false()"/>
          </xsl:otherwise>
@@ -36,7 +44,7 @@
    </xsl:template>
 
    <xsl:template match="t:g">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
@@ -60,16 +68,19 @@
                <xsl:otherwise>unspecified</xsl:otherwise>
             </xsl:choose>
          </xsl:when>
+
          <xsl:otherwise>
             <xsl:call-template name="chardecl">
          <xsl:with-param name="g" select="."/>
       </xsl:call-template>
          </xsl:otherwise>
+
       </xsl:choose>
       
    </xsl:template>
 
 <xsl:template name="chardecl">
+
    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
@@ -118,7 +129,7 @@
       <xsl:when test="@ref">
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
-         
+   
          <xsl:variable name="externalCharDecl" select="substring-before($parsedRef, '#')"/>
          <xsl:choose>
             <xsl:when test="doc-available($externalCharDecl)">
@@ -136,12 +147,14 @@
                <xsl:value-of select="if(contains($parsedRef, '#')) then substring-after($parsedRef,'#') else if(contains($parsedRef, ':')) then substring-after($parsedRef,':')  else $parsedRef "/>
             </xsl:otherwise>
          </xsl:choose>
+
             </xsl:when>
             <xsl:otherwise>
                <xsl:message>The XSLT could not locate <xsl:value-of select="@ref"/>.</xsl:message>
                <xsl:value-of select="@ref"/>
             </xsl:otherwise>
          </xsl:choose>
+
       </xsl:when>
       
       <xsl:otherwise>
@@ -213,7 +226,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
+   
    <!-- IOSPE specific template -->
    <!-- called from htm-teig.xml -->
    <xsl:template name="g-iospe">
@@ -272,7 +285,7 @@
             </span>
          </xsl:otherwise>
       </xsl:choose>
-
+      
    </xsl:template>
 
    <!-- ddb specific template -->
@@ -614,7 +627,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
    <!-- creta specific template -->
    <xsl:template name="g-creta">
       <xsl:choose>
@@ -661,7 +674,7 @@
          <xsl:when test="@type='⧖'">
             <xsl:text>⧖</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
+         </xsl:when>         
          <xsl:when test="@type='⨇'">
             <xsl:text>⨇</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -680,14 +693,14 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
+   
    <xsl:template name="g-unclear-symbol">
       <!-- adds underdot below symbol if parent:unclear -->
       <xsl:if test="parent::t:unclear">
          <xsl:text>̣</xsl:text>
       </xsl:if>
    </xsl:template>
-
+   
    <xsl:template name="g-unclear-string">
       <!-- adds question mark after string if parent:unclear -->
       <xsl:if test="parent::t:unclear">
