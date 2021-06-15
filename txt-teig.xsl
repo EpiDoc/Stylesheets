@@ -14,7 +14,7 @@
 
       <xsl:choose>
         <xsl:when test="$parm-leiden-style=('edh-names','edh-itx')"/>
-          <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+          <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
             <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
           <xsl:when test="$parm-leiden-style = 'dohnicht'">

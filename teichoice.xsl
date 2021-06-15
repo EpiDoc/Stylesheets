@@ -7,6 +7,9 @@
    <xsl:template match="t:choice">
        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="location" tunnel="yes" required="no"/>
+      <!--   This causes an error missing ' for which read ' in apparatus title, need to investigate. TODO: follow up
+         -->
        <xsl:choose>
            <xsl:when test="child::t:sic and child::t:corr and $parm-leiden-style=('edh-names','edh-itx')">
             <xsl:text>&lt;</xsl:text>
@@ -27,7 +30,12 @@
       <xsl:if
           test="$parm-apparatus-style = 'ddbdp' and ((child::t:sic and child::t:corr) or (child::t:orig and child::t:reg))">
          <xsl:call-template name="app-link">
-            <xsl:with-param name="location" select="'text'"/>
+            <xsl:with-param name="location">
+               <xsl:choose>
+                  <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+                  <xsl:otherwise>text</xsl:otherwise>
+               </xsl:choose>
+            </xsl:with-param>
          </xsl:call-template>
       </xsl:if>
    </xsl:template>

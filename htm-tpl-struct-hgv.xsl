@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ -->
+<!-- $Id: htm-tpl-struct-hgv.xsl 2517 2017-03-10 19:53:37Z sarcanon $ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
                 version="2.0">
@@ -31,7 +31,7 @@
          <body>
             
             <!-- Heading for a ddb style file -->
-             <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+            <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                <h1>
                   <xsl:choose>
                      <xsl:when test="//t:sourceDesc//t:bibl/text()">

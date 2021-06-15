@@ -29,6 +29,7 @@
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+        <xsl:param name="location" tunnel="yes" required="no"/>
 
         <!-- This is necessary when <hi> content is embedded within <orig> mark-up or has embedded mark-up within.
              Without it, <orig> text may be reduced to lowercase, or embedded mark-up will be ignored. -->
@@ -91,7 +92,12 @@
                  <xsl:when test="$parm-internal-app-style = 'ddbdp'">
                      <!-- found in [htm|txt]-tpl-apparatus.xsl -->
                      <xsl:call-template name="app-link">
-                         <xsl:with-param name="location" select="'text'"/>
+                         <xsl:with-param name="location">
+                             <xsl:choose>
+                                 <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+                                 <xsl:otherwise>text</xsl:otherwise>
+                             </xsl:choose>
+                         </xsl:with-param>
                      </xsl:call-template>
                  </xsl:when>
              </xsl:choose>

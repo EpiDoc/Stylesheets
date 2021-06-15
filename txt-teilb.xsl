@@ -40,7 +40,7 @@
                   <!--   *or unless* one of the EDH leiden-styles, which don't use hyphens -->
                   <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
                   <!--   *or unless* the second part of an app in ddbdp  -->
-                   <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
+                  <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and
                      (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
                   <!--  *or unless* previous line ends with space / g / supplied[reason=lost]  -->
                   <!-- in which case the hyphen will be inserted before the space/g or final ']' of supplied
@@ -87,7 +87,7 @@
             <!-- following test decides if and how line numbers should be displayed -->
             <xsl:choose>
                <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
-                <xsl:when test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+                <xsl:when test="not(number(@n)) and $parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <xsl:call-template name="margin-num"/>
                </xsl:when>
                 <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0)">

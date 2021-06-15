@@ -125,7 +125,7 @@
                <xsl:when test="$parm-leiden-style = 'iospe'">
                   <xsl:apply-templates/>
                </xsl:when>
-                <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+                <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <span style="vertical-align:sub;">
                      <xsl:apply-imports/>
                   </span>
@@ -144,7 +144,7 @@
                <xsl:when test="$parm-leiden-style = 'iospe'">
                   <xsl:apply-templates/>
                </xsl:when>
-                <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'">
+                <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                   <span style="vertical-align:super;">
                      <xsl:apply-imports/>
                   </span>

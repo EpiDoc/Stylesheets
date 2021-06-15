@@ -32,7 +32,7 @@
                    <xsl:call-template name="tpl-fullex-apparatus"/>
                </xsl:when>
                
-<xsl:when test="$parm-internal-app-style ='minex'">
+               <xsl:when test="$parm-internal-app-style ='minex'">
                    <!-- Template to be added in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-minex-apparatus"/>
                </xsl:when>
@@ -60,18 +60,95 @@
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-      <xsl:if test="@n"><!-- prints div number. -->
-          <!-- position() added (BR #176-v9.2) to guarantee uniqueness of @id for textparts with same @n values -->
-          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}-{position()}">
-           <!-- add ancestor textparts -->
-             <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
-              <xsl:value-of select="@subtype"/>
-              <xsl:text> </xsl:text>
-           </xsl:if>
-              <xsl:value-of select="@n"/>
+      <xsl:if test="@n"><!-- prints div number -->
+         <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
+            <!-- add ancestor textparts -->
+            <xsl:if
+               test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @subtype">
+               <xsl:value-of select="@subtype"/>
+               <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="@n"/>
          </span>
           <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]"><br /></xsl:if>
       </xsl:if>
+
+      <!-- Custodial events here -->
+      <!-- first get the value of the columns @corresp -->
+      <xsl:variable name="corresp" select="@corresp"/>
+      <!-- then find each custEvent with a matching @corresp value -->
+
+      <xsl:variable name="div-n" select="@n"/>
+      <xsl:variable name="div-subtype" select="@subtype"/>
+      <xsl:for-each select="//t:idno[@xml:id = (tokenize(replace($corresp,'#',''),' '))]">
+         <span class="corresp idno"><xsl:value-of select="."/></span><br/>
+      </xsl:for-each>
+      <xsl:for-each select="//t:custEvent[@corresp = (tokenize($corresp,' '))]">
+         
+            <span class="custevent" id="ce{$div-loc}{$div-n}">
+
+               <!-- type of event -->
+               <xsl:variable name="type-string">
+                  <xsl:choose>
+                     <xsl:when test="@type='MSI'">
+                        <xsl:text>Multi-spectral image captured</xsl:text>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:value-of select="concat(upper-case(substring(@type, 1, 1)), substring(@type, 2))"/>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:variable>
+               <xsl:choose>
+                  <xsl:when test="t:graphic[@url]">
+                     <xsl:variable name="gtype">
+                        <xsl:choose>
+                           <xsl:when test="@type = 'sketched'">scan of sketch</xsl:when>
+                           <xsl:when test="@type = 'imaged'">digital photograph</xsl:when>
+                           <xsl:when test="@type = 'engraved'">scan of engraving</xsl:when>
+                           <xsl:when test="@type='MSI'">multi-spectral image</xsl:when>
+                           <xsl:otherwise>
+                              <xsl:value-of select="@type"/>
+                              <xsl:message>WARNING (<xsl:value-of select="//t:idno[@type='dclp']"/>): unexpected type value for custodial event: <xsl:value-of select="@type"/></xsl:message>
+                           </xsl:otherwise>
+                        </xsl:choose>
+                     </xsl:variable>
+                     <a href="{t:graphic/@url}" title="{$gtype} of {$div-subtype} {$div-n}">
+                        <xsl:value-of select="$type-string"/>
+                     </a>
+                  </xsl:when>
+                  <xsl:otherwise>
+                     <xsl:value-of select="$type-string"/>
+                  </xsl:otherwise>
+               </xsl:choose>
+               
+               <!-- date of event -->
+               <xsl:if test="@when">
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="@when"/>
+               </xsl:if>
+               <xsl:if test="@from and @to">
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="@from"/>-<xsl:value-of select="@to"/>
+               </xsl:if>
+               
+               <!-- responsible individual -->               
+               <xsl:text> by </xsl:text>
+               <xsl:choose>
+                  <xsl:when test="t:forename or t:surname">
+                     <xsl:value-of select="t:forename"/>
+                     <xsl:if test="t:forename and t:surname">
+                        <xsl:text> </xsl:text>
+                     </xsl:if>
+                     <xsl:value-of select="t:surname"/>
+                  </xsl:when>
+                  <xsl:otherwise> [unidentified responsible individual] </xsl:otherwise>
+               </xsl:choose>
+               
+            </span>
+            <br/>
+      </xsl:for-each>
+
+      <br/>
       <xsl:apply-templates/>
         <xsl:if test="$parm-internal-app-style = 'iospe' and @n">
            <!-- Template found in htm-tpl-apparatus.xsl -->

@@ -20,7 +20,7 @@
          </xsl:choose>
          <xsl:choose>
         <!-- If verse-line is needed in ddbdp and @n is not a number eg 2a -->
-             <xsl:when test="$parm-verse-lines = 'on' and not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+            <xsl:when test="$parm-verse-lines = 'on' and not(number(@n)) and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
             <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and not(starts-with($parm-leiden-style, 'edh'))">
@@ -28,7 +28,7 @@
             </xsl:when>
          </xsl:choose>
       </xsl:if>
-      <xsl:if test="$parm-leiden-style=('ddbdp','sammelbuch') and @rend">
+     <xsl:if test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') and @rend">
         <xsl:text> (</xsl:text>
         <xsl:value-of select="@rend"/>
         <xsl:text>) </xsl:text>

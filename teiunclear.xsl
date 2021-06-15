@@ -48,7 +48,7 @@
                    <xsl:when test="$parm-leiden-style='london'">
                      <xsl:text>·</xsl:text>
                   </xsl:when>
-                   <xsl:when test="$parm-leiden-style=('ddbdp','sammelbuch')">
+                  <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
                      <xsl:text>&#xa0;&#xa0;&#x0323;</xsl:text>
                   </xsl:when>
                   <xsl:otherwise>
@@ -68,7 +68,7 @@
                   <!-- templates (including tests for parent::unclear) are in teig.xsl -->
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:variable name="text" select="normalize-space(normalize-unicode($text-content))"/>
+                  <xsl:variable name="text" select="normalize-space($text-content)"/>
                   <xsl:for-each select="1 to string-length()">
                      <xsl:value-of select="concat(substring($text,.,1),'&#x0323;')"/>
                   </xsl:for-each>

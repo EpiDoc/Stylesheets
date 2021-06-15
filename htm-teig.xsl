@@ -10,12 +10,13 @@
   <xsl:template match="t:g">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
       <xsl:call-template name="lb-dash"/>
       <xsl:call-template name="w-space"/>
     
      <xsl:choose>
-         <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
-         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
+         <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
+       <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
         <!-- Found in teig.xsl -->
         <xsl:call-template name="g-ddbdp"/>
          </xsl:when>
