@@ -350,10 +350,6 @@
             <xsl:text>›</xsl:text>
             <xsl:call-template name="g-unclear-string"/>
          </xsl:when>
-         <xsl:when test="@type='diple' and @rend='extension'">
-            <xsl:text>›</xsl:text>
-            <xsl:call-template name="g-unclear-string"/>
-         </xsl:when>
          <xsl:when test="@type='diple-obelismene'">
             <xsl:text>⤚</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -376,6 +372,10 @@
          </xsl:when>
          <xsl:when test="@type='filler' and @rend='extension'">
             <xsl:text>―</xsl:text>
+            <xsl:call-template name="g-unclear-string"/>
+         </xsl:when>
+         <xsl:when test="@type='filler' and @rend='diple'">
+            <xsl:text>›</xsl:text>
             <xsl:call-template name="g-unclear-string"/>
          </xsl:when>
          <xsl:when test="@type='hypodiastole'">
