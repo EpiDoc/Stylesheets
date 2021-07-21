@@ -45,7 +45,7 @@
                   <xsl:if test="not(parent::t:supplied)">
                      <br/>
                   </xsl:if>
-                  <xsl:text>>---</xsl:text>
+                  <xsl:text>⤚</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'horizontal-rule'">
                   <xsl:if test="not(parent::t:supplied)">
