@@ -1,36 +1,8 @@
 <!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" exclude-result-prefixes="t EDF" version="2.0">
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
-   <xsl:function name="EDF:f-wwrap">
-      <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
-      <xsl:param name="ww-context"/>
-      <xsl:choose>
-         <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))             or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
-            <xsl:value-of select="true()"/>
-      </xsl:when>
-         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
-       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
-          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
-             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
-               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
-               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
-            <xsl:value-of select="true()"/>
-         </xsl:when>
-         <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52 -->
-         <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
-            or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
-            and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
-            or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
-            <xsl:value-of select="true()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="false()"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:function>
-
    <xsl:template name="lb-dash">
-      <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows g -->
+      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows g -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>

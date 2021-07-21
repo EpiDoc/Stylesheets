@@ -11,7 +11,7 @@
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
        <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
-       <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows space -->
+      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>
