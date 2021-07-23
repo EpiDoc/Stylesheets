@@ -282,6 +282,10 @@
             <xsl:text>※</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
+         <xsl:when test="@type='backslash'">
+            <xsl:text>\</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='upper-brace-opening'">
             <xsl:text>⎧</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -414,6 +418,10 @@
          </xsl:when>
          <xsl:when test="@type='rho-cross'">
             <xsl:text>⳨</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='double-slanting-stroke'">
+            <xsl:text>⸗</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type='slanting-stroke'">
