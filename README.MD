@@ -67,7 +67,7 @@ The parameters currently defined include:
 		Values supported are 'interpretive' (default) and 'diplomatic' (prints
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
-		Values supported are 'default' (no metadata), 'inslib', 'iospe'
+		Values supported are 'default' (no metadata), 'inslib', 'iospe', 'sample'
 	$hgv-gloss
 		Value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
