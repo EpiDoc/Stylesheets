@@ -118,6 +118,19 @@
               <xsl:text>)</xsl:text>
             </xsl:if>
           </xsl:when>
+          <xsl:when test="//t:origin/t:date//text()">
+            <xsl:apply-templates select="//t:origin/t:date"/>
+            <xsl:if test="//t:origin/t:date[@evidence]">
+              <xsl:text> (</xsl:text>
+              <xsl:for-each select="tokenize(//t:origin/t:date/@evidence,' ')">
+                <xsl:value-of select="translate(translate(.,'-',' '),',','')"/>
+                <xsl:if test="position()!=last()">
+                  <xsl:text>, </xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+              <xsl:text>)</xsl:text>
+            </xsl:if>
+          </xsl:when>
           <xsl:otherwise>Unknown.</xsl:otherwise>
         </xsl:choose>
       </p>
@@ -135,6 +148,9 @@
         <xsl:choose>
           <xsl:when test="//t:origin/t:origPlace//text()">
             <xsl:apply-templates select="//t:origin/t:origPlace"/>
+          </xsl:when>
+          <xsl:when test="//t:origin/t:placeName//text()">
+            <xsl:apply-templates select="//t:origin/t:placeName"/>
           </xsl:when>
           <xsl:otherwise>Unknown</xsl:otherwise>
         </xsl:choose>
@@ -357,7 +373,7 @@
       </div>
     </xsl:if>
     
-    <xsl:if test="//t:div[@type='bibliography']//text()">
+    <xsl:if test="//t:div[@type='bibliography']//text() or //t:teiHeader//t:listBibl//text()">
       <div id="bibliography">
       <xsl:for-each select="//t:div[@type='bibliography']">
         <h3>Bibliography
@@ -365,6 +381,12 @@
         <xsl:apply-templates select="descendant::t:p"/>
         <xsl:apply-templates select="descendant::t:listBibl"/>
       </xsl:for-each>
+
+        <xsl:for-each select="//t:teiHeader//t:listBibl">
+          <h3>Bibliography
+            <xsl:if test="@type"><xsl:text> (</xsl:text><xsl:value-of select="@type"/><xsl:text>)</xsl:text></xsl:if></h3>
+          <p><xsl:apply-templates select="descendant::t:bibl"/></p>
+        </xsl:for-each>
       
       <xsl:if test="//t:creation//text()">
         <p><b>Text constituted from: </b>
@@ -415,6 +437,7 @@
   
   <!-- dimensions -->
   <xsl:template match="t:dimensions" mode="sample-dimensions">
+    <xsl:if test="@type"><xsl:value-of select="@type"/><xsl:text>: </xsl:text></xsl:if>
     <xsl:if test="//text()">
       <xsl:if test="t:width/text()"><xsl:text>w </xsl:text>
         <xsl:value-of select="t:width"/>
@@ -436,6 +459,7 @@
         <xsl:if test="t:dim[@type='diameter'][@unit]"><xsl:text> </xsl:text><xsl:value-of select="t:dim[@type='diameter']/@unit"/></xsl:if>
       </xsl:if>
       <xsl:if test="@unit"><xsl:text> </xsl:text><xsl:value-of select="@unit"/></xsl:if>
+      <xsl:text> </xsl:text>
     </xsl:if>
   </xsl:template>
   
