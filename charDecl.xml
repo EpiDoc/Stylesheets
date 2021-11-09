@@ -101,7 +101,7 @@
                <mapping type="g-iospe">☧</mapping>
                <mapping type="text-display">chi-rho</mapping>
             </glyph>
-            <glyph xml:id="chiro">
+            <glyph xml:id="chirho">
                <!--Chi-Rho-->
                <!--<unicodeProp name="Name" value=""/>-->
                 <mapping type="glyph-display">⳩</mapping>
