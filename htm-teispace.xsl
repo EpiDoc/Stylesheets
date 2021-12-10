@@ -8,7 +8,6 @@
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
-
       <xsl:choose>
           <xsl:when test="$parm-leiden-style = 'london'">
             <i dir="ltr">

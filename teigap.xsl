@@ -212,12 +212,21 @@
    </xsl:template>
 
 
-   <xsl:template name="extent-string">
+  <xsl:template name="extent-string">
+    <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> 
+    <!-- Found in htm|txt-teigap.xsl This allows, e.g. setting a text direction on the content. -->
+    <xsl:call-template name="extent-string-wrapper"/>    
+  </xsl:template>
+
+   <xsl:template name="extent-string-content">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
       <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason)"/>
       <xsl:variable name="cur-max" select="EDF:dotmax($parm-leiden-style)"/>
+     
       <!-- Precision of <gap> defined -->
       <xsl:variable name="circa">
          <xsl:choose>
@@ -250,7 +259,7 @@
                      </xsl:when>
                      <!-- other reason illegible and lost/chars caught in the otherwise -->
                      <xsl:otherwise>
-                        <xsl:text> -ca.?- </xsl:text>
+                        <xsl:text>&#x2066; -ca.?- &#x2069;</xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
@@ -379,7 +388,7 @@
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:text> - - - </xsl:text>
+                        <xsl:text>&#x2066; - - - &#x2069;</xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:otherwise>
@@ -518,7 +527,7 @@
                   </xsl:choose>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text> - - - - - - - - - - </xsl:text>
+                  <xsl:text>&#x2066; - - - - - - - - - - &#x2069;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:when>
