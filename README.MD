@@ -9,7 +9,7 @@ XSLT for transformation of EpiDoc XML files into HTML or text versions in Leiden
 
 To cite these stylesheets in a conventional bibliography, please include the following information:
 
-Tom Elliott, Zaneta Au, Gabriel Bodard, Hugh Cayless, Carmen Lanz, Faith Lawrence, Scott Vandebilt, Raffaele Viglianti, et al. (2008-2019), EpiDoc Example Stylesheets (version 9). Available: <https://github.com/EpiDoc/Stylesheets>
+Tom Elliott, Zaneta Au, Gabriel Bodard, Hugh Cayless, Carmen Lanz, Faith Lawrence, Scott Vandebilt, Raffaele Viglianti, et al. (2008-2021), EpiDoc Example Stylesheets (version 9). Available: <https://github.com/EpiDoc/Stylesheets>
 
 ### Where to report bugs or request features:
 
@@ -67,7 +67,7 @@ The parameters currently defined include:
 		Values supported are 'interpretive' (default) and 'diplomatic' (prints
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
-		Values supported are 'default' (no metadata), 'inslib', 'iospe'
+		Values supported are 'default' (no metadata), 'inslib', 'iospe', 'sample'
 	$hgv-gloss
 		Value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
