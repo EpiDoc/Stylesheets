@@ -31,7 +31,7 @@
   </xsl:template>
   
   <xsl:template name="creta-body-structure">
-    <xsl:call-template name="navigation"/>
+    <xsl:call-template name="creta-navigation"/>
     <div id="creta-inscription-body" class="creta">
       <div id="title" class="creta">
         <h1><xsl:if test="//t:idno[@type='projectNo']/text()"><xsl:value-of select="number(//t:idno[@type='projectNo'])"/>. </xsl:if><xsl:apply-templates select="//t:titleStmt/t:title"/></h1>
@@ -221,7 +221,7 @@
   <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary' or @type='apparatus']//t:hi[@rend='superscript']"><sup><xsl:apply-templates/></sup></xsl:template>
   
   <!-- arrows pointing to previous/next inscription -->
-  <xsl:template name="navigation">
+  <xsl:template name="creta-navigation">
     <xsl:if test="doc-available(concat('file:',system-property('user.dir'),'/all_inscriptions.xml')) = fn:true()">
       <xsl:variable name="filename"><xsl:value-of select="//t:idno[@type='projectNo']"/></xsl:variable>
       <xsl:variable name="list" select="document(concat('file:',system-property('user.dir'),'/all_inscriptions.xml'))//t:list"/>
