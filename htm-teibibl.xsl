@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:f="http://example.com/ns/functions"
-	xmlns:html="http://www.w3.org/1999/html" exclude-result-prefixes="t f" version="2.0">
+	xmlns:html="http://www.w3.org/1999/html" exclude-result-prefixes="t f" version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	<!--
 
 Pietro notes on 14/8/2015 work on this template, from mail to Gabriel.
@@ -267,6 +267,50 @@ bibliography. All examples only cater for book and article.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
+	
+	
+	<xsl:template match="t:ptr[@target]">
+		<xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+		<xsl:choose>
+			<xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+			 <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
+				<xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+				<xsl:variable name="bibl-ref" select="translate(@target, '#', '')"/>
+				<xsl:choose>
+				 <xsl:when test="doc-available($bibliography-al) = fn:true()">
+				   <xsl:variable name="bibl" select="document($bibliography-al)//t:bibl[@xml:id=$bibl-ref][not(@sameAs)]"/>
+				    <a href="../concordance/bibliography/{$bibl-ref}.html" target="_blank">
+				     <xsl:choose>
+					<xsl:when test="$bibl//t:bibl[@type='abbrev']">
+					  <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
+					</xsl:when>
+					<xsl:otherwise>
+					   <xsl:value-of select="$bibl-ref"/>
+					</xsl:otherwise>
+				      </xsl:choose>
+				      </a>
+				</xsl:when>
+				<xsl:otherwise>
+				    <xsl:value-of select="$bibl-ref"/>
+				</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="t:title[not(ancestor::t:titleStmt)]" mode="#default inslib-dimensions inslib-placename sample-dimensions creta">
+		<xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+		<xsl:choose>
+			<xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample' or $parm-edn-structure='creta'">
+				<i><xsl:apply-templates/></i>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 </xsl:stylesheet>

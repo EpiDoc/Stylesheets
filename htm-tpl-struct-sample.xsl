@@ -463,36 +463,9 @@
     </xsl:if>
   </xsl:template>
   
-  <!-- external links -->
-  <xsl:template match="t:*[starts-with(@ref, 'http')]|t:ref[starts-with(@target, 'http')]|t:ref[starts-with(@corresp, 'http')]">
-    <xsl:choose>
-      <xsl:when test="starts-with(@ref, 'http')">
-        <a>
-          <xsl:attribute name="href"><xsl:value-of select="@ref"/></xsl:attribute>
-          <xsl:apply-templates/>
-        </a>
-      </xsl:when>
-      <xsl:when test="starts-with(@target, 'http')">
-        <a>
-          <xsl:attribute name="href"><xsl:value-of select="@target"/></xsl:attribute>
-          <xsl:apply-templates/>
-        </a>
-      </xsl:when>
-      <xsl:when test="starts-with(@corresp, 'http')">
-        <a>
-          <xsl:attribute name="href"><xsl:value-of select="@corresp"/></xsl:attribute>
-          <xsl:apply-templates/>
-        </a>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  
-  <!-- <ptr/> in bibliographic references; to be adapted to link @target to full bibliographic reference -->
-  <xsl:template match="t:ptr[ancestor::t:bibl][@target]">
-    <xsl:value-of select="translate(@target, '#', '')"/>
-  </xsl:template>
+  <!-- comment out the following template to activate external links in @ref -->
+    <!--<xsl:template priority="10" match="t:*[starts-with(@ref, 'http')]">
+      <a href="{@ref}" target="_blank"><xsl:apply-templates/></a>
+    </xsl:template>-->
   
 </xsl:stylesheet>

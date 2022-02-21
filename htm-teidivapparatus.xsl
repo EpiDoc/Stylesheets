@@ -2,19 +2,20 @@
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
   exclude-result-prefixes="#all" version="2.0">
-
-
+  
+  
   <!-- only triggered if there is a <div type="apparatus"> (i.e. "external appartus") in the XML -->
-
+  
   <!--<xsl:import href="teidivapparatus.xsl"/>-->
-
+  
   <!-- Other div matches can be found in htm-teidiv.xsl -->
   <xsl:param name="parm-internal-app-style" />
   <xsl:param name="parm-external-app-style" />
-
+  
   <xsl:variable name="default-language" select="'en'"/>
-
+  
   <xsl:variable name="local-bibliography">
     <xsl:if test="$parm-external-app-style = 'iospe'">
       <xsl:for-each select="//t:div[@type='bibliography']//(t:bibl | t:biblStruct)">
@@ -37,11 +38,11 @@
       </xsl:for-each>
     </xsl:if>
   </xsl:variable>
-
+  
   <xsl:template name="source">
     <xsl:param name="root"/>
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
-
+    
     <xsl:variable name="source_location">
       <xsl:choose>
         <xsl:when
@@ -73,10 +74,10 @@
       </xsl:choose>
     </t:ref>
   </xsl:template>
-
+  
   <xsl:template name="sources">
     <xsl:param name="root"/>
-
+    
     <!-- collect all sources -->
     <xsl:variable name="sources">
       <xsl:for-each select="tokenize(@source, ' ')">
@@ -85,7 +86,7 @@
         </xsl:call-template>
       </xsl:for-each>
     </xsl:variable>
-
+    
     <!-- preselect sources to be printed -->
     <xsl:variable name="final_printing_sources">
       <xsl:for-each select="$sources/t:ref">
@@ -97,29 +98,29 @@
           select="$sources/t:ref[t:name/text() = current()/t:name/text()][1] = current()"/>
         <xsl:variable name="n_authors_with_same_name_in_local_bib"
           select="count($local-bibliography/t:ref[t:name/text() = current()/t:name/text()])"/>
-
+        
         <xsl:if
           test="not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)
-                  or $first_occurrence_of_this_author_in_sources">
-
+          or $first_occurrence_of_this_author_in_sources">
+          
           <t:ref>
             <xsl:sequence select="./t:name"/>
             <xsl:if
               test="$n_authors_with_same_name_in_local_bib != 1
-                and not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)">
-
+              and not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)">
+              
               <xsl:sequence select="./t:date"/>
             </xsl:if>
           </t:ref>
         </xsl:if>
       </xsl:for-each>
     </xsl:variable>
-
+    
     <!-- print references -->
     <xsl:text> </xsl:text>
     <xsl:for-each select="$final_printing_sources/t:ref">
       <xsl:value-of select="t:name"/>
-
+      
       <xsl:if test="t:date">
         <xsl:text> </xsl:text>
         <xsl:value-of select="t:date"/>
@@ -128,9 +129,9 @@
         <xsl:text>, </xsl:text>
       </xsl:if>
     </xsl:for-each>
-
+    
   </xsl:template>
-
+  
   <xsl:template match="t:bibl | t:biblStruct" mode="parse-name-year">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <t:name>
@@ -157,10 +158,10 @@
           <xsl:value-of select=".//t:date[1]"/>
         </xsl:otherwise>
       </xsl:choose>
-
+      
     </t:date>
   </xsl:template>
-
+  
   <xsl:template match="t:div[@type='apparatus']" priority="1">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <div id="apparatus">
@@ -170,7 +171,7 @@
       </p>
     </div>
   </xsl:template>
-
+  
   <xsl:template match="t:div[@type='apparatus']//t:app">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <span>
@@ -184,7 +185,7 @@
       </xsl:if>
       <xsl:apply-templates/>
     </span>
-
+    
     <xsl:choose>
       <xsl:when test="@loc != following-sibling::t:app[1]/@loc">
         <br/>
@@ -194,35 +195,68 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-
+  
   <xsl:template match="t:div[@type = 'apparatus']//t:rdg">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
-
+    <xsl:if test="@resp">
+      <xsl:apply-templates select="@resp"/>
+    </xsl:if>
     <xsl:call-template name="sources">
       <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
     </xsl:call-template>
-
+    
     <xsl:if test="following-sibling::t:rdg and not(following-sibling::*[1][self::t:note])">
       <xsl:text>; </xsl:text>
     </xsl:if>
   </xsl:template>
-
-
+  
+  <xsl:template match="t:div[@type = 'apparatus']//t:rdg/@resp">
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+    <xsl:variable name="rdg-resp" select="substring-after(., '#')"/>
+    <xsl:choose>
+      <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+        <xsl:text> </xsl:text>
+        <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
+        <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+        <xsl:variable name="rdg-resp-source" select="document($bibliography-al)//t:bibl[@xml:id=$rdg-resp]"/>
+        <xsl:choose>
+          <xsl:when test="doc-available($bibliography-al) = fn:true() and $rdg-resp-source">
+            <a href="../concordance/bibliography/{$rdg-resp}.html" target="_blank">
+              <xsl:choose>
+                <xsl:when test="$rdg-resp-source//t:*[@type='abbrev']">
+                  <xsl:apply-templates select="$rdg-resp-source//t:*[@type='abbrev']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$rdg-resp"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </a>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$rdg-resp"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
+  </xsl:template>
+  
   <xsl:template match="t:div[@type = 'apparatus']//t:lem">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
-
+    
     <xsl:call-template name="sources">
       <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
     </xsl:call-template>
-
+    
     <xsl:if
       test="following-sibling::t:* and not(following-sibling::t:*[1][self::t:note]) and not(@source)">
       <xsl:text>: </xsl:text>
     </xsl:if>
   </xsl:template>
-
+  
   <xsl:template match="t:div[@type = 'apparatus']//t:note">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <span>
@@ -234,5 +268,5 @@
       </xsl:if>
     </span>
   </xsl:template>
-
+  
 </xsl:stylesheet>
