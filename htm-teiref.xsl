@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-                version="2.0">
-  <xsl:include href="teiref.xsl"/>
+   xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
+   version="2.0">
+   <xsl:include href="teiref.xsl"/>
   
    <xsl:template match="t:ref" mode="#default inslib-dimensions inslib-placename sample-dimensions medcyprus-location medcyprus-dimensions">
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
@@ -50,15 +50,14 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-  
-
-  <xsl:template name="link-text">
+   
+   <xsl:template name="link-text">
       <xsl:param name="href-link"/>
       <xsl:param name="val-doc"/>
-    
+      
       <a href="{$href-link}">
          <xsl:value-of select="$val-doc"/>
       </a>
-  </xsl:template>
-  
+   </xsl:template>
+   
 </xsl:stylesheet>
