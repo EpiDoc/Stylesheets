@@ -405,7 +405,7 @@
               <span>&#160;</span>
               <xsl:choose>
                 <xsl:when test="contains(@url,'http')">
-                  <a target="_blank"><xsl:attribute name="href"><xsl:value-of select="@url"/></xsl:attribute>[Open image]</a>
+                  <a target="_blank" href="{@url}">[Open image]</a>
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:apply-templates select="." />
