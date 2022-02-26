@@ -117,8 +117,10 @@
     </xsl:variable>
     
     <!-- print references -->
-    <xsl:text> </xsl:text>
     <xsl:for-each select="$final_printing_sources/t:ref">
+      <xsl:if test="position()=1">
+        <xsl:text> </xsl:text>
+      </xsl:if>
       <xsl:value-of select="t:name"/>
       
       <xsl:if test="t:date">
@@ -174,6 +176,7 @@
   
   <xsl:template match="t:div[@type='apparatus']//t:app">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
     <span>
       <xsl:attribute name="class">
         <xsl:value-of select="@loc"/>
@@ -191,7 +194,14 @@
         <br/>
       </xsl:when>
       <xsl:when test="following-sibling::t:app">
-        <xsl:text>; </xsl:text>
+        <xsl:choose>
+          <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+            <xsl:text> || </xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>; </xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -211,50 +221,74 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="t:div[@type = 'apparatus']//t:rdg/@resp">
-    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
-    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
-    <xsl:variable name="rdg-resp" select="substring-after(., '#')"/>
-    <xsl:choose>
-      <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
-        <xsl:text> </xsl:text>
-        <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-        <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
-        <xsl:variable name="rdg-resp-source" select="document($bibliography-al)//t:bibl[@xml:id=$rdg-resp]"/>
-        <xsl:choose>
-          <xsl:when test="doc-available($bibliography-al) = fn:true() and $rdg-resp-source">
-            <a href="../concordance/bibliography/{$rdg-resp}.html" target="_blank">
-              <xsl:choose>
-                <xsl:when test="$rdg-resp-source//t:*[@type='abbrev']">
-                  <xsl:apply-templates select="$rdg-resp-source//t:*[@type='abbrev']"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="$rdg-resp"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </a>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$rdg-resp"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:when>
-      <xsl:otherwise/>
-    </xsl:choose>
-  </xsl:template>
-  
   <xsl:template match="t:div[@type = 'apparatus']//t:lem">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
-    
+    <xsl:if test="@resp">
+      <xsl:apply-templates select="@resp"/>
+    </xsl:if>
     <xsl:call-template name="sources">
       <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
-    </xsl:call-template>
-    
-    <xsl:if
-      test="following-sibling::t:* and not(following-sibling::t:*[1][self::t:note]) and not(@source)">
+      </xsl:call-template>
+  <xsl:if test="following-sibling::t:* and not(following-sibling::t:*[1][self::t:note]) and not(@source)">
       <xsl:text>: </xsl:text>
     </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="t:div[@type = 'apparatus']//t:rdg/@resp|t:div[@type = 'apparatus']//t:lem/@resp">
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+    
+    <xsl:variable name="biblio" select="tokenize(substring-after(., '#'), ' #')"/>
+    
+    <xsl:choose>
+      <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+        <xsl:for-each select="$biblio">
+          <xsl:variable name="bib" select="normalize-space(.)"/>
+          <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
+          <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+          <xsl:variable name="bibl" select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"/>
+          <xsl:if test="position()=1"><xsl:text> </xsl:text></xsl:if>
+          <xsl:choose>
+            <xsl:when test="doc-available($bibliography-al) = fn:true() and $bibl">
+              <a href="../concordance/bibliography/{$bib}.html" target="_blank">
+                <xsl:choose>
+                  <xsl:when test="$bibl//t:bibl[@type='abbrev']">
+                    <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:choose>
+                      <xsl:when test="$bibl//t:*[@type='abbrev']">
+                        <xsl:apply-templates select="$bibl//t:*[@type='abbrev']"/>
+                      </xsl:when>
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']]">
+                        <xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title)]">
+                          <xsl:apply-templates select="."/>
+                          <xsl:if test="position()!=last()"> – </xsl:if>
+                        </xsl:for-each>
+                        <xsl:text> </xsl:text>
+                        <xsl:apply-templates select="$bibl//t:date"/>
+                      </xsl:when>
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
+                        <i><xsl:value-of select="$bibl/@xml:id"/></i>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="$bib"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$bib"/>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+        </xsl:for-each>
+      </xsl:when>
+    <xsl:otherwise/>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template match="t:div[@type = 'apparatus']//t:note">

@@ -8,6 +8,7 @@
 
    <xsl:template match="t:hi">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
          <!-- No html code needed for these -->
          <xsl:when
@@ -63,6 +64,9 @@
                   <xsl:when test="$parm-leiden-style=('petrae','iospe')">
                      <xsl:attribute name="class">petraeligature</xsl:attribute>
                   </xsl:when>
+                  <xsl:when test="$parm-edn-structure = 'inslib'">
+                     <xsl:attribute name="class">inslibligature</xsl:attribute>
+                  </xsl:when>
                   <xsl:otherwise>
                      <xsl:attribute name="class">ligature</xsl:attribute>
                   </xsl:otherwise>
@@ -96,9 +100,18 @@
             <xsl:element name="span">
                <xsl:attribute name="class">reversed</xsl:attribute>
                <xsl:attribute name="title">reversed: <xsl:value-of select="."/>
-               </xsl:attribute> ((<xsl:apply-templates/>)) </xsl:element>
+               </xsl:attribute>((<xsl:apply-templates/>))</xsl:element>
          </xsl:when>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <!-- @rend='inverted'                                                   -->
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+          <xsl:when test="@rend='inverted'">
+             <xsl:element name="span">
+                <xsl:attribute name="class">inverted</xsl:attribute>
+                <xsl:attribute name="title">inverted: <xsl:value-of select="."/>
+                </xsl:attribute>((<xsl:apply-templates/>))</xsl:element>
+          </xsl:when>
+          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <!-- @rend='small'                                                      -->
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <xsl:when test="@rend='small'">

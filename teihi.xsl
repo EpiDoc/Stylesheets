@@ -28,6 +28,7 @@
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+        <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="location" tunnel="yes" required="no"/>
 
@@ -48,7 +49,7 @@
         </xsl:variable>
 
         <xsl:choose>
-            <xsl:when test="@rend='ligature'">
+            <xsl:when test="@rend='ligature' and not($parm-edn-structure='inslib')">
                 <xsl:choose>
                     <xsl:when test="$parm-leiden-style='seg'">
                         <xsl:if test="string-length(normalize-space(.))=2">

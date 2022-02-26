@@ -7,6 +7,7 @@
 
    <xsl:template match="t:milestone">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>      
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
        <xsl:choose>
          <xsl:when
             test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation']">
@@ -20,7 +21,7 @@
             </sup>
             <xsl:text> </xsl:text>
          </xsl:when>
-          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
+          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch') or $parm-edn-structure='inslib')">
             <xsl:choose>
                <xsl:when test="@rend = 'wavy-line'">
                   <xsl:if test="not(parent::t:supplied)">
@@ -34,7 +35,7 @@
                  <xsl:if test="following-sibling::node()[not(self::text() 
                     and normalize-space(self::text())='')][1]/self::t:lb[@break='no'] 
                     and not(preceding-sibling::*[1][self::t:supplied[@reason='lost']])">-</xsl:if>
-                  <xsl:if test="not(parent::t:supplied)">
+                  <xsl:if test="not(parent::t:supplied) and not($parm-edn-structure='inslib')">
                      <br/>
                   </xsl:if>
                   <xsl:text>——</xsl:text>

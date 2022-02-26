@@ -10,6 +10,7 @@
   <xsl:template match="t:g">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
       <xsl:call-template name="lb-dash"/>
       <xsl:call-template name="w-space"/>
@@ -45,6 +46,9 @@
            <xsl:apply-imports/>
            <xsl:text>⊃</xsl:text>
         </xsl:when>
+        <xsl:when test="$parm-edn-structure='inslib' and (starts-with(ancestor::t:TEI//t:publicationStmt/t:idno[@type='filename']/text(), 'IGCyr') or starts-with(ancestor::t:TEI//t:publicationStmt/t:idno[@type='filename']/text(), 'GVCyr'))">
+         <xsl:apply-imports/>
+       </xsl:when>
         <xsl:otherwise>
            <xsl:text>((</xsl:text>
            <xsl:apply-imports/>

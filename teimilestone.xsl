@@ -5,7 +5,7 @@
                 version="2.0">
   <!-- General template in [htm|txt]teimilestone.xsl -->
 
-  <xsl:template match="t:milestone[@unit='block']">
+  <xsl:template match="t:milestone[@unit='block' or @unit='fragment']">
      <!-- adds pipe for block, flanked by spaces if not within word -->
       <xsl:if test="not(ancestor::w)">
          <xsl:text> </xsl:text>

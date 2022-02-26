@@ -285,7 +285,19 @@ bibliography. All examples only cater for book and article.
 					  <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
 					</xsl:when>
 					<xsl:otherwise>
-					   <xsl:value-of select="$bibl-ref"/>
+					   <xsl:choose>
+							<xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']]">
+								<xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title)]">
+									<xsl:apply-templates select="."/>
+									<xsl:if test="position()!=last()"> – </xsl:if>
+								</xsl:for-each>
+								<xsl:text> </xsl:text>
+								<xsl:apply-templates select="$bibl//t:date"/>
+							</xsl:when>
+							<xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
+								<i><xsl:value-of select="$bibl/@xml:id"/></i>
+							</xsl:when>
+						</xsl:choose>
 					</xsl:otherwise>
 				      </xsl:choose>
 				      </a>

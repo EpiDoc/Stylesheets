@@ -1,4 +1,4 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" exclude-result-prefixes="t EDF" version="2.0">
+<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="t EDF" version="2.0">
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
    <xsl:template name="lb-dash">
@@ -17,6 +17,7 @@
    <xsl:template match="t:g">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
       <xsl:choose>

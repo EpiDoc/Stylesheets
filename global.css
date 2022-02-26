@@ -52,7 +52,13 @@
     
 .petraeligature {
     text-decoration: underline;
-    }
+    }    
+
+.inslibligature {
+      border-top: 2px solid black;
+      border-radius: 6px;
+      padding: 4px 2px 0px 2px;
+}
     
 .underline {
     text-decoration: underline;
@@ -117,3 +123,6 @@ div.iospe {
     margin-left:165px;
     }
 
+.no-space {
+    margin-bottom: -1.9em;
+}

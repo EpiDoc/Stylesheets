@@ -76,7 +76,7 @@
                         <!--    *or unless* the lb is first in its ancestor div  -->
                         <xsl:when test="generate-id(self::t:lb) = generate-id(ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1])"/>
                         <!-- TODO: The following two are in contention -->
-                        <xsl:when test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')" />                                      
+                        <xsl:when test="($parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')) or ($parm-edn-structure='inslib' and ancestor::t:div[@type='apparatus'])" />                                      
                         <!--   *or unless* the second part of an app in ddbdp  -->
                         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
                             (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
@@ -101,7 +101,7 @@
                 </xsl:if>
                                 
                 <!-- print arrows right of line if R2L or explicitly L2R -->
-                <!-- arrows after final line handled in htm-teiab.xsl -->
+                <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
                 <xsl:if
                     test="
                     not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch'))
@@ -117,7 +117,14 @@
                     <xsl:text>&#xa0;&#xa0;←</xsl:text>
                 </xsl:if>
                 
-                <xsl:choose>
+                <xsl:if test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][@rend = 'left-to-right']">
+                 <xsl:text>&#xa0;&#xa0;→</xsl:text>
+             </xsl:if>
+             <xsl:if test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][@rend = 'right-to-left']">
+                 <xsl:text>&#xa0;&#xa0;←</xsl:text>
+             </xsl:if>
+            
+            <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
                     <xsl:when test="self::t:lb is ancestor::t:div[1]/t:*[child::t:lb][1]/t:lb[1]">
                         <a id="a{$div-loc}l{$line}">
@@ -155,7 +162,7 @@
                         </xsl:choose>
                     </xsl:when>
                     <xsl:when
-                        test="$parm-leiden-style = ('ddbdp','dclp') and (not(ancestor::t:TEI) or $location = 'apparatus')">
+                  test="($parm-leiden-style = ('ddbdp','dclp') and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')) or ($parm-edn-structure='inslib' and ancestor::t:div[@type='apparatus'])">
                         <xsl:choose>
                             <xsl:when test="@break = 'no' or @type = 'inWord'">
                                 <xsl:text>|</xsl:text>

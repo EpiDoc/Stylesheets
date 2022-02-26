@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-   version="2.0">
-   <xsl:include href="teiref.xsl"/>
-   
+                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
+                version="2.0">
+  <xsl:include href="teiref.xsl"/>
+  
    <xsl:template match="t:ref" mode="#default inslib-dimensions inslib-placename sample-dimensions">
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
       <xsl:choose>
@@ -18,6 +18,9 @@
                </xsl:when>
                <xsl:when test="@type='inscription' and @n and not(@target) and not(@corresp)">
                   <a href="{@n}.html" target="_blank"><xsl:apply-templates/></a>
+               </xsl:when>
+               <xsl:when test="@type='inscription' and not(@n) and not(@target) and not(@corresp)">
+                  <a target="_blank" href="{lower-case(translate(string(.), ' ', ''))}.html"><xsl:apply-templates/></a>
                </xsl:when>
             </xsl:choose>
          </xsl:when>
@@ -52,15 +55,15 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-   
-   
-   <xsl:template name="link-text">
+  
+
+  <xsl:template name="link-text">
       <xsl:param name="href-link"/>
       <xsl:param name="val-doc"/>
-      
+    
       <a href="{$href-link}">
          <xsl:value-of select="$val-doc"/>
       </a>
-   </xsl:template>
-   
+  </xsl:template>
+  
 </xsl:stylesheet>
