@@ -295,7 +295,7 @@
                 <xsl:for-each select=".//t:p">
                   <xsl:choose>
                     <xsl:when test="ancestor::t:div[@xml:lang='ar']">
-                      <p class="arabic"><xsl:apply-templates select="node()"/></p>
+                      <p class="rtl"><xsl:apply-templates select="node()"/></p>
                     </xsl:when>
                     <xsl:otherwise>
                       <p><xsl:apply-templates select="node()"/></p>
