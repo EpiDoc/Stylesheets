@@ -511,11 +511,11 @@ handled in the default to render in the text only one unclear or preferred lette
   <xsl:template name="intappunclear">
    
 <xsl:if test="self::t:choice">
-      </xsl:if>
     <xsl:for-each select="t:unclear">
       <xsl:if test="not(position()=1)">
         <xsl:text> aut </xsl:text></xsl:if>
-<xsl:value-of select="."/></xsl:for-each>
+      <xsl:value-of select="."/></xsl:for-each>
+</xsl:if>
   </xsl:template>
 
 
