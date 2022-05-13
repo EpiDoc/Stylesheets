@@ -13,11 +13,15 @@
          <!--     adds a newline character before gap-extent-line in DDbDP unless <lb/> present    -->
          <br/>
       </xsl:if>
-      <span lang="en" class="gap"><xsl:apply-imports/></span>
+      <xsl:apply-imports/>
   </xsl:template>
   
   <xsl:template match="t:gap">
-    <span lang="en" class="gap"><xsl:apply-imports/></span>
+    <xsl:apply-imports/>
+  </xsl:template>
+  
+  <xsl:template name="extent-string-wrapper">
+    <span dir="ltr" class="gap"><xsl:call-template name="extent-string-content"/></span>
   </xsl:template>
   
 </xsl:stylesheet>
