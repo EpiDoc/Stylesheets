@@ -243,11 +243,11 @@
         </p>
       </xsl:if>
       
-      <xsl:if test="//t:textClass//t:keywords//text()">
+      <!--<xsl:if test="//t:textClass//t:keywords//text()">
         <p><b>Keywords: </b>
           <xsl:apply-templates select="//t:textClass//t:keywords"/>
         </p>
-      </xsl:if>
+      </xsl:if>-->
     </div>
     
     <div id="file_metadata">
@@ -350,7 +350,7 @@
                 <xsl:text>)</xsl:text></xsl:if></h3>
             <xsl:if test="@resp"><p><xsl:text>Translation by </xsl:text><xsl:value-of select="translate(@resp, '#', '')"/></p></xsl:if>
             <xsl:if test="@source"><p><xsl:text>Translation from </xsl:text><xsl:value-of select="translate(@source, '#', '')"/></p></xsl:if>
-            <xsl:apply-templates select="descendant::t:p"/>
+            <xsl:apply-templates select="descendant::t:p|descendant::t:ab"/>
           </xsl:for-each>
         </xsl:variable>
         <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
