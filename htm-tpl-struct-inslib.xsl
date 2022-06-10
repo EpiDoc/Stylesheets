@@ -244,7 +244,7 @@
                   <xsl:choose>
                     <xsl:when test="doc-available($bibliography-al) = fn:true() and document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]">
                       <xsl:variable name="source" select="document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]"/>
-                      <a href="concat('../concordance/bibliography/',$source-id,'.html')" target="_blank">
+                      <a href="{concat('../concordance/bibliography/',$source-id,'.html')}" target="_blank">
                         <xsl:choose>
                           <xsl:when test="$source//t:bibl[@type='abbrev']">
                             <xsl:apply-templates select="$source//t:bibl[@type='abbrev'][1]"/>
