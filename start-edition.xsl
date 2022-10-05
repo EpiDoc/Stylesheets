@@ -15,6 +15,7 @@
    <xsl:include href="htm-teidiv.xsl"/>
    <xsl:include href="htm-teidivedition.xsl"/>
    <xsl:include href="htm-teidivapparatus.xsl"/>
+   <xsl:include href="htm-teifacsimile.xsl"/>
    <xsl:include href="htm-teiforeign.xsl"/>
    <xsl:include href="htm-teifigure.xsl"/>
    <xsl:include href="htm-teig.xsl"/>

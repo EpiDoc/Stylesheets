@@ -54,6 +54,12 @@
     text-decoration: underline;
     }
     
+.inslibligature {
+      border-top: 2px solid black;
+      border-radius: 6px;
+      padding: 4px 2px 0px 2px;
+}
+    
 .underline {
     text-decoration: underline;
     }
@@ -61,7 +67,12 @@
 .italic {
     font-style: italic;
     }
-    
+
+.rtl, .rtl * {
+    direction: rtl;
+    text-align-last: right;
+}
+
 h4.slimmer {
     margin-bottom: -0.5em;
     }    
@@ -117,3 +128,6 @@ div.iospe {
     margin-left:165px;
     }
 
+.no-space {
+    margin-bottom: -1.9em;
+}

@@ -15,4 +15,8 @@
       <xsl:apply-imports/>
   </xsl:template>
   
+  <xsl:template name="extent-string-wrapper">
+    <xsl:apply-imports/>
+  </xsl:template>
+  
 </xsl:stylesheet>

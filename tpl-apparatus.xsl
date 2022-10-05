@@ -222,6 +222,9 @@
                <!-- Parse app content to include html elements see: https://github.com/DCLP/dclpxsltbox/issues/137 -->
                <xsl:call-template name="parse-app-parts"><xsl:with-param name="part" select="$part1"/></xsl:call-template><xsl:if test="normalize-space($part1) != '' and (not(ends-with(normalize-space($part1), ','))) and (not(ends-with(normalize-space($part1), '.')))">,</xsl:if><!--  --><xsl:text> </xsl:text><xsl:call-template name="parse-app-parts"><xsl:with-param name="part" select="$part3"/></xsl:call-template>
             </xsl:when>
+            <xsl:when test="local-name() = 'w'">
+                <xsl:call-template name="word"/>
+            </xsl:when>
             <!-- hi -->
             <xsl:when test="local-name() = 'hi'">
                <xsl:call-template name="hirend"/>
@@ -393,7 +396,8 @@
       <!-- Used by: txPtchild, appcontent, teiaddanddel.xsl#t:add -->
       <xsl:param name="addpath" select="''"/>
       <xsl:param name="location" tunnel="yes" required="no"/>
-      <xsl:param name="delpath"/><xsl:choose>
+      <xsl:param name="delpath"/>
+     <xsl:choose>
          <!-- Old encoding: (still supported) -->
          <xsl:when test="(
             not(preceding-sibling::node())
@@ -405,10 +409,15 @@
             not(following-sibling::node())
             or matches(following-sibling::node()[1][self::text()], '[\s\n\r\t]')
             )
-            and(child::t:*[local-name()=('orig','sic','add','lem')])
-            "><xsl:text>corr. ex </xsl:text>
-            <xsl:apply-templates select="$delpath"/>
-         </xsl:when>
+            and (child::t:*[local-name()=('orig','sic','add','lem')])
+            ">
+           <xsl:text>corr. ex </xsl:text>
+           <xsl:call-template name="trans-string">
+            <xsl:with-param name="trans-text">
+              <xsl:apply-templates select="$delpath"/>
+            </xsl:with-param>
+           </xsl:call-template>         
+         </xsl:when>    
          <!-- New encoding (introduced in Nov/Dec 2011) -->
          <!-- get full word -->
          <xsl:otherwise>
@@ -1234,6 +1243,31 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+  
+   <xsl:template name="word">
+     <!-- Allows apparatus-triggering features contained within a word (like <hi> and some <g>s
+          to be wrapped together. -->
+     <xsl:apply-templates mode="app-word"/>
+     <xsl:call-template name="support"/>
+   </xsl:template>
+  
+   <xsl:template match="t:hi" mode="app-word">
+     <xsl:call-template name="hirend_print"/>
+   </xsl:template>
+  
+  <xsl:template match="t:g" mode="app-word">
+    <xsl:apply-templates select=".">
+      <xsl:with-param name="location" select="'apparatus'" tunnel="yes"/>
+    </xsl:apply-templates>
+  </xsl:template>
+  
+  <xsl:template match="text()" mode="app-word">
+    <xsl:call-template name="trans-string"/>
+  </xsl:template>
+  
+  <xsl:template match="*" mode="app-word">
+    <xsl:apply-templates select="."/>
+  </xsl:template>
 
    <xsl:template name="hirend">
       <!-- prints the value of diacritical <hi> values, either in text (with full word context, called from teihi.xsl) or in app (highlighted character only) -->
@@ -1323,121 +1357,31 @@
    <xsl:template name="hirend_print">
       <!-- Determines the value of diacritical <hi> values -->
       <!-- Used by hirend -->
-      <!-- TODO: This is not really the locus for the fix, but this is what flagged for me that nested <hi>
-           is a thing, and I'm not sure I agree with it. -->
-      <xsl:choose>
-         <xsl:when test="@rend = 'diaeresis'">
-            <xsl:choose>
-               <xsl:when test="child::t:hi[@rend = 'acute']">
-                  <xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-                  <xsl:text>̈</xsl:text><xsl:text>́</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:call-template name="trans-string"/>
-                  <xsl:if test="t:gap">
-                     <xsl:if test="t:gap[@reason='lost']">
-                        <xsl:text>[</xsl:text>
-                     </xsl:if>
-                     <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-                  </xsl:if>
-                  <xsl:text>̈</xsl:text>
-                  <xsl:if test="t:gap[@reason='lost']">
-                     <xsl:text>]</xsl:text>
-                  </xsl:if>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:when>
-         <xsl:when test="@rend = 'grave'">
-            <xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-            <xsl:text>̀</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if>
-         </xsl:when>
-         <xsl:when test="@rend = 'acute'">
-            <xsl:choose>
-               <xsl:when test="child::t:hi[@rend = 'diaeresis']">
-                  <xsl:call-template name="trans-string"/>
-                  <xsl:if test="t:gap">
-                     <xsl:if test="t:gap[@reason='lost']">
-                        <xsl:text>[</xsl:text>
-                     </xsl:if>
-                     <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-                  </xsl:if>
-                  <xsl:text>̈</xsl:text><xsl:text>́</xsl:text>
-                  <xsl:if test="t:gap[@reason='lost']">
-                     <xsl:text>]</xsl:text>
-                  </xsl:if>
-               </xsl:when>
-               <xsl:otherwise><xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-            <xsl:text>́</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if></xsl:otherwise></xsl:choose>
-         </xsl:when>
-
-         <xsl:when test="@rend = 'asper'">
-            <xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-            <xsl:text>̔</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if>
-         </xsl:when>
-         <xsl:when test="@rend = 'lenis'">
-            <xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-            <xsl:text>̓</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if>
-         </xsl:when>
-         <xsl:when test="@rend = 'circumflex'">
-            <xsl:call-template name="trans-string"/>
-            <xsl:if test="t:gap">
-               <xsl:if test="t:gap[@reason='lost']">
-                  <xsl:text>[</xsl:text>
-               </xsl:if>
-               <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
-            </xsl:if>
-            <xsl:text>͂</xsl:text>
-            <xsl:if test="t:gap[@reason='lost']">
-               <xsl:text>]</xsl:text>
-            </xsl:if>
-         </xsl:when>
-      </xsl:choose>
-
+     <xsl:choose>
+       <xsl:when test="text()">
+         <xsl:call-template name="trans-string"/>
+       </xsl:when>
+       <xsl:when test="t:gap">
+         <xsl:if test="t:gap[@reason='lost']">
+           <xsl:text>[</xsl:text>
+         </xsl:if>
+         <xsl:text>&#xa0;&#xa0;&#x323;</xsl:text>
+       </xsl:when>
+       <xsl:when test="t:hi">
+         <xsl:for-each select="t:hi">
+           <xsl:call-template name="hirend_print"/>
+         </xsl:for-each>
+       </xsl:when>
+     </xsl:choose>
+     <xsl:choose>
+       <xsl:when test="@rend = 'diaeresis'"><xsl:text>̈</xsl:text></xsl:when>
+       <xsl:when test="@rend = 'grave'"><xsl:text>̀</xsl:text></xsl:when>
+       <xsl:when test="@rend = 'acute'"><xsl:text>́</xsl:text></xsl:when>
+       <xsl:when test="@rend = 'asper'"><xsl:text>̔</xsl:text></xsl:when>
+       <xsl:when test="@rend = 'lenis'"><xsl:text>̓</xsl:text></xsl:when>
+       <xsl:when test="@rend = 'circumflex'"><xsl:text>͂</xsl:text></xsl:when>
+     </xsl:choose>
+     <xsl:if test="t:gap[@reason='lost']"><xsl:text>]</xsl:text></xsl:if>
    </xsl:template>
 
    <xsl:template name="multreg">

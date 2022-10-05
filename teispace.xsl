@@ -47,41 +47,46 @@
          <xsl:otherwise>
             <xsl:choose>
                <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
-                  <xsl:text> vac. </xsl:text>
-                  <xsl:choose>
+                 <xsl:variable name="content">
+                   <xsl:text>&#x2066; vac. </xsl:text>
+                   <xsl:choose>
                      <xsl:when test="@quantity">
-                        <xsl:if test="@precision='low'">
-                           <xsl:text>ca. </xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="@quantity"/>
+                       <xsl:if test="@precision='low'">
+                         <xsl:text>ca. </xsl:text>
+                       </xsl:if>
+                       <xsl:value-of select="@quantity"/>
                      </xsl:when>
                      <xsl:when test="@atLeast and @atMost">
-                        <xsl:value-of select="@atLeast"/>
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="@atMost"/>
+                       <xsl:value-of select="@atLeast"/>
+                       <xsl:text>-</xsl:text>
+                       <xsl:value-of select="@atMost"/>
                      </xsl:when>
                      <xsl:when test="@atLeast ">
-                        <xsl:text>&#x2265;</xsl:text>
-                        <xsl:value-of select="@atLeast"/>
+                       <xsl:text>&#x2265;</xsl:text>
+                       <xsl:value-of select="@atLeast"/>
                      </xsl:when>
                      <xsl:when test="@atMost ">
-                        <xsl:text>&#x2264;</xsl:text>
-                        <xsl:value-of select="@atMost"/>
+                       <xsl:text>&#x2264;</xsl:text>
+                       <xsl:value-of select="@atMost"/>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:text>?</xsl:text>
+                       <xsl:text>? </xsl:text>
                      </xsl:otherwise>
-                  </xsl:choose>
-                  <xsl:if test="@unit='line'">
-                        <xsl:text> line</xsl:text>
-                        <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
-                           <xsl:text>s</xsl:text>
-                        </xsl:if>
+                   </xsl:choose>
+                   <xsl:if test="@unit='line'">
+                     <xsl:text> line</xsl:text>
+                     <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
+                       <xsl:text>s</xsl:text>
                      </xsl:if>
-                  
-                  <xsl:if test="child::t:certainty[@match='..']">
-                     <xsl:text>(?)</xsl:text>
-                  </xsl:if>
+                   </xsl:if>
+                   <xsl:if test="child::t:certainty[@match='..']">
+                     <xsl:text>(?) </xsl:text>
+                   </xsl:if>
+                   <xsl:text>&#x2069;</xsl:text>
+                 </xsl:variable>
+                 <xsl:call-template name="space-content">
+                   <xsl:with-param name="vacat" select="$content"/>
+                 </xsl:call-template>
                </xsl:when>
                
                 <xsl:when test="$parm-leiden-style='london'">
