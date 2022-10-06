@@ -69,7 +69,9 @@
             mode="parse-name-year"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="document($source_location, $root)" mode="parse-name-year"/>
+          <xsl:if test="fn:doc-available($source_location)">
+            <xsl:apply-templates select="document($source_location, $root)" mode="parse-name-year"/>
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
     </t:ref>
@@ -243,14 +245,18 @@
     
     <xsl:choose>
       <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+        <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
         <xsl:for-each select="$biblio">
           <xsl:variable name="bib" select="normalize-space(.)"/>
           <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-          <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
-          <xsl:variable name="bibl" select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"/>
+          <xsl:variable name="bibl">
+            <xsl:if test="doc-available($bibliography-al)">
+              <xsl:sequence select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"></xsl:sequence>
+            </xsl:if>
+          </xsl:variable>
           <xsl:if test="position()=1"><xsl:text> </xsl:text></xsl:if>
           <xsl:choose>
-            <xsl:when test="doc-available($bibliography-al) = fn:true() and $bibl">
+            <xsl:when test="doc-available($bibliography-al) and $bibl">
               <a href="../concordance/bibliography/{$bib}.html" target="_blank">
                 <xsl:choose>
                   <xsl:when test="$bibl//t:bibl[@type='abbrev']">

@@ -47,13 +47,14 @@
                      <br/>
                   </xsl:if>
                   <xsl:text>⤚</xsl:text>
-                  <xsl:when test="@rend = 'coronis' and @unit='undefined'">
-                     <!-- <xsl:message><xsl:text>    </xsl:text>coronis!</xsl:message> -->
-                     <xsl:if test="following-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:lb[@break='no']">-</xsl:if>
-                     <xsl:if test="not(parent::t:supplied)">
-                        <br/>
-                     </xsl:if>
-                     <xsl:text>⸎</xsl:text>
+               </xsl:when>
+               <xsl:when test="@rend = 'coronis' and @unit='undefined'">
+                  <!-- <xsl:message><xsl:text>    </xsl:text>coronis!</xsl:message> -->
+                  <xsl:if test="following-sibling::node()[not(self::text() and normalize-space(self::text())='')][1]/self::t:lb[@break='no']">-</xsl:if>
+                  <xsl:if test="not(parent::t:supplied)">
+                     <br/>
+                  </xsl:if>
+                  <xsl:text>⸎</xsl:text>
                </xsl:when>
                <xsl:when test="@rend = 'horizontal-rule'">
                   <xsl:if test="not(parent::t:supplied)">
@@ -61,13 +62,13 @@
                   </xsl:if>
                   <xsl:text>————————</xsl:text>
                </xsl:when>
+               <xsl:otherwise>
+                  <br/>
+                  <xsl:value-of select="@rend"/>
+               </xsl:otherwise>
             </xsl:choose>
-         </xsl:when>
-         <xsl:otherwise>
-            <br/>
-            <xsl:value-of select="@rend"/>
-         </xsl:otherwise>
-      </xsl:choose>
+          </xsl:when>
+       </xsl:choose>
    </xsl:template>
 
    <xsl:template match="t:cb">
