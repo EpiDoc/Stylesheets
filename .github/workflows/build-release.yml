@@ -23,7 +23,7 @@ jobs:
       - name: "Update latest branch"
         run: |
           cd latest
-          git merge --ff-only master
+          git merge --ff-only origin/master
           git push origin latest
           cd ..
       - name: Release
