@@ -4,3 +4,4 @@ EpiDocXSL.xsl
 EpiDocXSL.xpr
 tests/OxyResults/
 tests/data/source-new/
+tests/data/actual/*.html
