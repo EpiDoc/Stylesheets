@@ -24,6 +24,7 @@ jobs:
         run: |
           cd latest
           git merge --ff-only master
+          git push origin latest
           cd ..
       - name: Release
         uses: softprops/action-gh-release@v1
