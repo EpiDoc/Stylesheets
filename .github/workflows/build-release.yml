@@ -17,11 +17,14 @@ jobs:
       - name: "Checkout latest branch"
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           ref: latest
           path: latest
       - name: "Update latest branch"
         run: |
-          git --git-dir latest reset --hard "$GITHUB_SHA"
+          cd latest
+          git merge --ff-only master
+          cd ..
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
