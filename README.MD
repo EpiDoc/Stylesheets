@@ -87,25 +87,27 @@ The parameters currently defined include:
 		text is tagged using <lg> and <l> elements [instead of <ab>] then
 		edition is formatted and numbered in verse lines rather than
 		epigraphic lines)
-  $bibliography:
-	  the default value is 'none', but in this parameter you can set the Stylesheets
-	  to look eiterh at a local TEI encoded bibliography file with the
-	  value 'localTEI' (the path to which should be defined in $localbibl) or
-	  look at a Zotero Library openly accessible online, setting the
-	  parameter to 'zotero' and taking care to set also the other
-	  parameters starting with $Zotero
+	$bibliography:
+		the default value is 'none', but in this parameter you can set the Stylesheets
+		to look eiterh at a local TEI encoded bibliography file with the
+		value 'localTEI' (the path to which should be defined in $localbibl) or
+		look at a Zotero Library openly accessible online, setting the
+		parameter to 'zotero' and taking care to set also the other
+		parameters starting with $Zotero
 	$localbibl:
-	   if you selected 'localTEI' as a value for $bibliography, than in this paramter
-	   you can set the relative path to this file. As an example it assumes that this will be
-	   in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
+		if you selected 'localTEI' as a value for $bibliography, than in this paramter
+		you can set the relative path to this file. As an example it assumes that this will be
+		in ../BIBLIOGRAPHY.xml, but it needs not to be there, simply set it to the correct relative path.
 	$ZoteroUorG:
-	    values are 'groups' (default) or 'users'. If the
-	     Zotero bibliography is used, select whether it is a group library or a user's library
+		values are 'groups' (default) or 'users'. If the
+		Zotero bibliography is used, select whether it is a group library or a user's library
 	$ZoteroKey:
-	      value is free for you to set based on the key identifying your library in Zotero,
-	     there is a default on 247748, which is the EAGLE group bibliography
+		value is free for you to set based on the key identifying your library in Zotero,
+		there is a default on 247748, which is the EAGLE group bibliography
 	$ZoteroNS:
-	     deafualt value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
+		default value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only
+		if selected. You can set it to any prefix you are using in your Zotero library.
 	$ZoteroStyle:
-	  value is the name of the desired CSL registered style in the
-	  Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not specify this parameter
+		value is the name of the desired CSL registered style in the
+		Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not
+		specify this parameter
