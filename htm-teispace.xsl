@@ -9,7 +9,7 @@
        <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
       <xsl:choose>
-          <xsl:when test="$parm-leiden-style = 'london'">
+          <xsl:when test="$parm-leiden-style = ('london','medcyprus')">
             <i dir="ltr">
                <!-- Found in teispace.xsl -->
                <xsl:call-template name="space-content-1">

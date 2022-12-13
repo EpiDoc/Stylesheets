@@ -52,7 +52,7 @@
             <!-- Found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>
             <xsl:if
-                test="$parm-leiden-style='london' and ancestor::node()[@part='M' or @part='I']
+                test="$parm-leiden-style= ('london','medcyprus') and ancestor::node()[@part='M' or @part='I']
                and position()=last()">
                <xsl:text>-</xsl:text>
             </xsl:if><xsl:text>)</xsl:text>

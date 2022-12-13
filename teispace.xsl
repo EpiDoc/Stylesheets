@@ -89,7 +89,7 @@
                  </xsl:call-template>
                </xsl:when>
                
-                <xsl:when test="$parm-leiden-style='london'">
+                <xsl:when test="$parm-leiden-style= ('london','medcyprus')">
                   <xsl:choose>
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->

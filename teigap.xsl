@@ -19,7 +19,7 @@
                <xsl:when test="$leidenStyle = 'panciera' and $gapReason='illegible'">
                    <xsl:text>+</xsl:text>
                </xsl:when>
-               <xsl:when test="$leidenStyle='london'">
+               <xsl:when test="$leidenStyle= ('london','medcyprus')">
                    <xsl:text>&#xb7;</xsl:text>
                </xsl:when>
                <xsl:otherwise>
@@ -152,7 +152,7 @@
          </xsl:otherwise>
       </xsl:choose>
       <xsl:if
-         test="$parm-leiden-style='london' and preceding-sibling::node()[1][@part='M' or @part='I'] and not($parm-edition-type='diplomatic')">
+         test="$parm-leiden-style= ('london','medcyprus') and preceding-sibling::node()[1][@part='M' or @part='I'] and not($parm-edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
 
@@ -188,7 +188,7 @@
       </xsl:if>
 
       <xsl:if
-         test="$parm-leiden-style='london' and following-sibling::node()[1][@part='M' or @part='F'] and not($parm-edition-type='diplomatic')">
+         test="$parm-leiden-style= ('london','medcyprus') and following-sibling::node()[1][@part='M' or @part='F'] and not($parm-edition-type='diplomatic')">
          <xsl:text>-</xsl:text>
       </xsl:if>
 
@@ -263,14 +263,14 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'london' and not($parm-edition-type='diplomatic')">
+               <xsl:when test="$parm-leiden-style = ('london','medcyprus') and not($parm-edition-type='diplomatic')">
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> ? </xsl:text>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'london'">
+               <xsl:when test="$parm-leiden-style = ('london','medcyprus')">
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
@@ -345,7 +345,7 @@
                         <xsl:text>c. </xsl:text>
                         <xsl:value-of select="@quantity"/>
                      </xsl:when>
-                     <xsl:when test="$parm-leiden-style = 'london'">
+                     <xsl:when test="$parm-leiden-style = ('london','medcyprus')">
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:value-of select="$cur-dot"/>
                         <xsl:text> </xsl:text>
@@ -445,7 +445,7 @@
                   <xsl:text> - </xsl:text>
                   <xsl:value-of select="@atMost"/>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'london'">
+               <xsl:when test="$parm-leiden-style = ('london','medcyprus')">
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:value-of select="$cur-dot"/>
                   <xsl:text> </xsl:text>
@@ -507,7 +507,7 @@
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
-               <xsl:when test="$parm-leiden-style = 'london'">
+               <xsl:when test="$parm-leiden-style = ('london','medcyprus')">
                   <xsl:text>---</xsl:text>
                </xsl:when>
                <xsl:when test="$parm-leiden-style =('panciera','eagletxt') and not(following-sibling::t:lb)">
