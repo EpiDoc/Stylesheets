@@ -28,8 +28,9 @@
 
    <xsl:template match="t:add">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-          <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
+          <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') or ($parm-leiden-style='medcyprus' and $parm-edition-type!='diplomatic')">
             <xsl:choose>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -51,6 +52,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:choose>
+               <xsl:when test="$parm-leiden-style='medcyprus' and $parm-edition-type='diplomatic'"/> <!-- and parent::t:subst ? -->
                <xsl:when test="parent::t:subst or @place='overstrike'">
                   <xsl:text>«</xsl:text>
                </xsl:when>
@@ -64,7 +66,7 @@
       <xsl:call-template name="cert-low"/>
 
       <xsl:choose>
-         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')">
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') or ($parm-leiden-style='medcyprus' and $parm-edition-type!='diplomatic')">
             <xsl:choose>
                <!-- if my parent is subst which in turn is in the appcrit-part of a further app-like element 
                   (i.e. my ancestor is reg, corr, rdg, or del[corrected]), then include value of my sibling del in parens -->
@@ -96,7 +98,8 @@
          </xsl:when>
           <xsl:when test="$parm-leiden-style=('petrae','iospe')">
             <xsl:text>/</xsl:text>
-         </xsl:when>
+          </xsl:when>
+         <xsl:when test="$parm-leiden-style='medcyprus' and $parm-edition-type='diplomatic'"/> <!-- and parent::t:subst ? -->
          <xsl:when test="parent::t:subst or @place='overstrike'">
             <xsl:text>»</xsl:text>
          </xsl:when>
@@ -111,6 +114,7 @@
       <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:if test="$parm-apparatus-style = 'ddbdp'">
          <xsl:if test="@rend = 'slashes' or @rend = 'cross-strokes'">
@@ -149,7 +153,7 @@
                   </xsl:otherwise>
               </xsl:choose>
           </xsl:when>
-          <xsl:when test="parent::t:subst"/>
+          <xsl:when test="parent::t:subst and ($parm-leiden-style!='medcyprus' or ($parm-leiden-style='medcyprus' and $parm-edition-type='diplomatic'))"/>
          <xsl:otherwise>
             <xsl:text>&#x27e6;</xsl:text>
             <xsl:apply-templates/>

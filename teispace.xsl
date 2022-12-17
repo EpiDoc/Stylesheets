@@ -10,8 +10,7 @@
    <xsl:template match="t:space">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
-      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
       <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>
@@ -20,7 +19,9 @@
             <xsl:choose>
                <xsl:when test="@unit='line'">
                   <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+                  <xsl:if test="$parm-leiden-style!='medcyprus'">
                   <xsl:call-template name="dip-space"/>
+                  </xsl:if>
                </xsl:when>
                <xsl:when test="@unit='character' or not(@unit)">
                   <xsl:variable name="sp-ext">
@@ -89,7 +90,37 @@
                  </xsl:call-template>
                </xsl:when>
                
-                <xsl:when test="$parm-leiden-style= ('london','medcyprus')">
+               <xsl:when test="$parm-leiden-style='medcyprus'">
+                  <xsl:choose>
+                     <xsl:when test="@extent = 'unknown'">
+                        <i> <sup>vac</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="@quantity = string(1) and @unit='character'">
+                        <i> <sup>v</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="@quantity = string(2) and @unit='character'">
+                        <i> <sup>vv</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="@quantity = string(3) and @unit='character'">
+                        <i> <sup>vvv</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="contains('45', @quantity) and @unit='character'">
+                        <i> <sup>vac</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="@quantity &gt;= 6 and @unit='character'">
+                        <i> <sup>vacat</sup> </i>
+                     </xsl:when>
+                     <xsl:when test="@unit='line'">
+                        <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
+                        <i> <sup>vacat</sup> </i>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <i> <sup>vac</sup> </i>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:when>
+               
+               <xsl:when test="$parm-leiden-style='london'">
                   <xsl:choose>
                      <xsl:when test="@extent = 'unknown'">
                         <!-- Found in [htm|txt]-teispace.xsl -->
@@ -208,8 +239,7 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="($parm-edn-structure = 'creta')"> <!-- added for creta -->
-                  <xsl:choose>
+               <xsl:when test="($parm-edn-structure = 'creta')"> <xsl:choose>
                      <xsl:when test="@unit='character'">
                         <xsl:choose>
                            <xsl:when test="@quantity='1'">

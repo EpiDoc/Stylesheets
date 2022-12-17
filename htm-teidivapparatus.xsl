@@ -241,10 +241,11 @@
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
     
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
     <xsl:variable name="biblio" select="tokenize(substring-after(., '#'), ' #')"/>
     
     <xsl:choose>
-      <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+      <xsl:when test="$parm-edn-structure=('inslib', 'sample') or $parm-leiden-style = 'medcyprus'">
         <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
         <xsl:for-each select="$biblio">
           <xsl:variable name="bib" select="normalize-space(.)"/>
@@ -262,21 +263,32 @@
                   <xsl:when test="$bibl//t:bibl[@type='abbrev']">
                     <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
                   </xsl:when>
+                  <xsl:when test="$bibl//t:title[@type='short']">
+                    <xsl:apply-templates select="$bibl//t:title[@type='short'][1]"/>
+                  </xsl:when>
                   <xsl:otherwise>
                     <xsl:choose>
                       <xsl:when test="$bibl//t:*[@type='abbrev']">
                         <xsl:apply-templates select="$bibl//t:*[@type='abbrev']"/>
                       </xsl:when>
-                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']]">
-                        <xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title)]">
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
+                        <i><xsl:value-of select="$bibl/@xml:id"/></i>
+                      </xsl:when>
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']] or ($bibl//t:name[@type='surname'] and $bibl//t:date)">
+                        <xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title[not(@type='short')])]">
                           <xsl:apply-templates select="."/>
                           <xsl:if test="position()!=last()"> – </xsl:if>
                         </xsl:for-each>
                         <xsl:text> </xsl:text>
                         <xsl:apply-templates select="$bibl//t:date"/>
                       </xsl:when>
-                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
-                        <i><xsl:value-of select="$bibl/@xml:id"/></i>
+                      <xsl:when test="$bibl//t:surname and $bibl//t:date">
+                        <xsl:for-each select="$bibl//t:surname[not(parent::*/preceding-sibling::t:title[not(@type='short')])]">
+                          <xsl:apply-templates select="."/>
+                          <xsl:if test="position()!=last()"> – </xsl:if>
+                        </xsl:for-each>
+                      <xsl:text> </xsl:text>
+                        <xsl:apply-templates select="$bibl//t:date"/>
                       </xsl:when>
                       <xsl:otherwise>
                         <xsl:value-of select="$bib"/>
