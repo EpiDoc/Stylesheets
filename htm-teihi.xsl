@@ -65,8 +65,8 @@
                   <xsl:when test="$parm-leiden-style=('petrae','iospe')">
                      <xsl:attribute name="class">petraeligature</xsl:attribute>
                   </xsl:when>
-                  <xsl:when test="$parm-edn-structure = 'inslib' or ($parm-leiden-style = 'medcyprus' and $parm-edition-type='diplomatic')">
-                     <xsl:attribute name="class">inslibligature</xsl:attribute>
+                  <xsl:when test="$parm-edn-structure = 'inslib' or $parm-leiden-style=('london','usep') or ($parm-leiden-style = 'medcyprus' and $parm-edition-type='diplomatic')">
+                     <xsl:attribute name="class">curvedligature</xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
                      <xsl:attribute name="class">ligature</xsl:attribute>

@@ -17,7 +17,6 @@
    <xsl:template match="t:g">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
       <xsl:choose>
