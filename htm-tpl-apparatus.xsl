@@ -133,6 +133,7 @@
 
   <!-- called from htm-teidivedition.xsl -->
   <xsl:template name="tpl-iospe-apparatus">
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
     <xsl:if test="not(descendant::t:div[@type='textpart'][@n]) and
       (.//t:choice[child::t:corr] or (.//t:supplied[@reason='omitted'] and not($parm-leiden-style='medcyprus')) or .//t:subst or .//t:hi[@rend=('subscript','superscript')])">
       <xsl:variable name="listapp">
