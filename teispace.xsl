@@ -10,8 +10,11 @@
    <xsl:template match="t:space">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
-      <xsl:if test="EDF:f-wwrap(.) = true()">
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
+      <!-- UNLESS diplomatic -->
+      <!-- or UNLESS project MedCyprus -->
+      <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
          <xsl:text>- </xsl:text>
       </xsl:if>
       <xsl:choose>

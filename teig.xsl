@@ -3,7 +3,9 @@
 
    <xsl:template name="lb-dash">
       <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows g -->
-      <xsl:if test="EDF:f-wwrap(.) = true()">
+      <!-- UNLESS diplomatic -->
+      <!-- or UNLESS project MedCyprus -->
+      <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
          <xsl:text>- </xsl:text>
       </xsl:if>
    </xsl:template>

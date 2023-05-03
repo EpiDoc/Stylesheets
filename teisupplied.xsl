@@ -84,7 +84,9 @@
             <!-- Found in tpl-cert-low.xsl -->
             <xsl:call-template name="cert-low"/>
             <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows supplied -->
-            <xsl:if test="EDF:f-wwrap(.) = true()">
+            <!-- UNLESS diplomatic -->
+            <!-- or UNLESS project MedCyprus -->
+            <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
                <!-- unless this is in the app part of a choice/subst/app in ddbdp
                       or an EDH leiden style, which doesn't use hyphens-->
                 <xsl:if test="(not($parm-leiden-style=('ddbdp','dclp') and (ancestor::t:*[local-name()=('reg','corr','rdg')
