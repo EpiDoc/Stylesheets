@@ -12,7 +12,11 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
-      <xsl:call-template name="lb-dash"/>
+      <xsl:call-template name="lb-dash">
+        <!-- params needed for excluding diplomatic and medCY project -->
+        <xsl:with-param name="parm-edition-type"/>
+        <xsl:with-param name="parm-leiden-style"/>
+      </xsl:call-template>
       <xsl:call-template name="w-space"/>
     
      <xsl:choose>

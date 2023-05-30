@@ -2,6 +2,8 @@
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
    <xsl:template name="lb-dash">
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows g -->
       <!-- UNLESS diplomatic -->
       <!-- or UNLESS project MedCyprus -->
