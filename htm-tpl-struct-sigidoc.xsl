@@ -1017,7 +1017,8 @@
     </xsl:choose>
   </xsl:template>
   
-  <xsl:template match="t:ref"><!-- for external (not <placeName/>) and internal links -->
+  <!-- ATTENTION commented out by MS because this is now in the htm-teiref.xsl stylesheet since EpiDoc 3.9 -->
+<!--  <xsl:template match="t:ref"><!-\- for external (not <placeName/>) and internal links -\->
     <a>
       <xsl:attribute name="href">
         <xsl:value-of select="@target"/>
@@ -1025,7 +1026,7 @@
       <xsl:attribute name="target">_blank</xsl:attribute>
       <xsl:apply-templates/>
     </a>
-  </xsl:template>
+  </xsl:template>-->
   
   <xsl:template match="t:idno[@type='PBW']"><!-- pointing to the boulloterion ID page on the PBW -->
     <a>
@@ -1037,7 +1038,8 @@
     </a>
   </xsl:template>
   
-  <xsl:template match="t:ptr[@target]">
+  <!-- ATTENTION commented out by MS because this is now in the htm-teibibl.xsl stylesheet since EpiDoc 3.9 -->
+<!--  <xsl:template match="t:ptr[@target]">
     <xsl:variable name="bibl-ref" select="@target"/>
     <xsl:variable name="bibl" select="document(concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml'))//t:bibl[@xml:id=$bibl-ref][not(@sameAs)]"/>
     <a>
@@ -1056,7 +1058,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </a>
-  </xsl:template>
+  </xsl:template>-->
   
   <!-- arrows pointing to previous/next seal: from "Cretan Inscriptions" project -->
   <xsl:template name="navigation">
