@@ -25,5 +25,11 @@
         <xsl:call-template name="cert-low"/>
         <xsl:text>)</xsl:text>
     </xsl:template>
+    
+    <xsl:template name="supplied-similar"><!-- added by SigiDoc -->
+        <span class="underline">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
 
 </xsl:stylesheet>

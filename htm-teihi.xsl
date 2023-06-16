@@ -139,7 +139,7 @@
                <xsl:when test="$parm-leiden-style = 'iospe'">
                   <xsl:apply-templates/>
                </xsl:when>
-                <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
+                <xsl:when test="$parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch' or $parm-leiden-style = 'sigidoc'"><!-- modified by SigiDoc -->
                   <span style="vertical-align:sub;">
                      <xsl:apply-imports/>
                   </span>

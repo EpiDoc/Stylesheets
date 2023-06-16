@@ -13,6 +13,10 @@
     <xsl:call-template name="unicode-underline"/>
   </xsl:template>
   
+  <xsl:template name="supplied-similar"><!-- added by SigiDoc -->
+    <xsl:call-template name="unicode-underline"/>
+  </xsl:template>
+  
   <xsl:template name="unicode-underline">
     <xsl:analyze-string select="." regex="(\p{{L}}|\s)">
       <xsl:matching-substring>
