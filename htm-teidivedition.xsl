@@ -148,7 +148,7 @@
             <br/>
       </xsl:for-each>
 
-      <br/>
+      <!--<br/>-->
       <xsl:apply-templates/>
         <xsl:if test="$parm-internal-app-style = 'iospe' and @n">
            <!-- Template found in htm-tpl-apparatus.xsl -->
