@@ -49,7 +49,7 @@
         </xsl:variable>
 
         <xsl:choose>
-            <xsl:when test="@rend='ligature' and not($parm-edn-structure='inslib')">
+            <xsl:when test="@rend='ligature' and not($parm-leiden-style=('medcyprus','london','usep')) and not($parm-edn-structure='inslib')">
                 <xsl:choose>
                     <xsl:when test="$parm-leiden-style='seg'">
                         <xsl:if test="string-length(normalize-space(.))=2">

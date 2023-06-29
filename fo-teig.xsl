@@ -6,8 +6,12 @@
   <xsl:template match="t:g">
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- added for creta -->
-      <xsl:call-template name="lb-dash"/>
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+      <xsl:call-template name="lb-dash">
+        <!-- params needed for excluding diplomatic and medCY project -->
+        <xsl:with-param name="parm-edition-type"/> 
+        <xsl:with-param name="parm-leiden-style"/>
+      </xsl:call-template>
       <xsl:call-template name="w-space"/>
     
      <xsl:choose>
@@ -27,7 +31,7 @@
          <xsl:when test="$parm-leiden-style = 'rib'">
              <xsl:call-template name="g-rib"/>
          </xsl:when>
-         <xsl:when test="$parm-edn-structure = 'creta'">     <!-- added for creta -->
+         <xsl:when test="$parm-edn-structure = 'creta'">
          <xsl:call-template name="g-creta"/>
        </xsl:when>
          <xsl:when test="$parm-edition-type = 'diplomatic'">

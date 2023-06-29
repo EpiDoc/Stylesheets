@@ -69,7 +69,9 @@
             mode="parse-name-year"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="document($source_location, $root)" mode="parse-name-year"/>
+          <xsl:if test="fn:doc-available($source_location)">
+            <xsl:apply-templates select="document($source_location, $root)" mode="parse-name-year"/>
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
     </t:ref>
@@ -167,7 +169,7 @@
   <xsl:template match="t:div[@type='apparatus']" priority="1">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <div id="apparatus">
-      <h2>apparatus</h2>
+      <h2>Apparatus</h2>
       <p>
         <xsl:apply-templates/>
       </p>
@@ -239,38 +241,54 @@
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
     
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
     <xsl:variable name="biblio" select="tokenize(substring-after(., '#'), ' #')"/>
     
     <xsl:choose>
-      <xsl:when test="$parm-edn-structure='inslib' or $parm-edn-structure='sample'">
+      <xsl:when test="$parm-edn-structure=('inslib', 'sample') or $parm-leiden-style = 'medcyprus'">
+        <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
         <xsl:for-each select="$biblio">
           <xsl:variable name="bib" select="normalize-space(.)"/>
           <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-          <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
-          <xsl:variable name="bibl" select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"/>
+          <xsl:variable name="bibl">
+            <xsl:if test="doc-available($bibliography-al)">
+              <xsl:sequence select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"></xsl:sequence>
+            </xsl:if>
+          </xsl:variable>
           <xsl:if test="position()=1"><xsl:text> </xsl:text></xsl:if>
           <xsl:choose>
-            <xsl:when test="doc-available($bibliography-al) = fn:true() and $bibl">
+            <xsl:when test="doc-available($bibliography-al) and $bibl">
               <a href="../concordance/bibliography/{$bib}.html" target="_blank">
                 <xsl:choose>
                   <xsl:when test="$bibl//t:bibl[@type='abbrev']">
                     <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
+                  </xsl:when>
+                  <xsl:when test="$bibl//t:title[@type='short']">
+                    <xsl:apply-templates select="$bibl//t:title[@type='short'][1]"/>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:choose>
                       <xsl:when test="$bibl//t:*[@type='abbrev']">
                         <xsl:apply-templates select="$bibl//t:*[@type='abbrev']"/>
                       </xsl:when>
-                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']]">
-                        <xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title)]">
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
+                        <i><xsl:value-of select="$bibl/@xml:id"/></i>
+                      </xsl:when>
+                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']] or ($bibl//t:name[@type='surname'] and $bibl//t:date)">
+                        <xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title[not(@type='short')])]">
                           <xsl:apply-templates select="."/>
                           <xsl:if test="position()!=last()"> – </xsl:if>
                         </xsl:for-each>
                         <xsl:text> </xsl:text>
                         <xsl:apply-templates select="$bibl//t:date"/>
                       </xsl:when>
-                      <xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
-                        <i><xsl:value-of select="$bibl/@xml:id"/></i>
+                      <xsl:when test="$bibl//t:surname and $bibl//t:date">
+                        <xsl:for-each select="$bibl//t:surname[not(parent::*/preceding-sibling::t:title[not(@type='short')])]">
+                          <xsl:apply-templates select="."/>
+                          <xsl:if test="position()!=last()"> – </xsl:if>
+                        </xsl:for-each>
+                      <xsl:text> </xsl:text>
+                        <xsl:apply-templates select="$bibl//t:date"/>
                       </xsl:when>
                       <xsl:otherwise>
                         <xsl:value-of select="$bib"/>

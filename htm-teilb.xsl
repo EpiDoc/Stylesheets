@@ -80,16 +80,17 @@
                         <!--   *or unless* the second part of an app in ddbdp  -->
                         <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and
                             (ancestor::t:corr or ancestor::t:reg or ancestor::t:rdg or ancestor::t:del[parent::t:subst])"/>
-                        <!--  *unless* previous line ends with space / g / supplied[reason=lost]  -->
+                        <!--  *unless* previous line ends with space / g / supplied[reason=lost]  (if not MedCyprus project) -->
                         <!-- in which case the hyphen will be inserted before the space/g r final ']' of supplied
                             (tested by EDF:f-wwrap in functions.xsl, which is called by teisupplied.xsl, teig.xsl and teispace.xsl) -->
                         <xsl:when
                             test="
-                            preceding-sibling::node()[1][local-name() = 'space' or
+                            (preceding-sibling::node()[1][local-name() = 'space' or
                             local-name() = 'g' or (local-name() = 'supplied' and @reason = 'lost') or
                             (normalize-space(.) = ''
                             and preceding-sibling::node()[1][local-name() = 'space' or
-                            local-name() = 'g' or (local-name() = 'supplied' and @reason = 'lost')])]"/>
+                            local-name() = 'g' or (local-name() = 'supplied' and @reason = 'lost')])])
+                            and not($parm-leiden-style='medcyprus')"/>
                         <!-- *or unless* this break is accompanied by a paragraphos mark -->
                         <!-- in which case the hypen will be inserted before the paragraphos by code in htm-teimilestone.xsl -->
                         <xsl:when
