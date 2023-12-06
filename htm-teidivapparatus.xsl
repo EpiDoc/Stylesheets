@@ -169,7 +169,7 @@
   <xsl:template match="t:div[@type='apparatus']" priority="1">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <div id="apparatus">
-      <h2>Apparatus</h2>
+      <h4>Apparatus criticus</h4>
       <p>
         <xsl:apply-templates/>
       </p>

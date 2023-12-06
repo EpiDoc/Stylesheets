@@ -24,7 +24,37 @@
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
       <xsl:choose>
-<!--         if text-display set, give priority to the content of g, if any-->
+<!-- **** TEMPORARY FIX FOR MEDCYPRUS TEMPLATE **** -->
+         <xsl:when test="$parm-leiden-style=('medcyprus')">
+            <xsl:variable name="symbol" select="substring-after(@ref,'#')"/>
+            <!-- if you are running this template outside EFES, change the path to the symbols authority list accordingly -->
+            <xsl:variable name="symbols-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/symbols.xml')"/>
+            <xsl:choose>
+               <xsl:when test="doc-available($symbols-al) = fn:true() and document($symbols-al)//t:glyph[@xml:id=$symbol]">
+                  <xsl:variable name="symbol-id" select="document($symbols-al)//t:glyph[@xml:id=$symbol]"/>
+                  <xsl:choose>
+                     <xsl:when test="$parm-edition-type='diplomatic' and $symbol-id//t:mapping[@type='glyph-display']">
+                        <xsl:value-of select="$symbol-id//t:mapping[@type='glyph-display']"/>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:value-of select="$symbol-id//t:mapping[@type='text-display']"/>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:choose>
+                     <xsl:when test="@ref">
+                        <xsl:value-of select="@ref"/>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         <!-- **** TEMPORARY FIX FOR MEDCYPRUS TEMPLATE - END **** -->
+         <!--         if text-display set, give priority to the content of g, if any-->
          <xsl:when test="$parm-glyph-variant = 'text-display'">
             <xsl:choose>
                <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
@@ -60,7 +90,7 @@
    <xsl:param name="g"></xsl:param>
    
    <!--      stores the chardecl: if locally included, uses that one, otherways uses the common one, i.e. local definitions override -->
-   <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else doc('charDecl.xml')"/>
+   <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else (if (doc('charDecl.xml')) then doc('charDecl.xml') else doc(concat('file:',system-property('user.dir'),'/webapps/ROOT/kiln/stylesheets/epidoc/charDecl.xml')))"/>
    <xsl:variable name="glyphID" select="EDF:refID(current()/@ref)"/>
    <xsl:choose>
       <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
@@ -102,7 +132,7 @@
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
          
-         <xsl:variable name="externalCharDecl" select="substring-before($parsedRef, '#')"/>
+         <xsl:variable name="externalCharDecl" select="if $parm-leiden-style='medcyprus' then concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/', substring-before($parsedRef, '#')) else substring-before($parsedRef, '#')"/>
          <xsl:choose>
             <xsl:when test="doc-available($externalCharDecl)">
                <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
