@@ -8,7 +8,7 @@
   
    <xsl:template match="t:facsimile">
       <xsl:choose>
-         <xsl:when select="$parm-edition-struct='medcyprus'"/>
+         <xsl:when test="$parm-edn-structure='medcyprus'"/>
          <xsl:otherwise>
             <xsl:apply-templates/>
          </xsl:otherwise>

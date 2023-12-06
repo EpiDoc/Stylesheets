@@ -132,7 +132,7 @@
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
          
-         <xsl:variable name="externalCharDecl" select="if $parm-leiden-style='medcyprus' then concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/', substring-before($parsedRef, '#')) else substring-before($parsedRef, '#')"/>
+         <xsl:variable name="externalCharDecl" select="if ($parm-leiden-style='medcyprus') then concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/', substring-before($parsedRef, '#')) else substring-before($parsedRef, '#')"/>
          <xsl:choose>
             <xsl:when test="doc-available($externalCharDecl)">
                <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
