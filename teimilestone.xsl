@@ -7,11 +7,11 @@
 
   <xsl:template match="t:milestone[@unit='block' or @unit='fragment']">
      <!-- adds pipe for block, flanked by spaces if not within word -->
-      <xsl:if test="not(ancestor::w)">
+      <xsl:if test="not(ancestor::t:w)">
          <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:text>|</xsl:text>
-      <xsl:if test="not(ancestor::w)">
+      <xsl:if test="not(ancestor::t:w)">
          <xsl:text> </xsl:text>
       </xsl:if>
   </xsl:template>
