@@ -63,18 +63,21 @@
      <p>
        <!--<b>Description of inscription: </b>
          <xsl:apply-templates select="//t:supportDesc" mode="medcyprus-dimensions"/>-->
-       <b>Type of inscription support: </b>
-       <xsl:apply-templates select="//t:objectType"/>
-       <br/><b>Placement in the monument: </b>
-       <xsl:apply-templates select="//t:support//t:rs[@type='placement']"/>
+       <b>Inscription support: </b>
+       <xsl:apply-templates select="//t:rs[@type='inscription-support']"/>
+       <br/><b>Placement within the building: </b>
+       <xsl:apply-templates select="//t:support//t:rs[@type='placement-building']"/>
        <br/><b>Dimensions: </b>
        <xsl:apply-templates select="//t:support//t:dimensions" mode="medcyprus-dimensions"/>
        <br/><b>Articulation of inscription in relation to the murals: </b>
        <xsl:apply-templates select="//t:layoutDesc" mode="medcyprus-dimensions"/>
        <br/><b>Letters: </b>
-       <xsl:apply-templates select="//t:handDesc" mode="medcyprus-dimensions"/>
+       <xsl:apply-templates select="//t:handDesc" mode="medcyprus-letter-height"/>
        <br/><b>Iconography: </b>
-       <xsl:apply-templates select="//t:decoDesc" mode="medcyprus-dimensions"/>
+       <xsl:for-each select="//t:rs[@type='iconography']">
+         <xsl:apply-templates select="." mode="medcyprus-dimensions"/>
+         <xsl:if test="position()!=last()">; </xsl:if>
+       </xsl:for-each>
      </p>
      
      <p><b>Visit to the monument: </b>
@@ -154,12 +157,24 @@
            <xsl:variable name="edtxt">
              <xsl:apply-templates select="//t:div[@type='edition']">
                <xsl:with-param name="parm-edition-type" select="'diplomatic'" tunnel="yes"/>
+             <xsl:with-param name="parm-verse-lines" select="'off'" tunnel="yes"/>
              </xsl:apply-templates>
            </xsl:variable>
            <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
            <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
          </div>
        </section>
+     <xsl:if test="//t:facsimile//t:graphic[@rend='primary'][1]">
+         <section>
+           <p class="title" data-section-title="data-section-title">
+             <a href="#"><i18n:text i18n:key="epidoc-xslt-medcyprus-image">Image</i18n:text></a></p>
+           <div class="content" id="primary_image" data-section-content="data-section-content">
+             <a href="/images/{//t:facsimile//t:graphic[@rend='primary'][1]/@url}" target="_blank">
+               <img src="/images/{//t:facsimile//t:graphic[@rend='primary'][1]/@url}" style="max-width:100%"/>
+             </a>
+           </div>
+         </section>
+       </xsl:if>
      </div>
 
      <div id="apparatus">
@@ -287,16 +302,23 @@
       </html>
    </xsl:template>
 
-   <xsl:template match="t:dimensions" mode="medcyprus-dimensions">
+   <xsl:template match="t:height[ancestor::t:handDesc][text()!='']" mode="medcyprus-letter-height">
+    <xsl:value-of select="."/>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="@unit"/>
+  </xsl:template>
+   
+  <xsl:template match="t:dimensions" mode="medcyprus-dimensions">
       <xsl:if test="//text()">
-         <xsl:if test="t:width/text()">w: 
-            <xsl:value-of select="t:width"/>
-            <xsl:if test="t:height/text()">
-               <xsl:text> x </xsl:text>
+        <xsl:if test="t:height/text()">
+          <xsl:if test="normalize-space(t:height/text()) != 'n/a'"><xsl:text>h: </xsl:text></xsl:if> 
+            <xsl:value-of select="t:height"/>
+            <xsl:if test="t:width/text()">
+              <xsl:text> x </xsl:text>
             </xsl:if>
          </xsl:if>
-         <xsl:if test="t:height/text()">h: 
-            <xsl:value-of select="t:height"/>
+         <xsl:if test="t:width/text()">w: 
+            <xsl:value-of select="t:width"/>
          </xsl:if>
          <xsl:if test="t:depth/text()">x d:
             <xsl:value-of select="t:depth"/>
@@ -305,6 +327,16 @@
             <xsl:value-of select="t:dim[@type='diameter']"/>
          </xsl:if>
       </xsl:if>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="@unit"/>
+    <xsl:if test="@scope">
+      <xsl:text> (</xsl:text>
+      <xsl:value-of select="replace(@scope, '_', ' ')"/>
+      <xsl:text>)</xsl:text>
+    </xsl:if>
+    <xsl:if test="following-sibling::t:dimensions">
+      <xsl:text>; </xsl:text>
+    </xsl:if>
    </xsl:template>
    
   <xsl:template match="t:placeName|t:origPlace|t:repository" mode="medcyprus-location">

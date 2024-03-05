@@ -6,4 +6,13 @@
 
    <xsl:template match="t:teiHeader"/>
   
+   <xsl:template match="t:facsimile">
+      <xsl:choose>
+         <xsl:when test="$parm-edn-structure='medcyprus'"/>
+         <xsl:otherwise>
+            <xsl:apply-templates/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
 </xsl:stylesheet>
