@@ -24,7 +24,7 @@
             <xsl:value-of select="translate(.,'աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցւփք','ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՒՓՔ')" />
          </xsl:when> 
          
-          <xsl:when test="$parm-edition-type = 'diplomatic' and ancestor::t:div[@type='edition'] and not(ancestor::t:head)">
+          <xsl:when test="$parm-edition-type = 'diplomatic' and ancestor::t:div[@type='edition'] and not(ancestor::t:head) and not($parm-leiden-style='sigidoc')">
             <xsl:variable name="apos">
                <xsl:text><![CDATA[']]></xsl:text>
             </xsl:variable>
@@ -39,6 +39,12 @@
              </xsl:choose>
             <!--<xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>-->
              <!-- &#x02bc;&#x02bd;&#x0301;&#x0302;&#x0303;&#x0308;&#x0340;&#x0341;&#x0342;&#x0343;&#x0344;&#x0345; -->
+         </xsl:when>
+         <xsl:when test="$parm-edition-type = 'diplomatic' and ancestor::t:div[@type='edition'] and not(ancestor::t:head) and $parm-leiden-style = 'sigidoc'">
+            <xsl:variable name="apos">
+               <xsl:text><![CDATA[']]></xsl:text>
+            </xsl:variable>
+            <xsl:value-of select="."/>
          </xsl:when>
          <!-- omit space between abbreviation and (deleted) "f." or "l." from EDH names mode -->
           <xsl:when test="$parm-leiden-style='edh-names' and 

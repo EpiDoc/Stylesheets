@@ -273,7 +273,8 @@ bibliography. All examples only cater for book and article.
 		<xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
 		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
 		<xsl:choose>
-			<xsl:when test="$parm-edn-structure=('inslib', 'sample') or $parm-leiden-style = 'medcyprus'">
+			<!-- MODIFIED for SigiDoc by MS 2023-06-16 -->
+			<xsl:when test=" $parm-leiden-style = 'medcyprus' or $parm-edn-structure='inslib' or $parm-edn-structure='sample' or $parm-edn-structure='sigidoc'">
 			 <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
 				<xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
 				<xsl:variable name="bibl-ref" select="translate(@target, '#', '')"/>
