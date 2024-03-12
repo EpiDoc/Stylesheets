@@ -24,7 +24,7 @@
     <value>seg</value>
     <value>sammelbuch</value>
     <value>eagletxt</value>
-    <value on="yes">sigidoc</value>
+    <value>sigidoc</value>
   </parameter>
   
   <parameter>
