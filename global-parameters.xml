@@ -9,21 +9,22 @@
   
   <parameter>
     <name>leiden-style</name>
-    <value>ddbdp</value>
     <value>dclp</value>
+    <value>ddbdp</value>
     <value>dohnicht</value>
+    <value>eagletxt</value>
     <value>edh-itx</value>
     <value>edh-names</value>
     <value>edh-web</value> 
     <value>ila</value>
     <value>iospe</value>
     <value>london</value>
+    <value>medcyprus</value>
     <value on="yes">panciera</value>
     <value>petrae</value>
     <value>rib</value>
     <value>seg</value>
     <value>sammelbuch</value>
-    <value>eagletxt</value>
     <value>sigidoc</value>
   </parameter>
   
@@ -31,16 +32,17 @@
     <name>edn-structure</name>
     <value on="yes">default</value>
     <value>ddbdp</value>
-    <value>hgv</value>
-    <value>inslib</value>
-    <value>iospe</value>
+    <value>eagle</value>
     <value>edh</value>
     <value>edh-db</value>
+    <value>hgv</value>
+    <value>igcyr</value>
+    <value>inslib</value>
+    <value>iospe</value>
+    <value>medcyprus</value>
     <value>rib</value>
     <value>sammelbuch</value>
     <value>sample</value>
-    <value>eagle</value>
-    <value>igcyr</value>
   </parameter>
   
   <parameter>
@@ -60,8 +62,9 @@
     <value on="yes">none</value>
     <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
     <value>iospe</value>
+    <value>medcyprus</value>
     <value>fullex</value> <!--this example uses all the currently specified internal apparatus features-->
-<value>minex</value> <!--this is the same as above but only uses some common examples-->
+    <value>minex</value> <!--this is the same as above but only uses some common examples-->
   </parameter>
   
   <parameter>
