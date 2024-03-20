@@ -7,6 +7,7 @@
    <xsl:template match="t:teiHeader"/>
   
    <xsl:template match="t:facsimile">
+      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="$parm-edn-structure='medcyprus'"/>
          <xsl:otherwise>
