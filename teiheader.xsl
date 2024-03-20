@@ -6,7 +6,8 @@
 
    <xsl:template match="t:teiHeader"/>
   
-   <xsl:template match="t:facsimile">
+   <!-- The template below clashed with and so has been merged with one in htm-teifacsimile.xsl 2024-03-20 -->
+   <!--<xsl:template match="t:facsimile">
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="$parm-edn-structure='medcyprus'"/>
@@ -14,6 +15,6 @@
             <xsl:apply-templates/>
          </xsl:otherwise>
       </xsl:choose>
-   </xsl:template>
+   </xsl:template>-->
 
 </xsl:stylesheet>
