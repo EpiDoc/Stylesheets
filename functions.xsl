@@ -43,6 +43,7 @@
     </xsl:function>
 
     <xsl:function name="EDF:f-wwrap">
+        <!-- "Find Word Wrap" function -->
         <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
         <xsl:param name="ww-context"/>
         <xsl:choose>
