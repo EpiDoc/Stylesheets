@@ -68,8 +68,18 @@
              <xsl:text>|</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-             <br/>
-             <xsl:value-of select="@rend"/>
+             <!-- same as @unit='fragment' or @unit='block' -->
+             <!-- adds pipe for block, flanked by spaces if not within word, and with @n as exposant if exists -->
+             <xsl:if test="not(ancestor::t:w)">
+                <xsl:text> </xsl:text>
+             </xsl:if>
+             <xsl:text>|</xsl:text>
+             <xsl:if test="@n">
+                <sup><xsl:value-of select="@n"/></sup>
+             </xsl:if>  
+             <xsl:if test="not(ancestor::t:w)">
+                <xsl:text> </xsl:text>
+             </xsl:if>
           </xsl:otherwise>
        </xsl:choose>
    </xsl:template>
