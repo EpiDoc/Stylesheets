@@ -831,7 +831,71 @@
           </tr>
         </table>-->
       </div>
-
+      <xsl:if test="//t:graphic[@type='RTI']">
+        <div class="rti">
+          <h4 class="iospe">RTI</h4>
+          <div class="rtitabs">
+            <xsl:choose>
+              <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI'] and //t:facsimile//t:surface[@type='reverse']//t:graphic[@type='RTI']">
+                <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI']/@url}">
+                  obverse
+                </p>
+                <p id="rti_tab_2" class="rtitab" data-url="{//t:facsimile//t:surface[@type='']//t:graphic[@type='RTI']/@url}">
+                  reverse
+                </p>
+              </xsl:when>
+              <xsl:otherwise>
+                <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface//t:graphic[@type='RTI']/@url}">
+                  <xsl:value-of select="//t:facsimile//t:surface[.//t:graphic[@type='RTI']]/@type"/>
+                </p>
+              </xsl:otherwise>
+            </xsl:choose>
+          </div>
+          <div class="relight">
+          </div>
+          
+          
+          <script> 
+            $(document).ready(function(){
+            
+            var url = $(".rtitab.active").attr('data-url');
+            var Relight = new RelightViewer('.relight', { url: url});
+            // newRelight(url);
+            
+            $(".rtitab").on("click",function(){
+            if($(this).hasClass("active")){}
+            else{
+            $(".rtitab.active").toggleClass("active");
+            $(this).toggleClass("active")
+            $(".relight").empty()
+            url = $(this).attr('data-url')
+            var Relight = new RelightViewer('.relight', { url: url});
+            
+            }
+            
+            });
+            
+            $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(e) {
+            var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+            var event = state ? 'FullscreenOn' : 'FullscreenOff';
+            if(event == "FullscreenOff"){
+            newRelight()
+            }
+            });
+            
+            }); function newRelight(){
+            console.log("new Relight");
+            var url = $(".rtitab.active").attr('data-url');
+            $(".relight").empty()
+            var Relight = new RelightViewer('.relight', { url: url});
+            
+            };
+            
+            
+          </script>
+        </div>
+      </xsl:if>
+      
       <h4 class="iospe"><i><i18n:text i18n:key="edition">Edition</i18n:text></i></h4>
       <div class="section-container tabs" data-section="tabs">
         <section>
