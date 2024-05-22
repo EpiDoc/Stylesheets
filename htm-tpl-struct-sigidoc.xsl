@@ -36,15 +36,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="general-layout">General layout</i18n:text></dt>
-        <dd>
-          <xsl:choose>
-            <xsl:when test="//t:TEI//t:teiHeader//t:fileDesc//t:sourceDesc//t:msDesc//t:physDesc//t:objectDesc//t:layoutDesc//t:layout[@n='whole']//t:rs[@type='layout']//t:seg//text()">
-              <xsl:apply-templates select="//t:TEI//t:teiHeader//t:fileDesc//t:sourceDesc//t:msDesc//t:physDesc//t:objectDesc//t:layoutDesc//t:layout[@n='whole']//t:rs[@type='layout']//t:seg"/>
-            </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
-          </xsl:choose>
-        </dd>
+        <!--MF deleted General Layout-->
         <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
         <dd>
           <xsl:choose xml:space="preserve">
@@ -289,22 +281,32 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt> <!--MF changed according to the new markup of listPerson; listOrg still has to be done-->
         <dd>
+          <xsl:variable name="forename" select="//t:persName[@xml:lang='en']/t:forename"/>
+          <xsl:variable name="surname" select="//t:persName[@xml:lang='en']/t:surname"/>
           <xsl:choose>
-            <xsl:when test="//t:author//t:roleName//t:seg//text()">
-              <xsl:apply-templates select="//t:author//t:roleName//t:seg"/>
+            <xsl:when test="//t:persName[@xml:lang='en'][ancestor::t:person]">
+              <xsl:apply-templates select="//t:persName[@xml:lang='en'][ancestor::t:person]"/>
             </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
+            <xsl:when test="$surname">
+              <xsl:value-of select="concat($forename, ' ', $surname)"/>
+            </xsl:when>
+            <xsl:when test="$forename">
+              <xsl:value-of select="$forename"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>―</xsl:text>
+            </xsl:otherwise>
           </xsl:choose>
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text></dt>
+          <!--MF changed according to the new markup of listPerson; listOrg still has to be done; tokenization still has to be done-->
         <dd>
           <xsl:choose>
-            <xsl:when test="//t:author//t:roleName//t:interp//text()">
-              <xsl:apply-templates select="//t:author//t:roleName//t:interp"/>
+            <xsl:when test="//t:person/@role[ancestor::t:listPerson]">
+              <xsl:apply-templates select="//t:person/@role[ancestor::t:listPerson]"/>
             </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="place-origin">Place of origin</i18n:text></dt>
@@ -945,7 +947,7 @@
         <xsl:apply-templates select="$transtxt" mode="sqbrackets"/>
       </div>
       
-      <div id="bibliography"> <!--is a div here necessary?????-->
+      <div id="bibliography">
         <h4 class="iospe"><i18n:text i18n:key="references">References</i18n:text></h4>
       <dl class="iospe">  
         <dt width="150" align="left"><i18n:text i18n:key="editions"><i>Edition(s)</i></i18n:text></dt>
@@ -954,18 +956,9 @@
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='edition']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='edition']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
+            <xsl:otherwise><i><i18n:text i18n:key="unpublished">Unpublished</i18n:text></i></xsl:otherwise>
           </xsl:choose>
         </dd>
-        <!--<dt width="150" align="left"><i18n:text i18n:key="commentary-edition">Commentary on edition(s)</i18n:text></dt>
-        <dd id="biblioCommEditions">
-          <xsl:choose>
-            <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='discussionCurrent']/t:p/node()">
-              <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='discussionCurrent']/t:p/node()"/>
-            </xsl:when>
-            <xsl:otherwise><i><i18n:text i18n:key="none">None</i18n:text></i></xsl:otherwise>
-          </xsl:choose>
-        </dd>-->
         <dt width="150" align="left"><i18n:text i18n:key="parallels"><i>Parallel(s)</i></i18n:text></dt>
         <dd id="biblioParallels">
           <xsl:choose>
@@ -981,7 +974,7 @@
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='discussion']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='discussion']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
+            <xsl:otherwise><i><i18n:text i18n:key="no-further-references">No further references</i18n:text></i></xsl:otherwise>
           </xsl:choose>
         </dd>
       </dl>
