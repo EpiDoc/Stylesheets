@@ -301,7 +301,7 @@
           </xsl:choose>
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text></dt>
-          <!--MF changed according to the new markup of listPerson; listOrg still has to be done; tokenization still has to be done-->
+          <!--MF changed according to the new markup of listPerson; listOrg still has to be done; tokenization still has to be done; ask JB-->
         <dd>
           <xsl:choose>
             <xsl:when test="//t:person/@role[ancestor::t:listPerson]">
