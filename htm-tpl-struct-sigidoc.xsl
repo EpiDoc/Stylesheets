@@ -840,10 +840,10 @@
             <xsl:choose>
               <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI'] and //t:facsimile//t:surface[@type='reverse']//t:graphic[@type='RTI']">
                 <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI']/@url}">
-                  obverse
+                  <i18n:text i18n:key="obverse">Obverse</i18n:text>
                 </p>
                 <p id="rti_tab_2" class="rtitab" data-url="{//t:facsimile//t:surface[@type='']//t:graphic[@type='RTI']/@url}">
-                  reverse
+                  <i18n:text i18n:key="reverse">Reverse</i18n:text>
                 </p>
               </xsl:when>
               <xsl:otherwise>
