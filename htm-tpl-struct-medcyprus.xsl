@@ -155,6 +155,7 @@
          <section><!-- #2 verse (optional) -->
            <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="epidoc-xslt-medcyprus-edition">Verse</i18n:text></a></p>
            <div class="content" id="edition" data-section-content="data-section-content">
+             <p style="font-size:smaller;">[Lineation and marginal numbering reflect verse lines. Vertical bars ("|") and parenthetical numbers represent epigraphic lines.]</p>
              <!-- Edited text output -->
              <xsl:variable name="edtxt">
                <xsl:apply-templates select="//t:div[@type='edition']">
