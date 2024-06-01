@@ -281,10 +281,11 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt> <!--MF changed according to the new markup of listPerson; listOrg still has to be done-->
+          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt> <!--MF changed according to the new markup of listPerson and listOrg-->
         <dd>
           <xsl:variable name="forename" select="//t:persName[@xml:lang='en']/t:forename"/>
           <xsl:variable name="surname" select="//t:persName[@xml:lang='en']/t:surname"/>
+          <xsl:variable name="corporate" select="//t:orgName[@xml:lang='en']"/>
           <xsl:choose>
             <xsl:when test="//t:persName[@xml:lang='en'][ancestor::t:person]">
               <xsl:apply-templates select="//t:persName[@xml:lang='en'][ancestor::t:person]"/>
@@ -295,17 +296,34 @@
             <xsl:when test="$forename">
               <xsl:value-of select="$forename"/>
             </xsl:when>
+            <xsl:when test="$corporate">
+              <xsl:value-of select="$corporate"/>
+            </xsl:when>
             <xsl:otherwise>
               <xsl:text>―</xsl:text>
             </xsl:otherwise>
           </xsl:choose>
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text></dt>
-          <!--MF changed according to the new markup of listPerson; listOrg still has to be done; tokenization still has to be done; ask JB-->
-        <dd>
+          <!--MF changed according to the new markup of listPerson and listOrg; capitalization should be still taken into account, e.g. secular-church should be secular Church-->
+          <dd>
           <xsl:choose>
             <xsl:when test="//t:person/@role[ancestor::t:listPerson]">
-              <xsl:apply-templates select="//t:person/@role[ancestor::t:listPerson]"/>
+              <xsl:for-each select="tokenize(translate(//t:person/@role, ' ', ','), ',')">
+                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:if test="position() != last()">
+                  <xsl:text>, </xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="//t:org/@role and //t:org/@type">
+              <xsl:value-of select="concat(//t:org/@role, ', ')"/>
+              <xsl:for-each select="tokenize(translate(//t:org/@type, ' ', ','), ',')">
+                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:if test="position() != last()">
+                  <xsl:text>, </xsl:text>
+                </xsl:if>
+              </xsl:for-each>
             </xsl:when>
           </xsl:choose>
         </dd>
