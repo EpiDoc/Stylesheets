@@ -497,7 +497,7 @@
         </xsl:attribute>
       </xsl:if>
       <xsl:for-each select="$listapp/app">
-        <xsl:sort select="@n" data-type="number"/>
+        <xsl:sort select="substring-before(@n,'–')" data-type="number"/>
         <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
           <!--<xsl:text>l.</xsl:text>-->
           <xsl:value-of select="@n"/>
