@@ -6,11 +6,14 @@
   <!-- General template in [htm|txt]teimilestone.xsl -->
 
   <xsl:template match="t:milestone[@unit='block' or @unit='fragment']">
-     <!-- adds pipe for block, flanked by spaces if not within word -->
+     <!-- adds pipe for block, flanked by spaces if not within word, and with @n as exposant if exists -->
       <xsl:if test="not(ancestor::t:w)">
          <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:text>|</xsl:text>
+     <xsl:if test="@n">
+        <sup><xsl:value-of select="@n"/></sup>
+     </xsl:if>  
       <xsl:if test="not(ancestor::t:w)">
          <xsl:text> </xsl:text>
       </xsl:if>
