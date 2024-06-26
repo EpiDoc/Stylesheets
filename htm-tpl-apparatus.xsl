@@ -140,59 +140,59 @@
         <!-- generate a list of app entries, with line numbers for each (and render them later) -->
         <xsl:for-each
           select=".//(t:choice[child::t:corr]|t:supplied[@reason='omitted']|t:subst|t:hi[@rend=('subscript','superscript')])[not(ancestor::t:rdg)]">
+          <xsl:choose>
+            <xsl:when test="self::t:supplied[@reason='omitted'] and $parm-leiden-style='medcyprus'"/>
+            <xsl:otherwise>
+          <xsl:element name="app">
+            <!-- pseudo-id to avoid duplication of content words in miniapp -->
+            <xsl:attribute name="psid" select="generate-id((ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1])"/>
+            <!-- number to group together miniapps from a single line -->
+            <xsl:attribute name="n">
+              <xsl:value-of select="preceding::t:lb[1]/@n"/>
+              <!-- NOTE: need to handle line ranges -->
+            </xsl:attribute>
             <xsl:choose>
-              <xsl:when test="self::t:supplied[@reason='omitted'] and $parm-leiden-style='medcyprus'"/>
-              <xsl:otherwise>
-                <xsl:element name="app">
-                <!-- pseudo-id to avoid duplication of content words in miniapp -->
-                <xsl:attribute name="psid" select="generate-id((ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1])"/>
-                <!-- number to group together miniapps from a single line -->
-                <xsl:attribute name="n">
-                  <xsl:value-of select="preceding::t:lb[1]/@n"/>
-                  <!-- NOTE: need to handle line ranges -->
-                </xsl:attribute>
-                <xsl:choose>
-                  <xsl:when test="self::t:choice">
-                    <xsl:text>orig. </xsl:text>
-                    <xsl:call-template name="iospe-appcontext">
-                      <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-                      <xsl:with-param name="context"
+              <xsl:when test="self::t:choice">
+                <xsl:text>orig. </xsl:text>
+                <xsl:call-template name="iospe-appcontext">
+                  <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
+                  <xsl:with-param name="context"
                         select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
                       />
-                    </xsl:call-template>
-                  </xsl:when>
-                  <xsl:when test="self::t:supplied">
-                    <xsl:text>orig. </xsl:text>
-                    <xsl:call-template name="iospe-appcontext">
-                      <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-                      <xsl:with-param name="context"
+                </xsl:call-template>
+              </xsl:when>
+              <xsl:when test="self::t:supplied">
+                <xsl:text>orig. </xsl:text>
+                <xsl:call-template name="iospe-appcontext">
+                  <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
+                  <xsl:with-param name="context"
                         select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]/text()"
                       />
-                    </xsl:call-template>
-                  </xsl:when>
-                  <xsl:when test="self::t:subst and child::t:add and child::t:del">
-                    <xsl:text>corr. ex </xsl:text>
-                    <xsl:call-template name="iospe-appcontext">
-                      <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
-                      <xsl:with-param name="context"
+                </xsl:call-template>
+              </xsl:when>
+              <xsl:when test="self::t:subst and child::t:add and child::t:del">
+                <xsl:text>corr. ex </xsl:text>
+                <xsl:call-template name="iospe-appcontext">
+                  <!-- template below: strips diacritics, omits reg/corr/add/ex, and uppercases -->
+                  <xsl:with-param name="context"
                         select="(ancestor::t:w|ancestor::t:name|ancestor::t:placeName|ancestor::t:num)[1]"
                       />
-                    </xsl:call-template>
+                </xsl:call-template>
+              </xsl:when>
+              <xsl:when test="self::t:hi[@rend=('subscript','superscript')]">
+                <xsl:apply-templates/>
+                <xsl:choose>
+                  <xsl:when test="@rend='subscript'">
+                    <xsl:text> i.l.</xsl:text>
                   </xsl:when>
-                  <xsl:when test="self::t:hi[@rend=('subscript','superscript')]">
-                    <xsl:apply-templates/>
-                    <xsl:choose>
-                      <xsl:when test="@rend='subscript'">
-                        <xsl:text> i.l.</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="@rend='superscript'">
-                        <xsl:text> s.l.</xsl:text>
-                      </xsl:when>
-                    </xsl:choose>
+                  <xsl:when test="@rend='superscript'">
+                    <xsl:text> s.l.</xsl:text>
                   </xsl:when>
                 </xsl:choose>
-              </xsl:element>
-            </xsl:otherwise>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:element>
+          </xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
       </xsl:variable>
@@ -275,7 +275,7 @@
               <xsl:value-of select="preceding::t:lb[1]/@n"/>
               <!-- NOTE: need to handle line ranges -->
             </xsl:attribute>
-<xsl:call-template name="intappchoice"/>
+        <xsl:call-template name="intappchoice"/>
           </xsl:element>
         </xsl:for-each>
        
@@ -390,18 +390,17 @@
 
 <!--this only renders choice and app-->
   <xsl:template name="tpl-minex-apparatus">
-    
     <xsl:variable name="listapp"><!-- generate a list of app entries, with line numbers for each (and render them later) -->
       
-      <xsl:for-each select=".//t:choice[child::t:reg and not(ancestor::t:rdg)]">
-        <xsl:element name="app">
-          <xsl:attribute name="n">
-            <xsl:value-of select="preceding::t:lb[1]/@n"/>
-            <!-- NOTE: need to handle line ranges -->
-          </xsl:attribute>
-          <xsl:call-template name="intappchoice"/>
-        </xsl:element>
-      </xsl:for-each>
+        <xsl:for-each select=".//t:choice[child::t:reg and not(ancestor::t:rdg)]">
+          <xsl:element name="app">
+            <xsl:attribute name="n">
+              <xsl:value-of select="preceding::t:lb[1]/@n"/>
+              <!-- NOTE: need to handle line ranges -->
+            </xsl:attribute>
+            <xsl:call-template name="intappchoice"/>
+          </xsl:element>
+        </xsl:for-each>
       
       <xsl:for-each select=".//t:choice[child::t:corr and not(ancestor::t:rdg)]">
         <xsl:element name="app">
@@ -413,25 +412,25 @@
         </xsl:element>
       </xsl:for-each>
       
-      <xsl:for-each select=".//t:app[@type='editorial']">
-        <xsl:element name="app">
-          <xsl:attribute name="n">
-            <xsl:value-of select="preceding::t:lb[1]/@n"/>
-            <!-- NOTE: need to handle line ranges -->
-          </xsl:attribute>
-          <xsl:call-template name="intappedit"/>
-        </xsl:element>
-      </xsl:for-each>
-      
-      <xsl:for-each select=".//t:app[@type='alternative']">
-        <xsl:element name="app">
-          <xsl:attribute name="n">
-            <xsl:value-of select="preceding::t:lb[1]/@n"/>
-            <!-- NOTE: need to handle line ranges -->
-          </xsl:attribute>
-          <xsl:call-template name="intappapp"/>
-        </xsl:element>
-      </xsl:for-each>
+          <xsl:for-each select=".//t:app[@type='editorial']">
+          <xsl:element name="app">
+            <xsl:attribute name="n">
+              <xsl:value-of select="preceding::t:lb[1]/@n"/>
+              <!-- NOTE: need to handle line ranges -->
+            </xsl:attribute>
+            <xsl:call-template name="intappedit"/>
+          </xsl:element>
+        </xsl:for-each>
+        
+        <xsl:for-each select=".//t:app[@type='alternative']">
+          <xsl:element name="app">
+            <xsl:attribute name="n">
+              <xsl:value-of select="preceding::t:lb[1]/@n"/>
+              <!-- NOTE: need to handle line ranges -->
+            </xsl:attribute>
+            <xsl:call-template name="intappapp"/>
+          </xsl:element>
+        </xsl:for-each>
       
     </xsl:variable>
     
@@ -452,6 +451,57 @@
           <xsl:text>l.</xsl:text>
           <xsl:value-of select="@n"/>
           <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:value-of select="."/>
+        <xsl:if test="not(position()=last())">
+          <xsl:text> | </xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+    </p>
+  </xsl:template>
+  
+  <xsl:template name="tpl-medcyprus-apparatus">
+    <!-- generate a list of app entries, with line numbers for each (and render them later) -->
+    <xsl:variable name="listapp">
+      <xsl:for-each select=".//t:choice[child::t:corr and not(ancestor::t:rdg)]">
+        <xsl:element name="app">
+          <xsl:attribute name="n">
+            <xsl:if test="preceding::t:cb[ancestor::t:div[@type='edition']][@n]">
+              <xsl:value-of select="preceding::t:cb[1]/@n"/>
+              <xsl:text>.</xsl:text>
+            </xsl:if>
+            <xsl:choose>
+              <xsl:when test="child::t:sic/child::t:lb">
+                <xsl:value-of select="concat(preceding::t:lb[1]/@n,'–',child::t:sic/child::t:lb[last()]/@n)"/>
+              </xsl:when>
+             <xsl:otherwise>
+              <xsl:value-of select="preceding::t:lb[1]/@n"/>
+             </xsl:otherwise>
+            </xsl:choose>
+            <!-- NOTE: need to handle line ranges -->
+          </xsl:attribute>
+          <xsl:call-template name="intappsiccorr"/>
+        </xsl:element>
+      </xsl:for-each>
+    </xsl:variable>
+    
+    <!--generate the actual apparatus printing the separators between each info and the reference to line number-->
+    <p class="miniapp">
+      <xsl:if test="ancestor-or-self::t:div[@type='textpart'][@n]">
+        <xsl:attribute name="id">
+          <xsl:text>miniapp</xsl:text>
+          <xsl:for-each select="ancestor-or-self::t:div[@type='textpart'][@n]">
+            <xsl:value-of select="@n"/>
+            <xsl:text>-</xsl:text>
+          </xsl:for-each>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:for-each select="$listapp/app">
+        <xsl:sort select="translate(substring(@n,1,2),'–','')" data-type="number"/>
+        <xsl:if test="not(preceding-sibling::app[@n=current()/@n])">
+          <!--<xsl:text>l.</xsl:text>-->
+          <xsl:value-of select="@n"/>
+          <xsl:text>: </xsl:text>
         </xsl:if>
         <xsl:value-of select="."/>
         <xsl:if test="not(position()=last())">
@@ -488,8 +538,8 @@ choice with sic and corr
 -->
   <xsl:template name="intappsiccorr">
     
-        <xsl:text>sic, orig. </xsl:text>
-        <xsl:value-of select="t:sic"/>
+        <!--<xsl:text>reg </xsl:text>-->
+        <xsl:value-of select="t:corr"/>
   </xsl:template>
 
   <!-- Regularization
