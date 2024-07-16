@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:f="http://example.com/ns/functions"
 	xmlns:html="http://www.w3.org/1999/html" exclude-result-prefixes="t f" version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+	<xsl:import href="htm-teilistbiblandbibl.xsl"/>
 	<!--
 
 Pietro notes on 14/8/2015 work on this template, from mail to Gabriel.
@@ -263,7 +264,8 @@ bibliography. All examples only cater for book and article.
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- This applyes other templates and does not call the zotero api -->
-				<xsl:apply-templates/>
+				<!--<xsl:apply-templates/>-->
+				<xsl:apply-imports/> <!-- so that the templates in 'htm-teilistbiblandbibl.xsl are applied (li aroub bibl elements) -->
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
