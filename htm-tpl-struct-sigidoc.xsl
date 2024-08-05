@@ -25,9 +25,9 @@
     
     
     <div id="stone">
-      <h3 class="iospe"><i18n:text i18n:key="artifact">Artifact</i18n:text></h3>
+      <h3 class="iospe"><i18n:text i18n:key="artifact"/></h3>
       <dl class="iospe">
-        <dt width="150" align="left"><i18n:text i18n:key="type">Type</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="type"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:objectType//t:term//t:seg//text()">
@@ -37,10 +37,10 @@
           </xsl:choose>
         </dd>
         <!--MF deleted General Layout-->
-        <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="matrix"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
-            <xsl:when test="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']">
+            <xsl:when test="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']"> 
               <xsl:choose>
                 <xsl:when test="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']//t:idno[@type='SigiDoc'] and //t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']//t:idno[@type='PBW']">
                   SigiDoc ID: <xsl:apply-templates select="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']//t:idno[@type='SigiDoc']"/>* - PBW ID: <xsl:apply-templates select="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']//t:idno[@type='PBW']"/>*
@@ -72,10 +72,10 @@
       </dl>
     </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="physical-description">Physical description</i18n:text></i></h4>
+          <h4 class="iospe"><i18n:text i18n:key="physical-description"/></h4>
           <!-- ************* physical description *************** -->
           <dl class="iospe">
-            <dt width="150" align="left"><i18n:text i18n:key="medium">Medium</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="medium"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:objectType//t:interp[@type='workType']//text()">
@@ -84,7 +84,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="material">Material</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="material"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:material//t:seg//text()">
@@ -93,7 +93,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="shape">Shape</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="shape"/></dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:layout//t:rs[@type='shape']//t:seg//text()">
@@ -102,55 +102,55 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="dimensions">Dimensions (mm)</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="dimensions"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:support/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="diameter">Diam. </i18n:text>
+              <i18n:text i18n:key="diameter"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:dim[@type='diameter']"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:support/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:support/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:width"/>,
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:depth"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:support/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:width"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:support/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:depth"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:support/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:width"/>,
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:depth"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:height/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height">/</i18n:text>
               <xsl:apply-templates select="//t:support/t:dimensions/t:height"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:width"/>
             </xsl:when>
             <xsl:when test="//t:support/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
               <xsl:apply-templates select="//t:support/t:dimensions/t:depth"/>
             </xsl:when>
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="weight">Weight (g)</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="weight"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='weight'][@unit='g']//text()">
@@ -159,7 +159,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="channel-orientation">Channel orientation (clock)</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="channel-orientation"/></dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:support//t:measure[@type='channelOrient'][@unit='clock']//text()">
@@ -168,7 +168,7 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="axis">Axis (clock)</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="axis"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='axis'][@unit='clock']//text()">
@@ -177,7 +177,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="overstrike-orientation">Overstrike orientation (clock)</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="overstrike-orientation"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='overstrikeOrient'][@unit='clock']//text()">
@@ -186,7 +186,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="execution">Execution</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="execution"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:layout//t:rs[@type='execution']//t:seg//text()">
@@ -195,7 +195,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="countermark">Countermark</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="countermark"/></dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:support//t:measure[@type='countermark']//text()">
@@ -204,7 +204,7 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="condition">Condition</i18n:text></dt>
+            <dt width="150" align="left"><i18n:text i18n:key="condition"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:supportDesc//t:condition/t:p/text()">
@@ -216,9 +216,9 @@
           </dl>
         </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="dating">Dating</i18n:text></i></h4><!-- ***********Dating************ -->
+          <h4 class="iospe"><i><i18n:text i18n:key="dating"/></i></h4><!-- ***********Dating************ -->
         <dl class="iospe">
-          <dt width="150" align="left"><i18n:text i18n:key="date">Date</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="date"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origin//t:origDate[@type='analysis']//t:seg/text()">
@@ -227,7 +227,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="internal-date">Internal date</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="internal-date"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:origin//t:origDate[@type='internal']//t:seg/text()">
@@ -236,7 +236,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="dating-criteria">Dating criteria</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="dating-criteria"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origin//t:origDate//t:interp/text()">
@@ -258,11 +258,11 @@
             </xsl:otherwise>
             </xsl:choose> --><!-- NOT TO BE CHANGED INTO <xsl:apply-templates/> -->
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="alternative-dating">Alternative dating</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="alternative-dating"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:origin//t:date//t:choice">
-                <xsl:apply-templates select="//t:origin//t:date//t:choice//t:corr"/> (<xsl:apply-templates select="//t:origin//t:date//t:choice//t:corr/@resp"/>), <i18n:text i18n:key="alternative-dating-basedon">based on</i18n:text>: <xsl:apply-templates select="//t:origin//t:date//t:interp[@type='datingCriteria']"/>
+                <xsl:apply-templates select="//t:origin//t:date//t:choice//t:corr"/> (<xsl:apply-templates select="//t:origin//t:date//t:choice//t:corr/@resp"/>), <i18n:text i18n:key="alternative-dating-basedon"/>: <xsl:apply-templates select="//t:origin//t:date//t:interp[@type='datingCriteria']"/>)
               </xsl:when>
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
@@ -270,9 +270,9 @@
         </dl>
         </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="history">History</i18n:text></i></h4><!-- ***********History********* -->
+          <h4 class="iospe"><i><i18n:text i18n:key="history"/></i></h4><!-- ***********History********* -->
         <dl class="iospe">
-          <dt width="150" align="left"><i18n:text i18n:key="seal-category">Category</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="seal-category"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:msContents//t:summary[@n='whole']//t:seg//text()">
@@ -281,7 +281,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt> <!--MF changed according to the new markup of listPerson and listOrg-->
+          <dt width="150" align="left"><i18n:text i18n:key="issuer"/></dt> <!--MF changed according to the new markup of listPerson and listOrg-->
         <dd>
           <xsl:variable name="forename" select="//t:persName[@xml:lang='en']/t:forename"/>
           <xsl:variable name="surname" select="//t:persName[@xml:lang='en']/t:surname"/>
@@ -304,7 +304,7 @@
             </xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu"/></dt>
           <!--MF changed according to the new markup of listPerson and listOrg; capitalization should be still taken into account, e.g. secular-church should be secular Church-->
           <dd>
           <xsl:choose>
@@ -327,7 +327,7 @@
             </xsl:when>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="place-origin">Place of origin</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="place-origin"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origPlace//t:seg//t:placeName//text()">
@@ -336,7 +336,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-place">Find place</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="find-place"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:history//t:provenance[@type='found']//t:placeName[@type='ancientFindspot']//text() and //t:history//t:provenance[@type='found']//t:placeName[@type='modernFindspot']//text()">
@@ -351,7 +351,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-date">Find date</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="find-date"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:provenance[@type='found']/@when">
@@ -361,15 +361,15 @@
                 <xsl:apply-templates select="//t:provenance[@type='found']/@notBefore"/> - <xsl:apply-templates select="//t:provenance[@type='found']/@notAfter"/>
               </xsl:when>
               <xsl:when test="//t:provenance[@type='found']/@notBefore">
-                <i18n:text i18n:key="not-before">Not before</i18n:text> <xsl:apply-templates select="//t:provenance[@type='found']/@notBefore"/>
+                <i18n:text i18n:key="not-before"/> <xsl:apply-templates select="//t:provenance[@type='found']/@notBefore"/>
               </xsl:when>
               <xsl:when test="//t:provenance[@type='found']/@notAfter">
-                <i18n:text i18n:key="not-after">Not after</i18n:text> <xsl:apply-templates select="//t:provenance[@type='found']/@notAfter"/>
+                <i18n:text i18n:key="not-after"/> <xsl:apply-templates select="//t:provenance[@type='found']/@notAfter"/>
               </xsl:when>
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-circumstances">Find circumstances</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="find-circumstances"/></dt>
           <dd>
           <xsl:choose>
             <xsl:when test="//t:provenance[@type='found']//t:rs[@type='circumstances']//text()">
@@ -378,7 +378,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="modern-location">Modern location</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="modern-location"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier//t:settlement//t:seg//text() and //t:sourceDesc//t:msDesc//t:msIdentifier//t:country//t:seg//text()">
@@ -396,7 +396,7 @@
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="institution-repository">Institution and repository</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="institution-repository"/></dt>
         <!-- <dd>
             <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier">
@@ -422,7 +422,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="collection-inventory">Collection and inventory</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="collection-inventory"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier/t:collection//text() and //t:sourceDesc//t:msDesc//t:msIdentifier/t:idno//text()">
@@ -452,7 +452,7 @@
             </xsl:when>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="acquisition">Acquisition</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="acquisition"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:acquisition//t:p//text()">
@@ -461,7 +461,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="previous-locations">Previous locations</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="previous-locations"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:provenance[@type='transferred']//t:p//text()">
@@ -470,7 +470,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="modern-observations">Modern observations</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="modern-observations"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:provenance[@type='observed']//t:p//text() and //t:provenance[@type='not-observed']//t:p//text()">
@@ -490,10 +490,10 @@
         </div>
         
       <div id="text-field">
-        <h3 class="iospe"><i18n:text i18n:key="field-obverse">Obverse</i18n:text></h3>
+        <h3 class="iospe"><i18n:text i18n:key="field-obverse"/></h3>
         <!-- *******inscribed field - obverse *********** -->
         <dl class="iospe"> 
-          <dt width="150" align="left"><i18n:text i18n:key="languages">Language(s)</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="languages"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:msContents//t:textLang[@n='r']//t:seg//text()">
@@ -502,7 +502,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="layout-field">Layout of field</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="layout-field"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:layoutDesc//t:layout[@n='r']/t:p/text()">
@@ -511,55 +511,55 @@
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="field-dimensions"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
             <xsl:when test="//t:layout[@n='r']/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="diameter">Diam. </i18n:text>
+              <i18n:text i18n:key="diameter"/>
               <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:dim[@type='diameter']"/>
             </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='r']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:layout[@n='r']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:width"/>,
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:depth"/><!-- not necessary for field's dimensions, but still... -->
             </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='r']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:width"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='r']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:height"/>,
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:depth"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:layout[@n='r']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="width">W. </i18n:text>
+                <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:width"/>,
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:depth"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:height"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="width">W. </i18n:text>
+                <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:width"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='r']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='r']/t:dimensions/t:depth"/>
               </xsl:when>
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="matrix"/></dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:layout[@n='r']//t:rs[@type='matrix'][@subtype='surviving']">
@@ -591,7 +591,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="iconography">Iconography</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="iconography"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:figure//t:figDesc[@n='r']//text()">
@@ -600,7 +600,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="decoration">Decoration</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="decoration"/></dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:figure//t:figDesc[@n='decoR']//text()">
@@ -609,7 +609,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="epigraphy">Epigraphy</i18n:text></dt>
+          <dt width="150" align="left"><i18n:text i18n:key="epigraphy"/></dt>
           <dd id="epigraphy">
             <xsl:choose> <!--cambiare @n='whole' in 'r' e 'v'-->
               <xsl:when test="//t:handDesc//t:handNote[@n='r']//t:seg//text()">
@@ -625,9 +625,9 @@
     <dl class="iospe"></dl><!-- don't touch this! -->
       
     <div id="text-field">
-      <h3 class="iospe"><i18n:text i18n:key="field-reverse">Reverse</i18n:text></h3><!-- *******inscribed field - reverse *********** -->
+      <h3 class="iospe"><i18n:text i18n:key="field-reverse"/></h3><!-- *******inscribed field - reverse *********** -->
       <dl class="iospe"> 
-        <dt width="150" align="left"><i18n:text i18n:key="languages">Language(s)</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="languages"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:msContents//t:textLang[@n='v']//t:seg//text()">
@@ -636,7 +636,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="layout-field">Layout of field</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="layout-field"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:layoutDesc//t:layout[@n='v']/t:p/text()">
@@ -645,55 +645,55 @@
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="field-dimensions"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:layout[@n='v']/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="diameter">Diam. </i18n:text>
+              <i18n:text i18n:key="diameter"/>
               <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:dim[@type='diameter']"/>
             </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='v']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:layout[@n='v']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-              <i18n:text i18n:key="height">H. </i18n:text>
+              <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:width"/>,
-              <i18n:text i18n:key="thickness">Th. </i18n:text>
+              <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:depth"/><!-- not necessary for field's dimensions, but still... -->
             </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='v']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:height"/>,
-              <i18n:text i18n:key="width">W. </i18n:text>
+              <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:width"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')] and //t:layout[@n='v']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:height"/>,
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:depth"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')] and //t:layout[@n='v']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="width">W. </i18n:text>
+                <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:width"/>,
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:depth"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:height/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="height">H. </i18n:text>
+                <i18n:text i18n:key="height"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:height"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:width/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="width">W. </i18n:text>
+                <i18n:text i18n:key="width"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:width"/>
               </xsl:when>
               <xsl:when test="//t:layout[@n='v']/t:dimensions/t:depth/text()[not(normalize-space(.)=' ')]">
-                <i18n:text i18n:key="thickness">Th. </i18n:text>
+                <i18n:text i18n:key="thickness"/>
                 <xsl:apply-templates select="//t:layout[@n='v']/t:dimensions/t:depth"/>
               </xsl:when>
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="matrix"/></dt>
         <dd>
           <xsl:choose xml:space="preserve">
               <xsl:when test="//t:layout[@n='v']//t:rs[@type='matrix'][@subtype='surviving']">
@@ -725,7 +725,7 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="iconography">Iconography</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="iconography"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:figure//t:figDesc[@n='v']//text()">
@@ -734,7 +734,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="decoration">Decoration</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="decoration"/></dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:figure//t:figDesc[@n='decoV']//text()">
@@ -743,7 +743,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="epigraphy">Epigraphy</i18n:text></dt>
+        <dt width="150" align="left"><i18n:text i18n:key="epigraphy"/></dt>
         <dd id="epigraphy">
           <xsl:choose>
             <xsl:when test="//t:handDesc//t:handNote[@n='v']//t:seg//text()">
@@ -757,9 +757,8 @@
     </div>
     <dl class="iospe"><!-- don't touch this! --></dl>
     <div id="text">
-      <!--<h3 class="iospe"><i18n:text i18n:key="text">Text</i18n:text></h3>-->
       <div id="images"><!-- ************************* IMAGES ************************************ -->
-        <h4 class="iospe"><i><i18n:text i18n:key="images">Images</i18n:text></i></h4>
+        <h4 class="iospe"><i><i18n:text i18n:key="images"/></i></h4>
         <dl class="box">
           <xsl:for-each select="//t:facsimile//t:surface[@type='obverse']//t:graphic">
             <dd>
@@ -858,10 +857,10 @@
             <xsl:choose>
               <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI'] and //t:facsimile//t:surface[@type='reverse']//t:graphic[@type='RTI']">
                 <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI']/@url}">
-                  <i18n:text i18n:key="obverse">Obverse</i18n:text>
+                  <i18n:text i18n:key="obverse"/>
                 </p>
                 <p id="rti_tab_2" class="rtitab" data-url="{//t:facsimile//t:surface[@type='']//t:graphic[@type='RTI']/@url}">
-                  <i18n:text i18n:key="reverse">Reverse</i18n:text>
+                  <i18n:text i18n:key="reverse"/>
                 </p>
               </xsl:when>
               <xsl:otherwise>
@@ -916,10 +915,10 @@
         </div>
       </xsl:if>
       
-      <h4 class="iospe"><i><i18n:text i18n:key="edition">Edition</i18n:text></i></h4>
+      <h4 class="iospe"><i><i18n:text i18n:key="edition"/></i></h4>
       <div class="section-container tabs" data-section="tabs">
         <section>
-          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="interpretive">Interpretive</i18n:text></a></p>
+          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="interpretive"/></a></p>
           <div class="content" id="edition" data-section-content="data-section-content">
             <!-- Edited text output -->
             <xsl:variable name="edtxt">
@@ -932,7 +931,7 @@
           </div>
         </section>
         <section>
-          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="diplomatic">Diplomatic</i18n:text></a></p>
+          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="diplomatic"/></a></p>
           <div class="content" id="diplomatic" data-section-content="data-section-content">
             <!-- Edited text output -->
             <xsl:variable name="edtxt">
@@ -946,7 +945,7 @@
         </section>
       </div>
       <div id="apparatus" class="iospe">
-        <h4 class="iospe"><i18n:text i18n:key="apparatus">Apparatus</i18n:text></h4>
+        <h4 class="iospe"><i18n:text i18n:key="apparatus"/></h4>
         <!-- Apparatus text output -->
         <xsl:variable name="apptxt">
           <xsl:apply-templates select="//t:div[@type='apparatus']/t:listApp"/>
@@ -956,7 +955,7 @@
       </div>
       
       <div id="translation">
-        <h4 class="iospe"><i><i18n:text i18n:key="legend-translation">Legend and Translation</i18n:text></i></h4>
+        <h4 class="iospe"><i><i18n:text i18n:key="legend-translation"/></i></h4>
         <!-- Translation text output -->
         <xsl:variable name="transtxt">
           <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
@@ -966,40 +965,40 @@
       </div>
       
       <div id="bibliography">
-        <h4 class="iospe"><i18n:text i18n:key="references">References</i18n:text></h4>
+        <h4 class="iospe"><i18n:text i18n:key="references"/></h4>
       <dl class="iospe">  
-        <dt width="150" align="left"><i18n:text i18n:key="editions"><i>Edition(s)</i></i18n:text></dt>
+        <dt width="150" align="left"><i><i18n:text i18n:key="editions"/></i></dt>
         <dd id="biblioEditions">
           <xsl:choose>
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='edition']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='edition']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise><i><i18n:text i18n:key="unpublished">Unpublished</i18n:text></i></xsl:otherwise>
+            <xsl:otherwise><i><i18n:text i18n:key="unpublished"/></i></xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="parallels"><i>Parallel(s)</i></i18n:text></dt>
+        <dt width="150" align="left"><i><i18n:text i18n:key="parallels"/></i></dt>
         <dd id="biblioParallels">
           <xsl:choose>
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='parallels']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='parallels']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise><i><i18n:text i18n:key="no-parallels-known">No parallels known</i18n:text></i></xsl:otherwise>
+            <xsl:otherwise><i><i18n:text i18n:key="no-parallels-known"/></i></xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="further-references"><i>Further references</i></i18n:text></dt>
+        <dt width="150" align="left"><i><i18n:text i18n:key="further-references"/></i></dt>
         <dd id="biblioCommParallels">
           <xsl:choose> <!--da cambiare i subtype-->
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='discussion']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='discussion']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise><i><i18n:text i18n:key="no-further-references">No further references</i18n:text></i></xsl:otherwise>
+            <xsl:otherwise><i><i18n:text i18n:key="no-further-references"/></i></xsl:otherwise>
           </xsl:choose>
         </dd>
       </dl>
       </div>
       
       <div id="commentary">
-        <h4 class="iospe"><i><i18n:text i18n:key="commentary">Commentary</i18n:text></i></h4>
+        <h4 class="iospe"><i><i18n:text i18n:key="commentary"/></i></h4>
         <!-- Commentary text output -->
         <xsl:variable name="commtxt">
           <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='text']//t:p"/>
@@ -1011,7 +1010,7 @@
       <!-- ************** FOOTNOTES ***************** -->
       <div class="fnseparator"/>
       <div id="footnotes">
-        <h4 class="iospe" id="notes"><i18n:text i18n:key="footnotes">Footnotes</i18n:text></h4>
+        <h4 class="iospe" id="notes"><i18n:text i18n:key="footnotes"/></h4>
         <xsl:choose>
           <xsl:when test="//t:div[@type='commentary'][@subtype='footnotes']//t:p">
             <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='footnotes']//t:p"/>
@@ -1154,7 +1153,7 @@
                     <xsl:value-of select="$prev"/>
                     <xsl:text>.html</xsl:text>
                   </xsl:attribute>
-                  <i18n:text i18n:key="arrow-left"><xsl:text>&#x021D0; previous</xsl:text></i18n:text>
+                  <i18n:text i18n:key="arrow-left"/>
                 </a>
               </li>
             </xsl:if>
@@ -1167,7 +1166,7 @@
                     <xsl:value-of select="$next"/>
                     <xsl:text>.html</xsl:text>
                   </xsl:attribute>
-                  <i18n:text i18n:key="arrow-right"><xsl:text>next &#x021D2;</xsl:text></i18n:text>
+                  <i18n:text i18n:key="arrow-right"/>
                 </a>
               </li>
             </xsl:if>
