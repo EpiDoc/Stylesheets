@@ -305,12 +305,27 @@
           </xsl:choose>
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu"/></dt>
-          <!--MF changed according to the new markup of listPerson and listOrg; capitalization should be still taken into account, e.g. secular-church should be secular Church-->
-          <dd>
-          <xsl:choose>
+          <dd><xsl:choose>
             <xsl:when test="//t:person/@role[ancestor::t:listPerson]">
               <xsl:for-each select="tokenize(translate(//t:person/@role, ' ', ','), ',')">
-                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:variable name="currentToken">
+                  <xsl:choose>
+                    <xsl:when test=". = 'secular-church'">
+                      <xsl:value-of select="'secular Church'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="position() = 1">
+                    <xsl:value-of select="concat(upper-case(substring($currentToken, 1, 1)), substring($currentToken, 2))"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$currentToken"/>
+                  </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="position() != last()">
                   <xsl:text>, </xsl:text>
                 </xsl:if>
@@ -319,14 +334,30 @@
             <xsl:when test="//t:org/@role and //t:org/@type">
               <xsl:value-of select="concat(//t:org/@role, ', ')"/>
               <xsl:for-each select="tokenize(translate(//t:org/@type, ' ', ','), ',')">
-                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:variable name="currentToken">
+                  <xsl:choose>
+                    <xsl:when test=". = 'secular-church'">
+                      <xsl:value-of select="'secular Church'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="position() = 1">
+                    <xsl:value-of select="concat(upper-case(substring($currentToken, 1, 1)), substring($currentToken, 2))"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$currentToken"/>
+                  </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="position() != last()">
                   <xsl:text>, </xsl:text>
                 </xsl:if>
               </xsl:for-each>
             </xsl:when>
-          </xsl:choose>
-        </dd>
+          </xsl:choose></dd>
           <dt width="150" align="left"><i18n:text i18n:key="place-origin"/></dt>
         <dd>
           <xsl:choose>
