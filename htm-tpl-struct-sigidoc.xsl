@@ -780,75 +780,6 @@
           </dt>
         </dl>
         
-        <!-- alternative (without captions) -->
-        
-        <!--<dl class="box">
-          <dt width="150"/>
-          <dd>
-            <xsl:choose>
-              <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic">
-                <xsl:apply-templates select="//t:facsimile//t:surface[@type='obverse']//t:graphic"/>
-              </xsl:when>
-              <xsl:otherwise><i18n:text>No images available</i18n:text></xsl:otherwise>
-            </xsl:choose>
-          </dd>
-        </dl>
-        <dl class="box">
-          <dt width="150"/>
-          <dd>
-            <xsl:choose>
-              <xsl:when test="//t:facsimile//t:surface[@type='reverse']//t:graphic">
-                <xsl:apply-templates select="//t:facsimile//t:surface[@type='reverse']//t:graphic"/>
-              </xsl:when>
-              <xsl:otherwise><i18n:text>No images available</i18n:text></xsl:otherwise>
-            </xsl:choose>
-          </dd>
-        </dl>-->
-
-<!-- deprecated solution, with table -->
-        
-        <!--<table border="1">
-          <tr>
-            <td align="center">
-              <dl>
-                <xsl:for-each select="//t:facsimile//t:surface[@type='obverse']//t:graphic">
-                <dt width="150" align="left"></dt>
-                  <dd>
-                    <xsl:apply-templates select="." />
-                  </dd>
-                </xsl:for-each>
-              </dl>
-            </td>
-            <td align="center">
-              <dl>
-                <xsl:for-each select="//t:facsimile//t:surface[@type='reverse']//t:graphic">
-                  <dt width="150" align="left"></dt>
-                  <dd>
-                    <xsl:apply-templates select="." />
-                  </dd>
-                </xsl:for-each>
-              </dl>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <xsl:choose>
-                <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic//t:desc//text()">
-                  <xsl:apply-templates select="//t:facsimile//t:surface[@type='obverse']//t:graphic//t:desc"/>
-                </xsl:when>
-                <xsl:otherwise></xsl:otherwise>
-              </xsl:choose>
-            </th>
-            <th>
-              <xsl:choose>
-                <xsl:when test="//t:facsimile//t:surface[@type='reverse']//t:graphic//t:desc//text()">
-                  <xsl:apply-templates select="//t:facsimile//t:surface[@type='reverse']//t:graphic//t:desc"/>
-                </xsl:when>
-                <xsl:otherwise></xsl:otherwise>
-              </xsl:choose>
-            </th>
-          </tr>
-        </table>-->
       </div>
       <xsl:if test="//t:graphic[@type='RTI']">
         <div class="rti">
@@ -944,19 +875,21 @@
           </div>
         </section>
       </div>
-      <div id="apparatus" class="iospe">
-        <h4 class="iospe"><i18n:text i18n:key="apparatus"/></h4>
-        <!-- Apparatus text output -->
-        <xsl:variable name="apptxt">
-          <xsl:apply-templates select="//t:div[@type='apparatus']/t:listApp"/>
-        </xsl:variable>
-        <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-        <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
-      </div>
+      
+      <xsl:if test="//t:div[@type='apparatus']/t:listApp">
+        <div id="apparatus" class="iospe">
+          <h4 class="iospe"><i18n:text i18n:key="apparatus"/></h4>
+          <xsl:variable name="apptxt">
+            <xsl:apply-templates select="//t:div[@type='apparatus']/t:listApp"/>
+          </xsl:variable>
+          <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+          <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
+        </div>
+      </xsl:if>
+      
       
       <div id="translation">
-        <h4 class="iospe"><i><i18n:text i18n:key="legend-translation"/></i></h4>
-        <!-- Translation text output -->
+        <h4 class="iospe"><i18n:text i18n:key="legend-translation"/></h4>
         <xsl:variable name="transtxt">
           <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
         </xsl:variable>
@@ -997,27 +930,34 @@
       </dl>
       </div>
       
-      <div id="commentary">
-        <h4 class="iospe"><i><i18n:text i18n:key="commentary"/></i></h4>
-        <!-- Commentary text output -->
-        <xsl:variable name="commtxt">
-          <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='text']//t:p"/>
-        </xsl:variable>
-        <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
-        <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
-      </div>
+      <xsl:if test="//t:div[@type='commentary'][@subtype='text']//t:p">
+        <div id="commentary">
+          <h4 class="iospe"><i><i18n:text i18n:key="commentary"/></i></h4>
+          <!-- Commentary text output -->
+          <xsl:variable name="commtxt">
+            <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='text']//t:p"/>
+          </xsl:variable>
+          <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+          <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
+        </div>
+      </xsl:if>
+      
       
       <!-- ************** FOOTNOTES ***************** -->
-      <div class="fnseparator"/>
-      <div id="footnotes">
-        <h4 class="iospe" id="notes"><i18n:text i18n:key="footnotes"/></h4>
-        <xsl:choose>
-          <xsl:when test="//t:div[@type='commentary'][@subtype='footnotes']//t:p">
+      <xsl:choose>
+        <xsl:when test="//t:div[@type='commentary'][@subtype='footnotes']//t:p">
+          <div class="fnseparator"/>
+          <div id="footnotes">
+            <h4 class="iospe" id="notes">
+              <i18n:text i18n:key="footnotes"/>
+            </h4>
             <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='footnotes']//t:p"/>
-          </xsl:when>
-          <xsl:otherwise>―</xsl:otherwise>
-        </xsl:choose>
-      </div>
+          </div>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text/>
+        </xsl:otherwise>
+      </xsl:choose>
       
     </div>
   </xsl:template>
