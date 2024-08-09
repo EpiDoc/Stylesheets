@@ -238,13 +238,8 @@
           </dd>
           <dt width="150" align="left"><i18n:text i18n:key="dating-criteria"/></dt>
         <dd>
-          <xsl:choose>
-            <xsl:when test="//t:origin//t:origDate//t:interp/text()">
-              <xsl:apply-templates select="//t:origin//t:origDate//t:interp"/>
-            </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
-          </xsl:choose>
-          <!-- <xsl:choose>
+          
+           <xsl:choose>
             <xsl:when test="//t:origin/t:origDate/@evidence">
               <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
                 <xsl:value-of select="translate(.,'-',' ')"/>
@@ -254,9 +249,9 @@
               </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-              <i><i18n:text i18n:key="not-specified"><xsl:text>Not specified</xsl:text></i18n:text></i>
+              <i18n:text i18n:key="not-specified"/>
             </xsl:otherwise>
-            </xsl:choose> --><!-- NOT TO BE CHANGED INTO <xsl:apply-templates/> -->
+            </xsl:choose> 
         </dd>
           <dt width="150" align="left"><i18n:text i18n:key="alternative-dating"/></dt>
           <dd>
@@ -281,7 +276,7 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer"/></dt> <!--MF changed according to the new markup of listPerson and listOrg-->
+          <dt width="150" align="left"><i18n:text i18n:key="issuer"/></dt>
         <dd>
           <xsl:variable name="forename" select="//t:persName[@xml:lang='en']/t:forename"/>
           <xsl:variable name="surname" select="//t:persName[@xml:lang='en']/t:surname"/>
