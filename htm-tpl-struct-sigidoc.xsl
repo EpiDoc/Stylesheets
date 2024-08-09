@@ -8,7 +8,7 @@
 
   <!-- Called from htm-tpl-structure.xsl -->
   
-  <!-- LAST MODIFIED: 2024-05-24 -->
+  <!-- LAST MODIFIED: 2024-08-09 -->
 
   <xsl:template name="sigidoc-body-structure">
     <xsl:call-template name="navigation"/>
@@ -526,12 +526,58 @@
         <dl class="iospe"> 
           <dt width="150" align="left"><i18n:text i18n:key="languages"/></dt>
           <dd>
-            <xsl:choose>
-              <xsl:when test="//t:msContents//t:textLang[@n='r']//t:seg//text()">
-                <xsl:apply-templates select="//t:msContents//t:textLang[@n='r']//t:seg"/>
-              </xsl:when>
-              <xsl:otherwise>―</xsl:otherwise>
-            </xsl:choose>
+            <xsl:for-each select="//t:div[@type='edition' and @subtype='editorial']/t:div[@type='textpart' and @n='obv']">
+              <xsl:if test="@xml:lang">
+                <xsl:variable name="lang" select="@xml:lang"/>
+                <xsl:choose>
+                  <xsl:when test="$lang = 'grc'">
+                    <i18n:text i18n:key="grc"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'la'">
+                    <i18n:text i18n:key="la"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'la-Grek'">
+                    <i18n:text i18n:key="la-Grek"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-la'">
+                    <i18n:text i18n:key="grc-la"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-Latn'">
+                    <i18n:text i18n:key="grc-Latn"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-Arab'">
+                    <i18n:text i18n:key="grc-Arab"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-ara'">
+                    <i18n:text i18n:key="grc-ara"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'ara-Grek'">
+                    <i18n:text i18n:key="ara-Grek"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-hye'">
+                    <i18n:text i18n:key="grc-hye"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'hye-Grek'">
+                    <i18n:text i18n:key="hye-Grek"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-syr'">
+                    <i18n:text i18n:key="grc-syr"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'syr-Grek'">
+                    <i18n:text i18n:key="syr-Grek"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'grc-kat'">
+                    <i18n:text i18n:key="grc-kat"/>
+                  </xsl:when>
+                  <xsl:when test="$lang = 'kat-Grek'">
+                    <i18n:text i18n:key="kat-Grek"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <i18n:text i18n:key="undetermined"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:if>
+            </xsl:for-each>
           </dd>
           <dt width="150" align="left"><i18n:text i18n:key="layout-field"/></dt>
           <dd>
@@ -660,12 +706,58 @@
       <dl class="iospe"> 
         <dt width="150" align="left"><i18n:text i18n:key="languages"/></dt>
         <dd>
-          <xsl:choose>
-            <xsl:when test="//t:msContents//t:textLang[@n='v']//t:seg//text()">
-              <xsl:apply-templates select="//t:msContents//t:textLang[@n='v']//t:seg"/>
-            </xsl:when>
-            <xsl:otherwise>―</xsl:otherwise>
-          </xsl:choose>
+          <xsl:for-each select="//t:div[@type='edition' and @subtype='editorial']/t:div[@type='textpart' and @n='rev']">
+            <xsl:if test="@xml:lang">
+              <xsl:variable name="lang" select="@xml:lang"/>
+              <xsl:choose>
+                <xsl:when test="$lang = 'grc'">
+                  <i18n:text i18n:key="grc"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'la'">
+                  <i18n:text i18n:key="la"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'la-Grek'">
+                  <i18n:text i18n:key="la-Grek"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-la'">
+                  <i18n:text i18n:key="grc-la"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-Latn'">
+                  <i18n:text i18n:key="grc-Latn"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-Arab'">
+                  <i18n:text i18n:key="grc-Arab"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-ara'">
+                  <i18n:text i18n:key="grc-ara"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'ara-Grek'">
+                  <i18n:text i18n:key="ara-Grek"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-hye'">
+                  <i18n:text i18n:key="grc-hye"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'hye-Grek'">
+                  <i18n:text i18n:key="hye-Grek"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-syr'">
+                  <i18n:text i18n:key="grc-syr"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'syr-Grek'">
+                  <i18n:text i18n:key="syr-Grek"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'grc-kat'">
+                  <i18n:text i18n:key="grc-kat"/>
+                </xsl:when>
+                <xsl:when test="$lang = 'kat-Grek'">
+                  <i18n:text i18n:key="kat-Grek"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <i18n:text i18n:key="undetermined"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:if>
+          </xsl:for-each>
         </dd>
         <dt width="150" align="left"><i18n:text i18n:key="layout-field"/></dt>
         <dd>
@@ -791,23 +883,23 @@
       <div id="images"><!-- ************************* IMAGES ************************************ -->
         <h4 class="iospe"><i><i18n:text i18n:key="images"/></i></h4>
         <dl class="box">
-          <xsl:for-each select="//t:facsimile//t:surface[@type='obverse']//t:graphic">
+          <xsl:for-each select="//t:facsimile//t:surface[@type='r']//t:graphic">
             <dd>
               <xsl:apply-templates select="." />
             </dd>
           </xsl:for-each>
           <dt width="150">
-            <xsl:value-of select="//t:facsimile//t:surface[@type='obverse']//t:graphic//t:desc"/>
+            <xsl:value-of select="//t:facsimile//t:surface[@type='r']//t:graphic//t:desc"/>
           </dt>
         </dl>
         <dl class="box">
-          <xsl:for-each select="//t:facsimile//t:surface[@type='reverse']//t:graphic">
+          <xsl:for-each select="//t:facsimile//t:surface[@type='v']//t:graphic">
             <dd>
               <xsl:apply-templates select="." />
             </dd>
           </xsl:for-each>
           <dt width="150">
-            <xsl:value-of select="//t:facsimile//t:surface[@type='reverse']//t:graphic//t:desc"/>
+            <xsl:value-of select="//t:facsimile//t:surface[@type='v']//t:graphic//t:desc"/>
           </dt>
         </dl>
         
@@ -817,8 +909,8 @@
           <h4 class="iospe">RTI</h4>
           <div class="rtitabs">
             <xsl:choose>
-              <xsl:when test="//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI'] and //t:facsimile//t:surface[@type='reverse']//t:graphic[@type='RTI']">
-                <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface[@type='obverse']//t:graphic[@type='RTI']/@url}">
+              <xsl:when test="//t:facsimile//t:surface[@type='r']//t:graphic[@type='RTI'] and //t:facsimile//t:surface[@type='v']//t:graphic[@type='RTI']">
+                <p id="rti_tab_1" class="rtitab active" data-url="{//t:facsimile//t:surface[@type='r']//t:graphic[@type='RTI']/@url}">
                   <i18n:text i18n:key="obverse"/>
                 </p>
                 <p id="rti_tab_2" class="rtitab" data-url="{//t:facsimile//t:surface[@type='']//t:graphic[@type='RTI']/@url}">
@@ -877,7 +969,7 @@
         </div>
       </xsl:if>
       
-      <h4 class="iospe"><i><i18n:text i18n:key="edition"/></i></h4>
+      <h4 class="iospe"><i18n:text i18n:key="edition"/></h4>
       <div class="section-container tabs" data-section="tabs">
         <section>
           <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="interpretive"/></a></p>
