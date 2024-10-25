@@ -21,7 +21,7 @@
                     <xsl:apply-templates/>                    
                 </xsl:variable>
                 <!-- Emit all uppercase characters for all text children of t:orig -->
-                <xsl:value-of select="upper-case(translate(normalize-unicode(translate(.,'&#x03f2;','&#x03f9;'),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
+                <xsl:value-of select="upper-case(translate(normalize-unicode(translate($origChildren,'&#x03f2;','&#x03f9;'),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
