@@ -45,7 +45,7 @@
             
             <xsl:for-each select="1 to $un-len-all">
                <xsl:choose>
-                  <xsl:when test="$parm-leiden-style='london'">
+                  <xsl:when test="$parm-leiden-style='medcyprus'">
                      <xsl:text>.</xsl:text>
                   </xsl:when>
                   <xsl:when test="$parm-leiden-style='london'">
