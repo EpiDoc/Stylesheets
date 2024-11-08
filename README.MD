@@ -59,28 +59,31 @@ The parameters currently defined include:
 		apparatus encoding. The only value supported is 'iospe',
 		which processes bibliography richly.
 	$css-loc
-		Default value is '../xsl/global.css'.
 		Path of CSS file referenced in the resulting HTML file.
+		Default value is '../xsl/global.css'.
 	$docroot
 		Default value is '../output/data'
 	$edition-type:
-		Values supported are 'interpretive' (default) and 'diplomatic' (prints
+		Values supported are 'interpretive' (default; i.e. editorial) and 'diplomatic' (prints
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
-		Values supported are 'default' (no metadata), 'inslib', 'iospe', 'sample'
+		Selects a template for the whole epigraphic edition, based on the templates provided.
+		Values supported are 'default' (only prints epigraphic text), 'inslib', 'iospe', 'sample'
 	$hgv-gloss
+		Used by Papyrological Navigator only.
 		Value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
 		Location of HGV glossary file relative to the current file.
-		Used by Papyrological Navigator only.
 	$leiden-style:
+		Selects variations in local Leiden usage; brackets for corrected text,
+		display of previously read text, illegible characters, etc.
 		Values supported include 'panciera' (default), 'ddbdp', 'dohnicht',
 		'edh-web' (and 'edh-itx', 'edh-names'), 'ila', 'london',
-		'petrae', 'rib', 'seg', and 'sammelbuch'. These change minor
-		variations in local Leiden usage; brackets for corrected text,
-		display of previously read text, illegible characters, etc.
+		'petrae', 'rib', 'seg', and 'sammelbuch'. 
 	$line-inc:
-		default value = 5, may be locally defined to any integer value
+		Defines the intervals at which lines are numbered (usually every 5).
+		Default value = 5, may be locally defined to any integer value
 	$topNav
+		Used by Papyrological Navigator only.
 		values are 'default' and 'ddbdp'
 	$verse-lines:
 		values are 'off' (default), and 'on' (when a text of section of
