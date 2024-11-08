@@ -68,7 +68,7 @@ The parameters currently defined include:
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
 		Selects a template for the whole epigraphic edition, based on the templates provided.
-		Values supported are 'sample' (full page showing most common features), 'inslib', 'iospe'.
+		Values supported are 'sample' (full page showing most common features), 'inslib', 'iospe', 'sigidoc'.
 		Also available: 'default' (only prints epigraphic text)
 	$hgv-gloss
 		Used by Papyrological Navigator only.
