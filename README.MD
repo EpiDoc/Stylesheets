@@ -68,7 +68,8 @@ The parameters currently defined include:
 		edition in uppercase, no restored, corrected, expanded characters, etc.)
 	$edn-structure
 		Selects a template for the whole epigraphic edition, based on the templates provided.
-		Values supported are 'default' (only prints epigraphic text), 'inslib', 'iospe', 'sample'
+		Values supported are 'sample' (full page showing most common features), 'inslib', 'iospe'.
+		Also available: 'default' (only prints epigraphic text)
 	$hgv-gloss
 		Used by Papyrological Navigator only.
 		Value is '../../../xml/idp.data/trunk/HGV_trans_EpiDoc/glossary.xml'.
@@ -92,7 +93,7 @@ The parameters currently defined include:
 		epigraphic lines)
 	$bibliography:
 		the default value is 'none', but in this parameter you can set the Stylesheets
-		to look eiterh at a local TEI encoded bibliography file with the
+		to look either at a local TEI encoded bibliography file with the
 		value 'localTEI' (the path to which should be defined in $localbibl) or
 		look at a Zotero Library openly accessible online, setting the
 		parameter to 'zotero' and taking care to set also the other
@@ -109,7 +110,7 @@ The parameters currently defined include:
 			value is free for you to set based on the key identifying your library in Zotero,
 			there is a default on 247748, which is the EAGLE group bibliography
 		$ZoteroNS:
-			deafualt value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
+			default value is no namespace, although the htm-teibibl.xsl using this parameter takes this value only if selected. You can set it to any prefix you are using in your Zotero library.
 		$ZoteroStyle:
 			value is the name of the desired CSL registered style in the
 			Citation Styles Repository, e.g. chicago-author-date, which is the default Zotero will use if you do not specify this parameter
