@@ -74,7 +74,7 @@
        <br/><b>Letters: </b>
        <xsl:apply-templates select="//t:handDesc" mode="medcyprus-letter-height"/>
        <br/><b>Iconography: </b>
-       <xsl:for-each select="//t:rs[@type='iconography']">
+       <xsl:for-each select="//t:rs[@type='iconography'][string(normalize-space(.))]">
          <xsl:apply-templates select="." mode="medcyprus-dimensions"/>
          <xsl:if test="position()!=last()">; </xsl:if>
        </xsl:for-each>
