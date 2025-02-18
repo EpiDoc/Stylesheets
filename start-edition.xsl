@@ -25,7 +25,7 @@
    <xsl:include href="htm-teilb.xsl"/>
    <xsl:include href="htm-teilgandl.xsl"/>
    <xsl:include href="htm-teilistanditem.xsl"/>
-   <xsl:include href="htm-teilistbiblandbibl.xsl"/>
+  <!-- <xsl:include href="htm-teilistbiblandbibl.xsl"/>-->
    <xsl:include href="htm-teimilestone.xsl"/>
    <xsl:include href="htm-teibibl.xsl"/>
    <xsl:include href="htm-teinote.xsl"/>
