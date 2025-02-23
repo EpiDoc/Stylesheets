@@ -73,11 +73,18 @@
        <xsl:apply-templates select="//t:layoutDesc" mode="medcyprus-dimensions"/>
        <br/><b>Letters: </b>
        <xsl:apply-templates select="//t:handDesc" mode="medcyprus-letter-height"/>
-       <br/><b>Iconography: </b>
-       <xsl:for-each select="//t:rs[@type='iconography'][string(normalize-space(.))]">
+       <br/><b>Iconography: </b> <!--EM edited 2025-02-23 -->
+       <xsl:choose>
+       <xsl:when test="//t:decoDesc//t:rs[@type='iconography']">
+           <xsl:for-each select="//t:rs[@type='iconography'][string(normalize-space(.))]">
          <xsl:apply-templates select="." mode="medcyprus-dimensions"/>
          <xsl:if test="position()!=last()">; </xsl:if>
        </xsl:for-each>
+     </xsl:when>
+         <xsl:when test="//t:decoDesc/t:p[not(child::t:rs)]">
+           <xsl:value-of select="//t:decoDesc/t:p"/>
+         </xsl:when>
+       </xsl:choose>
      </p>
      
      <p><b>Visit to the monument: </b>
