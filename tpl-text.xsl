@@ -34,7 +34,8 @@
                    <xsl:value-of select="upper-case(normalize-unicode(translate(translate(translate(.,'&#x03f2;σςΣ','&#x03f9;&#x03f9;&#x03f9;&#x03f9;'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'))"/>
                 </xsl:when>
                 <xsl:otherwise>
-                   <xsl:value-of select="upper-case(translate(normalize-unicode(translate(translate(translate(translate(.,'Uu','Vv'),'&#x03f2;','&#x03f9;'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
+                   <xsl:variable name="txt" select="if (ancestor::t:div[@xml:lang][1][@xml:lang='la']) then translate(.,'Uu','Vv') else ."/>
+                   <xsl:value-of select="upper-case(translate(normalize-unicode(translate(translate(translate($txt,'&#x03f2;','&#x03f9;'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'),'&#x0300;&#x0301;&#x0308;&#x0313;&#x0314;&#x0342;&#x0345;',''))"/>
                 </xsl:otherwise>
              </xsl:choose>
             <!--<xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>-->
