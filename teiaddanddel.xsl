@@ -39,6 +39,9 @@
                <xsl:when test="@place = 'below'">
                   <xsl:text>/</xsl:text>
                </xsl:when>
+               <xsl:when test=" $parm-leiden-style='medcyprus' and @place='inline'">
+                  <xsl:text>`</xsl:text>
+               </xsl:when>
                <xsl:when test="@place = 'left'">
                   <xsl:text>(added at left: </xsl:text>
                </xsl:when>
@@ -90,6 +93,9 @@
                </xsl:when>
                <xsl:when test="@place = 'below'">
                   <xsl:text>\</xsl:text>
+               </xsl:when>
+               <xsl:when test=" $parm-leiden-style='medcyprus' and @place='inline'">
+                  <xsl:text>´</xsl:text>
                </xsl:when>
                <xsl:when test="@place = 'left' or @place = 'right'">
                   <xsl:text>)</xsl:text>
