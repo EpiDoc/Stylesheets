@@ -11,6 +11,7 @@
     <xsl:function name="EDF:dotchar" as="xs:string">
        <xsl:param name="leidenStyle"></xsl:param>
        <xsl:param name="gapReason"></xsl:param>
+       <xsl:param name="gapPrecision"></xsl:param>
        <xsl:variable name="dot">
            <xsl:choose>
               <xsl:when test="$leidenStyle = ('ddbdp','dclp','sammelbuch')">
@@ -24,6 +25,12 @@
                </xsl:when>
               <xsl:when test="$leidenStyle='medcyprus'">
                  <xsl:text>.</xsl:text>
+              </xsl:when>
+              <xsl:when test="$leidenStyle='wingspread' and ($gapReason='illegible' or not($gapPrecision='low'))">
+                 <xsl:text>•</xsl:text>
+              </xsl:when>
+              <xsl:when test="$leidenStyle='wingspread'">
+                 <xsl:text>&#xa0;</xsl:text>
               </xsl:when>
                <xsl:otherwise>
                    <xsl:text>.</xsl:text>
@@ -230,7 +237,7 @@
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
-      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason)"/>
+      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason,@precision)"/>
       <xsl:variable name="cur-max" select="EDF:dotmax($parm-leiden-style)"/>
      
       <!-- Precision of <gap> defined -->
@@ -819,7 +826,7 @@
    <xsl:template name="dot-out">
       <xsl:param name="cur-num"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason)"></xsl:variable>
+      <xsl:variable name="cur-dot" select="EDF:dotchar($parm-leiden-style,@reason,@precision)"></xsl:variable>
 
       <xsl:if test="$cur-num &gt; 0">
          <xsl:value-of select="$cur-dot"/>
