@@ -1,23 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
   <!-- Called from start-edition.xsl -->
 
   <xsl:template name="metadata">
       <p>
          <strong>Publikation: </strong>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:title[@type = 'abbreviated']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']             /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:title[@type = 'abbreviated']"/>
          <xsl:text> </xsl:text>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='volume']"/>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='fascicle']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']             /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='volume']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']             /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='fascicle']"/>
          <xsl:text> </xsl:text>
-         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-            /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='numbers']"/>
+         <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']             /t:listBibl/t:bibl[@type = 'publication' and @subtype = 'principal']/t:biblScope[@type='numbers']"/>
       </p>
       <xsl:if test="//t:div[@type = 'bibliography' and @subtype = 'otherPublications']">
          <p>
@@ -32,8 +25,7 @@
       </xsl:if>
       <p>
          <strong>Datierung: </strong>
-         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'textDate']
-            /t:p/t:date[@type = 'textDate']"/>
+         <xsl:value-of select="//t:div[@type = 'commentary' and @subtype = 'textDate']             /t:p/t:date[@type = 'textDate']"/>
       </p>
       <p>
          <strong>Ort: </strong>
@@ -88,14 +80,11 @@
       <p>
          <strong>Text der DDBDP: </strong>
          <xsl:variable name="db-link">
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-               /t:listBibl/t:bibl[@type = 'DDbDP']/t:series"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']                /t:listBibl/t:bibl[@type = 'DDbDP']/t:series"/>
             <xsl:text>:volume=</xsl:text>
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-               /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'volume']"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']                /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'volume']"/>
             <xsl:text>:document=</xsl:text>
-            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']
-               /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'numbers']"/>
+            <xsl:value-of select="//t:div[@type = 'bibliography' and @subtype = 'principalEdition']                /t:listBibl/t:bibl[@type = 'DDbDP']/t:biblScope[@type = 'numbers']"/>
          </xsl:variable>
          <a>
             <xsl:attribute name="href">

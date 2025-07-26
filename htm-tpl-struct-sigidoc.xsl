@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:i18n="http://apache.org/cocoon/i18n/2.1"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0"
-                xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<xsl:stylesheet xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:i18n="http://apache.org/cocoon/i18n/2.1" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
   <!-- Contains named templates for IOSPE file structure (aka "metadata" aka "supporting data") -->
 
   <!-- Called from htm-tpl-structure.xsl -->
@@ -25,9 +21,13 @@
     
     
     <div id="stone">
-      <h3 class="iospe"><i18n:text i18n:key="artifact">Artifact</i18n:text></h3>
+      <h3 class="iospe">
+                <i18n:text i18n:key="artifact">Artifact</i18n:text>
+            </h3>
       <dl class="iospe">
-        <dt width="150" align="left"><i18n:text i18n:key="type">Type</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="type">Type</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:objectType//t:term//t:seg//text()">
@@ -36,7 +36,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="general-layout">General layout</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="general-layout">General layout</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:TEI//t:teiHeader//t:fileDesc//t:sourceDesc//t:msDesc//t:physDesc//t:objectDesc//t:layoutDesc//t:layout[@n='whole']//t:rs[@type='layout']//t:seg//text()">
@@ -45,7 +47,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="matrix">Matrix</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:layout[@n='whole']//t:rs[@type='matrix'][@subtype='surviving']">
@@ -80,10 +84,16 @@
       </dl>
     </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="physical-description">Physical description</i18n:text></i></h4>
+          <h4 class="iospe">
+                <i>
+                    <i18n:text i18n:key="physical-description">Physical description</i18n:text>
+                </i>
+            </h4>
           <!-- ************* physical description *************** -->
           <dl class="iospe">
-            <dt width="150" align="left"><i18n:text i18n:key="medium">Medium</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="medium">Medium</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:objectType//t:interp[@type='workType']//text()">
@@ -92,7 +102,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="material">Material</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="material">Material</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:material//t:seg//text()">
@@ -101,7 +113,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="shape">Shape</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="shape">Shape</i18n:text>
+                </dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:layout//t:rs[@type='shape']//t:seg//text()">
@@ -110,7 +124,9 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="dimensions">Dimensions (mm)</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="dimensions">Dimensions (mm)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:support/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
@@ -158,7 +174,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="weight">Weight (g)</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="weight">Weight (g)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='weight'][@unit='g']//text()">
@@ -167,7 +185,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="channel-orientation">Channel orientation (clock)</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="channel-orientation">Channel orientation (clock)</i18n:text>
+                </dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:support//t:measure[@type='channelOrient'][@unit='clock']//text()">
@@ -176,7 +196,9 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="axis">Axis (clock)</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="axis">Axis (clock)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='axis'][@unit='clock']//text()">
@@ -185,7 +207,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="overstrike-orientation">Overstrike orientation (clock)</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="overstrike-orientation">Overstrike orientation (clock)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:support//t:measure[@type='overstrikeOrient'][@unit='clock']//text()">
@@ -194,7 +218,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="execution">Execution</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="execution">Execution</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:layout//t:rs[@type='execution']//t:seg//text()">
@@ -203,7 +229,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="countermark">Countermark</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="countermark">Countermark</i18n:text>
+                </dt>
             <dd>
               <xsl:choose>
                 <xsl:when test="//t:support//t:measure[@type='countermark']//text()">
@@ -212,7 +240,9 @@
                 <xsl:otherwise>―</xsl:otherwise>
               </xsl:choose>
             </dd>
-            <dt width="150" align="left"><i18n:text i18n:key="condition">Condition</i18n:text></dt>
+            <dt width="150" align="left">
+                    <i18n:text i18n:key="condition">Condition</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:supportDesc//t:condition/t:p/text()">
@@ -224,9 +254,15 @@
           </dl>
         </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="dating">Dating</i18n:text></i></h4><!-- ***********Dating************ -->
+          <h4 class="iospe">
+                <i>
+                    <i18n:text i18n:key="dating">Dating</i18n:text>
+                </i>
+            </h4><!-- ***********Dating************ -->
         <dl class="iospe">
-          <dt width="150" align="left"><i18n:text i18n:key="date">Date</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="date">Date</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origin//t:origDate[@type='analysis']//t:seg/text()">
@@ -235,7 +271,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="internal-date">Internal date</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="internal-date">Internal date</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:origin//t:origDate[@type='internal']//t:seg/text()">
@@ -244,7 +282,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="dating-criteria">Dating criteria</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="dating-criteria">Dating criteria</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origin//t:origDate//t:interp/text()">
@@ -266,7 +306,9 @@
             </xsl:otherwise>
             </xsl:choose> --><!-- NOT TO BE CHANGED INTO <xsl:apply-templates/> -->
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="alternative-dating">Alternative dating</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="alternative-dating">Alternative dating</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:origin//t:date//t:choice">
@@ -278,9 +320,15 @@
         </dl>
         </div>
         <div id="stone">
-          <h4 class="iospe"><i><i18n:text i18n:key="history">History</i18n:text></i></h4><!-- ***********History********* -->
+          <h4 class="iospe">
+                <i>
+                    <i18n:text i18n:key="history">History</i18n:text>
+                </i>
+            </h4><!-- ***********History********* -->
         <dl class="iospe">
-          <dt width="150" align="left"><i18n:text i18n:key="seal-category">Category</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="seal-category">Category</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:msContents//t:summary[@n='whole']//t:seg//text()">
@@ -289,7 +337,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer">Issuer</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="issuer">Issuer</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:author//t:roleName//t:seg//text()">
@@ -298,7 +348,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="issuer-milieu">Issuer's milieu</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:author//t:roleName//t:interp//text()">
@@ -307,7 +359,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="place-origin">Place of origin</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="place-origin">Place of origin</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:origPlace//t:seg//t:placeName//text()">
@@ -316,7 +370,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-place">Find place</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="find-place">Find place</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:history//t:provenance[@type='found']//t:placeName[@type='ancientFindspot']//text() and //t:history//t:provenance[@type='found']//t:placeName[@type='modernFindspot']//text()">
@@ -331,7 +387,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-date">Find date</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="find-date">Find date</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:provenance[@type='found']/@when">
@@ -349,7 +407,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="find-circumstances">Find circumstances</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="find-circumstances">Find circumstances</i18n:text>
+                </dt>
           <dd>
           <xsl:choose>
             <xsl:when test="//t:provenance[@type='found']//t:rs[@type='circumstances']//text()">
@@ -358,7 +418,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="modern-location">Modern location</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="modern-location">Modern location</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier//t:settlement//t:seg//text() and //t:sourceDesc//t:msDesc//t:msIdentifier//t:country//t:seg//text()">
@@ -367,16 +429,18 @@
                         </xsl:when>
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier//t:settlement//t:seg//text()">
                           <xsl:apply-templates select="//t:sourceDesc//t:msDesc//t:msIdentifier//t:settlement//t:seg"/>
-                          <xsl:text></xsl:text>
+                          <xsl:text/>
                         </xsl:when>
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier//t:country//t:seg//text()">
                           <xsl:apply-templates select="//t:sourceDesc//t:msDesc//t:msIdentifier//t:country//t:seg"/>
-                          <xsl:text></xsl:text>
+                          <xsl:text/>
                         </xsl:when>
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
         </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="institution-repository">Institution and repository</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="institution-repository">Institution and repository</i18n:text>
+                </dt>
         <!-- <dd>
             <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier">
@@ -393,16 +457,18 @@
               </xsl:when>
               <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier/t:institution//text()">
               <xsl:apply-templates select="//t:sourceDesc//t:msDesc//t:msIdentifier/t:institution"/>
-              <xsl:text></xsl:text>
+              <xsl:text/>
             </xsl:when>
               <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier/t:repository/text()">
               <xsl:apply-templates select="//t:sourceDesc//t:msDesc//t:msIdentifier/t:repository"/>
-              <xsl:text></xsl:text>
+              <xsl:text/>
             </xsl:when>
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="collection-inventory">Collection and inventory</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="collection-inventory">Collection and inventory</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier/t:collection//text() and //t:sourceDesc//t:msDesc//t:msIdentifier/t:idno//text()">
@@ -415,7 +481,7 @@
             </xsl:when>
               <xsl:when test="//t:sourceDesc//t:msDesc//t:msIdentifier/t:idno//text()">
               <xsl:apply-templates select="//t:sourceDesc//t:msDesc//t:msIdentifier/t:idno"/>
-              <xsl:text></xsl:text>
+              <xsl:text/>
             </xsl:when>
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
@@ -432,7 +498,9 @@
             </xsl:when>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="acquisition">Acquisition</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="acquisition">Acquisition</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:acquisition//t:p//text()">
@@ -441,7 +509,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="previous-locations">Previous locations</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="previous-locations">Previous locations</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:provenance[@type='transferred']//t:p//text()">
@@ -450,7 +520,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="modern-observations">Modern observations</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="modern-observations">Modern observations</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:provenance[@type='observed']//t:p//text() and //t:provenance[@type='not-observed']//t:p//text()">
@@ -470,10 +542,14 @@
         </div>
         
       <div id="text-field">
-        <h3 class="iospe"><i18n:text i18n:key="field-obverse">Obverse</i18n:text></h3>
+        <h3 class="iospe">
+                <i18n:text i18n:key="field-obverse">Obverse</i18n:text>
+            </h3>
         <!-- *******inscribed field - obverse *********** -->
         <dl class="iospe"> 
-          <dt width="150" align="left"><i18n:text i18n:key="languages">Language(s)</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="languages">Language(s)</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:msContents//t:textLang[@n='r']//t:seg//text()">
@@ -482,7 +558,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="layout-field">Layout of field</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="layout-field">Layout of field</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:layoutDesc//t:layout[@n='r']/t:p/text()">
@@ -491,7 +569,9 @@
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
             <xsl:when test="//t:layout[@n='r']/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
@@ -539,7 +619,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="matrix">Matrix</i18n:text>
+                </dt>
           <dd>
             <xsl:choose xml:space="preserve">
               <xsl:when test="//t:layout[@n='r']//t:rs[@type='matrix'][@subtype='surviving']">
@@ -571,7 +653,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="iconography">Iconography</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="iconography">Iconography</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:figure//t:figDesc[@n='r']//text()">
@@ -580,7 +664,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="decoration">Decoration</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="decoration">Decoration</i18n:text>
+                </dt>
           <dd>
             <xsl:choose>
               <xsl:when test="//t:figure//t:figDesc[@n='decoR']//text()">
@@ -589,7 +675,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
           </dd>
-          <dt width="150" align="left"><i18n:text i18n:key="epigraphy">Epigraphy</i18n:text></dt>
+          <dt width="150" align="left">
+                    <i18n:text i18n:key="epigraphy">Epigraphy</i18n:text>
+                </dt>
           <dd id="epigraphy">
             <xsl:choose> <!--cambiare @n='whole' in 'r' e 'v'-->
               <xsl:when test="//t:handDesc//t:handNote[@n='r']//t:seg//text()">
@@ -602,12 +690,16 @@
         </dl>
       </div>
 
-    <dl class="iospe"></dl><!-- don't touch this! -->
+    <dl class="iospe"/><!-- don't touch this! -->
       
     <div id="text-field">
-      <h3 class="iospe"><i18n:text i18n:key="field-reverse">Reverse</i18n:text></h3><!-- *******inscribed field - reverse *********** -->
+      <h3 class="iospe">
+                <i18n:text i18n:key="field-reverse">Reverse</i18n:text>
+            </h3><!-- *******inscribed field - reverse *********** -->
       <dl class="iospe"> 
-        <dt width="150" align="left"><i18n:text i18n:key="languages">Language(s)</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="languages">Language(s)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:msContents//t:textLang[@n='v']//t:seg//text()">
@@ -616,7 +708,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="layout-field">Layout of field</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="layout-field">Layout of field</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
                         <xsl:when test="//t:layoutDesc//t:layout[@n='v']/t:p/text()">
@@ -625,7 +719,9 @@
                         <xsl:otherwise>―</xsl:otherwise>
                     </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="field-dimensions">Field's dimensions (mm)</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
             <xsl:when test="//t:layout[@n='v']/t:dimensions/t:dim[@type='diameter']/text()[not(normalize-space(.)=' ')]">
@@ -673,7 +769,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="matrix">Matrix</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="matrix">Matrix</i18n:text>
+                </dt>
         <dd>
           <xsl:choose xml:space="preserve">
               <xsl:when test="//t:layout[@n='v']//t:rs[@type='matrix'][@subtype='surviving']">
@@ -705,7 +803,9 @@
               <xsl:otherwise>―</xsl:otherwise>
             </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="iconography">Iconography</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="iconography">Iconography</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:figure//t:figDesc[@n='v']//text()">
@@ -714,7 +814,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="decoration">Decoration</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="decoration">Decoration</i18n:text>
+                </dt>
         <dd>
           <xsl:choose>
             <xsl:when test="//t:figure//t:figDesc[@n='decoV']//text()">
@@ -723,7 +825,9 @@
             <xsl:otherwise>―</xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="epigraphy">Epigraphy</i18n:text></dt>
+        <dt width="150" align="left">
+                    <i18n:text i18n:key="epigraphy">Epigraphy</i18n:text>
+                </dt>
         <dd id="epigraphy">
           <xsl:choose>
             <xsl:when test="//t:handDesc//t:handNote[@n='v']//t:seg//text()">
@@ -739,11 +843,15 @@
     <div id="text">
       <!--<h3 class="iospe"><i18n:text i18n:key="text">Text</i18n:text></h3>-->
       <div id="images"><!-- ************************* IMAGES ************************************ -->
-        <h4 class="iospe"><i><i18n:text i18n:key="images">Images</i18n:text></i></h4>
+        <h4 class="iospe">
+                    <i>
+                        <i18n:text i18n:key="images">Images</i18n:text>
+                    </i>
+                </h4>
         <dl class="box">
           <xsl:for-each select="//t:facsimile//t:surface[@type='obverse']//t:graphic">
             <dd>
-              <xsl:apply-templates select="." />
+              <xsl:apply-templates select="."/>
             </dd>
           </xsl:for-each>
           <dt width="150">
@@ -753,7 +861,7 @@
         <dl class="box">
           <xsl:for-each select="//t:facsimile//t:surface[@type='reverse']//t:graphic">
             <dd>
-              <xsl:apply-templates select="." />
+              <xsl:apply-templates select="."/>
             </dd>
           </xsl:for-each>
           <dt width="150">
@@ -832,10 +940,18 @@
         </table>-->
       </div>
 
-      <h4 class="iospe"><i><i18n:text i18n:key="edition">Edition</i18n:text></i></h4>
+      <h4 class="iospe">
+                <i>
+                    <i18n:text i18n:key="edition">Edition</i18n:text>
+                </i>
+            </h4>
       <div class="section-container tabs" data-section="tabs">
         <section>
-          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="interpretive">Interpretive</i18n:text></a></p>
+          <p class="title" data-section-title="data-section-title">
+                        <a href="#">
+                            <i18n:text i18n:key="interpretive">Interpretive</i18n:text>
+                        </a>
+                    </p>
           <div class="content" id="edition" data-section-content="data-section-content">
             <!-- Edited text output -->
             <xsl:variable name="edtxt">
@@ -848,7 +964,11 @@
           </div>
         </section>
         <section>
-          <p class="title" data-section-title="data-section-title"><a href="#"><i18n:text i18n:key="diplomatic">Diplomatic</i18n:text></a></p>
+          <p class="title" data-section-title="data-section-title">
+                        <a href="#">
+                            <i18n:text i18n:key="diplomatic">Diplomatic</i18n:text>
+                        </a>
+                    </p>
           <div class="content" id="diplomatic" data-section-content="data-section-content">
             <!-- Edited text output -->
             <xsl:variable name="edtxt">
@@ -862,7 +982,9 @@
         </section>
       </div>
       <div id="apparatus" class="iospe">
-        <h4 class="iospe"><i18n:text i18n:key="apparatus">Apparatus</i18n:text></h4>
+        <h4 class="iospe">
+                    <i18n:text i18n:key="apparatus">Apparatus</i18n:text>
+                </h4>
         <!-- Apparatus text output -->
         <xsl:variable name="apptxt">
           <xsl:apply-templates select="//t:div[@type='apparatus']/t:listApp"/>
@@ -872,7 +994,11 @@
       </div>
       
       <div id="translation">
-        <h4 class="iospe"><i><i18n:text i18n:key="legend-translation">Legend and Translation</i18n:text></i></h4>
+        <h4 class="iospe">
+                    <i>
+                        <i18n:text i18n:key="legend-translation">Legend and Translation</i18n:text>
+                    </i>
+                </h4>
         <!-- Translation text output -->
         <xsl:variable name="transtxt">
           <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
@@ -882,9 +1008,15 @@
       </div>
       
       <div id="bibliography"> <!--is a div here necessary?????-->
-        <h4 class="iospe"><i18n:text i18n:key="references">References</i18n:text></h4>
+        <h4 class="iospe">
+                    <i18n:text i18n:key="references">References</i18n:text>
+                </h4>
       <dl class="iospe">  
-        <dt width="150" align="left"><i18n:text i18n:key="editions"><i>Edition(s)</i></i18n:text></dt>
+        <dt width="150" align="left">
+                        <i18n:text i18n:key="editions">
+                            <i>Edition(s)</i>
+                        </i18n:text>
+                    </dt>
         <dd id="biblioEditions">
           <xsl:choose>
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='edition']/t:p/node()">
@@ -902,16 +1034,28 @@
             <xsl:otherwise><i><i18n:text i18n:key="none">None</i18n:text></i></xsl:otherwise>
           </xsl:choose>
         </dd>-->
-        <dt width="150" align="left"><i18n:text i18n:key="parallels"><i>Parallel(s)</i></i18n:text></dt>
+        <dt width="150" align="left">
+                        <i18n:text i18n:key="parallels">
+                            <i>Parallel(s)</i>
+                        </i18n:text>
+                    </dt>
         <dd id="biblioParallels">
           <xsl:choose>
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='parallels']/t:p/node()">
               <xsl:apply-templates select="//t:body//t:div[@type='bibliography'][@subtype='parallels']/t:p/node()"/>
             </xsl:when>
-            <xsl:otherwise><i><i18n:text i18n:key="no-parallels-known">No parallels known</i18n:text></i></xsl:otherwise>
+            <xsl:otherwise>
+                                <i>
+                                    <i18n:text i18n:key="no-parallels-known">No parallels known</i18n:text>
+                                </i>
+                            </xsl:otherwise>
           </xsl:choose>
         </dd>
-        <dt width="150" align="left"><i18n:text i18n:key="further-references"><i>Further references</i></i18n:text></dt>
+        <dt width="150" align="left">
+                        <i18n:text i18n:key="further-references">
+                            <i>Further references</i>
+                        </i18n:text>
+                    </dt>
         <dd id="biblioCommParallels">
           <xsl:choose> <!--da cambiare i subtype-->
             <xsl:when test="//t:body//t:div[@type='bibliography'][@subtype='discussion']/t:p/node()">
@@ -924,7 +1068,11 @@
       </div>
       
       <div id="commentary">
-        <h4 class="iospe"><i><i18n:text i18n:key="commentary">Commentary</i18n:text></i></h4>
+        <h4 class="iospe">
+                    <i>
+                        <i18n:text i18n:key="commentary">Commentary</i18n:text>
+                    </i>
+                </h4>
         <!-- Commentary text output -->
         <xsl:variable name="commtxt">
           <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='text']//t:p"/>
@@ -936,7 +1084,9 @@
       <!-- ************** FOOTNOTES ***************** -->
       <div class="fnseparator"/>
       <div id="footnotes">
-        <h4 class="iospe" id="notes"><i18n:text i18n:key="footnotes">Footnotes</i18n:text></h4>
+        <h4 class="iospe" id="notes">
+                    <i18n:text i18n:key="footnotes">Footnotes</i18n:text>
+                </h4>
         <xsl:choose>
           <xsl:when test="//t:div[@type='commentary'][@subtype='footnotes']//t:p">
             <xsl:apply-templates select="//t:div[@type='commentary'][@subtype='footnotes']//t:p"/>
@@ -950,7 +1100,7 @@
 
   <xsl:template name="sigidoc-structure">
     <xsl:variable name="title">
-      <xsl:call-template name="iospe-title" />
+      <xsl:call-template name="iospe-title"/>
     </xsl:variable>
     <html>
       <head>
@@ -965,7 +1115,7 @@
         <h1>
           <xsl:value-of select="$title"/>
         </h1>
-        <xsl:call-template name="iospe-body-structure" />
+        <xsl:call-template name="iospe-body-structure"/>
       </body>
     </html>
   </xsl:template>
@@ -974,14 +1124,16 @@
     <xsl:choose>
       <xsl:when test="//t:titleStmt/t:title/text() and matches(//t:idno[@type='filename'], '^\d\.\d{1,4}$')">
         <xsl:number value="substring-before(//t:idno[@type='filename'],'.')" format="I"/>
-        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text> </xsl:text>
         <xsl:number value="substring-after(//t:idno[@type='filename'],'.')" format="1"/>
-        <xsl:text>.&#xa0;</xsl:text>
-        <xsl:if test="string(normalize-space(//t:origPlace[1]))"><xsl:value-of select="normalize-space(//t:origPlace[1])"/>
-        <xsl:text>.&#xa0;</xsl:text></xsl:if>
+        <xsl:text>. </xsl:text>
+        <xsl:if test="string(normalize-space(//t:origPlace[1]))">
+                    <xsl:value-of select="normalize-space(//t:origPlace[1])"/>
+        <xsl:text>. </xsl:text>
+                </xsl:if>
         <xsl:value-of select="//t:titleStmt/t:title[child::text()][1]"/>
         <xsl:if test="not(//t:titleStmt/t:title[child::text()][1][child::t:origDate])">
-          <xsl:text>,&#xa0;</xsl:text>
+          <xsl:text>, </xsl:text>
           <xsl:value-of select="//t:origDate[1]"/>
         </xsl:if>
       </xsl:when>
@@ -1063,7 +1215,9 @@
   <!-- arrows pointing to previous/next seal: from "Cretan Inscriptions" project -->
   <xsl:template name="navigation">
     <xsl:if test="doc-available(concat('file:',system-property('user.dir'),'/all_seals.xml')) = fn:true()">
-      <xsl:variable name="filename"><xsl:value-of select="//t:idno[@type='sequence']"/></xsl:variable>
+      <xsl:variable name="filename">
+                <xsl:value-of select="//t:idno[@type='sequence']"/>
+            </xsl:variable>
       <xsl:variable name="list" select="document(concat('file:',system-property('user.dir'),'/all_seals.xml'))//t:list"/>
       <xsl:variable name="prev" select="$list/t:item[@sortKey=$filename]/preceding-sibling::t:item[1]/@n"/>
       <xsl:variable name="next" select="$list/t:item[@sortKey=$filename]/following-sibling::t:item[1]/@n"/>
@@ -1079,7 +1233,9 @@
                     <xsl:value-of select="$prev"/>
                     <xsl:text>.html</xsl:text>
                   </xsl:attribute>
-                  <i18n:text i18n:key="arrow-left"><xsl:text>&#x021D0; previous</xsl:text></i18n:text>
+                  <i18n:text i18n:key="arrow-left">
+                                        <xsl:text>⇐ previous</xsl:text>
+                                    </i18n:text>
                 </a>
               </li>
             </xsl:if>
@@ -1092,7 +1248,9 @@
                     <xsl:value-of select="$next"/>
                     <xsl:text>.html</xsl:text>
                   </xsl:attribute>
-                  <i18n:text i18n:key="arrow-right"><xsl:text>next &#x021D2;</xsl:text></i18n:text>
+                  <i18n:text i18n:key="arrow-right">
+                                        <xsl:text>next ⇒</xsl:text>
+                                    </i18n:text>
                 </a>
               </li>
             </xsl:if>

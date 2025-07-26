@@ -1,15 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" 
-   xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
-                exclude-result-prefixes="t EDF" 
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" exclude-result-prefixes="t EDF" version="2.0">
 
    <xsl:template match="t:supplied[@reason='lost']">
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" />
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+      <xsl:param name="location"/>
       <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and child::t:*[1][local-name() = 'milestone'][@rend = 'paragraphos']">
          <br/>
       </xsl:if>
@@ -48,8 +43,7 @@
             <xsl:choose>
                 <xsl:when test="$parm-edition-type = 'diplomatic'">
                   <xsl:variable name="orig-supplied-content">
-                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex 
-                        or ancestor::t:corr or ancestor::t:rdg)]"/>
+                     <xsl:value-of select="descendant::text()[not(ancestor::t:reg or ancestor::t:ex                          or ancestor::t:corr or ancestor::t:rdg)]"/>
                   </xsl:variable>
                   <xsl:variable name="sup-context-length">
                      <!-- take all text content that is not restored or expanded -->
@@ -92,9 +86,7 @@
             <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
                <!-- unless this is in the app part of a choice/subst/app in ddbdp
                       or an EDH leiden style, which doesn't use hyphens-->
-                <xsl:if test="(not($parm-leiden-style=('ddbdp','dclp') and (ancestor::t:*[local-name()=('reg','corr','rdg')
-                   or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))
-                   and not(starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt')">
+                <xsl:if test="(not($parm-leiden-style=('ddbdp','dclp') and (ancestor::t:*[local-name()=('reg','corr','rdg')                    or self::t:del[parent::t:subst]]))) and (not($location = 'apparatus'))                    and not(starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt')">
                   <xsl:text>-</xsl:text>
                </xsl:if>
             </xsl:if>
@@ -111,7 +103,7 @@
    </xsl:template>
 
   <xsl:template match="t:supplied[@reason='omitted']">
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="$parm-edition-type='diplomatic'"/>
          <xsl:when test="@evidence = 'parallel'">
@@ -129,7 +121,7 @@
    </xsl:template>
 
   <xsl:template match="t:supplied[@reason='subaudible']">
-     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
      <xsl:choose>
         <xsl:when test="starts-with($parm-leiden-style, 'edh') or $parm-leiden-style='eagletxt'"/>
         <xsl:otherwise>
@@ -146,7 +138,7 @@
    </xsl:template>
 
    <xsl:template match="t:supplied[@reason='undefined' and @evidence]">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="@evidence = 'apograph'">
             <xsl:text>⌈</xsl:text>

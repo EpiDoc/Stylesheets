@@ -29,8 +29,7 @@
                    <xsl:value-of select="upper-case(normalize-unicode(translate(translate(translate(.,'ϲσςΣ','ϹϹϹϹ'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'))"/>
                 </xsl:when>
                 <xsl:otherwise>
-                   <xsl:variable name="txt" select="if (ancestor::t:div[@xml:lang][1][@xml:lang='la']) then translate(.,'Uu','Vv') else ."/>
-                   <xsl:value-of select="upper-case(translate(normalize-unicode(translate(translate(translate($txt,'ϲ','Ϲ'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'),'̀́̈̓̔͂ͅ',''))"/>
+                   <xsl:value-of select="upper-case(translate(normalize-unicode(translate(translate(translate(.,'ϲ','Ϲ'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'),'̀́̈̓̔͂ͅ',''))"/>
                 </xsl:otherwise>
              </xsl:choose>
             <!--<xsl:value-of select="translate(translate(translate(.,$apos,''), '··&#xA; ,.;‘’', ''), $all-grc, $grc-upper-strip)"/>-->

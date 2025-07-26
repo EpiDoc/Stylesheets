@@ -1,4 +1,5 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
+<!-- $Id$ -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="t" version="2.0">
   <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation -->
   <xsl:include href="tpl-apparatus.xsl"/>
 
@@ -202,15 +203,23 @@
   <xsl:template mode="iospe-context" match="t:gap|t:supplied[@reason='lost']">
     <xsl:choose>
       <xsl:when test="@quantity ">
-      <xsl:for-each select="1 to @quantity"><xsl:text>.</xsl:text></xsl:for-each>
+      <xsl:for-each select="1 to @quantity">
+                    <xsl:text>.</xsl:text>
+                </xsl:for-each>
     </xsl:when>
       <xsl:when test="@atMost">
-        <xsl:for-each select="1 to @quantity"><xsl:text>.</xsl:text></xsl:for-each>
+        <xsl:for-each select="1 to @quantity">
+                    <xsl:text>.</xsl:text>
+                </xsl:for-each>
       </xsl:when>
       <xsl:when test="not(string(normalize-space(self::node())) = '')">
-        <xsl:for-each select="1 to string-length(self::node())"><xsl:text>.</xsl:text></xsl:for-each>
+        <xsl:for-each select="1 to string-length(self::node())">
+                    <xsl:text>.</xsl:text>
+                </xsl:for-each>
       </xsl:when>
-      <xsl:otherwise><xsl:text>...</xsl:text></xsl:otherwise>
+      <xsl:otherwise>
+                <xsl:text>...</xsl:text>
+            </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -432,16 +441,24 @@
 </xsl:template>
 
   <xsl:template name="intappedit">
-    <xsl:if test="t:lem/@source"><xsl:value-of select="t:lem/@source"/><xsl:text>; </xsl:text></xsl:if>
+    <xsl:if test="t:lem/@source">
+            <xsl:value-of select="t:lem/@source"/>
+            <xsl:text>; </xsl:text>
+        </xsl:if>
       <xsl:apply-templates select="t:rdg"/>
-      <xsl:if test="t:rdg/@source"><xsl:text> </xsl:text><xsl:value-of select="t:rdg/@source"/><xsl:text>; </xsl:text></xsl:if>
+      <xsl:if test="t:rdg/@source">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="t:rdg/@source"/>
+            <xsl:text>; </xsl:text>
+        </xsl:if>
   </xsl:template>
   
 <!--Correction Without Specification-->
 
   <xsl:template name="intappcorr">
     
-        <xsl:value-of select="."/><xsl:text> corr.</xsl:text>
+        <xsl:value-of select="."/>
+        <xsl:text> corr.</xsl:text>
        
   </xsl:template>
 
@@ -482,8 +499,10 @@ handled in the default to render in the text only one unclear or preferred lette
       </xsl:if>
     <xsl:for-each select="t:unclear">
       <xsl:if test="not(position()=1)">
-        <xsl:text> aut </xsl:text></xsl:if>
-<xsl:value-of select="."/></xsl:for-each>
+        <xsl:text> aut </xsl:text>
+            </xsl:if>
+<xsl:value-of select="."/>
+        </xsl:for-each>
   </xsl:template>
 
 
@@ -509,7 +528,8 @@ in the text the text  after correction is printed, in apparatus instead the text
 
   <!-- Ancient Corrections (Old Text Lost) -->
   <xsl:template name="intappoverstrike">
-         <xsl:value-of select="."/><xsl:text> del</xsl:text>
+         <xsl:value-of select="."/>
+        <xsl:text> del</xsl:text>
   </xsl:template>
 
 
@@ -521,7 +541,9 @@ in the text the text  after correction is printed, in apparatus instead the text
   <xsl:template name="intappaddabovebelow">
     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
    
-        <xsl:value-of select="."/><xsl:text> add </xsl:text><xsl:value-of select="@place"/>
+        <xsl:value-of select="."/>
+        <xsl:text> add </xsl:text>
+        <xsl:value-of select="@place"/>
   </xsl:template>
 
 

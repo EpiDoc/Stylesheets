@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: htm-tpl-struct-spes.xsl 2561 2017-04-04 11:24:24Z gabrielbodard $ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Contains named templates for SPES file structure -->
 
    <xsl:template name="spes-body-structure">
-      <p><b>Description: </b>
+      <p>
+            <b>Description: </b>
       <xsl:choose>
          <xsl:when test="//t:support/t:p/text()">
             <xsl:apply-templates select="//t:support/t:p" mode="spes-dimensions"/>
@@ -17,7 +15,7 @@
          <xsl:otherwise>Unknown</xsl:otherwise>
       </xsl:choose>
 
-      <br />
+      <br/>
       <b>Text: </b>
       <xsl:choose>
          <xsl:when test="//t:layoutDesc/t:layout//text()">
@@ -25,14 +23,15 @@
          </xsl:when>
          <xsl:otherwise>Unknown.</xsl:otherwise>
       </xsl:choose>
-      <br />
+      <br/>
       <b>Letters: </b>
       <xsl:if test="//t:handDesc/t:handNote/text()">
          <xsl:value-of select="//t:handDesc/t:handNote"/>
       </xsl:if>
       </p>
 
-      <p><b>Date: </b>
+      <p>
+            <b>Date: </b>
       <xsl:choose>
          <xsl:when test="//t:origin/t:origDate/text()">
             <xsl:value-of select="//t:origin/t:origDate"/>
@@ -63,8 +62,7 @@
             <xsl:apply-templates select="//t:origin/t:origPlace" mode="spes-placename"/>
          </xsl:if>
 
-         <xsl:if test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))] or
-                       //t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
+         <xsl:if test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))] or                        //t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
             <br/>
             <b>Last recorded location: </b>
             <xsl:if test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
@@ -82,7 +80,8 @@
          </xsl:if>
       </p>
 
-      <p><b>Bibliography: </b>
+      <p>
+            <b>Bibliography: </b>
       <xsl:apply-templates select="//t:div[@type='bibliography']/t:p/node()"/>
       <br/>
       <b>Text constituted from: </b>
@@ -90,7 +89,9 @@
       </p>
 
       <div id="edition">
-         <p><b>Edition:</b></p>
+         <p>
+                <b>Edition:</b>
+            </p>
          <!-- Edited text output -->
          <xsl:variable name="edtxt">
             <xsl:apply-templates select="//t:div[@type='edition']"/>
@@ -133,7 +134,7 @@
    
    <xsl:template name="spes-structure">
       <xsl:variable name="title">
-         <xsl:call-template name="spes-title" />
+         <xsl:call-template name="spes-title"/>
       </xsl:variable>
       
       <html>
@@ -151,7 +152,7 @@
                <xsl:value-of select="$title"/>
             </h1>
 
-            <xsl:call-template name="spes-body-structure" />
+            <xsl:call-template name="spes-body-structure"/>
          </body>
       </html>
    </xsl:template>

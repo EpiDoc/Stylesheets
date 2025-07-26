@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title><rs type="textType">Funerary</rs> relief</title>
+            <title>
+                    <rs type="textType">Funerary</rs> relief</title>
             <editor>Joyce M. Reynolds</editor>
          </titleStmt>
          <publicationStmt>
@@ -19,7 +16,10 @@
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><repository>Cyrene museum</repository><idno type="invNo">77-377</idno></msIdentifier>
+               <msIdentifier>
+                        <repository>Cyrene museum</repository>
+                        <idno type="invNo">77-377</idno>
+                    </msIdentifier>
                <physDesc>
                   <objectDesc>
                      <supportDesc>
@@ -37,7 +37,8 @@
                         </support>
                      </supportDesc>
                      <layoutDesc>
-                        <layout><rs type="execution" key="scalpro">Inscribed</rs> on the stele shown in the relief. </layout>
+                        <layout>
+                                    <rs type="execution" key="scalpro">Inscribed</rs> on the stele shown in the relief. </layout>
                      </layoutDesc>
                   </objectDesc>
                   <handDesc>
@@ -56,7 +57,8 @@
                               </p>
                         </provenance>
                         <provenance type="observed">
-                           <p><rs type="monuList" key="db933">Cyrene Museum</rs>.</p>
+                           <p>
+                                <rs type="monuList" key="db933">Cyrene Museum</rs>.</p>
                         </provenance>
                </history>
             </msDesc>
@@ -88,9 +90,9 @@
                </term>
             </keywords>
          </textClass>
-      <creation>Transcription (Reynolds).</creation></profileDesc>
+      <creation>Transcription (Reynolds).</creation>
+        </profileDesc>
       <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2012-11-05" who="GB">moved text-constituted-from to profileDesc/creation</change>
          <change when="2012-10-16" who="GB">broke provenance events into multiple provenance elements</change>
          <change when="2010-11-23" who="Ljuba">entered and tagged text</change>
@@ -99,12 +101,25 @@
    <text>
       <body>
          <div type="bibliography">
-            <p>Mentioned <bibl><ptr target="white1978-1979"/> <biblScope>61, pl. LIV, A</biblScope></bibl>, 
-               and <bibl><ptr target="white1987"/><biblScope>1</biblScope></bibl><bibl>, 
-               </bibl> whence <bibl><title>SEG</title> <biblScope>37.1701bis</biblScope></bibl>
-               ; <bibl><ptr target="kane2003"/> <biblScope>2</biblScope></bibl>, 
-               <bibl> whence <title>SEG</title> <biblScope>53.2055</biblScope></bibl>;
-               <bibl><ptr target="jmr2012"/> <biblScope>A.38</biblScope></bibl>.</p>
+            <p>Mentioned <bibl>
+                        <ptr target="white1978-1979"/> <biblScope>61, pl. LIV, A</biblScope>
+                    </bibl>, 
+               and <bibl>
+                        <ptr target="white1987"/>
+                        <biblScope>1</biblScope>
+                    </bibl>
+                    <bibl>, 
+               </bibl> whence <bibl>
+                        <title>SEG</title> <biblScope>37.1701bis</biblScope>
+                    </bibl>
+               ; <bibl>
+                        <ptr target="kane2003"/> <biblScope>2</biblScope>
+                    </bibl>, 
+               <bibl> whence <title>SEG</title> <biblScope>53.2055</biblScope>
+                    </bibl>;
+               <bibl>
+                        <ptr target="jmr2012"/> <biblScope>A.38</biblScope>
+                    </bibl>.</p>
          </div>
          
          <div type="edition" xml:lang="grc" xml:space="preserve">

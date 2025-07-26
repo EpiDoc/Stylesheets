@@ -1,4 +1,5 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="t" version="2.0">
+<!-- $Id$ -->
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
   
   <xsl:template match="t:ab">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
@@ -10,13 +11,25 @@
           <fo:table-column column-number="3" column-width="90%"/>
           <fo:table-body>
             <fo:table-row>
-              <fo:table-cell column-number="1"><fo:block><xsl:comment>number</xsl:comment></fo:block></fo:table-cell>
-              <fo:table-cell column-number="3"><fo:block><xsl:comment>line</xsl:comment></fo:block></fo:table-cell>
+              <fo:table-cell column-number="1">
+                            <fo:block>
+                                <xsl:comment>number</xsl:comment>
+                            </fo:block>
+                        </fo:table-cell>
+              <fo:table-cell column-number="3">
+                            <fo:block>
+                                <xsl:comment>line</xsl:comment>
+                            </fo:block>
+                        </fo:table-cell>
             </fo:table-row>
             
             
             <fo:table-row>
-              <fo:table-cell column-number="1"><fo:block><xsl:apply-templates select=".//t:lb" mode="linenumber"/></fo:block></fo:table-cell>
+              <fo:table-cell column-number="1">
+                            <fo:block>
+                                <xsl:apply-templates select=".//t:lb" mode="linenumber"/>
+                            </fo:block>
+                        </fo:table-cell>
               <fo:table-cell column-number="3">
                 
         <fo:block>

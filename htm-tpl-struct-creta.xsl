@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-  xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="t" version="2.0">
   <!-- Contains named templates for creta file structure (aka "metadata" aka "supporting data") -->  
   <!-- Called from htm-tpl-structure.xsl -->
   
@@ -13,7 +9,7 @@
   
   <xsl:template name="creta-structure">
     <xsl:variable name="title">
-      <xsl:call-template name="creta-title" />
+      <xsl:call-template name="creta-title"/>
     </xsl:variable>
     <html>
       <head>
@@ -24,8 +20,10 @@
         <xsl:call-template name="css-script"/> <!-- Found in htm-tpl-cssandscripts.xsl -->
       </head>
       <body>
-        <h1><xsl:call-template name="creta-title" /></h1>
-        <xsl:call-template name="creta-body-structure" />
+        <h1>
+                    <xsl:call-template name="creta-title"/>
+                </h1>
+        <xsl:call-template name="creta-body-structure"/>
       </body>
     </html>
   </xsl:template>
@@ -34,12 +32,17 @@
     <xsl:call-template name="creta-navigation"/>
     <div id="creta-inscription-body" class="creta">
       <div id="title" class="creta">
-        <h1><xsl:if test="//t:idno[@type='projectNo']/text()"><xsl:value-of select="number(//t:idno[@type='projectNo'])"/>. </xsl:if><xsl:apply-templates select="//t:titleStmt/t:title"/></h1>
+        <h1>
+                    <xsl:if test="//t:idno[@type='projectNo']/text()">
+                        <xsl:value-of select="number(//t:idno[@type='projectNo'])"/>. </xsl:if>
+                    <xsl:apply-templates select="//t:titleStmt/t:title"/>
+                </h1>
       </div>
       
       
       <div id="descriptive_lemma" class="creta">
-        <p><b>Tipologia documentaria: </b> 
+        <p>
+                    <b>Tipologia documentaria: </b> 
           <xsl:choose>
             <xsl:when test="//t:msContents/t:summary">
               <xsl:apply-templates select="//t:msContents/t:summary"/>
@@ -48,7 +51,8 @@
           </xsl:choose>
         </p>
         
-        <p><b>Supporto: </b> 
+        <p>
+                    <b>Supporto: </b> 
           <xsl:choose>
             <xsl:when test="//t:support">
               <xsl:apply-templates select="//t:support"/>
@@ -58,23 +62,31 @@
         </p>
         
         <xsl:if test="//t:layoutDesc/t:layout//text()">
-          <p><b>Disposizione del testo: </b> 
+          <p>
+                        <b>Disposizione del testo: </b> 
             <xsl:value-of select="//t:layoutDesc/t:layout"/>
           </p>
         </xsl:if>
         
         <xsl:if test="//t:handDesc/t:handNote//text()">
-          <p><b>Scrittura: </b>
+          <p>
+                        <b>Scrittura: </b>
             <xsl:choose>
               <xsl:when test="//t:handDesc/t:handNote/t:p/text()">
-                <xsl:value-of select="//t:handDesc/t:handNote/t:p"/><xsl:if test="//t:handDesc/t:handNote/t:height/text()">; h. <xsl:value-of select="//t:handDesc/t:handNote/t:height"/></xsl:if></xsl:when>
+                <xsl:value-of select="//t:handDesc/t:handNote/t:p"/>
+                                <xsl:if test="//t:handDesc/t:handNote/t:height/text()">; h. <xsl:value-of select="//t:handDesc/t:handNote/t:height"/>
+                                </xsl:if>
+                            </xsl:when>
               <xsl:otherwise>
-                <xsl:if test="//t:handDesc/t:handNote/t:height">h. <xsl:value-of select="//t:handDesc/t:handNote/t:height"/></xsl:if></xsl:otherwise>
+                <xsl:if test="//t:handDesc/t:handNote/t:height">h. <xsl:value-of select="//t:handDesc/t:handNote/t:height"/>
+                                </xsl:if>
+                            </xsl:otherwise>
             </xsl:choose>
           </p>
         </xsl:if>
         
-        <p><b>Datazione: </b> 
+        <p>
+                    <b>Datazione: </b> 
           <xsl:choose>
             <xsl:when test="//t:origin/t:origDate/text()">
               <xsl:value-of select="//t:origin/t:origDate"/>
@@ -83,20 +95,25 @@
           </xsl:choose>
         </p>
         
-        <p><b>Provenienza: </b> 
+        <p>
+                    <b>Provenienza: </b> 
           <xsl:choose>
-            <xsl:when test="//t:origin/t:origPlace"><xsl:apply-templates select="//t:origin/t:origPlace"/></xsl:when>
+            <xsl:when test="//t:origin/t:origPlace">
+                            <xsl:apply-templates select="//t:origin/t:origPlace"/>
+                        </xsl:when>
             <xsl:otherwise>?</xsl:otherwise>
           </xsl:choose>
         </p>
         
         <xsl:if test="//t:provenance[@type='found']">
-          <p><b>Luogo di ritrovamento: </b> 
+          <p>
+                        <b>Luogo di ritrovamento: </b> 
             <xsl:apply-templates select="//t:provenance[@type='found']"/>
           </p>
         </xsl:if>
         
-        <p><b>Collocazione attuale: </b> 
+        <p>
+                    <b>Collocazione attuale: </b> 
           <xsl:choose>
             <xsl:when test="//t:msIdentifier//t:repository">
               <xsl:apply-templates select="//t:msIdentifier//t:repository"/>
@@ -125,9 +142,15 @@
       <div id="edition" class="creta">
         <xsl:variable name="edtxt">
           <xsl:apply-templates select="//t:div[@type='edition']">
-            <xsl:with-param name="parm-edition-type" tunnel="yes"><xsl:text>interpretive</xsl:text></xsl:with-param>
-            <xsl:with-param name="parm-verse-lines" tunnel="yes"><xsl:text>off</xsl:text></xsl:with-param>
-            <xsl:with-param name="parm-line-inc" tunnel="yes"><xsl:text>5</xsl:text></xsl:with-param>
+            <xsl:with-param name="parm-edition-type" tunnel="yes">
+                            <xsl:text>interpretive</xsl:text>
+                        </xsl:with-param>
+            <xsl:with-param name="parm-verse-lines" tunnel="yes">
+                            <xsl:text>off</xsl:text>
+                        </xsl:with-param>
+            <xsl:with-param name="parm-line-inc" tunnel="yes">
+                            <xsl:text>5</xsl:text>
+                        </xsl:with-param>
           </xsl:apply-templates>
         </xsl:variable>
         <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
@@ -193,37 +216,66 @@
   
   <!-- links to full bibliographic references -->
   <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary']/t:p/t:bibl/t:ref[@target]">
-    <a target="_blank" href="../texts/bibliografia.html#{substring-after(@target,'#')}" class="link"><xsl:apply-templates mode="creta"/></a>
+    <a target="_blank" href="../texts/bibliografia.html#{substring-after(@target,'#')}" class="link">
+            <xsl:apply-templates mode="creta"/>
+        </a>
   </xsl:template>
   
   <!-- links to inscriptions and literary sources in the commentary -->
   <xsl:template mode="creta" match="t:div[@type='commentary']/t:p/t:ref[@target][@type='ins']">
-    <a target="_blank" href="./{substring-after(@target,'#')}.html"><xsl:apply-templates mode="creta"/></a></xsl:template>
+    <a target="_blank" href="./{substring-after(@target,'#')}.html">
+            <xsl:apply-templates mode="creta"/>
+        </a>
+    </xsl:template>
   
   <xsl:template mode="creta" match="t:div[@type='commentary']/t:p/t:ref[@target][@type='lit']">
-    <a target="_blank" href="../texts/fonti_letterarie.html{substring-after(@target, '#')}"><xsl:apply-templates mode="creta"/></a></xsl:template>
+    <a target="_blank" href="../texts/fonti_letterarie.html{substring-after(@target, '#')}">
+            <xsl:apply-templates mode="creta"/>
+        </a>
+    </xsl:template>
   
   <!-- links to institution sections in the commentary -->
   <xsl:template mode="creta" match="t:div[@type='commentary']/t:p/t:ref[@target][@type='inst']">
-    <a target="_blank" href="../texts/istituzioni.html{@target}"><xsl:apply-templates mode="creta"/></a></xsl:template>
+    <a target="_blank" href="../texts/istituzioni.html{@target}">
+            <xsl:apply-templates mode="creta"/>
+        </a>
+    </xsl:template>
   
   
   <!-- bold chosen edition in bibliography  -->
-  <xsl:template mode="creta" match="t:bibl[@type='main_edition']"><strong><xsl:apply-templates mode="creta"/></strong></xsl:template>
+  <xsl:template mode="creta" match="t:bibl[@type='main_edition']">
+        <strong>
+            <xsl:apply-templates mode="creta"/>
+        </strong>
+    </xsl:template>
   
   <!-- p in bibliography, commentary, translation -->
-  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary' or @type='translation']/t:p"><p><xsl:apply-templates mode="creta"/></p></xsl:template>
+  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary' or @type='translation']/t:p">
+        <p>
+            <xsl:apply-templates mode="creta"/>
+        </p>
+    </xsl:template>
   
   <!-- emph in bibliography and commentary -->
-  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary']/t:p//t:emph"><strong><xsl:apply-templates/></strong></xsl:template>
+  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary']/t:p//t:emph">
+        <strong>
+            <xsl:apply-templates/>
+        </strong>
+    </xsl:template>
   
   <!-- apices in bibliography, commentary, apparatus -->
-  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary' or @type='apparatus']//t:hi[@rend='superscript']"><sup><xsl:apply-templates/></sup></xsl:template>
+  <xsl:template mode="creta" match="t:div[@type='bibliography' or @type='commentary' or @type='apparatus']//t:hi[@rend='superscript']">
+        <sup>
+            <xsl:apply-templates/>
+        </sup>
+    </xsl:template>
   
   <!-- arrows pointing to previous/next inscription -->
   <xsl:template name="creta-navigation">
     <xsl:if test="doc-available(concat('file:',system-property('user.dir'),'/all_inscriptions.xml')) = fn:true()">
-      <xsl:variable name="filename"><xsl:value-of select="//t:idno[@type='projectNo']"/></xsl:variable>
+      <xsl:variable name="filename">
+                <xsl:value-of select="//t:idno[@type='projectNo']"/>
+            </xsl:variable>
       <xsl:variable name="list" select="document(concat('file:',system-property('user.dir'),'/all_inscriptions.xml'))//t:list"/>
       <xsl:variable name="prev" select="$list/t:item[@sortKey=$filename]/preceding-sibling::t:item[1]/@n"/>
       <xsl:variable name="next" select="$list/t:item[@sortKey=$filename]/following-sibling::t:item[1]/@n"/>
@@ -233,13 +285,17 @@
           <ul class="pagination left">
             <xsl:if test="$prev">
               <li class="arrow">
-                <a href="./{$prev}.html"><xsl:text>&#171;</xsl:text></a>
+                <a href="./{$prev}.html">
+                                    <xsl:text>«</xsl:text>
+                                </a>
               </li>
             </xsl:if>
             
             <xsl:if test="$next">
               <li class="arrow">
-                <a href="./{$next}.html"><xsl:text>&#187;</xsl:text></a>
+                <a href="./{$next}.html">
+                                    <xsl:text>»</xsl:text>
+                                </a>
               </li>
             </xsl:if>
           </ul>

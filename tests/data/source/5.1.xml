@@ -1,21 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/local/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/local/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
    <teiHeader>
       <fileDesc>
-         <titleStmt><title xml:lang="ru">Строительная надпись неизвестного</title><title xml:lang="en">Building inscription</title><editor xml:id="ayv2012">
-               <persName xml:lang="ru"><forename>А.Ю.</forename><surname>Виноградов</surname></persName>
-               <persName xml:lang="en"><forename>A.Yu.</forename><surname>Vinogradov</surname></persName>
-            </editor><editor xml:id="ip" role="translator"><persName xml:lang="ru">Ирина<forename/><surname>Полинская</surname></persName><persName xml:lang="en"><forename>Irene</forename><surname>Polinskaya</surname></persName></editor></titleStmt>
-         <publicationStmt><authority>King's College London</authority>
-            <idno type="filename">5.1</idno><idno type="PE">PE5000001</idno>
+         <titleStmt>
+                <title xml:lang="ru">Строительная надпись неизвестного</title>
+                <title xml:lang="en">Building inscription</title>
+                <editor xml:id="ayv2012">
+               <persName xml:lang="ru">
+                        <forename>А.Ю.</forename>
+                        <surname>Виноградов</surname>
+                    </persName>
+               <persName xml:lang="en">
+                        <forename>A.Yu.</forename>
+                        <surname>Vinogradov</surname>
+                    </persName>
+            </editor>
+                <editor xml:id="ip" role="translator">
+                    <persName xml:lang="ru">Ирина<forename/>
+                        <surname>Полинская</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Irene</forename>
+                        <surname>Polinskaya</surname>
+                    </persName>
+                </editor>
+            </titleStmt>
+         <publicationStmt>
+                <authority>King's College London</authority>
+            <idno type="filename">5.1</idno>
+                <idno type="PE">PE5000001</idno>
             <idno type="AYV2012-number">byz001</idno>
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><region/>
+               <msIdentifier>
+                        <region/>
                   <altIdentifier xml:lang="ru">
                      <repository>Неизвестен</repository>
                      <idno/>
@@ -52,7 +71,8 @@
                   </objectDesc>
                   <handDesc>
                      <handNote>
-                        <seg xml:lang="ru"><rs type="execution" ref="execution.xml#scalpro">Лапидарный</rs>; буквы выпуклые, вытянутые, маньеризованные.
+                        <seg xml:lang="ru">
+                                    <rs type="execution" ref="execution.xml#scalpro">Лапидарный</rs>; буквы выпуклые, вытянутые, маньеризованные.
                            Лигатуры, сокращения.</seg>
                         <seg xml:lang="en">Lapidary; relief, elongated, ornate letters. Ligatures, abbreviations.</seg>
                      </handNote>
@@ -76,7 +96,8 @@
                   <provenance type="found">
                      <seg xml:lang="ru">
                         <placeName type="ancientFindspot" ref="findspot.xml#belgorod-dnestrovsky">Белгород-Днестровский.</placeName>
-                        <rs type="circumstances"><date type="found" notBefore="1840" notAfter="1849">1840-е</date> гг., обследования Н.Н. Мурзакевича.</rs>
+                        <rs type="circumstances">
+                                    <date type="found" notBefore="1840" notAfter="1849">1840-е</date> гг., обследования Н.Н. Мурзакевича.</rs>
                         <rs type="context">Крепость, средняя стена, дозорная башня напротив мечети, в стене.</rs>
                      </seg>
                      <seg xml:lang="en">
@@ -95,7 +116,6 @@
       </fileDesc>
 
 <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2012-11-27" who="AL">English toponyms in commentary inserted</change>
          <change when="2012-08-16" who="ΑG">Greek lemmata corrected</change>
          <change when="2012-08-10" who="GB">inserted Greek lemmata (and normalized unicode)</change>
@@ -128,13 +148,27 @@
       <body>
          <div type="bibliography">
             <listBibl>
-               <bibl n="L1"><!-- Мурзакевич, 1850 --><ptr target="bib:b0176"/>,  <citedRange>481</citedRange></bibl>
-               <bibl n="1.1"><!--Сборник--><ptr target="bib:b0132"/>, 2, № <citedRange>2</citedRange></bibl>
-               <bibl n="1.1.1"><!--Millet 1900--><ptr target="bib:b0397"/></bibl>
-               <bibl n="1.2"><!-- Bogdan, 1907-1908 --><ptr target="bib:b0273"/>,  <citedRange>324</citedRange></bibl>
-               <bibl n="1.3"><!-- Pippidi, 1998 --><ptr target="bib:b0347"/></bibl>
-               <bibl n="1.4"><!-- Шлапак, 2000 --><ptr target="bib:b0252"/></bibl>
-               <bibl n="1.5"><!-- Rhoby 2014 --><ptr target="bib:b0426"/>, <citedRange>749–751</citedRange></bibl>
+               <bibl n="L1"><!-- Мурзакевич, 1850 -->
+                        <ptr target="bib:b0176"/>,  <citedRange>481</citedRange>
+                    </bibl>
+               <bibl n="1.1"><!--Сборник-->
+                        <ptr target="bib:b0132"/>, 2, № <citedRange>2</citedRange>
+                    </bibl>
+               <bibl n="1.1.1"><!--Millet 1900-->
+                        <ptr target="bib:b0397"/>
+                    </bibl>
+               <bibl n="1.2"><!-- Bogdan, 1907-1908 -->
+                        <ptr target="bib:b0273"/>,  <citedRange>324</citedRange>
+                    </bibl>
+               <bibl n="1.3"><!-- Pippidi, 1998 -->
+                        <ptr target="bib:b0347"/>
+                    </bibl>
+               <bibl n="1.4"><!-- Шлапак, 2000 -->
+                        <ptr target="bib:b0252"/>
+                    </bibl>
+               <bibl n="1.5"><!-- Rhoby 2014 -->
+                        <ptr target="bib:b0426"/>, <citedRange>749–751</citedRange>
+                    </bibl>
             </listBibl>
          </div>
          <div type="edition" xml:lang="grc" xml:space="preserve">
@@ -154,10 +188,18 @@
          </div>
          <div type="apparatus">
             <listApp>
-               <app loc="1-2"><rdg source="bib:b0347" xml:lang="cu">В  лт ѕѯ іѡ(анн) ігумень</rdg>
-                  <rdg><note>om. alii</note></rdg></app>
-               <app loc="1"><rdg source="bib:b0252">ςϠξ´</rdg></app>
-               <app loc="2"><rdg source="bib:b0252" xml:lang="ar">٣١٢</rdg></app>
+               <app loc="1-2">
+                        <rdg source="bib:b0347" xml:lang="cu">В  лт ѕѯ іѡ(анн) ігумень</rdg>
+                  <rdg>
+                            <note>om. alii</note>
+                        </rdg>
+                    </app>
+               <app loc="1">
+                        <rdg source="bib:b0252">ςϠξ´</rdg>
+                    </app>
+               <app loc="2">
+                        <rdg source="bib:b0252" xml:lang="ar">٣١٢</rdg>
+                    </app>
                <app loc="3">
                   <rdg source="bib:b0176 bib:b0273 bib:b0347 bib:b0252">Θεία</rdg>
                   <rdg source="bib:b0132">τόδ]ε</rdg>
@@ -171,17 +213,33 @@
                   <rdg source="bib:b0347">ἔλθ(ον)</rdg>
                   <rdg source="bib:b0426">ἐλθὲ</rdg>
                </app>
-               <app loc="4"><lem>βοηθὸς</lem><rdg source="bib:b0252"><note>om.</note></rdg></app>
-               <app loc="4"><rdg source="bib:b0176 bib:b0132 bib:b0311">Ἰ(ησοῦ)ς</rdg>
-                  <rdg source="bib:b0347">(ὁ) ἱερὸς ναὸς</rdg></app>
-               <app loc="4"><rdg source="bib:b0347">Χ(ριστο)ῦ</rdg></app>
-               <app loc="4"><rdg source="bib:b0176">πεποιηκότι</rdg> <note> et alii</note>
-                  <rdg>? Κόστι <note>Skrzynska<!--needs link--></note></rdg>
+               <app loc="4">
+                        <lem>βοηθὸς</lem>
+                        <rdg source="bib:b0252">
+                            <note>om.</note>
+                        </rdg>
+                    </app>
+               <app loc="4">
+                        <rdg source="bib:b0176 bib:b0132 bib:b0311">Ἰ(ησοῦ)ς</rdg>
+                  <rdg source="bib:b0347">(ὁ) ἱερὸς ναὸς</rdg>
+                    </app>
+               <app loc="4">
+                        <rdg source="bib:b0347">Χ(ριστο)ῦ</rdg>
+                    </app>
+               <app loc="4">
+                        <rdg source="bib:b0176">πεποιηκότι</rdg> <note> et alii</note>
+                  <rdg>? Κόστι <note>Skrzynska<!--needs link--></note>
+                        </rdg>
                   <rdg source="bib:b0347">πεντηκόστῃ</rdg>
                   <rdg source="bib:b0426">ποιηκότι</rdg>
-                  <rdg source="bib:b0252">Σταν <note>add. </note></rdg></app>
-               <app loc="4"><rdg>Ἔτει ςϠζ´ <note>Skrzynska<!--needs link--></note></rdg>
-                  <rdg source="bib:b0347 bib:b0252">ἔτει ςϠξ´</rdg></app>
+                  <rdg source="bib:b0252">Σταν <note>add. </note>
+                        </rdg>
+                    </app>
+               <app loc="4">
+                        <rdg>Ἔτει ςϠζ´ <note>Skrzynska<!--needs link--></note>
+                        </rdg>
+                  <rdg source="bib:b0347 bib:b0252">ἔτει ςϠξ´</rdg>
+                    </app>
             </listApp>
          </div>
          <div type="translation" xml:lang="ru">

@@ -1,26 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0"
-   exclude-result-prefixes="t" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- hi imports in teihi.xsl, html span created here -->
    <xsl:import href="teihi.xsl"/>
 
    <xsl:template match="t:hi">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:choose>
          <!-- No html code needed for these -->
-         <xsl:when
-            test="@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'">
+         <xsl:when test="@rend = 'diaeresis' or @rend = 'grave' or @rend = 'acute' or @rend = 'asper' or @rend = 'lenis' or @rend = 'circumflex'">
             <xsl:apply-imports/>
          </xsl:when>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <!-- @rend='apex'                                                       -->
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@xml:lang][1][@xml:lang = 'la']
-            and not(child::t:unclear)">
+         <xsl:when test="@rend='apex' and ancestor-or-self::t:*[@xml:lang][1][@xml:lang = 'la']             and not(child::t:unclear)">
             <xsl:element name="span">
                <xsl:attribute name="class">apex</xsl:attribute>
                <xsl:attribute name="title">apex over: <xsl:value-of select="."/>
@@ -198,6 +193,75 @@
          <xsl:when test="@rend='underline'">
             <xsl:element name="span">
                <xsl:attribute name="class">underline</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <!-- @rend='babel...'  (Added by Luca)                                                 -->
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <xsl:when test="@rend='babel_ogham'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_ogham</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_italic'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_italic</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_bound'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_bound</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_bound_italic'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_bound_italic</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_fixed'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_fixed</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_stemless'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_stemless</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_pictish'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_pictish</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_pictish_italic'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_pictish_italic</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_pictish_bold'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_pictish_bold</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_pictish_bold_italic'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_pictish_bold_italic</xsl:attribute>
+               <xsl:apply-templates/>
+            </xsl:element>
+         </xsl:when>
+         <xsl:when test="@rend='babel_special'">
+            <xsl:element name="span">
+               <xsl:attribute name="class">babel_special</xsl:attribute>
                <xsl:apply-templates/>
             </xsl:element>
          </xsl:when>

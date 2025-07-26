@@ -1,4 +1,5 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
+<!-- $Id$ -->
+<xsl:stylesheet xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
    <!-- Actual display and increment calculation found in teilb.xsl -->
    <xsl:import href="teilb.xsl"/>
 
@@ -60,14 +61,20 @@
                   <xsl:if test="preceding::t:lb[1][generate-id(ancestor::node()[local-name()='lg' or local-name()='ab'])=$cur_anc]">
                      <xsl:choose>
                         <xsl:when test="$parm-leiden-style='edh-names'                            and not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
-                           <xsl:comment><xsl:text> </xsl:text></xsl:comment>
+                           <xsl:comment>
+                                        <xsl:text> </xsl:text>
+                                    </xsl:comment>
                         </xsl:when>
                         <xsl:when test="$parm-leiden-style=('edh-names')"/>
                         <xsl:when test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
-                           <xsl:comment><xsl:text>/</xsl:text></xsl:comment>
+                           <xsl:comment>
+                                        <xsl:text>/</xsl:text>
+                                    </xsl:comment>
                         </xsl:when>
                         <xsl:otherwise>
-                           <xsl:comment><xsl:text> / </xsl:text></xsl:comment>
+                           <xsl:comment>
+                                        <xsl:text> / </xsl:text>
+                                    </xsl:comment>
                         </xsl:otherwise>
                      </xsl:choose>
                   </xsl:if>
@@ -79,10 +86,14 @@
                      
                      <xsl:choose>
                         <xsl:when test="not(@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName)">
-                           <xsl:comment><xsl:text> / </xsl:text></xsl:comment>
+                           <xsl:comment>
+                                        <xsl:text> / </xsl:text>
+                                    </xsl:comment>
                         </xsl:when>
                         <xsl:when test="@break='no' or ancestor::t:w | ancestor::t:name | ancestor::t:placeName | ancestor::t:geogName">
-                           <xsl:comment><xsl:text>/</xsl:text></xsl:comment>
+                           <xsl:comment>
+                                        <xsl:text>/</xsl:text>
+                                    </xsl:comment>
                         </xsl:when>
                      </xsl:choose>
                   </xsl:if>
@@ -116,20 +127,28 @@
                <xsl:when test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')                    and (ancestor::t:sic                          or ancestor::t:reg                         or ancestor::t:rdg or ancestor::t:del[ancestor::t:choice])                         or ancestor::t:del[@rend='corrected'][parent::t:subst]">
                   <xsl:choose>
                      <xsl:when test="@break='no' or @type='inWord'">
-                        <xsl:comment><xsl:text>|</xsl:text></xsl:comment>
+                        <xsl:comment>
+                                    <xsl:text>|</xsl:text>
+                                </xsl:comment>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:comment><xsl:text> | </xsl:text></xsl:comment>
+                        <xsl:comment>
+                                    <xsl:text> | </xsl:text>
+                                </xsl:comment>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>
                <xsl:when test="$parm-leiden-style = 'ddbdp' and ((not(ancestor::*[name() = 'TEI']))  or $location='apparatus')">
                   <xsl:choose>
                      <xsl:when test="@break='no' or @type='inWord'">
-                        <xsl:comment><xsl:text>|</xsl:text></xsl:comment>
+                        <xsl:comment>
+                                    <xsl:text>|</xsl:text>
+                                </xsl:comment>
                      </xsl:when>
                      <xsl:otherwise>
-                        <xsl:comment><xsl:text> | </xsl:text></xsl:comment>
+                        <xsl:comment>
+                                    <xsl:text> | </xsl:text>
+                                </xsl:comment>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>              
@@ -141,20 +160,28 @@
                <xsl:when test="$location = 'apparatus'"/>
                <xsl:when test="not(number(@n)) and ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch')">
                   <!--         non-numerical line-nos always printed in DDbDP         -->
-                  <xsl:comment><xsl:call-template name="margin-num"/></xsl:comment>
+                  <xsl:comment>
+                            <xsl:call-template name="margin-num"/>
+                        </xsl:comment>
                </xsl:when>
                <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and                    not(following::t:*[1][local-name() = 'gap' or local-name()='space'][@unit = 'line'] and                    ($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch'))">
                   <!-- prints line-nos divisible by stated increment, unless zero
                      and unless it is a gap line or vacat in DDbDP -->
-                  <xsl:comment><xsl:call-template name="margin-num"/></xsl:comment>
+                  <xsl:comment>
+                            <xsl:call-template name="margin-num"/>
+                        </xsl:comment>
                </xsl:when>
                <xsl:when test="$parm-leiden-style = 'ddbdp' and preceding-sibling::t:*[1][local-name()='gap'][@unit = 'line']">
                   <!-- always print line-no after gap line in ddbdp -->
-                  <xsl:comment><xsl:call-template name="margin-num"/></xsl:comment>
+                  <xsl:comment>
+                            <xsl:call-template name="margin-num"/>
+                        </xsl:comment>
                </xsl:when>
                <xsl:when test="$parm-leiden-style = 'ddbdp' and following::t:lb[1][ancestor::t:reg[following-sibling::t:orig[not(descendant::t:lb)]]]">
                   <!-- always print line-no when broken orig in line, in ddbdp -->
-                  <xsl:comment><xsl:call-template name="margin-num"/></xsl:comment>
+                  <xsl:comment>
+                            <xsl:call-template name="margin-num"/>
+                        </xsl:comment>
                </xsl:when>
             </xsl:choose>
          </xsl:otherwise>
@@ -293,7 +320,9 @@
                   </xsl:choose>
                </xsl:when>              
                <xsl:otherwise>
-                  <fo:block><fo:leader/></fo:block>
+                  <fo:block>
+                            <fo:leader/>
+                        </fo:block>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>

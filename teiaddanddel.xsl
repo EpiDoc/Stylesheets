@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t"  version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Contains templates for subst, add and del -->
    
    <!-- Imported by htm-teiaddanddel.xsl or called directly from start-txt.xsl -->
@@ -27,8 +25,8 @@
 
 
    <xsl:template match="t:add">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:choose>
           <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') or ($parm-leiden-style='medcyprus' and $parm-edition-type!='diplomatic')">
             <xsl:choose>
@@ -38,9 +36,6 @@
                </xsl:when>
                <xsl:when test="@place = 'below'">
                   <xsl:text>/</xsl:text>
-               </xsl:when>
-               <xsl:when test=" $parm-leiden-style='medcyprus' and @place='inline'">
-                  <xsl:text>`</xsl:text>
                </xsl:when>
                <xsl:when test="@place = 'left'">
                   <xsl:text>(added at left: </xsl:text>
@@ -73,19 +68,25 @@
             <xsl:choose>
                <!-- if my parent is subst which in turn is in the appcrit-part of a further app-like element 
                   (i.e. my ancestor is reg, corr, rdg, or del[corrected]), then include value of my sibling del in parens -->
-               <xsl:when test="parent::t:subst and ancestor::t:*[local-name()=('reg','corr','rdg') 
-                  or self::t:del[@rend='corrected']]">
+               <xsl:when test="parent::t:subst and ancestor::t:*[local-name()=('reg','corr','rdg')                    or self::t:del[@rend='corrected']]">
                   <!-- If add contains app, *only* render del (because add is rendered before the subst by app templates) -->
-                  <xsl:text> (</xsl:text><xsl:choose>
-                     <xsl:when test="t:app"><xsl:call-template name="resolvesubst">
+                  <xsl:text> (</xsl:text>
+                        <xsl:choose>
+                     <xsl:when test="t:app">
+                                <xsl:call-template name="resolvesubst">
                            <!-- From tpl-apparatus.xsl -->
                            <xsl:with-param name="delpath" select="../t:del/node()"/>
-                        </xsl:call-template></xsl:when>
-                     <xsl:otherwise><xsl:call-template name="resolvesubst">
+                        </xsl:call-template>
+                            </xsl:when>
+                     <xsl:otherwise>
+                                <xsl:call-template name="resolvesubst">
                            <!-- From tpl-apparatus.xsl -->
                            <xsl:with-param name="delpath" select="../t:del/node()"/>
                            <xsl:with-param name="addpath" select="node()"/>
-                        </xsl:call-template></xsl:otherwise></xsl:choose><xsl:text>)</xsl:text>
+                        </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:when test="parent::t:subst"/>
                <xsl:when test="@place = 'above'">
@@ -93,9 +94,6 @@
                </xsl:when>
                <xsl:when test="@place = 'below'">
                   <xsl:text>\</xsl:text>
-               </xsl:when>
-               <xsl:when test=" $parm-leiden-style='medcyprus' and @place='inline'">
-                  <xsl:text>´</xsl:text>
                </xsl:when>
                <xsl:when test="@place = 'left' or @place = 'right'">
                   <xsl:text>)</xsl:text>
@@ -151,7 +149,9 @@
           <xsl:when test="$parm-leiden-style = 'rib'">
               <xsl:choose>
                   <xsl:when test="@rend='erasure'">
-                      <span class="erasure"><xsl:apply-templates/></span>
+                      <span class="erasure">
+                            <xsl:apply-templates/>
+                        </span>
                   </xsl:when>
                   <xsl:when test="not(@rend)"/>
                   <xsl:otherwise>
@@ -161,10 +161,10 @@
           </xsl:when>
           <xsl:when test="parent::t:subst and ($parm-leiden-style!='medcyprus' or ($parm-leiden-style='medcyprus' and $parm-edition-type='diplomatic'))"/>
          <xsl:otherwise>
-            <xsl:text>&#x27e6;</xsl:text>
+            <xsl:text>⟦</xsl:text>
             <xsl:apply-templates/>
             <xsl:call-template name="cert-low"/>
-            <xsl:text>&#x27e7;</xsl:text>
+            <xsl:text>⟧</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>

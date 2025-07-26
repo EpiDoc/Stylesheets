@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Called from [htm|txt]-teiref.xsl -->
 
    <xsl:template name="reprint-text">
@@ -55,8 +53,7 @@
       <xsl:param name="val"/>
       <xsl:param name="fol-val"/>
 
-      <xsl:variable name="cur-file-vol-doc"
-         select="substring-after(normalize-space(/t:TEI/@n), ';')"/>
+      <xsl:variable name="cur-file-vol-doc" select="substring-after(normalize-space(/t:TEI/@n), ';')"/>
       <xsl:variable name="cur-file-vol" select="substring-before($cur-file-vol-doc, ';')"/>
 
       <xsl:variable name="val-col" select="substring-before($val, ';')"/>

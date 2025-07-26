@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-	version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="t" version="2.0">
 	<!-- Contains named templates for default file structure (aka "metadata" aka "supporting data") -->  
 	
 	<!-- Specific named templates for HGV, InsLib, RIB, IOSPE, EDH, etc. are found in:
@@ -17,8 +13,8 @@
 	
 	
 	<xsl:template name="eagle-structure">
-		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-		<xsl:param name="parm-line-inc" tunnel="yes" required="no" as="xs:double"></xsl:param>
+		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+		<xsl:param name="parm-line-inc" tunnel="yes" required="no" as="xs:double"/>
 		<html>
 			<head>
 				<title>
@@ -77,11 +73,14 @@
 	
 	
 	<xsl:template name="eagle-body-structure2">
-		<xsl:variable name="withspaces"><xsl:apply-templates select=".//t:div/t:ab">
-			<xsl:with-param name="parm-leiden-style"
-				tunnel="yes">eagletxt</xsl:with-param>
-		</xsl:apply-templates></xsl:variable>
-		<xsl:variable name="withspaces2"><xsl:apply-templates select="$withspaces" mode="sqbrackets"/></xsl:variable>
+		<xsl:variable name="withspaces">
+            <xsl:apply-templates select=".//t:div/t:ab">
+			<xsl:with-param name="parm-leiden-style" tunnel="yes">eagletxt</xsl:with-param>
+		</xsl:apply-templates>
+        </xsl:variable>
+		<xsl:variable name="withspaces2">
+            <xsl:apply-templates select="$withspaces" mode="sqbrackets"/>
+        </xsl:variable>
 		<xsl:value-of select="normalize-space($withspaces2)"/>
 	</xsl:template>
 	

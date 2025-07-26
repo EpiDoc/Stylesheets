@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- 
  WORK IN PROGRESS file structure for IGCYR 
 meant to be run in a folder with other data locally referred
@@ -16,8 +14,7 @@ meant to be run in a folder with other data locally referred
                <xsl:if test="//t:publicationStmt/t:idno[@type='filename']/text()">
                   <xsl:value-of select="substring(//t:publicationStmt/t:idno[@type='filename'],1,5)"/>
                   <xsl:text> </xsl:text>
-                  <xsl:value-of
-                     select="number(substring(//t:publicationStmt/t:idno[@type='filename'],6,6)) div 100"/>
+                  <xsl:value-of select="number(substring(//t:publicationStmt/t:idno[@type='filename'],6,6)) div 100"/>
                   <xsl:text> </xsl:text>
                </xsl:if>
                <xsl:value-of select="//t:titleStmt/t:title"/>
@@ -74,10 +71,8 @@ meant to be run in a folder with other data locally referred
             <br/>
                <b>Origin Place: </b>
                <xsl:choose>
-                  <xsl:when
-                     test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
-                     <xsl:apply-templates select="//t:provenance[@type='found']"
-                        mode="inslib-placename"/>
+                  <xsl:when test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
+                     <xsl:apply-templates select="//t:provenance[@type='found']" mode="inslib-placename"/>
                   </xsl:when>
                   <xsl:otherwise>Unknown</xsl:otherwise>
                </xsl:choose>
@@ -114,15 +109,12 @@ meant to be run in a folder with other data locally referred
                   <h4>Description: </h4>
                <b>Observed: </b>
                <xsl:choose>
-                  <xsl:when
-                     test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
-                     <xsl:apply-templates select="//t:provenance[@type='observed']"
-                        mode="inslib-placename"/>
+                  <xsl:when test="//t:provenance[@type='observed'][string(translate(normalize-space(.),' ',''))]">
+                     <xsl:apply-templates select="//t:provenance[@type='observed']" mode="inslib-placename"/>
                      <!-- Named template found below. -->
                      <xsl:call-template name="igcyr-invno"/>
                   </xsl:when>
-                  <xsl:when
-                     test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
+                  <xsl:when test="//t:msIdentifier//t:repository[string(translate(normalize-space(.),' ',''))]">
                      <xsl:value-of select="//t:msIdentifier//t:repository[1]"/>
                      <!-- Named template found below. -->
                      <xsl:call-template name="igcyr-invno"/>
@@ -187,7 +179,8 @@ meant to be run in a folder with other data locally referred
 
    <xsl:template match="//t:bibl" mode="bibliog">
    
-      <xsl:choose><xsl:when test=".[t:ptr]">
+      <xsl:choose>
+            <xsl:when test=".[t:ptr]">
          
          <a href="{concat('../files/Bibliography', ./t:ptr/@target)}">   <xsl:variable name="extendedbib">
             <xsl:variable name="biblentry" select="substring-after(./t:ptr/@target, '#')"/>
@@ -195,26 +188,32 @@ meant to be run in a folder with other data locally referred
                
                <xsl:choose>
                   <xsl:when test="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $biblentry]">
-                     <xsl:for-each
-                        select="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $biblentry]">
-                        <xsl:choose><xsl:when test="t:author"><xsl:value-of select="t:author[1]/t:name[@type='surname']"/>
+                     <xsl:for-each select="document('Workspace/files/BIBLIOGRAPHY.xml')//t:bibl[@xml:id = $biblentry]">
+                        <xsl:choose>
+                                            <xsl:when test="t:author">
+                                                <xsl:value-of select="t:author[1]/t:name[@type='surname']"/>
                         <xsl:if test="t:author[2]">
                            <xsl:text>-</xsl:text>
                            <xsl:value-of select="t:author[2]/t:name[@type='surname']"/>
-                        </xsl:if></xsl:when>
+                        </xsl:if>
+                                            </xsl:when>
                         <xsl:when test="t:editor">
                            <xsl:value-of select="t:editor[1]/t:name[@type='surname']"/>
                            <xsl:if test="t:editor[2]">
                               <xsl:text>-</xsl:text>
                               <xsl:value-of select="t:editor[2]/t:name[@type='surname']"/>
                            </xsl:if>
-                        </xsl:when></xsl:choose>
-                        <xsl:text> </xsl:text><xsl:value-of select="t:date"/>
+                        </xsl:when>
+                                        </xsl:choose>
+                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="t:date"/>
                      </xsl:for-each>
                      
                   </xsl:when>
                   <xsl:otherwise>
-                     <xsl:text> !</xsl:text><xsl:value-of select="$biblentry"/><xsl:text>!</xsl:text>
+                     <xsl:text> !</xsl:text>
+                                    <xsl:value-of select="$biblentry"/>
+                                    <xsl:text>!</xsl:text>
                   </xsl:otherwise>
                </xsl:choose>
                
@@ -243,8 +242,7 @@ meant to be run in a folder with other data locally referred
          </xsl:if>
          <xsl:if test="t:depth/text()"> x d: <xsl:value-of select="t:depth"/>
          </xsl:if>
-         <xsl:if test="t:dim[@type='diameter']/text()"> x diam.: <xsl:value-of
-               select="t:dim[@type='diameter']"/>
+         <xsl:if test="t:dim[@type='diameter']/text()"> x diam.: <xsl:value-of select="t:dim[@type='diameter']"/>
          </xsl:if>
       </xsl:if>
    </xsl:template>

@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:f="http://example.com/ns/functions"
-	xmlns:html="http://www.w3.org/1999/html" exclude-result-prefixes="t f" version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions">
-	<xsl:import href="htm-teilistbiblandbibl.xsl"/>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:f="http://example.com/ns/functions" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:html="http://www.w3.org/1999/html" exclude-result-prefixes="t f" version="2.0">
 	<!--
 
 Pietro notes on 14/8/2015 work on this template, from mail to Gabriel.
@@ -82,34 +78,25 @@ bibliography. All examples only cater for book and article.
 					<xsl:when test=".[t:ptr]">
 
 						<!--						check if a namespace is provided for tags/xml:ids and use it as part of the tag for zotero-->
-						<xsl:variable name="biblentry"
-							select="
-								if ($parm-zoteroNS)
-								then
-									concat($parm-zoteroNS, ./t:ptr/@target)
-								else
-									./t:ptr/@target"/>
+						<xsl:variable name="biblentry" select="         if ($parm-zoteroNS)         then          concat($parm-zoteroNS, ./t:ptr/@target)         else          ./t:ptr/@target"/>
 
 						<xsl:variable name="zoteroapitei">
 
-							<xsl:value-of
-								select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=tei')"/>
+							<xsl:value-of select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=tei')"/>
 							<!-- to go to the json with the escaped html included  use &amp;format=json&amp;include=bib,data and the code below: the result is anyway escaped... -->
 
 						</xsl:variable>
 
 						<xsl:variable name="zoteroapijson">
-							<xsl:value-of
-								select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=json&amp;style=',$parm-zoteroStyle,'&amp;include=citation')"
-							/>
+							<!--<xsl:value-of select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=json&amp;style=',$parm-zoteroStyle,'&amp;include=citation')"/>-->
+							<xsl:value-of select="concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=json&amp;style=',$parm-zoteroStyle)"/>
 						</xsl:variable>
 			
 						
 						<xsl:variable name="unparsedtext" select="unparsed-text($zoteroapijson)"/>
 						<xsl:variable name="zoteroitemKEY">
 
-							<xsl:analyze-string select="$unparsedtext"
-								regex="(\[\s+\{{\s+&quot;key&quot;:\s&quot;)(.+)&quot;">
+							<xsl:analyze-string select="$unparsedtext" regex="(\[\s+\{{\s+&#34;key&#34;:\s&#34;)(.+)&#34;">
 								<xsl:matching-substring>
 									<xsl:value-of select="regex-group(2)"/>
 								</xsl:matching-substring>
@@ -119,53 +106,107 @@ bibliography. All examples only cater for book and article.
 
 						<xsl:choose>
 							<!--this will print a citation according to the selected style with a link around it pointing to the resource DOI, url or zotero item view-->
-							<xsl:when test="not(ancestor::t:div[@type = 'bibliography'])">
+							<xsl:when test="ancestor::t:div[@type = 'bibliography']"> <!-- removed 'not' (Luca)-->
 								<xsl:variable name="pointerurl">
 									<xsl:choose>
-										<xsl:when
-											test="document($zoteroapitei)//t:idno[@type = 'DOI']">
-											<xsl:value-of
-												select="document($zoteroapitei)//t:idno[@type = 'DOI']"
-											/>
+										<xsl:when test="document($zoteroapitei)//t:idno[@type = 'DOI']">
+											<xsl:value-of select="document($zoteroapitei)//t:idno[@type = 'DOI']"/>
 										</xsl:when>
-										<xsl:when
-											test="document($zoteroapitei)//t:idno[@type = 'url']">
-											<xsl:value-of
-												select="document($zoteroapitei)//t:idno[@type = 'url']"
-											/>
+										<xsl:when test="document($zoteroapitei)//t:idno[@type = 'url']">
+											<xsl:value-of select="document($zoteroapitei)//t:idno[@type = 'url']"/>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of
-												select="document($zoteroapitei)//t:biblStruct/@corresp"
-											/>
+											<xsl:value-of select="document($zoteroapitei)//t:biblStruct/@corresp"/>
 										</xsl:otherwise>
 									</xsl:choose>
 
 								</xsl:variable>
 
-								<a href="{$pointerurl}">
+								<a href="{$pointerurl}" target="_blank">
 
-									<xsl:variable name="citation">
+<xsl:variable name="citation">
+    <!-- Extract all lastNames from JSON -->
+    <xsl:variable name="authors">
+        <xsl:analyze-string select="$unparsedtext" regex="&#34;lastName&#34;\s*:\s*&#34;([^&#34;]+)&#34;">
+            <xsl:matching-substring>
+                <author>
+                                                        <xsl:value-of select="regex-group(1)"/>
+                                                    </author>
+            </xsl:matching-substring>
+        </xsl:analyze-string>
+    </xsl:variable>
+    
+    <!-- Extract date from JSON -->
+    <xsl:variable name="date">
+        <xsl:analyze-string select="$unparsedtext" regex="&#34;date&#34;\s*:\s*&#34;([^&#34;]+)&#34;">
+            <xsl:matching-substring>
+                <xsl:value-of select="regex-group(1)"/>
+            </xsl:matching-substring>
+        </xsl:analyze-string>
+    </xsl:variable>
+    
+    <!-- Build citation -->
+    <xsl:if test="$authors/author or normalize-space($date) != ''">
+        
+        <!-- Handle authors -->
+        <xsl:choose>
+            <xsl:when test="count($authors/author) = 1">
+                <!-- Single author -->
+                <xsl:value-of select="$authors/author[1]"/>
+            </xsl:when>
+            <xsl:when test="count($authors/author) = 2">
+                <!-- Two authors -->
+                <xsl:value-of select="$authors/author[1]"/>
+                <xsl:text> and </xsl:text>
+                <xsl:value-of select="$authors/author[2]"/>
+            </xsl:when>
+            <xsl:when test="count($authors/author) &gt; 2">
+                <!-- Three or more authors -->
+                <xsl:for-each select="$authors/author">
+                    <xsl:choose>
+                        <xsl:when test="position() = last()">
+                            <xsl:text>and </xsl:text>
+                            <xsl:value-of select="."/>
+                        </xsl:when>
+                        <xsl:when test="position() = last() - 1">
+                            <xsl:value-of select="."/>
+                            <xsl:text>, </xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                            <xsl:text>, </xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>
+        
+        <!-- Date -->
+        <xsl:if test="normalize-space($date) != ''">
+            <xsl:if test="$authors/author">
+                <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="normalize-space($date)"/>
+        </xsl:if>
 
-										<xsl:analyze-string select="$unparsedtext"
-											regex="(\s+&quot;citation&quot;:\s&quot;&lt;span&gt;)(.+)(&lt;/span&gt;&quot;)">
-											<xsl:matching-substring>
-												<xsl:value-of select="regex-group(2)"/>
-											</xsl:matching-substring>
-										</xsl:analyze-string>
-									</xsl:variable>
-									<xsl:value-of select="$citation"/>
-									<xsl:if test="t:citedRange">
-										<xsl:text>, </xsl:text>
-										<xsl:value-of select="t:citedRange"/>
-									</xsl:if>
+    </xsl:if>
+</xsl:variable>
+
+<xsl:if test="normalize-space($citation) != ''">
+    <xsl:value-of select="$citation"/>
+    <xsl:if test="t:citedRange">
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select="t:citedRange"/>
+    </xsl:if>
+</xsl:if>
+
 								</a>
+								<xsl:element name="br"/> <!-- Added by Luca -->
 							</xsl:when>
 							<!--	if it is in the bibliography print styled reference-->
 							<xsl:otherwise>
 								<!--	print out using Zotoro parameter format with value bib and the selected style-->
-								<xsl:copy-of
-									select="document(concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=bib&amp;style=',$parm-zoteroStyle))/div"/>
+								<xsl:copy-of select="document(concat('https://api.zotero.org/',$parm-zoteroUorG,'/',$parm-zoteroKey,'/items?tag=', $biblentry, '&amp;format=bib&amp;style=',$parm-zoteroStyle))/div"/>
 
 							</xsl:otherwise>
 						</xsl:choose>
@@ -175,8 +216,7 @@ bibliography. All examples only cater for book and article.
 					<!-- if there is no ptr, print simply what is inside bibl and a warning message-->
 					<xsl:otherwise>
 						<xsl:value-of select="."/>
-						<xsl:message>There is no ptr with a @target in the bibl element <xsl:copy-of
-								select="."/>. A target equal to a tag in your zotero bibliography is
+						<xsl:message>There is no ptr with a @target in the bibl element <xsl:copy-of select="."/>. A target equal to a tag in your zotero bibliography is
 							necessary.</xsl:message>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -189,8 +229,7 @@ bibliography. All examples only cater for book and article.
 				<xsl:variable name="biblentry" select="./t:ptr/@target"/>
 				<xsl:variable name="biblentryID" select="substring-after(./t:ptr/@target, '#')"/>
 				<!--					parameter localbibl should contain the path to the bibliography relative to this xslt -->
-				<xsl:variable name="textref"
-					select="document(string($parm-bibloc))//t:bibl[@xml:id = $biblentryID]"/>
+				<xsl:variable name="textref" select="document(string($parm-bibloc))//t:bibl[@xml:id = $biblentryID]"/>
 				<xsl:for-each select="$biblentry">
 					<xsl:choose>
 						<!--this will print a citation according to the selected style with a link around it pointing to the resource DOI, url or zotero item view-->
@@ -264,8 +303,7 @@ bibliography. All examples only cater for book and article.
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- This applyes other templates and does not call the zotero api -->
-				<!--<xsl:apply-templates/>-->
-				<xsl:apply-imports/> <!-- so that the templates in 'htm-teilistbiblandbibl.xsl are applied (li aroub bibl elements) -->
+				<xsl:apply-templates/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -276,7 +314,7 @@ bibliography. All examples only cater for book and article.
 		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
 		<xsl:choose>
 			<!-- MODIFIED for SigiDoc by MS 2023-06-16 -->
-			<xsl:when test=" $parm-leiden-style = 'medcyprus' or $parm-edn-structure='inslib' or $parm-edn-structure='sample' or $parm-edn-structure='sigidoc'">
+			<xsl:when test=" $parm-leiden-style = 'medcyprus' or $parm-edn-structure='inslib' or $parm-edn-structure='sample' or $parm-edn-structure='ogham' or $parm-edn-structure='sigidoc'">
 			 <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
 				<xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
 				<xsl:variable name="bibl-ref" select="translate(@target, '#', '')"/>
@@ -294,7 +332,9 @@ bibliography. All examples only cater for book and article.
 					<xsl:otherwise>
 					   <xsl:choose>
 					   	<xsl:when test="$bibl[ancestor::t:div[@xml:id='series_collections']]">
-					   		<i><xsl:value-of select="$bibl/@xml:id"/></i>
+					   		<i>
+                                                <xsl:value-of select="$bibl/@xml:id"/>
+                                            </i>
 					   	</xsl:when>
 					   	<xsl:when test="$bibl[ancestor::t:div[@xml:id='authored_editions']] or ($bibl//t:name[@type='surname'] and $bibl//t:date)">
 								<xsl:for-each select="$bibl//t:name[@type='surname'][not(parent::*/preceding-sibling::t:title[not(@type='short')])]">
@@ -333,8 +373,10 @@ bibliography. All examples only cater for book and article.
 		<xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
 		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
 		<xsl:choose>
-			<xsl:when test="$parm-edn-structure=('inslib', 'sample') or $parm-leiden-style = 'medcyprus'">
-				<i><xsl:apply-templates/></i>
+			<xsl:when test="$parm-edn-structure=('inslib', 'sample', 'ogham') or $parm-leiden-style = 'medcyprus'">
+				<i>
+                    <xsl:apply-templates/>
+                </i>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates/>

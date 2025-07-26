@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0"
-   xmlns:EDF="http://epidoc.sourceforge.net/ns/functions"
-  
-   exclude-result-prefixes="t EDF" version="2.0">
+<xsl:stylesheet xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t EDF" version="2.0">
    <!-- Found in [htm|txt]-teispace.xsl -->
 
    <xsl:template match="t:space">
@@ -21,7 +16,7 @@
           <xsl:when test="$parm-edition-type = 'diplomatic'">
             <xsl:choose>
                <xsl:when test="@unit='line'">
-                  <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+                  <xsl:text>     </xsl:text>
                   <xsl:if test="$parm-leiden-style!='medcyprus'">
                   <xsl:call-template name="dip-space"/>
                   </xsl:if>
@@ -41,7 +36,7 @@
                      </xsl:choose>
                   </xsl:variable>
                   <xsl:for-each select="1 to $sp-ext">
-                     <xsl:text>&#xa0;&#xa0;</xsl:text>
+                     <xsl:text>  </xsl:text>
                   </xsl:for-each>
                </xsl:when>
                <xsl:otherwise/>
@@ -52,7 +47,7 @@
             <xsl:choose>
                <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                  <xsl:variable name="content">
-                   <xsl:text>&#x2066; vac. </xsl:text>
+                   <xsl:text>⁦ vac. </xsl:text>
                    <xsl:choose>
                      <xsl:when test="@quantity">
                        <xsl:if test="@precision='low'">
@@ -66,11 +61,11 @@
                        <xsl:value-of select="@atMost"/>
                      </xsl:when>
                      <xsl:when test="@atLeast ">
-                       <xsl:text>&#x2265;</xsl:text>
+                       <xsl:text>≥</xsl:text>
                        <xsl:value-of select="@atLeast"/>
                      </xsl:when>
                      <xsl:when test="@atMost ">
-                       <xsl:text>&#x2264;</xsl:text>
+                       <xsl:text>≤</xsl:text>
                        <xsl:value-of select="@atMost"/>
                      </xsl:when>
                      <xsl:otherwise>
@@ -79,14 +74,14 @@
                    </xsl:choose>
                    <xsl:if test="@unit='line'">
                      <xsl:text> line</xsl:text>
-                     <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
+                     <xsl:if test="@quantity &gt; 1 or @extent='unknown' or @atLeast or @atMost">
                        <xsl:text>s</xsl:text>
                      </xsl:if>
                    </xsl:if>
                    <xsl:if test="child::t:certainty[@match='..']">
                      <xsl:text>(?) </xsl:text>
                    </xsl:if>
-                   <xsl:text>&#x2069;</xsl:text>
+                   <xsl:text>⁩</xsl:text>
                  </xsl:variable>
                  <xsl:call-template name="space-content">
                    <xsl:with-param name="vacat" select="$content"/>
@@ -114,7 +109,7 @@
                         <i> <sup>vacat</sup> </i>
                      </xsl:when>
                      <xsl:when test="@unit='line'">
-                        <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
+                        <xsl:text>     </xsl:text>
                         <i> <sup>vacat</sup> </i>
                      </xsl:when>
                      <xsl:otherwise>
@@ -153,7 +148,7 @@
                         </xsl:call-template>
                      </xsl:when>
                      <xsl:when test="@unit='line'">
-                        <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
+                        <xsl:text>     </xsl:text>
                         <xsl:call-template name="space-content">
                            <xsl:with-param name="vacat" select="' vacat '"/>
                         </xsl:call-template>
@@ -202,7 +197,9 @@
                      </xsl:when>
                      <xsl:when test="@quantity and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat">
+                                        <xsl:text> vac. </xsl:text>
+                                    </xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:value-of select="$precision"/>
@@ -212,11 +209,13 @@
                      <xsl:when test="@quantity and @unit='line'">
                         <xsl:call-template name="space-content">
                         <!-- Found in [htm|txt]-teispace.xsl -->
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat">
+                                        <xsl:text> vac. </xsl:text>
+                                    </xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
-                              <xsl:if test="@quantity > 1">
+                              <xsl:if test="@quantity &gt; 1">
                                  <xsl:text>s</xsl:text>
                               </xsl:if>
                               <xsl:value-of select="$precision"/>
@@ -225,7 +224,9 @@
                      </xsl:when>
                      <xsl:when test="@quantity and @unit != 'line' and @unit != 'character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat">
+                                        <xsl:text> vac. </xsl:text>
+                                    </xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> </xsl:text>
@@ -290,10 +291,12 @@
 
    <!-- Called from [htm|txt]-teispace.xsl -->
    <xsl:template name="space-content-2">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
        <xsl:param name="vacat"/>
       <xsl:param name="extent"/>
-       <xsl:if test="$parm-leiden-style='panciera'"><xsl:text>(</xsl:text></xsl:if>
+       <xsl:if test="$parm-leiden-style='panciera'">
+            <xsl:text>(</xsl:text>
+        </xsl:if>
       <xsl:value-of select="$vacat"/>
       <xsl:if test="child::t:certainty[starts-with(@match,'..')]">
          <xsl:text>(?)</xsl:text>
@@ -302,7 +305,9 @@
          <xsl:text> </xsl:text>
          <xsl:value-of select="$extent"/>
       </xsl:if>
-       <xsl:if test="$parm-leiden-style='panciera'"><xsl:text>)</xsl:text></xsl:if>
+       <xsl:if test="$parm-leiden-style='panciera'">
+            <xsl:text>)</xsl:text>
+        </xsl:if>
    </xsl:template>
 
 </xsl:stylesheet>

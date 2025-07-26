@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0"
-   exclude-result-prefixes="t" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Template in teinum.xsl -->
    <xsl:import href="teinum.xsl"/>
 
    <xsl:template match="t:num">
-       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
        <xsl:choose>
-         <xsl:when
-            test="$parm-leiden-style=('ddbdp','dclp','sammelbuch') 
-            and string(.)">
+         <xsl:when test="$parm-leiden-style=('ddbdp','dclp','sammelbuch')              and string(.)">
             <span>
                <xsl:attribute name="title">
                   <xsl:choose>
@@ -45,9 +40,7 @@
                <xsl:apply-imports/>
             </span>
          </xsl:when>
-         <xsl:when
-             test="$parm-leiden-style = 'panciera' and
-            ancestor::t:*[@xml:lang][1][@xml:lang = 'la']">
+         <xsl:when test="$parm-leiden-style = 'panciera' and             ancestor::t:*[@xml:lang][1][@xml:lang = 'la']">
             <span class="latinnum">
                <xsl:apply-imports/>
             </span>

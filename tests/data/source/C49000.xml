@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="C49000" xml:lang="en">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title><rs type="textType">Funerary</rs> fragment</title>
+            <title>
+                    <rs type="textType">Funerary</rs> fragment</title>
             <editor>Joyce M. Reynolds</editor>
          </titleStmt>
          <publicationStmt>
@@ -25,7 +22,9 @@
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><msName>n/a</msName></msIdentifier>
+               <msIdentifier>
+                        <msName>n/a</msName>
+                    </msIdentifier>
                <physDesc>
                   <objectDesc>
                      <supportDesc>
@@ -39,7 +38,8 @@
                         </support>
                      </supportDesc>
                      <layoutDesc>
-                        <layout><rs type="execution" key="scalpro">Inscribed</rs> on one face within an incised panel 
+                        <layout>
+                                    <rs type="execution" key="scalpro">Inscribed</rs> on one face within an incised panel 
                            (<dimensions>
                               <width>0.14</width>
                               <height>0.115</height>
@@ -47,7 +47,8 @@
                      </layoutDesc>
                   </objectDesc>
                   <handDesc>
-                     <handNote><height>0.02</height>, between incised guidelines.</handNote>
+                     <handNote>
+                                <height>0.02</height>, between incised guidelines.</handNote>
                   </handDesc>
                </physDesc>
                <history>
@@ -74,7 +75,17 @@
       </fileDesc>
       <encodingDesc>
          <p>Marked-up according to the EpiDoc Guidelines version 8</p>
-      <classDecl><taxonomy><category xml:id="photograph"><catDesc>Digital or digitized photographs</catDesc></category><category xml:id="representation"><catDesc>Digitized other representations</catDesc></category></taxonomy></classDecl></encodingDesc>
+      <classDecl>
+                <taxonomy>
+                    <category xml:id="photograph">
+                        <catDesc>Digital or digitized photographs</catDesc>
+                    </category>
+                    <category xml:id="representation">
+                        <catDesc>Digitized other representations</catDesc>
+                    </category>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
       <profileDesc>
          <langUsage>
             <language ident="ar">Arabic</language>
@@ -102,9 +113,9 @@
                     </term>
             </keywords>
          </textClass>
-      <creation>Transcription (Reynolds).</creation></profileDesc>
+      <creation>Transcription (Reynolds).</creation>
+        </profileDesc>
       <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2012-11-05" who="GB">moved text-constituted-from to profileDesc/creation</change>
          <change when="2012-10-16" who="GB">broke provenance events into multiple provenance elements</change>
          <change when="2010-08-04" who="GB">Converted from TEI P4 (EpiDoc DTD v. 6) to P5 (EpiDoc RNG schema v. 8)</change>
@@ -112,9 +123,18 @@
          <change when="2009-07-10" who="Pietro">turned to XML and tidied</change>
          <change when="2009-05-11" who="GB">mailmerged: created from template</change>
       </revisionDesc>
-   </teiHeader><facsimile><graphic url="JMR_1162front" decls="#photograph"><desc><ref type="inscription">C49000</ref>, <ref type="inscription">C60600</ref> and 
-      <ref type="inscription">CG01900</ref></desc></graphic>
-      <graphic url="JMR_1084front" decls="#photograph"><desc>Face (Reynolds VI.54)</desc></graphic></facsimile>
+   </teiHeader>
+    <facsimile>
+        <graphic url="JMR_1162front" decls="#photograph">
+            <desc>
+                <ref type="inscription">C49000</ref>, <ref type="inscription">C60600</ref> and 
+      <ref type="inscription">CG01900</ref>
+            </desc>
+        </graphic>
+      <graphic url="JMR_1084front" decls="#photograph">
+            <desc>Face (Reynolds VI.54)</desc>
+        </graphic>
+    </facsimile>
    <text>
       <body>
          <div type="bibliography">

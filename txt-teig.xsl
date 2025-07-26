@@ -1,18 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0"
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" version="2.0">
   
   <!-- Import templates can be found in teig.xsl -->
   <xsl:import href="teig.xsl"/>
 
   <xsl:template match="t:g">
-    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
     <xsl:call-template name="lb-dash">
       <!-- params needed for excluding diplomatic and medCY project -->
-      <xsl:with-param name="parm-edition-type" tunnel="yes"/>
-      <xsl:with-param name="parm-leiden-style" tunnel="yes"/>
+      <xsl:with-param name="parm-edition-type"/>
+      <xsl:with-param name="parm-leiden-style"/>
     </xsl:call-template>
     <xsl:call-template name="w-space"/>
 

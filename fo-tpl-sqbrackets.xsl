@@ -1,10 +1,14 @@
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> Nov 2, 2011</xd:p>
-            <xd:p><xd:b>Author:</xd:b> gbodard</xd:p>
-            <xd:p><xd:b>Author:</xd:b> flawrence</xd:p>
-            <xd:p><xd:b>Author:</xd:b> rviglianti</xd:p>
+            <xd:p>
+                <xd:b>Created on:</xd:b> Nov 2, 2011</xd:p>
+            <xd:p>
+                <xd:b>Author:</xd:b> gbodard</xd:p>
+            <xd:p>
+                <xd:b>Author:</xd:b> flawrence</xd:p>
+            <xd:p>
+                <xd:b>Author:</xd:b> rviglianti</xd:p>
             <xd:p/>
         </xd:desc>
     </xd:doc>

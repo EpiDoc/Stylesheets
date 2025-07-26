@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" 
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- Contains named templates for the DOL file structure -->  
 
    <xsl:template name="dol-body-structure">
-      <p><b>Tablet: </b>
+      <p>
+            <b>Tablet: </b>
       <xsl:choose>
          <xsl:when test="//t:support/t:p/text()">
             <xsl:apply-templates select="//t:support/t:p" mode="dol-dimensions"/>
@@ -16,7 +14,7 @@
          </xsl:when>
          <xsl:otherwise>Unknown</xsl:otherwise>
       </xsl:choose>
-      <br />
+      <br/>
       <b>Dialect: </b>
       <xsl:choose>
          <xsl:when test="//t:layoutDesc/t:layout//text()">
@@ -24,14 +22,15 @@
          </xsl:when>
          <xsl:otherwise>Unknown.</xsl:otherwise>
       </xsl:choose>
-      <br />
+      <br/>
       <b>Alphabet: </b>
       <xsl:if test="//t:handDesc/t:handNote/text()">
          <xsl:value-of select="//t:handDesc/t:handNote"/>
       </xsl:if>
       </p>
 
-      <p><b>Date: </b>
+      <p>
+            <b>Date: </b>
       <xsl:choose>
          <xsl:when test="//t:origin/t:origDate/text()">
             <xsl:value-of select="//t:origin/t:origDate"/>
@@ -50,7 +49,8 @@
       </xsl:choose>
       </p>
 
-      <p><b>Findspot: </b>
+      <p>
+            <b>Findspot: </b>
       <xsl:choose>
          <xsl:when test="//t:provenance[@type='found'][string(translate(normalize-space(.),' ',''))]">
             <xsl:apply-templates select="//t:provenance[@type='found']" mode="dol-placename"/>
@@ -132,7 +132,8 @@
          <xsl:apply-templates select="$commtxt" mode="sqbrackets"/>
       </div>
 
-      <p><b>Themes / Keywords: </b>
+      <p>
+            <b>Themes / Keywords: </b>
       <xsl:if test="//t:textClass/t:keywords/t:list/t:item/text()">
          <xsl:value-of select="//t:textClass/t:keywords/t:list/t:item"/>
       </xsl:if>
@@ -142,7 +143,7 @@
    <!-- Called from htm-tpl-structure.xsl -->
    <xsl:template name="dol-structure">
       <xsl:variable name="title">
-         <xsl:call-template name="dol-title" />
+         <xsl:call-template name="dol-title"/>
       </xsl:variable>
       
       <html>
@@ -159,7 +160,7 @@
             <h1>
                <xsl:value-of select="$title"/>
             </h1>
-            <xsl:call-template name="dol-body-structure" />
+            <xsl:call-template name="dol-body-structure"/>
          </body>
       </html>
    </xsl:template>

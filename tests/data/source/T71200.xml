@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="https://purl.oclc.org/dsdl/schematron"?>-->
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="T71200" xml:lang="en">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title><rs type="textType">Ephebic</rs> (perhaps) inscription.</title>
+            <title>
+                    <rs type="textType">Ephebic</rs> (perhaps) inscription.</title>
             <editor>Joyce M. Reynolds</editor>
          </titleStmt>
          <publicationStmt>
@@ -23,7 +20,9 @@
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><msName>n/a</msName></msIdentifier>
+               <msIdentifier>
+                        <msName>n/a</msName>
+                    </msIdentifier>
                <physDesc>
                   <objectDesc>
                      <supportDesc>
@@ -32,11 +31,13 @@
                         </support>
                      </supportDesc>
                      <layoutDesc>
-                        <layout><rs type="execution" key="scalpro">Inscribed</rs> on one face.</layout>
+                        <layout>
+                                    <rs type="execution" key="scalpro">Inscribed</rs> on one face.</layout>
                      </layoutDesc>
                   </objectDesc>
                   <handDesc>
-                     <handNote>First to second centuries A.D.</handNote><handNote/>
+                     <handNote>First to second centuries A.D.</handNote>
+                            <handNote/>
                   </handDesc>
                </physDesc>
                <history>
@@ -61,7 +62,17 @@
       </fileDesc>
       <encodingDesc>
          <p>Marked-up according to the EpiDoc Guidelines version 8</p>
-      <classDecl><taxonomy><category xml:id="photograph"><catDesc>Digital or digitized photographs</catDesc></category><category xml:id="representation"><catDesc>Digitized other representations</catDesc></category></taxonomy></classDecl></encodingDesc>
+      <classDecl>
+                <taxonomy>
+                    <category xml:id="photograph">
+                        <catDesc>Digital or digitized photographs</catDesc>
+                    </category>
+                    <category xml:id="representation">
+                        <catDesc>Digitized other representations</catDesc>
+                    </category>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
       <profileDesc>
          <langUsage>
             <language ident="ar">Arabic</language>
@@ -89,22 +100,31 @@
                     </term>
             </keywords>
          </textClass>
-      <creation>Previous publications.</creation></profileDesc>
+      <creation>Previous publications.</creation>
+        </profileDesc>
        <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2012-11-05" who="GB">moved text-constituted-from to profileDesc/creation</change>
          <change when="2012-10-16" who="GB">broke provenance events into multiple provenance elements</change>
          <change when="2012-03-21" who="SS">created from template</change>
       </revisionDesc>
-   </teiHeader><facsimile><graphic url="PachoLXXXI" decls="#photograph"><desc>Transcription (1827, Pacho, plate LXXXI)</desc></graphic></facsimile>
+   </teiHeader>
+    <facsimile>
+        <graphic url="PachoLXXXI" decls="#photograph">
+            <desc>Transcription (1827, Pacho, plate LXXXI)</desc>
+        </graphic>
+    </facsimile>
    <text>
       <body>
       
          <div type="bibliography">
             <head>Bibliography</head>
             <p>
-               <bibl><ptr target="pacho1827"/>  pl. <biblScope>LXXXI</biblScope></bibl>, whence
-               <bibl><ptr target="cigiii"/> <biblScope>5329</biblScope></bibl>.
+               <bibl>
+                        <ptr target="pacho1827"/>  pl. <biblScope>LXXXI</biblScope>
+                    </bibl>, whence
+               <bibl>
+                        <ptr target="cigiii"/> <biblScope>5329</biblScope>
+                    </bibl>.
             </p>
          </div>
          
@@ -120,10 +140,14 @@
          <div type="apparatus">
             <head>Apparatus</head>
             <listApp>
-               <app loc="1"><rdg resp="#pacho1827">ΠΑΣΙΚΑΙϹ</rdg></app>
+               <app loc="1">
+                        <rdg resp="#pacho1827">ΠΑΣΙΚΑΙϹ</rdg>
+                    </app>
                
-               <app loc="2"><rdg resp="#pacho1827">ϹΟΟΞΛΙ</rdg>
-                  <rdg resp="#cigiii">Σ[ώσου (ἐτῶν)] λ[γʹ]</rdg></app>
+               <app loc="2">
+                        <rdg resp="#pacho1827">ϹΟΟΞΛΙ</rdg>
+                  <rdg resp="#cigiii">Σ[ώσου (ἐτῶν)] λ[γʹ]</rdg>
+                    </app>
             </listApp>
          </div>
          <div type="translation" xml:space="preserve"><head>Translation</head>

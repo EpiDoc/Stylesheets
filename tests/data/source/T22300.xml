@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="https://purl.oclc.org/dsdl/schematron"?>-->
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="T22300" xml:lang="en">
    <teiHeader>
       <fileDesc>
@@ -24,16 +20,20 @@
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><msName>n/a</msName></msIdentifier>
+               <msIdentifier>
+                        <msName>n/a</msName>
+                    </msIdentifier>
                <physDesc>
                   <objectDesc>
                      <supportDesc>
                         <support>
-                           <p><material>Sandstone</material> block.</p>
+                           <p>
+                                        <material>Sandstone</material> block.</p>
                         </support>
                      </supportDesc>
                      <layoutDesc>
-                        <layout><rs type="execution" key="litteris scariphatis">Incised</rs> on the face, in two hands</layout>
+                        <layout>
+                                    <rs type="execution" key="litteris scariphatis">Incised</rs> on the face, in two hands</layout>
                      </layoutDesc>
                   </objectDesc>
                   <handDesc>
@@ -63,7 +63,17 @@
       </fileDesc>
       <encodingDesc>
          <p>Marked-up according to the EpiDoc Guidelines version 8</p>
-      <classDecl><taxonomy><category xml:id="photograph"><catDesc>Digital or digitized photographs</catDesc></category><category xml:id="representation"><catDesc>Digitized other representations</catDesc></category></taxonomy></classDecl></encodingDesc>
+      <classDecl>
+                <taxonomy>
+                    <category xml:id="photograph">
+                        <catDesc>Digital or digitized photographs</catDesc>
+                    </category>
+                    <category xml:id="representation">
+                        <catDesc>Digitized other representations</catDesc>
+                    </category>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
       <profileDesc>
          <langUsage>
             <language ident="ar">Arabic</language>
@@ -91,9 +101,9 @@
                     </term>
             </keywords>
          </textClass>
-      <creation>Transcription (Reynolds).</creation></profileDesc>
+      <creation>Transcription (Reynolds).</creation>
+        </profileDesc>
       <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2012-11-05" who="GB">moved text-constituted-from to profileDesc/creation</change>
          <change when="2012-10-16" who="GB">broke provenance events into multiple provenance elements</change>
          <change when="2011-03-17" who="MGDA">Tagged header information</change>
@@ -101,12 +111,24 @@
          <change when="2009-08-14" who="Pietro">Tokenized</change>
          <change when="2008-07-14" who="GB">mailmerged: created from template</change>
       </revisionDesc>
-   </teiHeader><facsimile><graphic url="JMRNS01_004" decls="#photograph"><desc><ref type="inscription">T22300</ref> 
-      and <ref type="inscription">T22400</ref> (Reynolds NS.I.4)</desc></graphic>
-      <graphic url="JMRNS01_005" decls="#photograph"><desc><ref type="inscription">T22300</ref> 
-         and <ref type="inscription">T22400</ref> (Reynolds NS.I.5)</desc></graphic>
-      <graphic url="JMRNS01_006" decls="#photograph"><desc><ref type="inscription">T22300</ref> 
-         and <ref type="inscription">T22400</ref> (Reynolds NS.I.6)</desc></graphic></facsimile>
+   </teiHeader>
+    <facsimile>
+        <graphic url="JMRNS01_004" decls="#photograph">
+            <desc>
+                <ref type="inscription">T22300</ref> 
+      and <ref type="inscription">T22400</ref> (Reynolds NS.I.4)</desc>
+        </graphic>
+      <graphic url="JMRNS01_005" decls="#photograph">
+            <desc>
+                <ref type="inscription">T22300</ref> 
+         and <ref type="inscription">T22400</ref> (Reynolds NS.I.5)</desc>
+        </graphic>
+      <graphic url="JMRNS01_006" decls="#photograph">
+            <desc>
+                <ref type="inscription">T22300</ref> 
+         and <ref type="inscription">T22400</ref> (Reynolds NS.I.6)</desc>
+        </graphic>
+    </facsimile>
    <text>
       <body>
          <div type="bibliography">

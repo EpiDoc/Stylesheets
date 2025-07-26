@@ -1,4 +1,5 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions" exclude-result-prefixes="t" version="2.0">
+<!-- $Id$ -->
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
    <!-- More specific templates in teimilestone.xsl -->
 
    <xsl:template match="t:milestone">
@@ -50,7 +51,8 @@
       <xsl:if test="$parm-leiden-style='iospe'">
          <fo:inline padding-right="0.2em" position="absolute" start-indent="0">
             <xsl:text>Col. </xsl:text>
-            <xsl:value-of select="@n"/></fo:inline>
+            <xsl:value-of select="@n"/>
+            </fo:inline>
             <xsl:element name="fo:block"/>
       </xsl:if>
    </xsl:template>

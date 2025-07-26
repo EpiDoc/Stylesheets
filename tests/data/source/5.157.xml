@@ -1,21 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
    <teiHeader>
       <fileDesc>
-         <titleStmt><title xml:lang="ru">Прошение <certainty cert="low" locus="value" match=".."/> неизвестного</title><title xml:lang="en">Invocation <certainty cert="low" locus="value" match=".."/> of an unknown</title><editor xml:id="ayv2012">
-               <persName xml:lang="ru"><forename>А.Ю.</forename><surname>Виноградов</surname></persName>
-               <persName xml:lang="en"><forename>A.Yu.</forename><surname>Vinogradov</surname></persName>
-            </editor><editor xml:id="ip" role="translator"><persName xml:lang="ru">Ирина<forename/><surname>Полинская</surname></persName><persName xml:lang="en"><forename>Irene</forename><surname>Polinskaya</surname></persName></editor></titleStmt>
-         <publicationStmt><authority>King's College London</authority>
-            <idno type="filename">5.157</idno><idno type="PE">PE5000157</idno>
+         <titleStmt>
+                <title xml:lang="ru">Прошение <certainty cert="low" locus="value" match=".."/> неизвестного</title>
+                <title xml:lang="en">Invocation <certainty cert="low" locus="value" match=".."/> of an unknown</title>
+                <editor xml:id="ayv2012">
+               <persName xml:lang="ru">
+                        <forename>А.Ю.</forename>
+                        <surname>Виноградов</surname>
+                    </persName>
+               <persName xml:lang="en">
+                        <forename>A.Yu.</forename>
+                        <surname>Vinogradov</surname>
+                    </persName>
+            </editor>
+                <editor xml:id="ip" role="translator">
+                    <persName xml:lang="ru">Ирина<forename/>
+                        <surname>Полинская</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Irene</forename>
+                        <surname>Polinskaya</surname>
+                    </persName>
+                </editor>
+            </titleStmt>
+         <publicationStmt>
+                <authority>King's College London</authority>
+            <idno type="filename">5.157</idno>
+                <idno type="PE">PE5000157</idno>
             <idno type="AYV2012-number">byz152</idno>
          </publicationStmt>
          <sourceDesc>
             <msDesc>
-               <msIdentifier><country>Ukraine (?)</country>
+               <msIdentifier>
+                        <country>Ukraine (?)</country>
                   <altIdentifier xml:lang="ru">
                      <repository>In situ (?)</repository>
                      <idno/>
@@ -56,7 +75,8 @@
                   </objectDesc>
                   <handDesc>
                      <handNote>
-                        <seg xml:lang="ru"><rs type="execution" ref="execution.xml#scalpro">Лапидарный</rs>; буквы неравной величины, сильно маньеризированы. Лигатуры.</seg>
+                        <seg xml:lang="ru">
+                                    <rs type="execution" ref="execution.xml#scalpro">Лапидарный</rs>; буквы неравной величины, сильно маньеризированы. Лигатуры.</seg>
                         <seg xml:lang="en">Lapidary; highly ornate letters of unequal size. Ligatures.</seg>
                         <height unit="cm">1,0–4,0.</height>
                      </handNote>
@@ -99,7 +119,6 @@
       </fileDesc>
 
 <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2015-04-01" who="CB">Andrey's corrections</change>
          <change when="2012-07-19" who="GB">lemmatized Greek</change>
          <change when="2012-05-31" who="AG">editor added, several lines translated</change>

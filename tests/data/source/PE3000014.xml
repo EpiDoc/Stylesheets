@@ -1,11 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
-         <titleStmt><title xml:lang="ru">Надгробие Эсхина</title><title xml:lang="en">Epitaph of Aischinas</title><editor xml:id="ip" role="translator"><persName xml:lang="ru">Ирина<forename/><surname>Полинская</surname></persName><persName xml:lang="en"><forename>Irene</forename><surname>Polinskaya</surname></persName></editor></titleStmt>
+         <titleStmt>
+                <title xml:lang="ru">Надгробие Эсхина</title>
+                <title xml:lang="en">Epitaph of Aischinas</title>
+                <editor xml:id="ip" role="translator">
+                    <persName xml:lang="ru">Ирина<forename/>
+                        <surname>Полинская</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Irene</forename>
+                        <surname>Polinskaya</surname>
+                    </persName>
+                </editor>
+            </titleStmt>
          <publicationStmt>
             <authority>King's College London</authority>
             <idno type="IM2015">30.14</idno>
@@ -107,7 +116,6 @@
       </fileDesc>
       
       <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2016-02-15" who="SS">corrected references to alists; tidied xml</change>
          <change when="2015-11-05" who="CB">Added origDate</change>
          <change when="2015-10-27" who="CB">corrections to Biblio and app crit</change>
@@ -131,18 +139,25 @@
          <div type="bibliography">
             <!-- Издания -->
             <listBibl>
-               <bibl><!--Соломоник 1969--><ptr target="bib:b0504"/>, 68, №
-                     <citedRange>27</citedRange></bibl>
-               <bibl><!--НЭПХ II--><ptr target="bib:НЭПХ2"/>
-                  <citedRange>161</citedRange></bibl>
-               <bibl><!--Perlman 2011--><ptr target="bib:b0437"/>, 434, №
-                     <citedRange>27</citedRange></bibl>
+               <bibl><!--Соломоник 1969-->
+                        <ptr target="bib:b0504"/>, 68, №
+                     <citedRange>27</citedRange>
+                    </bibl>
+               <bibl><!--НЭПХ II-->
+                        <ptr target="bib:НЭПХ2"/>
+                  <citedRange>161</citedRange>
+                    </bibl>
+               <bibl><!--Perlman 2011-->
+                        <ptr target="bib:b0437"/>, 434, №
+                     <citedRange>27</citedRange>
+                    </bibl>
             </listBibl>
          </div>
          <div type="bibliography" subtype="commentaries">
             <!-- Комментарии -->
             <listBibl>
-               <bibl><!--Posamentir 2011--><ptr target="bib:b0439"/>, 38, № 27</bibl>
+               <bibl><!--Posamentir 2011-->
+                        <ptr target="bib:b0439"/>, 38, № 27</bibl>
             </listBibl>
          </div>
          <div type="edition" xml:lang="grc" xml:space="preserve">

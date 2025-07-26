@@ -1,11 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/8.23/tei-epidoc.rng" schematypens="https://purl.oclc.org/dsdl/schematron"?>
-<!--<?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>-->
+<?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/8.23/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="http://www.stoa.org/epidoc/schema/dev/ircyr-checking.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
-         <titleStmt><title xml:lang="ru">Метрическая эпитафия</title><title xml:lang="en">Metrical epitaph</title><editor xml:id="ip" role="translator"><persName xml:lang="ru">Ирина<forename/><surname>Полинская</surname></persName><persName xml:lang="en"><forename>Irene</forename><surname>Polinskaya</surname></persName></editor></titleStmt>
+         <titleStmt>
+                <title xml:lang="ru">Метрическая эпитафия</title>
+                <title xml:lang="en">Metrical epitaph</title>
+                <editor xml:id="ip" role="translator">
+                    <persName xml:lang="ru">Ирина<forename/>
+                        <surname>Полинская</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Irene</forename>
+                        <surname>Polinskaya</surname>
+                    </persName>
+                </editor>
+            </titleStmt>
          <publicationStmt>
             <authority>King's College London</authority>
             <idno type="IM2015">30.231</idno>
@@ -106,7 +115,6 @@
       </fileDesc>
       
       <revisionDesc>
-         <change when="2025-02-08" who="EMo">updated schema url and commented ircyr-checking.sch</change>
          <change when="2015-11-05" who="CB">Added origDate</change>
          <change when="2015-10-27" who="CB">correcting app crit</change>
          <change when="2015-09-01" who="CB">app crit</change>
@@ -131,9 +139,14 @@
          <div type="bibliography">
             <!-- Издания -->
             <listBibl>
-               <bibl><!-- Макаров 2009 --><ptr target="bib:b0505"/> <citedRange>113</citedRange></bibl>
-               <bibl> (<!-- SEG --><ptr target="bib:SEG"/> <citedRange>59, 815</citedRange></bibl> 
-               <bibl><!-- Bull. ép. --><ptr target="bib:BE"/> <citedRange>2010, 463</citedRange>)</bibl>
+               <bibl><!-- Макаров 2009 -->
+                        <ptr target="bib:b0505"/> <citedRange>113</citedRange>
+                    </bibl>
+               <bibl> (<!-- SEG -->
+                        <ptr target="bib:SEG"/> <citedRange>59, 815</citedRange>
+                    </bibl> 
+               <bibl><!-- Bull. ép. -->
+                        <ptr target="bib:BE"/> <citedRange>2010, 463</citedRange>)</bibl>
             </listBibl>
          </div>
          <div type="bibliography" subtype="commentaries">
@@ -189,28 +202,33 @@
                   <note>в конце строки след от косой черты, вероятно, M.</note>
                </app>
                <app loc="3/4">
-                  <rdg><note>e.g.</note> [ἀθάνατος δ’ αἰεὶ ψυχὰ] πταμένα ποτ’
+                  <rdg>
+                            <note>e.g.</note> [ἀθάνατος δ’ αἰεὶ ψυχὰ] πταμένα ποτ’
                         Ὄλυ<unclear>μ</unclear>[πον | ναιετάει χώρου δῶμα μ]ε[λ]ισταγέος.</rdg>
                </app>
                <app loc="4">
-                  <rdg>ΕΔΙΣΤΑΓΕΟΣ <note>lapis.</note></rdg>
+                  <rdg>ΕΔΙΣΤΑΓΕΟΣ <note>lapis.</note>
+                        </rdg>
                </app>
                <app loc="7">
                   <note>в начале строки след неопределенной буквы (T ?);</note>
-                  <rdg><note>fin.:</note>ἁρ<unclear>π</unclear>[ασθέντι] <note>vel</note>
+                  <rdg>
+                            <note>fin.:</note>ἁρ<unclear>π</unclear>[ασθέντι] <note>vel</note>
                         ἁρ<unclear>π</unclear>[ασθεῖσα]</rdg>
                </app>
                <app loc="9">
                   <note>в конце строки вероятна S.</note>
                </app>
                <app loc="10">
-                  <rdg><note>e.g.</note> φωτὸς ἴδ<unclear>μ</unclear>[ονος εὐσεβίας]</rdg>
+                  <rdg>
+                            <note>e.g.</note> φωτὸς ἴδ<unclear>μ</unclear>[ονος εὐσεβίας]</rdg>
                </app>
                <app loc="10">
                   <note>в конце строки, вероятно, M или A.</note>
                </app>
                <app loc="11">
-                  <rdg><note>cf. GV 15124: </note>ἀστημφὴς Ἀίδης.</rdg>
+                  <rdg>
+                            <note>cf. GV 15124: </note>ἀστημφὴς Ἀίδης.</rdg>
                </app>
                <app loc="12">
                   <note>от последней буквы сохранилась вертикальная гаста (H ?).</note>

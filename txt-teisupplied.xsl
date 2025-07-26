@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:t="http://www.tei-c.org/ns/1.0"
-                version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" version="2.0">
   <!-- Called from teisupplied.xsl -->
   
   <xsl:template name="supplied-parallel">
@@ -21,7 +18,7 @@
     <xsl:analyze-string select="." regex="(\p{{L}}|\s)">
       <xsl:matching-substring>
         <xsl:for-each select="regex-group(1)">
-          <xsl:value-of select="concat(.,'&#818;')"/>
+          <xsl:value-of select="concat(.,'̲')"/>
         </xsl:for-each>
       </xsl:matching-substring>
     </xsl:analyze-string>

@@ -1,4 +1,5 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="t" version="2.0">
+<!-- $Id$ -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="t" version="2.0">
 
    <!-- Other div matches can be found in htm-teidiv*.xsl -->
 
@@ -65,7 +66,9 @@
            </xsl:if>
               <xsl:value-of select="@n"/>
          </fo:inline>
-          <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]"><br/></xsl:if>
+          <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]">
+                <br/>
+            </xsl:if>
       </xsl:if>
       <xsl:apply-templates/>
         <xsl:if test="$parm-internal-app-style = 'iospe' and @n">

@@ -1,20 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id$ -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:t="http://www.tei-c.org/ns/1.0"
-   exclude-result-prefixes="t" version="2.0">
-
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="t" version="2.0">
+   <xsl:import href="tpl-apparatus.xsl"/>
+   <xsl:import href="htm-tpl-lang.xsl"/>
+   <xsl:import href="htm-tpl-apparatus.xsl"/>
+   
+   
    <!-- Other div matches can be found in htm-teidiv*.xsl -->
+
+<!-- Add a template to explicitly match and ignore list type -->
+<xsl:template match="t:ab[@type='list']"/>
 
    <!-- Text edition div -->
     <xsl:template match="t:div[@type = 'edition']" priority="1">
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
-       <div id="edition">
+       <div id="editionF">
         
 <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
+          
+          <xsl:choose>
+
+          <xsl:when test="(@subtype = 'roman')">
+                    <xsl:apply-templates/>
+                </xsl:when>
+
+             <xsl:when test="(@subtype = 'transliteration')">
+                    <b>
+                        <xsl:apply-templates/>
+                    </b>
+                    <hr/>
+                </xsl:when>
+<xsl:otherwise>
          <xsl:apply-templates/>
+</xsl:otherwise>
+          </xsl:choose>
+          
 
          
            <xsl:choose>
@@ -50,7 +71,7 @@
 
 
    <!-- Textpart div -->
-    <xsl:template match="t:div[@type='edition']//t:div[@type='textpart']" priority="1">
+<xsl:template match="t:div[@type='edition']//t:div[@type='textpart'][not(@type='list')]" priority="1">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
        <xsl:variable name="div-type">
@@ -68,14 +89,15 @@
       <xsl:if test="@n"><!-- prints div number -->
          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
             <!-- add ancestor textparts -->
-            <xsl:if
-               test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @subtype">
+            <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @subtype">
                <xsl:value-of select="@subtype"/>
                <xsl:text> </xsl:text>
             </xsl:if>
             <xsl:value-of select="@n"/>
          </span>
-          <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]"><br /></xsl:if>
+          <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]">
+                <br/>
+            </xsl:if>
       </xsl:if>
 
       <!-- Custodial events here -->
@@ -86,7 +108,10 @@
       <xsl:variable name="div-n" select="@n"/>
       <xsl:variable name="div-subtype" select="@subtype"/>
       <xsl:for-each select="//t:idno[@xml:id = (tokenize(replace($corresp,'#',''),' '))]">
-         <span class="corresp idno"><xsl:value-of select="."/></span><br/>
+         <span class="corresp idno">
+                <xsl:value-of select="."/>
+            </span>
+            <br/>
       </xsl:for-each>
       <xsl:for-each select="//t:custEvent[@corresp = (tokenize($corresp,' '))]">
          
@@ -113,7 +138,8 @@
                            <xsl:when test="@type='MSI'">multi-spectral image</xsl:when>
                            <xsl:otherwise>
                               <xsl:value-of select="@type"/>
-                              <xsl:message>WARNING (<xsl:value-of select="//t:idno[@type='dclp']"/>): unexpected type value for custodial event: <xsl:value-of select="@type"/></xsl:message>
+                              <xsl:message>WARNING (<xsl:value-of select="//t:idno[@type='dclp']"/>): unexpected type value for custodial event: <xsl:value-of select="@type"/>
+                                    </xsl:message>
                            </xsl:otherwise>
                         </xsl:choose>
                      </xsl:variable>
