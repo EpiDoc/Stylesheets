@@ -16,7 +16,7 @@
   </xsl:template>
   
   <xsl:template name="extent-string-wrapper">
-    <xsl:apply-imports/>
+    <xsl:call-template name="extent-string-content"/>
   </xsl:template>
   
 </xsl:stylesheet>
