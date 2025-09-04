@@ -59,20 +59,20 @@ Apparatus
             <!-- Only creates a new line if the following is not true -->
         <!--<xsl:if test="not(descendant::t:choice | descendant::t:subst | descendant::t:app)">
                <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
             </xsl:if>-->
          </xsl:for-each>
          <!-- End of apparatus -->
       <xsl:text>
-&#xD;
-&#xD;</xsl:text>
+
+</xsl:text>
       </xsl:if>
   </xsl:template>
 
 
    <xsl:template name="lbrk-app">
       <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
    </xsl:template>
 
   <!-- Used in txt-{element} and above to indicate apparatus -->

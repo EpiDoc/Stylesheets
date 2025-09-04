@@ -9,7 +9,7 @@
       <xsl:choose>
          <xsl:when test="@type = 'reprint-from'">
             <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
             <!-- Found in teiref.xsl -->
         <xsl:call-template name="reprint-text">
                <xsl:with-param name="direction" select="'from'"/>
@@ -17,7 +17,7 @@
          </xsl:when>
          <xsl:when test="@type = 'reprint-in'">
             <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
             <!-- Found in teiref.xsl -->
         <xsl:call-template name="reprint-text">
                <xsl:with-param name="direction" select="'in'"/>

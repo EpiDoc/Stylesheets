@@ -14,8 +14,8 @@
         <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
          <xsl:otherwise>
             <xsl:text>
-&#xD;
-&#xD;</xsl:text>
+
+</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
     
@@ -43,7 +43,7 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
             <xsl:value-of select="@n"/>
          </xsl:otherwise>
       </xsl:choose>

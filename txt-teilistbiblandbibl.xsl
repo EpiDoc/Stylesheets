@@ -12,7 +12,7 @@
   
   <xsl:template match="t:bibl">
       <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
       <xsl:apply-templates/>
   </xsl:template>
 

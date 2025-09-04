@@ -272,7 +272,7 @@
                      </xsl:when>
                      <!-- other reason illegible and lost/chars caught in the otherwise -->
                      <xsl:otherwise>
-                        <xsl:text>&#x2066;&#x0A;-ca.?-&#x0A;&#x2069;</xsl:text>
+                        <xsl:text>&#x2066;-ca.?-&#x2069;</xsl:text>
                      </xsl:otherwise>
                   </xsl:choose>
                </xsl:when>

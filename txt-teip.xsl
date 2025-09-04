@@ -6,8 +6,8 @@
 
   <xsl:template match="t:p">
       <xsl:text>
-&#xD;
-&#xD;</xsl:text>
+
+</xsl:text>
       <xsl:apply-templates/>
   </xsl:template>
   

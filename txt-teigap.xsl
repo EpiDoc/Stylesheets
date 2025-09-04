@@ -10,7 +10,7 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
          <xsl:text>
-&#xD;</xsl:text>
+</xsl:text>
       </xsl:if>
       <xsl:apply-imports/>
   </xsl:template>
