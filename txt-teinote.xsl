@@ -13,10 +13,10 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
             <xsl:apply-imports/>
             <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>

@@ -1,10 +1,13 @@
 <!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="t" version="2.0">
   
   <xsl:template match="t:ab">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
     <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+    <xsl:param name="parm-verse-lines" tunnel="yes" required="no"/>
     <xsl:param name="parm-line-inc" tunnel="yes" required="no"/>
-      <fo:block margin-bottom="3mm">
+      <fo:block font-style="italic" margin-bottom="3mm">
         <fo:table width="100%">
           <fo:table-column column-number="1" column-width="10%"/>
           <fo:table-column column-number="3" column-width="90%"/>

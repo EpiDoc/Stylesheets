@@ -1,13 +1,38 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="t EDF" version="2.0">
+<!-- $Id$ --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:EDF="http://epidoc.sourceforge.net/ns/functions" exclude-result-prefixes="t EDF" version="2.0">
    <!-- Templates imported by [htm|txt]-teig.xsl -->
 
+   <xsl:function name="EDF:f-wwrap">
+      <!-- called by teisupplied.xsl, teig.xsl and teispace.xsl -->
+      <xsl:param name="ww-context"/>
+      <xsl:choose>
+         <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='lb' and (@break='no' or @type='inWord'))             or normalize-space(.)='' and following-sibling::node()[1][local-name()='lb' and (@break='no' or @type='inWord')]]">
+            <xsl:value-of select="true()"/>
+      </xsl:when>
+         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
+       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
+         </xsl:when>
+         <!--      imported change    https://sourceforge.net/p/epidoc/code/2602/-->
+       <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
+          <xsl:when test="$ww-context/following-sibling::node()[1][(local-name()='milestone' and (@rend='paragraphos'))
+             or normalize-space(.)='' and following-sibling::node()[1][local-name()='milestone' and (@rend='paragraphos')]
+               and $ww-context/following-sibling::node()[2][(local-name()='lb' and (@break='no' or @type='inWord'))
+               or normalize-space(.)='' and following-sibling::node()[2][local-name()='lb' and (@break='no' or @type='inWord')]]]">
+            <xsl:value-of select="true()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="false()"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:function>
+
    <xsl:template name="lb-dash">
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows g -->
-      <!-- UNLESS diplomatic -->
-      <!-- or UNLESS project MedCyprus -->
-      <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
+      <!-- function EDF:f-wwrap declared in htm-teilb.xsl; tests if lb break=no immediately follows g -->
+      <xsl:if test="EDF:f-wwrap(.) = true()">
          <xsl:text>- </xsl:text>
       </xsl:if>
    </xsl:template>
@@ -19,42 +44,12 @@
    </xsl:template>
 
    <xsl:template match="t:g">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
       
       <xsl:choose>
-<!-- **** TEMPORARY FIX FOR MEDCYPRUS TEMPLATE **** -->
-         <xsl:when test="$parm-leiden-style=('medcyprus')">
-            <xsl:variable name="symbol" select="substring-after(@ref,'#')"/>
-            <!-- if you are running this template outside EFES, change the path to the symbols authority list accordingly -->
-            <xsl:variable name="symbols-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/symbols.xml')"/>
-            <xsl:choose>
-               <xsl:when test="doc-available($symbols-al) = fn:true() and document($symbols-al)//t:glyph[@xml:id=$symbol]">
-                  <xsl:variable name="symbol-id" select="document($symbols-al)//t:glyph[@xml:id=$symbol]"/>
-                  <xsl:choose>
-                     <xsl:when test="$parm-edition-type='diplomatic' and $symbol-id//t:mapping[@type='glyph-display']">
-                        <xsl:value-of select="$symbol-id//t:mapping[@type='glyph-display']"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="$symbol-id//t:mapping[@type='text-display']"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:choose>
-                     <xsl:when test="@ref">
-                        <xsl:value-of select="@ref"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="."/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:when>
-         <!-- **** TEMPORARY FIX FOR MEDCYPRUS TEMPLATE - END **** -->
-         <!--         if text-display set, give priority to the content of g, if any-->
+<!--         if text-display set, give priority to the content of g, if any-->
          <xsl:when test="$parm-glyph-variant = 'text-display'">
             <xsl:choose>
                <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
@@ -73,16 +68,19 @@
                <xsl:otherwise>unspecified</xsl:otherwise>
             </xsl:choose>
          </xsl:when>
+
          <xsl:otherwise>
             <xsl:call-template name="chardecl">
          <xsl:with-param name="g" select="."/>
       </xsl:call-template>
          </xsl:otherwise>
+
       </xsl:choose>
       
    </xsl:template>
 
 <xsl:template name="chardecl">
+
    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
@@ -90,7 +88,7 @@
    <xsl:param name="g"></xsl:param>
    
    <!--      stores the chardecl: if locally included, uses that one, otherways uses the common one, i.e. local definitions override -->
-   <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else (if (doc('charDecl.xml')) then doc('charDecl.xml') else doc(concat('file:',system-property('user.dir'),'/webapps/ROOT/kiln/stylesheets/epidoc/charDecl.xml')))"/>
+   <xsl:variable name="chardecl" select="if (//t:charDecl) then //t:charDecl else doc('charDecl.xml')"/>
    <xsl:variable name="glyphID" select="EDF:refID(current()/@ref)"/>
    <xsl:choose>
       <xsl:when test="starts-with($parm-leiden-style, 'edh')"/>
@@ -131,8 +129,8 @@
       <xsl:when test="@ref">
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
-         
-         <xsl:variable name="externalCharDecl" select="if ($parm-leiden-style='medcyprus') then concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/', substring-before($parsedRef, '#')) else substring-before($parsedRef, '#')"/>
+   
+         <xsl:variable name="externalCharDecl" select="substring-before($parsedRef, '#')"/>
          <xsl:choose>
             <xsl:when test="doc-available($externalCharDecl)">
                <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
@@ -149,12 +147,14 @@
                <xsl:value-of select="if(contains($parsedRef, '#')) then substring-after($parsedRef,'#') else if(contains($parsedRef, ':')) then substring-after($parsedRef,':')  else $parsedRef "/>
             </xsl:otherwise>
          </xsl:choose>
+
             </xsl:when>
             <xsl:otherwise>
                <xsl:message>The XSLT could not locate <xsl:value-of select="@ref"/>.</xsl:message>
                <xsl:value-of select="@ref"/>
             </xsl:otherwise>
          </xsl:choose>
+
       </xsl:when>
       
       <xsl:otherwise>
@@ -226,7 +226,7 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
+   
    <!-- IOSPE specific template -->
    <!-- called from htm-teig.xml -->
    <xsl:template name="g-iospe">
@@ -285,13 +285,74 @@
             </span>
          </xsl:otherwise>
       </xsl:choose>
-
+      
    </xsl:template>
 
    <!-- ddb specific template -->
    <xsl:template name="g-ddbdp">
-      <xsl:param name="location" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
+         <xsl:when test="@type='apostrophe' or @type='diastole'">
+            <xsl:text>’</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='check' or @type='check-mark'">
+            <xsl:text>／</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='chirho'">
+            <xsl:text>☧</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dash'">
+            <xsl:text>—</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dipunct'">
+            <xsl:text>∶</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='filled-circle'">
+            <xsl:text>⦿</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='filler' and @rend='extension'">
+            <xsl:text>―</xsl:text>
+            <xsl:call-template name="g-unclear-string"/>
+         </xsl:when>
+         <xsl:when test="@type='latin-interpunct' or @type='middot' or @type='mid-punctus'">
+            <xsl:text>·</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='monogram'">
+            <span class="italic">
+               <xsl:text>monogr.</xsl:text>
+               <xsl:call-template name="g-unclear-symbol"/>
+            </span>
+         </xsl:when>
+         <xsl:when test="@type='upper-brace-opening'">
+            <xsl:text>⎧</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='center-brace-opening'">
+            <xsl:text>⎨</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-obelismene'">
+            <xsl:text>⤚</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-periestigmene'">
+            <xsl:text>⸖</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-closing'">
+            <xsl:text>)</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-opening'">
+            <xsl:text>(</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
          <xsl:when test="@type='downwards-ancora'">
             <xsl:text>⸔</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -308,26 +369,18 @@
             <xsl:text>ͽ</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type='apostrophe' or @type='diastole'">
-            <xsl:text>’</xsl:text>
+         <xsl:when test="@type='hypodiastole'">
+            <xsl:text>⸒</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type='asteriskos'">
-            <xsl:text>※</xsl:text>
+         <xsl:when test="@type='swungdash'">
+            <xsl:text>⁓</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type='backslash'">
-            <xsl:text>\</xsl:text>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='upper-brace-opening'">
-            <xsl:text>⎧</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='center-brace-opening'">
-            <xsl:text>⎨</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
+         </xsl:when>   
          <xsl:when test="@type='lower-brace-opening'">
             <xsl:text>⎩</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -342,80 +395,6 @@
          </xsl:when>
          <xsl:when test="@type='lower-brace-closing'">
             <xsl:text>⎭</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='check' or @type='check-mark'">
-            <xsl:text>／</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='chirho'">
-            <xsl:text>☧</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='dash'">
-            <xsl:text>—</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='diple'">
-            <xsl:text>›</xsl:text>
-            <xsl:call-template name="g-unclear-string"/>
-         </xsl:when>
-         <xsl:when test="@type='diple-obelismene'">
-            <xsl:text>⤚</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='diple-periestigmene'">
-            <xsl:text>⸖</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='dipunct' or @type='dicolon'">
-            <xsl:text>∶</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='dot'">
-            <xsl:text>•</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='filled-circle'">
-            <xsl:text>⦿</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='filler' and @rend='extension'">
-            <xsl:text>―</xsl:text>
-            <xsl:call-template name="g-unclear-string"/>
-         </xsl:when>
-         <xsl:when test="@type='filler' and @rend='diple'">
-            <xsl:text>›</xsl:text>
-            <xsl:call-template name="g-unclear-string"/>
-         </xsl:when>
-         <xsl:when test="@type='hypodiastole'">
-            <xsl:text>⸒</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='latin-interpunct' or @type='middot' or @type='mid-punctus'">
-            <xsl:text>·</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='monogram'">
-            <span class="italic">
-               <xsl:text>monogr.</xsl:text>
-               <xsl:call-template name="g-unclear-symbol"/>
-            </span>
-         </xsl:when>
-         <xsl:when test="@type='dotted-obelos'">
-            <xsl:text>⸓</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='obelos'">
-            <xsl:text>―</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='parens-punctuation-closing'">
-            <xsl:text>)</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='parens-punctuation-opening'">
-            <xsl:text>(</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type='parens-upper-opening'">
@@ -442,20 +421,8 @@
             <xsl:text>⎠</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type='low-punctus'">
-            <xsl:text>.</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='high-punctus'">
-            <xsl:text>˙</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
          <xsl:when test="@type='rho-cross'">
             <xsl:text>⳨</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
-         <xsl:when test="@type='double-slanting-stroke'">
-            <xsl:text>⸗</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type='slanting-stroke'">
@@ -466,19 +433,11 @@
             <xsl:text>†</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
-         <xsl:when test="@type='swungdash'">
-            <xsl:text>⁓</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
          <xsl:when test="@type='tachygraphic marks'">
             <span class="italic">
                <xsl:text>tachygr. marks</xsl:text>
                <xsl:call-template name="g-unclear-symbol"/>
             </span>
-         </xsl:when>
-         <xsl:when test="@type='tetrapunct'">
-            <xsl:text>⁞</xsl:text>
-            <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type='tripunct'">
             <xsl:text>⋮</xsl:text>
@@ -490,6 +449,78 @@
          </xsl:when>
          <xsl:when test="@type='long-vertical-bar'">
             <xsl:text>|</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-obelismene'">
+            <xsl:text>⤚</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple-periestigmene'">
+            <xsl:text>⸖</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-closing'">
+            <xsl:text>)</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='parens-punctuation-opening'">
+            <xsl:text>(</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='downwards-ancora'">
+            <xsl:text>⸔</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='upwards-ancora'">
+            <xsl:text>⸕</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma'">
+            <xsl:text>ͻ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='antisigma-periestigmene'">
+            <xsl:text>ͽ</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='hypodiastole'">
+            <xsl:text>⸒</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='swungdash'">
+            <xsl:text>⁓</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='tetrapunct'">
+            <xsl:text>⁞</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dotted-obelos'">
+            <xsl:text>⸓</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='obelos'">
+            <xsl:text>―</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='dot'">
+            <xsl:text>•</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='diple'">
+            <xsl:text>›</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='asteriskos'">
+            <xsl:text>※</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='low-punctus'">
+            <xsl:text>.</xsl:text>
+            <xsl:call-template name="g-unclear-symbol"/>
+         </xsl:when>
+         <xsl:when test="@type='high-punctus'">
+            <xsl:text>˙</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
          </xsl:when>
          <xsl:when test="@type='chi-periestigmenon'">
@@ -596,7 +627,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
    <!-- creta specific template -->
    <xsl:template name="g-creta">
       <xsl:choose>
@@ -643,7 +674,7 @@
          <xsl:when test="@type='⧖'">
             <xsl:text>⧖</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
-         </xsl:when>
+         </xsl:when>         
          <xsl:when test="@type='⨇'">
             <xsl:text>⨇</xsl:text>
             <xsl:call-template name="g-unclear-symbol"/>
@@ -662,14 +693,14 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
+   
    <xsl:template name="g-unclear-symbol">
       <!-- adds underdot below symbol if parent:unclear -->
       <xsl:if test="parent::t:unclear">
          <xsl:text>̣</xsl:text>
       </xsl:if>
    </xsl:template>
-
+   
    <xsl:template name="g-unclear-string">
       <!-- adds question mark after string if parent:unclear -->
       <xsl:if test="parent::t:unclear">

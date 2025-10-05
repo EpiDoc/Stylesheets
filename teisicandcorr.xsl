@@ -9,7 +9,7 @@
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-          <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','dclp','sammelbuch','medcyprus')">
+           <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','dclp','sammelbuch','medcyprus')">
             <xsl:apply-templates/>
             <!-- if context is inside the app-part of an app-like element... -->
             <xsl:if test="ancestor::t:*[local-name()=('reg','corr','rdg') 
@@ -27,7 +27,7 @@
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:choose>
-          <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','dclp','sammelbuch','medcyprus')"/>
+           <xsl:when test="$parm-edition-type='diplomatic' or $parm-leiden-style=('ddbdp','dclp','sammelbuch','medcyprus')"/>
          <xsl:otherwise>
             <xsl:choose>
                 <xsl:when test="$parm-leiden-style = ('seg','iospe')">

@@ -40,7 +40,7 @@
        </xsl:choose>
    </xsl:template>
 
-    <xsl:template match="t:choice/t:reg"><!-- added by SigiDoc -->
+   <xsl:template match="t:choice/t:reg"><!-- added by SigiDoc -->
         <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
         <xsl:choose>
@@ -55,7 +55,6 @@
 			<xsl:otherwise/>
         </xsl:choose>
     </xsl:template>
-    
       <!-- reg is currently not displayed in text in any Leiden-style
            except "iospe" (see under orig, above), "medcyprus", 
       	   and "sigidoc"

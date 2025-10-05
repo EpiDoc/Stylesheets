@@ -6,14 +6,14 @@
 
   <xsl:template match="t:app">
      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
-     <xsl:param name="location" tunnel="yes" required="no"/>
+      <xsl:param name="location" tunnel="yes" required="no"/>
       <xsl:apply-templates/>
      <xsl:if test="$parm-internal-app-style = 'ddbdp'">
       <!-- Found in txt-tpl-apparatus -->
-         <xsl:call-template name="app-link">
+      <xsl:call-template name="app-link">
             <xsl:with-param name="location">
                <xsl:choose>
-                  <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+         <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
                   <xsl:otherwise>text</xsl:otherwise>
                </xsl:choose>
             </xsl:with-param>

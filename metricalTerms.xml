@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>EpiDoc Metrical Authority List</title>
+                <author xml:id="CC">Chiara Cenati</author>
+                <author xml:id="CF">Concha Fernández </author>
+                <author xml:id="SE">Sergio España</author>
+                <author xml:id="ML">María Limón Belen</author>
+                <author xml:id="JP">Jonathan Prag</author>
+                <author xml:id="SEv">Silvia Evangelisti</author>
+                <author xml:id="MB">Michele Butini</author>
+                <author xml:id="CP">Cristina Pepe</author>
+                <author xml:id="JIJ">José Ignacio Jiménez</author>
+                <author xml:id="PL">Pietro Maria Liuzzo</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>Released under GNU GPL 3.0</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>created electronically</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <metDecl type="met" xml:id="hexameter" pattern="+n|+n|+n|+n|+n|+u" xml:lang="en">
+                <p>Hexameter</p>
+                <p xml:lang="es">Hexámetro</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables or a long)</metSym>
+                <metSym value="x">anceps (long or short or two shorts)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="hexameter-anaxiformis" pattern="ln|ln|ln|ln|ln|lu" xml:lang="en">
+                <p>Hexameter (anaxiformis notation)</p>
+                <p xml:lang="es">Hexámetro (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+                <metSym value="x">anceps (long or short or two shorts)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="hexameter-anaxiformis-b" pattern="ln|ln|ln|ln|ln|lu" xml:lang="en">
+                <p>Hexameter (anaxiformis notation)</p>
+                <p xml:lang="es">Hexámetro (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="k">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+                <metSym value="x">anceps (long or short or two shorts)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="pentameter" pattern="+n|+n|+||+-\-|+-\-|+" xml:lang="en">
+                <p>Pentameter</p>
+                <p xml:lang="es">Pentámetro</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="pentameter-anaxiformis" pattern="ln|ln|l||lww|lww|l" xml:lang="en">
+                <p>Pentameter (anaxiformis notation)</p>
+                <p xml:lang="es">Pentámetro (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="dactylic-rhythm" xml:lang="en">
+                <p>Dactylic rhythm</p>
+                <p xml:lang="es">Ritmo dactílico</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="dactylic-rhythm-anaxiformis" xml:lang="en">
+                <p>Dactylic rhythm (anaxiformis notation)</p>
+                <p xml:lang="es">Ritmo dactílico (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+                <metSym value="n">biceps (two short syllables)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="trochaic-septenary" pattern="+x|+x|+x|+x|+x|+x|+-±" xml:lang="en">
+                <p>Trochaic septenary</p>
+                <p xml:lang="es">Septenario trocaico</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="trochaic-septenary-anaxiformis" pattern="lx|lx|lx|lx|lx|lx|lwu" xml:lang="en">
+                <p>Trochaic septenary (anaxiformis notation)</p>
+                <p xml:lang="es">Septenario trocaico (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="iambic-rhythm" xml:lang="en">
+                <p>Iambic rhythm</p>
+                <p xml:lang="es">Ritmo yámbico</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="iambic-rhythm-anaxiformis" xml:lang="en">
+                <p>Iambic rhythm (anaxiformis notation)</p>
+                <p xml:lang="es">Ritmo yámbico (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="iambic-senarius" pattern="x+|x+|x+|x+|x+|-±" xml:lang="en">
+                <p>Iambic senarius</p>
+                <p xml:lang="es">Senario yámbico</p>
+                <metSym value="+">long syllable</metSym>
+                <metSym value="-">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="/">caesura</metSym>
+                <metSym value="±">indifferens (long or short)</metSym>
+            </metDecl>
+            
+            <metDecl type="met" xml:id="iambic-senarius-anaxiformis" pattern="xl|xl|xl|xl|xl|wu" xml:lang="en">
+                <p>Iambic senarius (anaxiformis notation)</p>
+                <p xml:lang="es">Senario yámbico (notación anaxiformis)</p>
+                <metSym value="l">long syllable</metSym>
+                <metSym value="w">short syllable</metSym>
+                <metSym value="x">anceps (long or short)</metSym>
+                <metSym value="|">foot boundary</metSym>
+                <metSym value="u">indifferens (long or short)</metSym>
+            </metDecl>
+            <classDecl xml:lang="en">
+                <taxonomy xml:id="metrical_functions">
+                    <bibl>Taxonomy of Metrical Functions in Latin Inscriptions</bibl>
+                    
+                    <category xml:id="metrical.function">
+                        <catDesc>Metrical Functions</catDesc>
+                        
+                        <category xml:id="metrical.function.prose_verse">
+                            <catDesc>Prose-verse division</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.function.verse_div">
+                            <catDesc>Division between verses</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.function.cola_div">
+                            <catDesc>Divisions between cola</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.function.verse_change">
+                            <catDesc>Change of type of verse/metrical schema</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.function.pentameter">
+                            <catDesc>To mark the beginning of a pentameter</catDesc>
+                        </category>
+                    </category>
+                    
+                    <category xml:id="metrical.syntactic_semantic">
+                        <catDesc>Syntactic and Semantic Functions</catDesc>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.word_div">
+                            <catDesc>Word division</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.syllable_div">
+                            <catDesc>Syllable division</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.abbreviation">
+                            <catDesc>Abbreviation marker</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.pause">
+                            <catDesc>Syntactic pause</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.numeral">
+                            <catDesc>Numeral marker</catDesc>
+                        </category>
+                        
+                        <category xml:id="metrical.syntactic_semantic.syntactic_semantic.voices">
+                            <catDesc>Different voices (in dialogical inscriptions)</catDesc>
+                        </category>
+                    </category>
+                </taxonomy>
+                <!-- Main verse taxonomy -->
+                <taxonomy xml:id="verse">
+                    <bibl>from 
+                        curated by Eleonora Santin and Pietro Ortimini. <ref target=" https://thesaurus.mom.fr/?idt=th222"/></bibl>  
+                    
+                    <!-- from https://thesaurus.mom.fr/?idt=th222 -->
+                </taxonomy> 
+                <taxonomy xml:id="fair-epigraphy">
+                    <bibl>FAIR Epigraphy Type of Inscription
+                        <ref target="https://ontology.inscriptiones.org/type_of_inscription"/>
+                    </bibl>
+                </taxonomy>
+            </classDecl>
+            <listPrefixDef>
+                <prefixDef ident="pleiades" matchPattern="(\d-3)" replacementPattern="https://pleiades.stoa.org/places/$1"/>
+                <prefixDef ident="wd" matchPattern="([a-zA-Z0-9]+)" replacementPattern="https://www.wikidata.org/entity/$1"/>
+                <prefixDef ident="snap" matchPattern="([a-zA-Z]+)" replacementPattern="http://data.snapdrgn.net/ontology/snap#$1"/>
+                <prefixDef ident="saws" matchPattern="([a-zA-Z]+)" replacementPattern="http://purl.org/saws/ontology#$1"/>
+                <prefixDef ident="fariepi" matchPattern="(\d-3)" replacementPattern="https://ontology.inscriptiones.org/type_of_inscription/$1"/>
+                <prefixDef ident="em" matchPattern="(\d+)" replacementPattern="https://www.eagle-network.eu/voc/material/lod/$1"/>
+                <prefixDef ident="eo" matchPattern="(\d+)" replacementPattern="https://www.eagle-network.eu/voc/objtyp/lod/$1"/>
+                <prefixDef ident="ew" matchPattern="(\d+)" replacementPattern="https://www.eagle-network.eu/voc/writing/lod/$1"/>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+            <change when="2025-10-01" who="#PL">Compiled proposal list at workshop in Seville</change>
+            
+            <change when="2025-10-02" who="#PL">Added TEI version with URIs of https://thesaurus.mom.fr/?idt=th222 by Eleonora Santin and Pietro Ortimini</change>
+            <change when="2025-10-03" who="#PL">removed TEI version with URIs of https://thesaurus.mom.fr/?idt=th222 by Eleonora Santin and Pietro Ortimini</change>
+            <change when="2025-10-05" who="#PL">Added functions taxonomy and references to metrical patterns as well as metDecl from Verse Inscriptoin workshop google doc</change>
+            
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <ab/>
+        </body>
+    </text>
+</TEI>

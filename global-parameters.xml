@@ -24,7 +24,7 @@
     <value>seg</value>
     <value>sammelbuch</value>
     <value>eagletxt</value>
-    <value>sigidoc</value>
+  <value>sigidoc</value>
   </parameter>
   
   <parameter>
@@ -38,7 +38,6 @@
     <value>edh-db</value>
     <value>rib</value>
     <value>sammelbuch</value>
-    <value>sample</value>
     <value>eagle</value>
     <value>igcyr</value>
   </parameter>
@@ -61,7 +60,7 @@
     <value>ddbdp</value><!-- NB: change this parameter locally if you're running PN or SoSOL process! -->
     <value>iospe</value>
     <value>fullex</value> <!--this example uses all the currently specified internal apparatus features-->
-<value>minex</value> <!--this is the same as above but only uses some common examples-->
+    <value>minex</value> <!--this is the same as above but only uses some common examples-->
   </parameter>
   
   <parameter>
@@ -70,9 +69,10 @@
     <value>iospe</value>
   </parameter>
   
-  <parameter><!-- DEPRECATED -->
-    <name>apparatus-style</name>
-    <value on="yes">default</value>
+  <parameter>
+    <name>mixed-app-style</name>
+    <value on="yes">none</value>
+    <value>mixed</value>
   </parameter>
   
   <parameter><!--old paramter for local tests to be removed soon... -->
@@ -129,7 +129,7 @@
     <value>../js/</value>
   </parameter>
   
-  <parameter>
+<parameter>
     <name>glyph-variant</name>
     <value on="yes">standard</value>
     <value>simplified</value>

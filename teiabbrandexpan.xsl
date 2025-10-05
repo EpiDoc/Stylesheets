@@ -13,14 +13,14 @@
    <xsl:template match="t:abbr">
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
-      <xsl:choose>
+       <xsl:choose>
          <!-- in MedCyprus diplomatic edition if @rend='supraline' display a supraline -->
          <xsl:when test="$parm-leiden-style='medcyprus' and $parm-edition-type='diplomatic' and @rend='supraline'">
             <xsl:element name="span">
                <xsl:attribute name="class">supraline</xsl:attribute>
                <xsl:attribute name="title">line above</xsl:attribute>
                <xsl:apply-templates/>
-            </xsl:element>
+       </xsl:element>
          </xsl:when>
          <xsl:otherwise>
             <xsl:apply-templates/>
@@ -28,7 +28,7 @@
       </xsl:choose>
        <xsl:if test="not(ancestor::t:expan) and not($parm-edition-type='diplomatic')">
          <xsl:text>(</xsl:text><xsl:choose>
-            <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
+             <xsl:when test="$parm-leiden-style = ('ddbdp','dclp','sammelbuch')">
                <xsl:text>&#xa0;&#xa0;</xsl:text>
             </xsl:when>
              <xsl:when test="$parm-leiden-style = 'rib'">
@@ -38,7 +38,7 @@
                <xsl:text>- - -</xsl:text>
             </xsl:otherwise>
          </xsl:choose><xsl:text>)</xsl:text>
-          <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
+           <xsl:if test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
             <!-- Found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>
          </xsl:if>
@@ -64,7 +64,7 @@
             <!-- Found in tpl-certlow.xsl -->
             <xsl:call-template name="cert-low"/>
             <xsl:if
-                test="$parm-leiden-style= ('london','medcyprus') and ancestor::node()[@part='M' or @part='I']
+                test="ancestor::node()[@part='M' or @part='I']
                and position()=last()">
                <xsl:text>-</xsl:text>
             </xsl:if><xsl:text>)</xsl:text>

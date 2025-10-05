@@ -10,7 +10,7 @@
         </xd:desc>
     </xd:doc>
                 
-    <xsl:template match="text()" mode="sqbrackets">
+    <xsl:template name="sqbrackets">
         <!--<xsl:variable name="startspace" select="if (matches(substring(.,1,1),'[\n\r\s\t]')) then ' ' else ''"/>
         <xsl:variable name="endspace" select="if (matches(substring(.,string-length(.)),'[\n\r\s\t]')) then ' ' else ''"/>-->
         <xsl:variable name="current" select="replace(., '([^\]])\]([ \t]*)\[([^\[])', '$1$2$3')" />

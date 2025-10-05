@@ -12,7 +12,7 @@
   
   <xsl:template match="t:item">
       <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
       <!-- Adds numbering if ordered -->
     <xsl:if test="parent::t:list[@type = 'ordered']">
          <xsl:number count="t:item" from="t:list"/>

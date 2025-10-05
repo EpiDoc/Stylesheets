@@ -41,6 +41,11 @@
     padding-right: 0.2em;
     position: absolute;
     }
+ 
+ .indent {
+    padding-left: 2em; /* Adjust the value as needed */
+    display: inline-block;
+}
     
 .linenumberbroken {
     left: -4em;
@@ -54,7 +59,7 @@
     text-decoration: underline;
     }    
 
-.inslibligature {
+.inslibligature    {
       border-top: 2px solid black;
       border-radius: 6px;
       padding: 4px 2px 0px 2px;
@@ -74,7 +79,7 @@
     font-style: italic;
     }
 
-.rtl, .rtl * {
+.rtl,    .rtl * {
     direction: rtl;
     text-align-last: right;
 }

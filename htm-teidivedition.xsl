@@ -10,40 +10,41 @@
     <xsl:template match="t:div[@type = 'edition']" priority="1">
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
        <div id="edition">
         
 <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
          <xsl:apply-templates/>
 
-         
+           <xsl:choose>
+<!--               check if mixed apparatus is set, in which case do nothing with internal apparatus here-->
+               <xsl:when test="$parm-mixed-app-style !='none'"/>
+               <xsl:otherwise>
            <xsl:choose>
                <!-- Apparatus creation: look in tpl-apparatus.xsl for documentation and templates -->
                <xsl:when test="$parm-internal-app-style = 'ddbdp'">
                    <!-- Framework found in htm-tpl-apparatus.xsl -->
-                   <xsl:call-template name="tpl-apparatus"/>
+                   <xsl:call-template name="tpl-ddbdp-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style = 'iospe'">
                     <!-- Template found in htm-tpl-apparatus.xsl -->
                     <xsl:call-template name="tpl-iospe-apparatus"/>
                </xsl:when>
                <xsl:when test="$parm-internal-app-style ='fullex'">
-                   <!-- Template found in htm-tpl-apparatus.xsl -->
+                   <!-- Template to be added in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-fullex-apparatus"/>
                </xsl:when>
                
-               <xsl:when test="$parm-internal-app-style ='minex'">
-                   <!-- Template found in htm-tpl-apparatus.xsl -->
+                <xsl:when test="$parm-internal-app-style ='minex'">
+                   <!-- Template to be added in htm-tpl-apparatus.xsl -->
                    <xsl:call-template name="tpl-minex-apparatus"/>
                </xsl:when>
-              
-              <xsl:when test="$parm-internal-app-style ='medcyprus'">
-                 <!-- Template found in htm-tpl-apparatus.xsl -->
-                 <xsl:call-template name="tpl-medcyprus-apparatus"/>
-              </xsl:when>
-
+               
 
                <!--     the default if nothing is selected is to print no internal apparatus      -->
+           </xsl:choose>
+               </xsl:otherwise>
            </xsl:choose>
       </div>
    </xsl:template>
@@ -65,19 +66,19 @@
             <xsl:text>-</xsl:text>
          </xsl:for-each>
       </xsl:variable>
-      <xsl:if test="@n"><!-- prints div number -->
-         <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}">
-            <!-- add ancestor textparts -->
-            <xsl:if
+      <xsl:if test="@n"><!-- prints div number. -->
+          <!-- position() added (BR #176-v9.2) to guarantee uniqueness of @id for textparts with same @n values -->
+          <span class="textpartnumber" id="{$div-type}ab{$div-loc}{@n}-{position()}">
+           <!-- add ancestor textparts -->
+             <xsl:if
                test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and @subtype">
-               <xsl:value-of select="@subtype"/>
-               <xsl:text> </xsl:text>
-            </xsl:if>
-            <xsl:value-of select="@n"/>
+              <xsl:value-of select="@subtype"/>
+              <xsl:text> </xsl:text>
+           </xsl:if>
+              <xsl:value-of select="@n"/>
          </span>
           <xsl:if test="child::*[1][self::t:div[@type='textpart'][@n]]"><br /></xsl:if>
       </xsl:if>
-
       <!-- Custodial events here -->
       <!-- first get the value of the columns @corresp -->
       <xsl:variable name="corresp" select="@corresp"/>

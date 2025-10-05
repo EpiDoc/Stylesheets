@@ -11,7 +11,7 @@
          <xsl:otherwise>
             <xsl:apply-templates/>
             <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
          </xsl:otherwise>
       </xsl:choose>
   </xsl:template>

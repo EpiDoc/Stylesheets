@@ -10,13 +10,13 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:if test="@extent='unknown' and @reason='lost' and @unit='line' and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
          <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
       </xsl:if>
       <xsl:apply-imports/>
   </xsl:template>
   
-  <xsl:template name="extent-string-wrapper">
-    <xsl:call-template name="extent-string-content"/>
+<xsl:template name="extent-string-wrapper">
+    <xsl:apply-imports/>
   </xsl:template>
   
 </xsl:stylesheet>

@@ -21,7 +21,7 @@
             </sup>
             <xsl:text> </xsl:text>
          </xsl:when>
-          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch') or $parm-edn-structure='inslib')">
+           <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch') or $parm-edn-structure='inslib')">
             <xsl:choose>
                <xsl:when test="@rend = 'wavy-line'">
                   <xsl:if test="not(parent::t:supplied)">
@@ -32,8 +32,8 @@
                <xsl:when test="@rend = 'paragraphos'">
                   <!--         imported change  from https://sourceforge.net/p/epidoc/code/2602/-->
                   <!-- Added to controll '-' when there is a milestone@rend='paragraphos' followed by a lb@break='no' see: https://github.com/DCLP/dclpxsltbox/issues/52-->
-                 <xsl:if test="following-sibling::node()[not(self::text()
-                    and normalize-space(self::text())='')][1]/self::t:lb[@break='no']
+                 <xsl:if test="following-sibling::node()[not(self::text() 
+                    and normalize-space(self::text())='')][1]/self::t:lb[@break='no'] 
                     and not(preceding-sibling::*[1][self::t:supplied[@reason='lost']])">-</xsl:if>
                   <xsl:if test="not(parent::t:supplied) and not($parm-edn-structure='inslib')">
                      <br/>
@@ -63,14 +63,14 @@
                   <xsl:text>————————</xsl:text>
                </xsl:when>
             </xsl:choose>
-          </xsl:when>
-          <xsl:when test="$parm-leiden-style='medcyprus' and @unit=('column', 'surface')">
+         </xsl:when>
+         <xsl:when test="$parm-leiden-style='medcyprus' and @unit=('column', 'surface')">
              <xsl:text>|</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-             <!-- same as @unit='fragment' or @unit='block' -->
-             <!-- adds pipe for block, flanked by spaces if not within word, and with @n as exposant if exists -->
-             <xsl:if test="not(ancestor::t:w)">
+            <!-- same as @unit='fragment' or @unit='block' -->
+            <!-- adds pipe for block, flanked by spaces if not within word, and with @n as exposant if exists -->
+         <xsl:if test="not(ancestor::t:w)">
                 <xsl:text> </xsl:text>
              </xsl:if>
              <xsl:text>|</xsl:text>
@@ -81,9 +81,9 @@
                 <xsl:text> </xsl:text>
              </xsl:if>
           </xsl:otherwise>
-       </xsl:choose>
+      </xsl:choose>
    </xsl:template>
-
+   
    <xsl:template match="t:cb">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
       <xsl:if test="$parm-leiden-style='iospe'">

@@ -7,6 +7,10 @@
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
        
+        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+        <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+        <xsl:param name="parm-verse-lines" tunnel="yes" required="no"/>
+        <xsl:param name="parm-line-inc" tunnel="yes" required="no"/>
         <fo:block>
 <!-- Found in htm-tpl-lang.xsl -->
 <!--         <xsl:call-template name="attr-lang"/>-->
@@ -44,7 +48,8 @@
     <xsl:template match="t:div[@type='edition']//t:div[@type='textpart']" priority="1">
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
         <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
-       <xsl:variable name="div-type">
+       <xsl:variable name="gid" select="generate-id()"/>
+        <xsl:variable name="div-type">
            <xsl:for-each select="ancestor::t:div[@type!='edition']">
                <xsl:value-of select="@type"/>
                <xsl:text>-</xsl:text>
@@ -57,7 +62,7 @@
          </xsl:for-each>
       </xsl:variable>
       <xsl:if test="@n"><!-- prints div number -->
-          <fo:inline padding-right="0.2em" position="absolute" id="{$div-type}ab{$div-loc}{@n}">
+          <fo:inline padding-right="0.2em" position="absolute" id="{$gid}{$div-type}ab{$div-loc}{@n}">
            <!-- add ancestor textparts -->
              <xsl:if test="($parm-leiden-style = 'ddbdp' or $parm-leiden-style = 'sammelbuch') and @subtype">
               <xsl:value-of select="@subtype"/>

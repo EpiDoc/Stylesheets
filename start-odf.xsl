@@ -9,6 +9,7 @@
   <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no"/>
 
   <xsl:include href="global-varsandparams.xsl"/>
+
   <xsl:include href="odf-tpl-metadata.xsl"/>
 
   <xsl:include href="txt-teiab.xsl"/>
@@ -54,6 +55,8 @@
   <xsl:include href="tpl-reasonlost.xsl"/>
   <xsl:include href="tpl-certlow.xsl"/>
   <xsl:include href="tpl-text.xsl"/>
+  <xsl:include href="functions.xsl"/>
+
   <xsl:include href="functions.xsl"/>
 
   <xsl:template match="/">

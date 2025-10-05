@@ -20,10 +20,9 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="fo:block" mode="sqbrackets">
+    <!--<xsl:template match="fo:block" mode="sqbrackets">
         <xsl:sequence select="."/>
-    </xsl:template>
-    
+    </xsl:template>-->
     <xsl:template match="text()" mode="sqbrackets">
         <xsl:variable name="me" select="."/>
         <xsl:variable name="startspace" select="if (matches(substring(.,1,1),'[\n\r\s\t]')) then ' ' else ''"/>

@@ -1,4 +1,10 @@
-<!-- $Id$ --><xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="t" version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet 
+    xmlns:fo="http://www.w3.org/1999/XSL/Format" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:t="http://www.tei-c.org/ns/1.0" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    exclude-result-prefixes="t fo" version="2.0">
    <xsl:output method="xml" encoding="UTF-8"/>
 
    <xsl:include href="global-varsandparams.xsl"/>
@@ -19,8 +25,7 @@
    <xsl:include href="fo-teilb.xsl"/>
    <xsl:include href="fo-teilgandl.xsl"/>
    <xsl:include href="fo-teilistanditem.xsl"/>
-   <xsl:include href="fo-teilistbiblandbibl.xsl"/>
-    <xsl:include href="fo-teimilestone.xsl"/>
+   <xsl:include href="fo-teimilestone.xsl"/>
     <xsl:include href="fo-teibibl.xsl"/>
    <xsl:include href="fo-teinote.xsl"/>
    <xsl:include href="fo-teinum.xsl"/>
@@ -37,7 +42,7 @@
     <xsl:include href="fo-tpl-lang.xsl"/>
     
     <!-- html related stylesheets for named templates -->
-    <xsl:include href="fo-tpl-struct-creta.xsl"/>
+    <xsl:include href="fo-tpl-struct-edep.xsl"/>
     
    <!-- tei stylesheets that are also used by start-txt -->
    <xsl:include href="teiabbrandexpan.xsl"/>
@@ -63,22 +68,24 @@
 <!--    <xsl:include href="tpl-reasonlost.xsl"/>-->
 
 
-   <!-- HTML FILE -->
-   <xsl:template match="/">
+   <!-- File Object block-container  -->
+   <xsl:template match="t:TEI">
       
-              <fo:block-container>
-                  <xsl:call-template name="creta-structure">
+              <fo:block><xsl:comment>
+                line-increment parameter: <xsl:value-of select="$line-inc"/>
+                  </xsl:comment>
+            <xsl:call-template name="edep-structure">
                       <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
                       <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
                       <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
                       <xsl:with-param name="parm-edition-type" select="$edition-type" tunnel="yes"/>
                       <xsl:with-param name="parm-hgv-gloss" select="$hgv-gloss" tunnel="yes"/>
                       <xsl:with-param name="parm-leiden-style" select="$leiden-style" tunnel="yes"/>
-                      <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes" as="xs:double"/>
+                      <xsl:with-param name="parm-line-inc" select="$line-inc" tunnel="yes"/>
                       <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
                       <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
                   </xsl:call-template>
-              </fo:block-container>
+              </fo:block>
    </xsl:template>
 
 </xsl:stylesheet>

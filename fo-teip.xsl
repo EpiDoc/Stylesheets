@@ -2,6 +2,7 @@
 
   <xsl:template match="t:p">
       <fo:block>
+         <xsl:if test="following-sibling::t:ab"><xsl:attribute name="space-after">5mm</xsl:attribute></xsl:if>
          <xsl:apply-templates/>
       </fo:block>
   </xsl:template>

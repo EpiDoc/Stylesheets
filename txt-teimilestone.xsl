@@ -8,26 +8,26 @@
   <xsl:template match="t:milestone">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:choose>
-         <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation']">
+          <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch')) and ancestor::t:div[@type = 'translation']">
             <xsl:if test="@rend = 'break'">
                <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
             </xsl:if>
             <xsl:value-of select="@n"/>
             <xsl:text> </xsl:text>
          </xsl:when>
          <xsl:when test="@rend = 'paragraphos'">
             <xsl:choose>
-               <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
+                <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                   <xsl:if test="not(parent::t:supplied)">
                      <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
                   </xsl:if>
                   <xsl:text>————————</xsl:text>
                </xsl:when>
                <xsl:otherwise>
                   <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
                   <xsl:text>paragraphos</xsl:text>
                </xsl:otherwise>
             </xsl:choose>

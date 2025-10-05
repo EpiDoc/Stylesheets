@@ -8,7 +8,7 @@
   
   <xsl:template match="t:div">
       <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
       <xsl:apply-templates/>
   </xsl:template>
   

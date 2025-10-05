@@ -10,9 +10,8 @@
    <xsl:template match="t:space">
        <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
-      <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
-      <!-- UNLESS diplomatic -->
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/> <!-- function EDF:f-wwrap declared in functions.xsl; tests if lb break=no immediately follows space -->
+       <!-- UNLESS diplomatic -->
       <!-- or UNLESS project MedCyprus -->
       <xsl:if test="EDF:f-wwrap(.) = true() and not($parm-edition-type='diplomatic') and not($parm-leiden-style='medcyprus')">
          <xsl:text>- </xsl:text>
@@ -50,50 +49,39 @@
 
          <xsl:otherwise>
             <xsl:choose>
-               <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
-                 <xsl:variable name="content">
-                   <xsl:text>&#x2066; vac. </xsl:text>
-                   <xsl:choose>
-                     <xsl:when test="@quantity">
-                       <xsl:if test="@precision='low'">
-                         <xsl:text>ca. </xsl:text>
-                       </xsl:if>
-                       <xsl:value-of select="@quantity"/>
-                     </xsl:when>
-                     <xsl:when test="@atLeast and @atMost">
-                       <xsl:value-of select="@atLeast"/>
-                       <xsl:text>-</xsl:text>
-                       <xsl:value-of select="@atMost"/>
-                     </xsl:when>
-                     <xsl:when test="@atLeast ">
-                       <xsl:text>&#x2265;</xsl:text>
-                       <xsl:value-of select="@atLeast"/>
-                     </xsl:when>
-                     <xsl:when test="@atMost ">
+                <xsl:when test="($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
+                  <xsl:variable name="content">
+                     <xsl:text>&#x2066; vac. </xsl:text>
+                     <xsl:choose>
+                        <xsl:when test="@atMost ">
                        <xsl:text>&#x2264;</xsl:text>
                        <xsl:value-of select="@atMost"/>
                      </xsl:when>
-                     <xsl:otherwise>
+                        <xsl:otherwise>
                        <xsl:text>? </xsl:text>
                      </xsl:otherwise>
-                   </xsl:choose>
-                   <xsl:if test="@unit='line'">
+                        </xsl:choose>
+                     <xsl:if test="@unit='line'">
                      <xsl:text> line</xsl:text>
-                     <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
+                        <xsl:if test="@quantity > 1 or @extent='unknown' or @atLeast or @atMost">
                        <xsl:text>s</xsl:text>
                      </xsl:if>
-                   </xsl:if>
-                   <xsl:if test="child::t:certainty[@match='..']">
+                        </xsl:if>
+                     <xsl:if test="child::t:certainty[@match='..']">
                      <xsl:text>(?) </xsl:text>
-                   </xsl:if>
-                   <xsl:text>&#x2069;</xsl:text>
-                 </xsl:variable>
-                 <xsl:call-template name="space-content">
-                   <xsl:with-param name="vacat" select="$content"/>
-                 </xsl:call-template>
+                        </xsl:if>
+                     <xsl:text>&#x2069;</xsl:text>
+                  </xsl:variable>
+                  <xsl:call-template name="space-content">
+                        <xsl:with-param name="vacat" select="$content"/>
+                        </xsl:call-template>
+                  
+                  <xsl:if test="child::t:certainty[@match='..']">
+                     <xsl:text>(?)</xsl:text>
+                  </xsl:if>
                </xsl:when>
                
-               <xsl:when test="$parm-leiden-style='medcyprus'">
+                <xsl:when test="$parm-leiden-style='medcyprus'">
                   <xsl:choose>
                      <xsl:when test="@extent = 'unknown'">
                         <i> <sup>vac</sup> </i>
@@ -202,7 +190,7 @@
                      </xsl:when>
                      <xsl:when test="@quantity and @unit='character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text>vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:value-of select="$precision"/>
@@ -212,7 +200,7 @@
                      <xsl:when test="@quantity and @unit='line'">
                         <xsl:call-template name="space-content">
                         <!-- Found in [htm|txt]-teispace.xsl -->
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text>vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> line</xsl:text>
@@ -225,7 +213,7 @@
                      </xsl:when>
                      <xsl:when test="@quantity and @unit != 'line' and @unit != 'character'">
                         <xsl:call-template name="space-content">
-                           <xsl:with-param name="vacat"><xsl:text> vac. </xsl:text></xsl:with-param>
+                           <xsl:with-param name="vacat"><xsl:text>vac. </xsl:text></xsl:with-param>
                            <xsl:with-param name="extent">
                               <xsl:value-of select="@quantity"/>
                               <xsl:text> </xsl:text>
@@ -242,7 +230,8 @@
                   </xsl:choose>
                </xsl:when>
 
-               <xsl:when test="($parm-edn-structure = 'creta')"> <xsl:choose>
+               <xsl:when test="($parm-edn-structure = 'creta')"> <!-- added for creta -->
+                  <xsl:choose>
                      <xsl:when test="@unit='character'">
                         <xsl:choose>
                            <xsl:when test="@quantity='1'">

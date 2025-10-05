@@ -5,13 +5,19 @@
                 version="2.0">
   <xsl:include href="teilgandl.xsl"/>
 
-   <xsl:template match="t:lg">
+  <xsl:template match="t:lg">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
       <xsl:choose>
-         <!-- in IOSPE, if preceded by ab, will be called inside that div (in htm-teiab.xsl) -->
-         <xsl:when test="$parm-leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
-         <xsl:when test="$parm-edn-structure='inslib' and following-sibling::t:lg">
+         <xsl:when test="parent::t:ab">
+<!--            do not create a div, because the lg is part of another block and doing so would break the lines coherence in both diplomatic and interpretive-->
+            <span  class="textpart no-space">
+               <xsl:call-template name="attr-lang"/>
+               <xsl:apply-templates/></span>
+         </xsl:when>
+        <!-- in IOSPE, if preceded by ab, will be called inside that div (in htm-teiab.xsl) -->
+          <xsl:when test="$parm-leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
+        <xsl:when test="$parm-edn-structure='inslib' and following-sibling::t:lg">
             <div class="textpart no-space">
                <!-- Found in htm-tpl-lang.xsl -->
                <xsl:call-template name="attr-lang"/>
@@ -19,22 +25,23 @@
             </div>
          </xsl:when>
          <xsl:otherwise>
-            <div class="textpart">
-               <!-- Found in htm-tpl-lang.xsl -->
-               <xsl:call-template name="attr-lang"/>
-               <xsl:apply-templates/>
-            </div>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
+        <div class="textpart">
+         <!-- Found in htm-tpl-lang.xsl -->
+         <xsl:call-template name="attr-lang"/>
+            <xsl:apply-templates/>
+         </div>
+        </xsl:otherwise>
+     </xsl:choose>
+  </xsl:template>
 
 
   <xsl:template match="t:l">
       <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+     <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:choose>
-          <xsl:when test="$parm-verse-lines = 'on'">   
+         <xsl:when test="$parm-verse-lines = 'on' and $parm-edition-type='interpretive'">   
             <xsl:variable name="div-loc">
                <xsl:for-each select="ancestor::t:div[@type='textpart']">
                   <xsl:value-of select="@n"/>
@@ -47,6 +54,9 @@
                   <xsl:value-of select="@n"/>
                </span>
             </xsl:if>
+             <xsl:if test="@met='#dactylic.pentameter' and preceding-sibling::l[@met='#dactylic.hexameter']">
+                <span class="indent">&#8203;</span>
+             </xsl:if>
             <!-- found in teilgandl.xsl -->
         <xsl:call-template name="line-context"/>
          </xsl:when>

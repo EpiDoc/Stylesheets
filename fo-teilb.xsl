@@ -3,11 +3,12 @@
    <xsl:import href="teilb.xsl"/>
 
    <xsl:template match="t:lb">
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
-      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
+      <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"/>
+      <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-      <xsl:param name="parm-line-inc" tunnel="yes" required="no"/>
+      <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
       <xsl:param name="parm-verse-lines" tunnel="yes" required="no"/>
+      <xsl:param name="parm-line-inc" tunnel="yes" required="no"/>
       <xsl:param name="location"/>
       
       <xsl:choose>
@@ -134,7 +135,20 @@
                   </xsl:choose>
                </xsl:when>              
                <xsl:otherwise>
-                  <fo:block/>
+                  <fo:block id="a{$div-loc}l{$line}"/>
+               <xsl:if test="@rend">
+                     <fo:inline>
+                        <xsl:if test="@rend">
+                           <xsl:attribute name="class">
+                              <xsl:value-of select="concat('lb ',@rend)"/>
+                           </xsl:attribute>
+                        </xsl:if>
+                        <xsl:choose>
+                           <xsl:when test="@rend='inverse'">(inverse) </xsl:when>
+                           <xsl:when test="@rend='perpendicular'">(perpendicular) </xsl:when>
+                        </xsl:choose>
+                     </fo:inline>                     
+                  </xsl:if>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
@@ -293,7 +307,14 @@
                   </xsl:choose>
                </xsl:when>              
                <xsl:otherwise>
-                  <fo:block><fo:leader/></fo:block>
+                  <xsl:choose>
+                     <xsl:when test="count(preceding-sibling::t:lb)+count(following-sibling::t:lb) gt 0">
+                        <fo:block><fo:leader/></fo:block>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <fo:leader/>
+                     </xsl:otherwise>
+                  </xsl:choose>
                </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>

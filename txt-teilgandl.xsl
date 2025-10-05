@@ -17,7 +17,7 @@
       <xsl:choose>
           <xsl:when test="$parm-verse-lines = 'yes'">
             <xsl:text>
-</xsl:text>
+&#xD;</xsl:text>
             <xsl:choose>
                 <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0)">
                   <xsl:text>	</xsl:text>

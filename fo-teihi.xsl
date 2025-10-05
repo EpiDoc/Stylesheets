@@ -3,8 +3,8 @@
    <xsl:import href="teihi.xsl"/>
 
    <xsl:template match="t:hi">
-      <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+       <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
        <xsl:choose>
          <!-- No html code needed for these -->

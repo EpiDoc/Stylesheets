@@ -11,7 +11,7 @@
          <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:text>|</xsl:text>
-     <xsl:if test="@n">
+      <xsl:if test="@n">
         <sup><xsl:value-of select="@n"/></sup>
      </xsl:if>  
       <xsl:if test="not(ancestor::t:w)">
@@ -20,17 +20,11 @@
   </xsl:template>
 
   <xsl:template match="t:milestone[@rend = 'box']">
-      <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" tunnel="yes" required="no"/>
-      <xsl:if test="$parm-apparatus-style = 'ddbdp'">
+     <xsl:param name="parm-internal-app-style" tunnel="yes" required="no"></xsl:param>
+     <xsl:if test="$parm-internal-app-style = 'ddbdp'">
       <!-- Adds links/indication to apparatus - found in [htm|txt]-tpl-apparatus -->
-         <xsl:call-template name="app-link">
-            <xsl:with-param name="location">
-               <xsl:choose>
-                  <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
-                  <xsl:otherwise>text</xsl:otherwise>
-               </xsl:choose>
-            </xsl:with-param>
+      <xsl:call-template name="app-link">
+            <xsl:with-param name="location" select="'text'"/>
          </xsl:call-template>
       </xsl:if>
   </xsl:template>

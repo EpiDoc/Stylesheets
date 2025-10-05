@@ -13,7 +13,7 @@
            <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:text>?</xsl:text>
-        <xsl:if test="not($parm-leiden-style = ('london','panciera','iospe','medcyprus') and local-name() = ('ex','supplied'))">
+          <xsl:if test="not($parm-leiden-style = ('london','panciera','iospe','medcyprus') and local-name() = ('ex','supplied'))">
            <xsl:text>)</xsl:text>
         </xsl:if>
       </xsl:if>

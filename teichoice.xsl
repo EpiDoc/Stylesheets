@@ -7,7 +7,7 @@
    <xsl:template match="t:choice">
        <xsl:param name="parm-apparatus-style" tunnel="yes" required="no"></xsl:param>
        <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="location" tunnel="yes" required="no"/>
+       <xsl:param name="location" tunnel="yes" required="no"/>
       <!--   This causes an error missing ' for which read ' in apparatus title, need to investigate. TODO: follow up
          -->
        <xsl:choose>
@@ -32,7 +32,7 @@
          <xsl:call-template name="app-link">
             <xsl:with-param name="location">
                <xsl:choose>
-                  <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
+         <xsl:when test="$location = 'apparatus'">apparatus</xsl:when>
                   <xsl:otherwise>text</xsl:otherwise>
                </xsl:choose>
             </xsl:with-param>

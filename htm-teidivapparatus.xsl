@@ -4,18 +4,19 @@
   xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   exclude-result-prefixes="#all" version="2.0">
-  
-  
+
+
   <!-- only triggered if there is a <div type="apparatus"> (i.e. "external appartus") in the XML -->
-  
+
   <!--<xsl:import href="teidivapparatus.xsl"/>-->
-  
+
   <!-- Other div matches can be found in htm-teidiv.xsl -->
   <xsl:param name="parm-internal-app-style" />
   <xsl:param name="parm-external-app-style" />
-  
+  <xsl:param name="parm-edn-structure" />
+
   <xsl:variable name="default-language" select="'en'"/>
-  
+
   <xsl:variable name="local-bibliography">
     <xsl:if test="$parm-external-app-style = 'iospe'">
       <xsl:for-each select="//t:div[@type='bibliography']//(t:bibl | t:biblStruct)">
@@ -38,11 +39,11 @@
       </xsl:for-each>
     </xsl:if>
   </xsl:variable>
-  
+
   <xsl:template name="source">
     <xsl:param name="root"/>
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
-    
+
     <xsl:variable name="source_location">
       <xsl:choose>
         <xsl:when
@@ -76,10 +77,10 @@
       </xsl:choose>
     </t:ref>
   </xsl:template>
-  
+
   <xsl:template name="sources">
     <xsl:param name="root"/>
-    
+
     <!-- collect all sources -->
     <xsl:variable name="sources">
       <xsl:for-each select="tokenize(@source, ' ')">
@@ -88,7 +89,7 @@
         </xsl:call-template>
       </xsl:for-each>
     </xsl:variable>
-    
+
     <!-- preselect sources to be printed -->
     <xsl:variable name="final_printing_sources">
       <xsl:for-each select="$sources/t:ref">
@@ -100,31 +101,31 @@
           select="$sources/t:ref[t:name/text() = current()/t:name/text()][1] = current()"/>
         <xsl:variable name="n_authors_with_same_name_in_local_bib"
           select="count($local-bibliography/t:ref[t:name/text() = current()/t:name/text()])"/>
-        
+
         <xsl:if
           test="not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)
-          or $first_occurrence_of_this_author_in_sources">
-          
+                  or $first_occurrence_of_this_author_in_sources">
+
           <t:ref>
             <xsl:sequence select="./t:name"/>
             <xsl:if
               test="$n_authors_with_same_name_in_local_bib != 1
-              and not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)">
-              
+                and not($n_authors_with_same_name_in_local_bib_and_current_sources = $n_authors_with_same_name_in_current_sources)">
+
               <xsl:sequence select="./t:date"/>
             </xsl:if>
           </t:ref>
         </xsl:if>
       </xsl:for-each>
     </xsl:variable>
-    
+
     <!-- print references -->
     <xsl:for-each select="$final_printing_sources/t:ref">
       <xsl:if test="position()=1">
         <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:value-of select="t:name"/>
-      
+
       <xsl:if test="t:date">
         <xsl:text> </xsl:text>
         <xsl:value-of select="t:date"/>
@@ -133,9 +134,9 @@
         <xsl:text>, </xsl:text>
       </xsl:if>
     </xsl:for-each>
-    
+
   </xsl:template>
-  
+
   <xsl:template match="t:bibl | t:biblStruct" mode="parse-name-year">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <t:name>
@@ -162,35 +163,112 @@
           <xsl:value-of select=".//t:date[1]"/>
         </xsl:otherwise>
       </xsl:choose>
-      
+
     </t:date>
   </xsl:template>
-  
+
   <xsl:template match="t:div[@type='apparatus']" priority="1">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-mixed-app-style" tunnel="yes" required="no"/>
+    <xsl:variable name="edition" select="preceding-sibling::t:div[@type='edition']"/>
     <div id="apparatus">
-      <h4>Apparatus criticus</h4>
+      <h2>Apparatus</h2>     
+      
+      <xsl:if test="$edition//t:lg/@met or $edition//t:l/@met">
+        <p>Meter: 
+          <xsl:variable name="mets" select="distinct-values($edition//@met)"/>
+          
+          <xsl:variable name="cleanmets"><xsl:for-each select="$mets"><xsl:value-of select="replace(.,'\.', ' ')"/></xsl:for-each></xsl:variable>
+          <xsl:value-of select="string-join($cleanmets, ', ')"/>.</p>
+      </xsl:if>
       <p>
+      <xsl:choose>
+        <!--               check if mixed apparatus is set, in which case do that-->
+        <xsl:when test="$parm-mixed-app-style ='mixed'">
+
+
+          <!--          check for all t:app[@loc] and for all features considered in fullex -->
+          <xsl:variable name="text" select="ancestor::t:text"/>
+          <xsl:variable name="lines" select="count($text//t:lb)"/>
+          <xsl:for-each select="1 to $lines">
+            <xsl:variable name="n" select="string(.)"/>
+            <xsl:variable name="num" select="xs:integer(.)"/>
+            <xsl:variable name="externalapp" select="$text//t:app[@loc=$n][ancestor::t:div[@type='apparatus']]"/>
+             <xsl:variable name="internalapp">
+               <features>
+                 <xsl:for-each select="$text//t:div[@type='edition']//(t:corr[not(parent::t:choice)]|t:del[@rend]|t:supplied[@reason='omitted']|t:subst|t:choice|t:add|t:app[@type]|t:hi)[count(preceding::t:lb) = $num]">
+                   <xsl:copy-of select="."/>
+                 </xsl:for-each>
+               </features>
+             </xsl:variable>
+            <xsl:if test="(count($externalapp)+count($internalapp/features/node())) ge 1">
+              <span>
+                <xsl:attribute name="class">
+                  <xsl:value-of select="$n"/>
+                </xsl:attribute>
+                 <xsl:choose>
+                   <xsl:when test="count($externalapp) ge 1"><xsl:value-of select="$n"/></xsl:when>
+                   <xsl:otherwise>
+                     <xsl:if test="$text//t:lb[count(preceding::t:lb)=($num - 1)]/ancestor::t:div[@type='textpart']">
+                       <xsl:value-of select="$text//t:lb[position()=$num]/ancestor::t:div[@type='textpart']/@xml:id"/>
+                       <xsl:text> </xsl:text>
+                     </xsl:if>
+                     <xsl:value-of select="$text//t:lb[count(preceding::t:lb)=($num - 1)]/@n"/>
+                   </xsl:otherwise>
+                 </xsl:choose>
+                  <xsl:text>: </xsl:text>
+<!--                  applies templates only to the selected elements relevant for this note-->
+                <xsl:if test="count($internalapp/features/node()) ge 1">
+                  <xsl:call-template name="tpl-mixed-apparatus">
+                    <xsl:with-param name="elements" select="$internalapp"/>
+                  </xsl:call-template>
+                  <xsl:text>; </xsl:text>
+                </xsl:if>
+                  <xsl:apply-templates select="$externalapp" mode="mixedapp"/>
+                </span>
+              <br/>
+            </xsl:if>
+          </xsl:for-each>
+
+        </xsl:when>
+        <xsl:otherwise>
         <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>  
       </p>
     </div>
   </xsl:template>
-  
+
+
+  <xsl:template match="t:div[@type='apparatus']//t:app" mode="mixedapp">
+    <xsl:if test="@from">
+      <xsl:variable name="idref" select="replace(@from, '#', '')"/>
+      <xsl:apply-templates select="ancestor::t:TEI//t:*[@xml:id=$idref]"/>
+      <xsl:text> </xsl:text>
+    </xsl:if>
+     <xsl:apply-templates/>
+  </xsl:template>
+
   <xsl:template match="t:div[@type='apparatus']//t:app">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
-    <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
     <span>
       <xsl:attribute name="class">
         <xsl:value-of select="@loc"/>
       </xsl:attribute>
       <xsl:if
         test="@loc and (not(preceding-sibling::t:app) or @loc != preceding-sibling::t:app[1]/@loc)">
-        <xsl:value-of select="translate(@loc, ' ', '.')"/>
+        <xsl:choose><xsl:when test="contains(@loc, ',')"><xsl:value-of select="@loc"/></xsl:when>
+          <xsl:otherwise><xsl:value-of select="translate(@loc, ' ', '.')"/></xsl:otherwise></xsl:choose>
         <xsl:text>: </xsl:text>
+      </xsl:if>
+      <xsl:if test="@from">
+        <xsl:variable name="idref" select="replace(@from, '#', '')"/>
+        <xsl:apply-templates select="ancestor::t:TEI//t:*[@xml:id=$idref]"/>
+        <xsl:text> </xsl:text>
       </xsl:if>
       <xsl:apply-templates/>
     </span>
-    
+
     <xsl:choose>
       <xsl:when test="@loc != following-sibling::t:app[1]/@loc">
         <br/>
@@ -207,36 +285,41 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="t:div[@type = 'apparatus']//t:rdg">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
+
     <xsl:if test="@resp">
       <xsl:apply-templates select="@resp"/>
     </xsl:if>
     <xsl:call-template name="sources">
       <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
     </xsl:call-template>
-    
+
     <xsl:if test="following-sibling::t:rdg and not(following-sibling::*[1][self::t:note])">
       <xsl:text>; </xsl:text>
     </xsl:if>
   </xsl:template>
-  
+
+
   <xsl:template match="t:div[@type = 'apparatus']//t:lem">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:apply-templates/>
+
     <xsl:if test="@resp">
       <xsl:apply-templates select="@resp"/>
     </xsl:if>
     <xsl:call-template name="sources">
       <xsl:with-param name="root" select="ancestor-or-self::t:TEI"/>
-      </xsl:call-template>
-  <xsl:if test="following-sibling::t:* and not(following-sibling::t:*[1][self::t:note]) and not(@source)">
+    </xsl:call-template>
+
+    <xsl:if
+      test="following-sibling::t:* and not(following-sibling::t:*[1][self::t:note]) and not(@source)">
       <xsl:text>: </xsl:text>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="t:div[@type = 'apparatus']//t:rdg/@resp|t:div[@type = 'apparatus']//t:lem/@resp">
     <xsl:param name="parm-external-app-style" tunnel="yes" required="no"/>
     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
@@ -320,5 +403,5 @@
       </xsl:if>
     </span>
   </xsl:template>
-  
+
 </xsl:stylesheet>
