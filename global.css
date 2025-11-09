@@ -35,6 +35,12 @@
     padding-right: 0.2em;
     position: absolute;
     }
+
+.textpart.no-space .linenumber {
+    left: -24em;
+    padding-right: 0.2em;
+    position: absolute;
+    }
     
 .linenumber {
     left: -4em;

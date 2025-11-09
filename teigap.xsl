@@ -695,7 +695,7 @@
                   </xsl:choose>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>&#x2066; - - - - - - - - - - &#x2069;</xsl:text>
+                  <xsl:text>&#x2066;------&#x2069;</xsl:text>
                </xsl:otherwise>
             </xsl:choose>
          </xsl:when>

@@ -27,6 +27,11 @@
       </xsl:if>
   </xsl:template>
   
+  <xsl:template match="t:seg[@type='acros']">
+    <b><xsl:apply-templates/>
+    <!-- Found in tpl-certlow.xsl -->
+    <xsl:call-template name="cert-low"/></b>
+  </xsl:template>
  
 
 </xsl:stylesheet>

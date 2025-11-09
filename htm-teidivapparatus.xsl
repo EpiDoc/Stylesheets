@@ -173,15 +173,26 @@
     <xsl:variable name="edition" select="preceding-sibling::t:div[@type='edition']"/>
     <div id="apparatus">
       <h2>Apparatus</h2>     
-      
-      <xsl:if test="$edition//t:lg/@met or $edition//t:l/@met">
-        <p>Meter: 
+        <p>
+      <xsl:if test="$edition//t:lg/@met[not(.='elegiac.couplet')] or $edition//t:l[parent::t:lg[not(@met='elegiac.couplet')]]/@met">
+      Meter: 
           <xsl:variable name="mets" select="distinct-values($edition//@met)"/>
           
           <xsl:variable name="cleanmets"><xsl:for-each select="$mets"><xsl:value-of select="replace(.,'\.', ' ')"/></xsl:for-each></xsl:variable>
-          <xsl:value-of select="string-join($cleanmets, ', ')"/>.</p>
+          <xsl:value-of select="string-join($cleanmets, ', ')"/>.
       </xsl:if>
-      <p>
+      <xsl:if test="$edition//t:*[@ana='nonstandard']">
+        Non standard.
+      </xsl:if>
+          
+          <xsl:if test="$edition//t:*[@ana='extrametrical']">
+            Extra metrical.
+          </xsl:if>
+          
+          <xsl:if test="$edition//t:seg[@ana='metrical']">
+            Metrical.
+          </xsl:if>
+      </p>
       <xsl:choose>
         <!--               check if mixed apparatus is set, in which case do that-->
         <xsl:when test="$parm-mixed-app-style ='mixed'">
@@ -235,7 +246,6 @@
         <xsl:apply-templates/>
         </xsl:otherwise>
       </xsl:choose>  
-      </p>
     </div>
   </xsl:template>
 

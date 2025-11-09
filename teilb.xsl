@@ -23,7 +23,7 @@
              <xsl:when test="$parm-verse-lines = 'on' and not(number(@n)) and ($parm-leiden-style = ('ddbdp','dclp','sammelbuch'))">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
-            <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and not(starts-with($parm-leiden-style, 'edh'))">
+            <xsl:when test="number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and not(starts-with($parm-leiden-style, 'edh')) and not($parm-leiden-style= 'panciera')">
                <xsl:call-template name="lb-content"/>
             </xsl:when>
          </xsl:choose>
@@ -43,11 +43,11 @@
             <xsl:value-of select="@n"/>
             <xsl:text>)</xsl:text>
          </xsl:when>
-         <xsl:otherwise>
+         <!--<xsl:otherwise>
             <xsl:text>(</xsl:text>
             <xsl:value-of select="@n"/>
             <xsl:text>) </xsl:text>
-         </xsl:otherwise>
+         </xsl:otherwise>-->
       </xsl:choose>
   </xsl:template>
 

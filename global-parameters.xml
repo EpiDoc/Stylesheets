@@ -121,7 +121,7 @@
   
   <parameter>
     <name>css-loc</name>
-    <value>../xsl/global.css</value>
+    <value>../../Stylesheets-apparatus/global.css</value>
   </parameter>
   
 <parameter>

@@ -202,8 +202,7 @@
                <xsl:when
                         test="
                         number(@n) and @n mod number($parm-line-inc) = 0 and not(@n = 0) and
-                        not(following::t:*[1][local-name() = 'gap' or local-name() = 'space'][@unit = 'line'] and
-                        ($parm-leiden-style = ('ddbdp','dclp','sammelbuch')))">
+                        not(following::t:*[1][local-name() = 'gap' or local-name() = 'space'][@unit = 'line'])">
                   <!-- prints line-nos divisible by stated increment, unless zero
                      and unless it is a gap line or vacat in DDbDP -->
                   <xsl:call-template name="margin-num"/>
