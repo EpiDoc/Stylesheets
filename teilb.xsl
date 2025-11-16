@@ -8,8 +8,9 @@
   <xsl:template match="t:lb">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
-      <xsl:if test="ancestor::t:l">
+     <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
+     <xsl:if test="(ancestor::t:l or ancestor::t:lg)  and $parm-verse-lines = 'on'"/>
+     <xsl:if test="ancestor::t:l and $parm-verse-lines != 'on'">
          <xsl:choose>
             <xsl:when test="@break='no' or @type='inWord'">
                <xsl:text>|</xsl:text>
