@@ -6,7 +6,8 @@
   <!-- Called by [htm|txt]-teilgandl.xsl -->
 
   <xsl:template name="line-context">
-      <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+     <xsl:param name="parm-line-inc" tunnel="yes" required="no"></xsl:param>
+     <xsl:param name="parm-verse-lines" tunnel="yes" required="no"></xsl:param>
       <xsl:if test="@met='pentameter'">
          <xsl:text>   </xsl:text>
       </xsl:if>
@@ -22,15 +23,16 @@
                   <xsl:text>)</xsl:text>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:text>(</xsl:text>
+                  <!--<xsl:text>(</xsl:text>
                   <xsl:value-of select="$pre-lb"/>
-                  <xsl:text>) </xsl:text>
+                  <xsl:text>) </xsl:text>-->
                </xsl:otherwise>
             </xsl:choose>
          </xsl:if>
       </xsl:if>
       <xsl:apply-templates/>
-      <xsl:if test="local-name(following-sibling::t:*[1])='lb'">
+     <xsl:if test="local-name(following-sibling::t:*[1])='lb' and $parm-verse-lines != 'on'">
+        <!--    Chiara:    nella visualizzazione dei versi non servono | -->
          <xsl:text> |</xsl:text>
       </xsl:if>
   </xsl:template>

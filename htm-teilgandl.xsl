@@ -7,25 +7,26 @@
 
   <xsl:template match="t:lg">
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
-      <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
+     <xsl:param name="parm-verse-lines" tunnel="yes" required="no"/>
       <xsl:choose>
          <xsl:when test="parent::t:ab">
 <!--            do not create a div, because the lg is part of another block and doing so would break the lines coherence in both diplomatic and interpretive-->
-            <span  class="textpart no-space">
+            <span  class="{if($parm-verse-lines='on') then 'textpart' else () } no-space verse">
                <xsl:call-template name="attr-lang"/>
                <xsl:apply-templates/></span>
          </xsl:when>
         <!-- in IOSPE, if preceded by ab, will be called inside that div (in htm-teiab.xsl) -->
           <xsl:when test="$parm-leiden-style='iospe' and preceding-sibling::t:*[1][local-name()='ab']"/>
         <xsl:when test="$parm-edn-structure='inslib' and following-sibling::t:lg">
-            <div class="textpart no-space">
+           <div class="{if($parm-verse-lines='on') then 'textpart' else () } no-space verse">
                <!-- Found in htm-tpl-lang.xsl -->
                <xsl:call-template name="attr-lang"/>
                <xsl:apply-templates/>
             </div>
          </xsl:when>
          <xsl:otherwise>
-        <div class="textpart">
+            <div class="{if($parm-verse-lines='on') then 'textpart' else ()} verse">
          <!-- Found in htm-tpl-lang.xsl -->
          <xsl:call-template name="attr-lang"/>
             <xsl:apply-templates/>

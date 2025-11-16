@@ -31,6 +31,10 @@
     padding-right: 2em;
 }
 
+.verse {
+    font-style:italic;
+}
+
 .textpartnumber {
     padding-right: 0.2em;
     position: absolute;

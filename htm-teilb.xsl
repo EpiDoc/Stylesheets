@@ -19,6 +19,7 @@
       <xsl:choose>
           <xsl:when test="ancestor::t:lg and $parm-verse-lines = 'on'">
             <xsl:apply-imports/>
+            
             <!-- use the particular templates in teilb.xsl -->
          </xsl:when>
 
@@ -167,7 +168,7 @@
                <xsl:when
                   test="($parm-leiden-style = ('ddbdp','dclp') and ((not(ancestor::*[name() = 'TEI'])) or $location='apparatus')) or ($parm-edn-structure='inslib' and ancestor::t:div[@type='apparatus'])">
                   <xsl:choose>
-                     <xsl:when test="@break = 'no' or @type = 'inWord'">
+                      <xsl:when test="@break = 'no' or @type = 'inWord'">
                         <xsl:text>|</xsl:text>
                      </xsl:when>
                      <xsl:otherwise>

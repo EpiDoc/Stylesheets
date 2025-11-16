@@ -10,7 +10,8 @@
       <xsl:if test="not(ancestor::t:w)">
          <xsl:text> </xsl:text>
       </xsl:if>
-      <xsl:text>|</xsl:text>
+     <!--   CHIARA  In quest’ultimo caso abbiamo provato a risolvere con <milestone/>, ma ci compare un trattino verticale che non vogliamo: -->
+<!--      <xsl:text>|</xsl:text>-->
       <xsl:if test="@n">
         <sup><xsl:value-of select="@n"/></sup>
      </xsl:if>  
