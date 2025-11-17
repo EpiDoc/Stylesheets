@@ -45,7 +45,7 @@
          <xsl:choose>
            <xsl:when test="//t:origin/t:origDate/text()">
              <xsl:value-of select="//t:origin/t:origDate"/>
-             <xsl:if test="//t:origin/t:origDate[@evidence[]">
+             <!--<xsl:if test="//t:origin/t:origDate[@evidence[]">
                <xsl:text> (</xsl:text>
                <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
                  <xsl:value-of select="translate(.,'-',' ')"/>
@@ -54,7 +54,7 @@
                  </xsl:if>
                </xsl:for-each>
                <xsl:text>)</xsl:text>
-             </xsl:if>
+             </xsl:if>-->
            </xsl:when>
            <xsl:otherwise>Unknown.</xsl:otherwise>
          </xsl:choose>
