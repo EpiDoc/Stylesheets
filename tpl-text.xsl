@@ -31,7 +31,7 @@
              <xsl:choose>
                 <!-- in MedCyprus diplomatic edition keep diacritics (but not iota subscript/ypogegrammeni); transform all sigmas to lunate sigma -->
                 <xsl:when test="$parm-leiden-style='medcyprus'">
-                   <xsl:value-of select="upper-case(normalize-unicode(translate(translate(translate(translate(.,'&#x0345;',''),'&#x03f2;σςΣ','&#x03f9;&#x03f9;&#x03f9;&#x03f9;'),$apos,''), '··&#xA; ,.;‘’', ''),'NFD'))"/>
+                   <xsl:value-of select="upper-case(normalize-unicode(translate(translate(translate(translate(.,'&#x0345;',''),'&#x03f2;σςΣ','&#x03f9;&#x03f9;&#x03f9;&#x03f9;'),$apos,''), '·&#xA; ,.;‘’', ''),'NFD'))"/>
                 </xsl:when>
                 <xsl:otherwise>
                    <xsl:variable name="txt" select="if (ancestor::t:div[@xml:lang][1][@xml:lang='la']) then translate(.,'Uu','Vv') else ."/>
