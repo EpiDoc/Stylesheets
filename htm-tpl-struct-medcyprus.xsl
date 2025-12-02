@@ -40,47 +40,58 @@
            <!-- Named template found below. -->
            <xsl:call-template name="medcyprus-invno"/>
        </xsl:if>
+       <br/><b>Painting phase: </b>
+       <xsl:choose>
+         <xsl:when test="//t:origin/t:origPlace/@n">
+           <xsl:value-of select="//t:origin/t:origPlace/@n"/>
+           <xsl:text> layer</xsl:text>
+         </xsl:when>
+         <xsl:otherwise><xsl:text>PENDING</xsl:text></xsl:otherwise>
+       </xsl:choose>
        
        <br/><b>Date: </b>
          <xsl:choose>
            <xsl:when test="//t:origin/t:origDate/text()">
              <xsl:value-of select="//t:origin/t:origDate"/>
-             <!--<xsl:if test="//t:origin/t:origDate[@evidence[]">
-               <xsl:text> (</xsl:text>
-               <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
-                 <xsl:value-of select="translate(.,'-',' ')"/>
-                 <xsl:if test="position()!=last()">
-                   <xsl:text>, </xsl:text>
-                 </xsl:if>
-               </xsl:for-each>
-               <xsl:text>)</xsl:text>
-             </xsl:if>-->
+              <xsl:choose>
+              <xsl:when test="//t:origin/t:origDate[@evidence]">
+                <xsl:text> (</xsl:text>
+                <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
+                  <xsl:value-of select="translate(.,'-',' ')"/>
+                  <xsl:if test="position()!=last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>)</xsl:text>
+              </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text> (PENDING)</xsl:text>
+                </xsl:otherwise>
+             </xsl:choose>
            </xsl:when>
-           <xsl:otherwise>Unknown.</xsl:otherwise>
+           <xsl:otherwise>Unknown</xsl:otherwise>
          </xsl:choose>
      </p>
      
      <p>
-       <!--<b>Description of inscription: </b>
-         <xsl:apply-templates select="//t:supportDesc" mode="medcyprus-dimensions"/>-->
-       <b>Inscription support: </b>
-       <xsl:apply-templates select="//t:rs[@type='inscription-support']"/>
-       <br/><b>Placement within the building: </b>
+              <b>Placement within the building: </b>
        <xsl:apply-templates select="//t:support//t:rs[@type='placement-building']"/>
-       <br/><b>Dimensions: </b>
-       <xsl:apply-templates select="//t:support//t:dimensions" mode="medcyprus-dimensions"/>
+       <br/><b>Inscription support: </b>
+       <xsl:apply-templates select="//t:rs[@type='inscription-support']"/>
        <br/><b>Articulation of inscription in relation to the murals: </b>
        <xsl:apply-templates select="//t:layoutDesc" mode="medcyprus-dimensions"/>
+       <br/><b>Dimensions: </b>
+       <xsl:apply-templates select="//t:support//t:dimensions" mode="medcyprus-dimensions"/>
        <br/><b>Letters: </b>
        <xsl:apply-templates select="//t:handDesc" mode="medcyprus-letter-height"/>
        <br/><b>Iconography: </b> <!--EM edited 2025-02-23 -->
        <xsl:choose>
-       <xsl:when test="//t:decoDesc//t:rs[@type='iconography']">
+         <xsl:when test="//t:decoDesc//t:rs[@type='iconography']">
            <xsl:for-each select="//t:rs[@type='iconography'][string(normalize-space(.))]">
-         <xsl:apply-templates select="." mode="medcyprus-dimensions"/>
-         <xsl:if test="position()!=last()">; </xsl:if>
-       </xsl:for-each>
-     </xsl:when>
+             <xsl:apply-templates select="." mode="medcyprus-dimensions"/>
+             <xsl:if test="position()!=last()">; </xsl:if>
+           </xsl:for-each>
+         </xsl:when>
          <xsl:when test="//t:decoDesc/t:p[not(child::t:rs)]">
            <xsl:value-of select="//t:decoDesc/t:p"/>
          </xsl:when>
