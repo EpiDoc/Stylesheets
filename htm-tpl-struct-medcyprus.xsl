@@ -43,10 +43,10 @@
        <br/><b>Painting phase: </b>
        <xsl:choose>
          <xsl:when test="//t:origin/t:origPlace/@n='single'">
-           <xsl:value-of select="//t:origin/t:origPlace/@n"/>
            <xsl:text>n/a</xsl:text>
          </xsl:when>
          <xsl:when test="//t:origin/t:origPlace/@n">
+           <xsl:value-of select="//t:origin/t:origPlace/@n"/>
            <xsl:text> layer</xsl:text>
          </xsl:when>
          <xsl:otherwise><xsl:text>PENDING</xsl:text></xsl:otherwise>
