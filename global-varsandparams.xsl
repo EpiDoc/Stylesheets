@@ -38,9 +38,13 @@
                         select="document($param-file)//parameter[name = 'js-dir']/value"/>
             <xsl:param name="bibliography"
                         select="document($param-file)//parameter[name = 'bibliography']/value[@on = 'yes']"/>
+            <xsl:variable name="default-bibloc"
+                        select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
             <xsl:param name="localbibl"
-                        select="document($param-file)//parameter[name = 'localbibl']/value"/>
-            <xsl:param name="ZoteroUorG" 
+                        select="(document($param-file)//parameter[name = 'localbibl']/value[. != ''], $default-bibloc)[1]"/>
+            <!-- URL template for bibliography links. $1 is replaced by the bibliography entry ID. -->
+            <xsl:param name="bib-link-template" select="'../concordance/bibliography/$1.html'"/>
+            <xsl:param name="ZoteroUorG"
                         select="document($param-file)//parameter[name = 'ZoteroUorG']/value[@on = 'yes']"/>
             <xsl:param name="ZoteroKey"
                         select="document($param-file)//parameter[name = 'ZoteroKey']/value[@on = 'yes']"/>

@@ -123,6 +123,7 @@
                   <xsl:with-param name="parm-css-loc" select="$css-loc" tunnel="yes"/>
                   <xsl:with-param name="parm-bib" select="$bibliography" tunnel="yes"/>
                   <xsl:with-param name="parm-bibloc" select="$localbibl" tunnel="yes"/>
+                  <xsl:with-param name="parm-bib-link-template" select="$bib-link-template" tunnel="yes"/>
                   <xsl:with-param name="parm-zoteroUorG" select="$ZoteroUorG" tunnel="yes"/>
                   <xsl:with-param name="parm-zoteroKey" select="$ZoteroKey" tunnel="yes"/>
                   <xsl:with-param name="parm-zoteroNS" select="$ZoteroNS" tunnel="yes"/>
