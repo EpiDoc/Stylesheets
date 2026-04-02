@@ -242,14 +242,15 @@
     <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
     
     <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+    <xsl:param name="parm-bibloc" tunnel="yes" required="no"/>
+    <xsl:param name="parm-bib-link-template" tunnel="yes" required="no"/>
     <xsl:variable name="biblio" select="tokenize(substring-after(., '#'), ' #')"/>
-    
+
     <xsl:choose>
       <xsl:when test="$parm-edn-structure=('inslib', 'sample') or $parm-leiden-style = 'medcyprus'">
-        <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+        <xsl:variable name="bibliography-al" select="string($parm-bibloc)"/>
         <xsl:for-each select="$biblio">
           <xsl:variable name="bib" select="normalize-space(.)"/>
-          <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
           <xsl:variable name="bibl">
             <xsl:if test="doc-available($bibliography-al)">
               <xsl:sequence select="document($bibliography-al)//t:bibl[@xml:id=$bib][not(@sameAs)]"></xsl:sequence>
@@ -258,7 +259,7 @@
           <xsl:if test="position()=1"><xsl:text> </xsl:text></xsl:if>
           <xsl:choose>
             <xsl:when test="doc-available($bibliography-al) and $bibl">
-              <a href="../concordance/bibliography/{$bib}.html" target="_blank">
+              <a href="{replace($parm-bib-link-template, '\$1', $bib)}" target="_blank">
                 <xsl:choose>
                   <xsl:when test="$bibl//t:bibl[@type='abbrev']">
                     <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>

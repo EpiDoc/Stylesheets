@@ -19,6 +19,9 @@
   </xsl:variable>
   
   <xsl:template name="inslib-body-structure">
+    <xsl:param name="parm-bibloc" tunnel="yes" required="no"/>
+    <xsl:param name="parm-bib-link-template" tunnel="yes" required="no"/>
+    <xsl:param name="parm-places-file" tunnel="yes" required="no"/>
     <div id="full-edition">
       <div id="edition-text">
         <xsl:call-template name="inslib-navigation"/>
@@ -239,12 +242,11 @@
               <xsl:if test="@source">
                 <xsl:variable name="source-id" select="substring-after(@source, '#')"/>
                 <p><xsl:text>Translation source: </xsl:text> 
-                  <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-                  <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+                  <xsl:variable name="bibliography-al" select="string($parm-bibloc)"/>
                   <xsl:choose>
                     <xsl:when test="doc-available($bibliography-al) = fn:true() and document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]">
                       <xsl:variable name="source" select="document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]"/>
-                      <a href="{concat('../concordance/bibliography/',$source-id,'.html')}" target="_blank">
+                      <a href="{replace($parm-bib-link-template, '\$1', $source-id)}" target="_blank">
                         <xsl:choose>
                           <xsl:when test="$source//t:bibl[@type='abbrev']">
                             <xsl:apply-templates select="$source//t:bibl[@type='abbrev'][1]"/>
@@ -373,15 +375,14 @@
         </xsl:if>
           
         <xsl:if test="$inslib-corpus='IGCyr'">
-          <!-- if you are running this template outside EFES, change the path to the places authority list accordingly -->
-          <xsl:if test="doc-available(concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/places.xml')) = fn:true()">
+          <xsl:if test="doc-available(string($parm-places-file)) = fn:true()">
             <div id="maps">
               <h3>Maps</h3>
               <div class="row map_box">
                 <div id="specific_map" class="map inscription_map"></div>
                 <xsl:variable name="place-name" select="//t:provenance[@type='found'][1]//t:p[1]//t:placeName[@type='ancientFindspot'][1]"/>
                 <xsl:variable name="place-id" select="//t:provenance[@type='found'][1]//t:p[1]//t:placeName[@type='ancientFindspot'][1]/@key"/>
-                <xsl:variable name="places-al" select="document(concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/places.xml'))//t:place[descendant::t:placeName=$place-name][1]"/>
+                <xsl:variable name="places-al" select="document(string($parm-places-file))//t:place[descendant::t:placeName=$place-name][1]"/>
                 <xsl:variable name="counter" select="$places-al//t:note[@type='total_inscriptions']"/>
                 <xsl:variable name="points" select="concat(string-join($place-name, ''), '#', string-join($counter, '') ,'@', substring-after(string-join($place-id, ''), 'slsgazetteer.org/'))"/>
                 <script type="text/javascript">
@@ -542,9 +543,9 @@
   </xsl:template>
   
   <xsl:template match="t:placeName|t:rs|t:repository" mode="inslib-placename">
+    <xsl:param name="parm-institutions-file" tunnel="yes" required="no"/>
     <xsl:variable name="ref-id" select="substring-after(@ref, '#')"/>
-    <!-- if you are running this template outside EFES, change the path to the institutions authority list accordingly -->
-    <xsl:variable name="institutions-list" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/institution.xml')"/>
+    <xsl:variable name="institutions-list" select="string($parm-institutions-file)"/>
     <xsl:choose>
       <xsl:when test="contains(@ref,'institution.xml') and doc-available($institutions-list) = fn:true() and document($institutions-list)//t:place[@xml:id=$ref-id]//t:idno[1]">
         <a target="_blank" href="{document($institutions-list)//t:place[@xml:id=$ref-id]//t:idno[1]}"><xsl:apply-templates/></a>
