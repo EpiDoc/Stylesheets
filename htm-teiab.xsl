@@ -31,10 +31,12 @@
                 <xsl:text>-</xsl:text>
              </xsl:if>
               <!-- if final lb in ab is L2R or R2L, then print arrow here -->
+              <!-- deprecated solutions (text-direction and @rend) are retained here for backward compatibility. Recommend removing these c. 2027-04-21. -->
               <xsl:if test="not($parm-leiden-style=('ddbdp', 'dclp','sammelbuch')) 
                   and descendant::t:lb[last()][contains(@style, 'direction:ltr') or contains(@style, 'text-direction:l-to-r') or @rend='left-to-right']">
                   <xsl:text>&#xa0;&#xa0;→</xsl:text>
               </xsl:if>
+              <!-- deprecated solutions (text-direction and @rend) are retained here for backward compatibility. Recommend removing these c. 2027-04-21. -->
               <xsl:if test="not($parm-leiden-style=('ddbdp','dclp','sammelbuch')) 
                   and descendant::t:lb[last()][contains(@style, 'direction:rtl') or contains(@style, 'text-direction:r-to-l') or @rend='right-to-left']">
                   <xsl:text>&#xa0;&#xa0;←</xsl:text>
