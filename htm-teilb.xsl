@@ -103,27 +103,47 @@
                                 
                 <!-- print arrows right of line if R2L or explicitly L2R -->
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
-                <xsl:if
-                    test="
-                    not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch'))
-                    and not(position() = 1)
-                    and preceding::t:lb[1][@rend = 'left-to-right']">
-                    <xsl:text>&#xa0;&#xa0;→</xsl:text>
-                </xsl:if>
-                <xsl:if
-                    test="
-                    not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch'))
-                    and not(position() = 1)
-                    and preceding::t:lb[1][@rend = 'right-to-left']">
-                    <xsl:text>&#xa0;&#xa0;←</xsl:text>
-                </xsl:if>
+                <xsl:choose>
+                    <!-- special cases for papyrology (see if really needed) -->
+                    <xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and not(position() = 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                        <xsl:text>&#xa0;&#xa0;→</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch')) and not(position() = 1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                        <xsl:text>&#xa0;&#xa0;←</xsl:text>
+                    </xsl:when>
+                    <!-- special cases for InsLib (see if really needed) -->
+                    <xsl:when test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                        <xsl:text>&#xa0;&#xa0;→</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                        <xsl:text>&#xa0;&#xa0;←</xsl:text>
+                    </xsl:when>
+                    <!-- universal cases (LTR and RTL) -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                        <xsl:text>&#xa0;&#xa0;→</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                        <xsl:text>&#xa0;&#xa0;←</xsl:text>
+                    </xsl:when>
+                    <!-- universal cases (vertical or sideways text) (e.g. dipinti and hieroglyphic) -->
+                    <!-- writing read downwards, left-to-right reading direction/letterforms -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical-lr')]">
+                        <xsl:text>&#xa0;&#xa0;↓→</xsl:text>
+                    </xsl:when>
+                    <!-- writing read downwards, right-to-left reading direction/letterforms -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical-rl')]">
+                        <xsl:text>&#xa0;&#xa0;←↓</xsl:text>
+                    </xsl:when>
+                    <!-- writing read upwards, left-to-right reading direction/letterforms -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:verticalup-lr')]">
+                        <xsl:text>&#xa0;&#xa0;↑→</xsl:text>
+                    </xsl:when>
+                    <!-- writing read upwards, right-to-left reading direction/letterforms -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical-rl')]">
+                        <xsl:text>&#xa0;&#xa0;←↑</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
                 
-                <xsl:if test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][@rend = 'left-to-right']">
-                 <xsl:text>&#xa0;&#xa0;→</xsl:text>
-             </xsl:if>
-             <xsl:if test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][@rend = 'right-to-left']">
-                 <xsl:text>&#xa0;&#xa0;←</xsl:text>
-             </xsl:if>
             
             <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
