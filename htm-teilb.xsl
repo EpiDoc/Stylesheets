@@ -144,6 +144,15 @@
                     </xsl:when>
                 </xsl:choose>
                 
+                <!-- TO ADD: -->
+                <!--  2196	 ↖ 	North West Arrow
+                        2197	 ↗ 	North East Arrow
+                        2198	 ↘ 	South East Arrow
+                        2199	 ↙ 	South West Arrow               -->
+                
+                <!-- TO ADD: -->
+               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow
+                      21BB  ↻  Clockwise Open Circle Arrow        -->
             
             <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
