@@ -22,13 +22,13 @@
       <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
       <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
-      
+      <xsl:param name="parm-symbols-file" tunnel="yes" required="no"></xsl:param>
+
       <xsl:choose>
 <!-- **** TEMPORARY FIX FOR MEDCYPRUS TEMPLATE **** -->
          <xsl:when test="$parm-leiden-style=('medcyprus')">
             <xsl:variable name="symbol" select="substring-after(@ref,'#')"/>
-            <!-- if you are running this template outside EFES, change the path to the symbols authority list accordingly -->
-            <xsl:variable name="symbols-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/symbols.xml')"/>
+            <xsl:variable name="symbols-al" select="string($parm-symbols-file)"/>
             <xsl:choose>
                <xsl:when test="doc-available($symbols-al) = fn:true() and document($symbols-al)//t:glyph[@xml:id=$symbol]">
                   <xsl:variable name="symbol-id" select="document($symbols-al)//t:glyph[@xml:id=$symbol]"/>
@@ -86,6 +86,7 @@
    <xsl:param name="parm-leiden-style" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-edition-type" tunnel="yes" required="no"></xsl:param>
    <xsl:param name="parm-glyph-variant" tunnel="yes" required="no"></xsl:param>
+   <xsl:param name="parm-authority-dir" tunnel="yes" required="no"/>
    
    <xsl:param name="g"></xsl:param>
    
@@ -132,7 +133,11 @@
          <!--            ref may be a full string, or rather use a prefix, declared in prefixDecl, the xml:id assigned to the glyph may be thus without anchor, and needs to be reconstructed before-->
          <xsl:variable name="parsedRef" select="EDF:refParser(@ref, //t:listPrefixDef)"/>
          
-         <xsl:variable name="externalCharDecl" select="if ($parm-leiden-style='medcyprus') then concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/', substring-before($parsedRef, '#')) else substring-before($parsedRef, '#')"/>
+         <xsl:variable name="externalCharDeclFile" select="substring-before($parsedRef, '#')"/>
+         <xsl:variable name="externalCharDecl" select="
+             if ($parm-authority-dir and doc-available(concat($parm-authority-dir, $externalCharDeclFile)))
+             then concat($parm-authority-dir, $externalCharDeclFile)
+             else $externalCharDeclFile"/>
          <xsl:choose>
             <xsl:when test="doc-available($externalCharDecl)">
                <xsl:variable name="externalCharDecldoc" select="doc($externalCharDecl)"/>
