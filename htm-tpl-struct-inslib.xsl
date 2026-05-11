@@ -75,15 +75,18 @@
             <p><b>Date: </b>
               <xsl:choose>
                 <xsl:when test="//t:origin/t:origDate/node()">
-                  <xsl:apply-templates select="//t:origin/t:origDate"/>
-                  <xsl:if test="//t:origin/t:origDate[@evidence]">
-                    <xsl:text> (</xsl:text>
-                    <xsl:for-each select="tokenize(//t:origin/t:origDate/@evidence,' ')">
-                      <xsl:value-of select="translate(translate(.,'-',' '),',','')"/>
-                      <xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
-                    </xsl:for-each>
-                    <xsl:text>)</xsl:text>
-                  </xsl:if>
+                  <xsl:for-each select="//t:origin/t:origDate">
+                    <xsl:apply-templates select="."/>
+                    <xsl:if test="./@evidence">
+                      <xsl:text> (</xsl:text>
+                      <xsl:for-each select="tokenize(./@evidence,' ')">
+                        <xsl:value-of select="translate(translate(.,'-',' '),',','')"/>
+                        <xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+                      </xsl:for-each>
+                      <xsl:text>)</xsl:text>
+                      <xsl:if test="position()!=last()"><xsl:text>; </xsl:text></xsl:if>
+                    </xsl:if>
+                  </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>Unknown.</xsl:otherwise>
               </xsl:choose>
