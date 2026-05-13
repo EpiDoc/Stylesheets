@@ -103,13 +103,12 @@
                                 
                 <!-- print arrows right of line if R2L or explicitly L2R -->
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
-                <xsl:text>FOOOoO</xsl:text>
                 <xsl:choose>
                     <!-- old tests (using deprecated markup) -->
-                    <xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and not(position() = 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                    <xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and (position() ne 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
                     </xsl:when>
-                    <xsl:when test="not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch')) and not(position() = 1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                    <xsl:when test="not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch')) and (position() ne 1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
                         <xsl:text>&#xa0;&#xa0;←</xsl:text>
                     </xsl:when>
                     <!-- special cases for InsLib (see if really needed) -->
@@ -127,6 +126,10 @@
                         <xsl:text>&#xa0;&#xa0;←</xsl:text>
                     </xsl:when>
                     <!-- universal cases (vertical or sideways text) (e.g. dipinti and hieroglyphic) -->
+                    <!-- writing read downwards, unspecified/default reading direction/letterforms -->
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical')]">
+                        <xsl:text>&#xa0;&#xa0;↓</xsl:text>
+                    </xsl:when>
                     <!-- writing read downwards, left-to-right reading direction/letterforms -->
                     <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical-lr')]">
                         <xsl:text>&#xa0;&#xa0;↓→</xsl:text>
@@ -146,14 +149,14 @@
                 </xsl:choose>
                 
                 <!-- TO ADD: -->
-                <!--  2196	 ↖ 	North West Arrow  diagonalnw-lr / diagonalnw-rl
+                <!--  2196	 ↖ 	North West Arrow  diagonalnw-lr / diagonalnw-rl / diagonalnw
                         2197	 ↗ 	North East Arrow  diagonalne-lr / diagonalne-rl
                         2198	 ↘ 	South East Arrow  diagonalse-lr / diagonalse-rl
                         2199	 ↙ 	South West Arrow  diagonalsw-lr / diagonalsw-rl               -->
                 
                 <!-- TO ADD: -->
-               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr
-                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr       -->
+               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr / circleccw-rl
+                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr / circlecw-rl      -->
             
             <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
