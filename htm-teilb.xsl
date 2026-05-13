@@ -103,8 +103,9 @@
                                 
                 <!-- print arrows right of line if R2L or explicitly L2R -->
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
+                <xsl:text>FOOOoO</xsl:text>
                 <xsl:choose>
-                    <!-- special cases for papyrology (see if really needed) -->
+                    <!-- old tests (using deprecated markup) -->
                     <xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and not(position() = 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
                     </xsl:when>
@@ -139,20 +140,20 @@
                         <xsl:text>&#xa0;&#xa0;↑→</xsl:text>
                     </xsl:when>
                     <!-- writing read upwards, right-to-left reading direction/letterforms -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical-rl')]">
+                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:verticalup-rl')]">
                         <xsl:text>&#xa0;&#xa0;←↑</xsl:text>
                     </xsl:when>
                 </xsl:choose>
                 
                 <!-- TO ADD: -->
-                <!--  2196	 ↖ 	North West Arrow
-                        2197	 ↗ 	North East Arrow
-                        2198	 ↘ 	South East Arrow
-                        2199	 ↙ 	South West Arrow               -->
+                <!--  2196	 ↖ 	North West Arrow  diagonalnw-lr / diagonalnw-rl
+                        2197	 ↗ 	North East Arrow  diagonalne-lr / diagonalne-rl
+                        2198	 ↘ 	South East Arrow  diagonalse-lr / diagonalse-rl
+                        2199	 ↙ 	South West Arrow  diagonalsw-lr / diagonalsw-rl               -->
                 
                 <!-- TO ADD: -->
-               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow
-                      21BB  ↻  Clockwise Open Circle Arrow        -->
+               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr
+                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr       -->
             
             <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
