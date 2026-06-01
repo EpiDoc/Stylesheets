@@ -8,7 +8,7 @@
    <!-- Actual display and increment calculation found in teilb.xsl -->
    <xsl:import href="teilb.xsl"/>
 
-    <xsl:template match="t:lb">
+    <xsl:template match="t:*[local-name()=(ab,l,p,egXML)]//t:lb">
         <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
         <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
@@ -150,13 +150,13 @@
                 
                 <!-- TO ADD: -->
                 <!--  2196	 ↖ 	North West Arrow  diagonalnw-lr / diagonalnw-rl / diagonalnw
-                        2197	 ↗ 	North East Arrow  diagonalne-lr / diagonalne-rl
-                        2198	 ↘ 	South East Arrow  diagonalse-lr / diagonalse-rl
-                        2199	 ↙ 	South West Arrow  diagonalsw-lr / diagonalsw-rl               -->
+                        2197	 ↗ 	North East Arrow  diagonalne-lr / diagonalne-rl / diagonalne
+                        2198	 ↘ 	South East Arrow  diagonalse-lr / diagonalse-rl / diagonalse
+                        2199	 ↙ 	South West Arrow  diagonalsw-lr / diagonalsw-rl / diagonalsw    -->
                 
                 <!-- TO ADD: -->
-               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr / circleccw-rl
-                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr / circlecw-rl      -->
+               <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr / circleccw-rl / circleccw
+                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr / circlecw-rl  / circlecw   -->
             
             <xsl:choose>
                     <!-- replaced test using generate-id() with 'is' -->
