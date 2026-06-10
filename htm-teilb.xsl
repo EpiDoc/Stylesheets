@@ -8,7 +8,7 @@
    <!-- Actual display and increment calculation found in teilb.xsl -->
    <xsl:import href="teilb.xsl"/>
 
-    <xsl:template match="t:*[local-name()=(ab,l,p,egXML)]//t:lb">
+    <xsl:template match="t:*[local-name()=('ab','l','p','egXML')]//t:lb">
         <xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
         <xsl:param name="parm-edition-type" tunnel="yes" required="no"/>
         <xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
