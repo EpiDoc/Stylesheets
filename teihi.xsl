@@ -52,9 +52,9 @@
             <xsl:when test="@rend='ligature' and not($parm-leiden-style=('medcyprus','london','usep')) and not($parm-edn-structure='inslib')">
                 <xsl:choose>
                     <xsl:when test="$parm-leiden-style='seg'">
-                        <xsl:if test="string-length(normalize-space(.))=2">
-                            <xsl:text>&#x035c;</xsl:text>
-                        </xsl:if>
+                        <xsl:value-of select="substring(normalize-space($text-content),1,1)"/>
+                        <xsl:text>&#x035c;</xsl:text>
+                        <xsl:value-of select="substring(normalize-space($text-content),2)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- Combining char (x0361) will only render ligature line over two chars. For ligatures of >=3 chars, keep adding ligature marks -->
