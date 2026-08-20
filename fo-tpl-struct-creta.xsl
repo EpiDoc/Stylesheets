@@ -21,7 +21,7 @@
             <xsl:with-param name="parm-line-inc" tunnel="yes"><xsl:text>5</xsl:text></xsl:with-param>
           </xsl:apply-templates>
         </xsl:variable>
-        <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+        <!-- Moded templates found in fo-tpl-sqbrackets.xsl -->
         <xsl:apply-templates select="$edtxt" mode="sqbrackets"/>
       </fo:block>
       
@@ -41,7 +41,7 @@
           <xsl:with-param name="parm-line-inc" tunnel="yes"><xsl:text>5</xsl:text></xsl:with-param>
         </xsl:apply-templates>
       </xsl:variable>
-        <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
+        <!-- Moded templates found in fo-tpl-sqbrackets.xsl -->
         <xsl:apply-templates select="$trtxt" mode="sqbrackets"/></fo:block>
       
       <fo:block font-weight="800">Commento</fo:block>

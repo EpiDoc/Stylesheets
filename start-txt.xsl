@@ -76,7 +76,7 @@
         
     <!-- Templates found in txt-tpl-sqbrackets.xsl -->
     <xsl:for-each select="$main-text">
-      <xsl:call-template name="sqbrackets">
+      <xsl:apply-templates select="$main-text" mode="sqbrackets">
         <xsl:with-param name="parm-internal-app-style" select="$internal-app-style" tunnel="yes"/>
         <xsl:with-param name="parm-external-app-style" select="$external-app-style" tunnel="yes"/>
         <xsl:with-param name="parm-edn-structure" select="$edn-structure" tunnel="yes"/>
@@ -87,7 +87,7 @@
         <xsl:with-param name="parm-verse-lines" select="$verse-lines" tunnel="yes"/>
         <xsl:with-param name="parm-glyph-variant" select="$glyph-variant" tunnel="yes"/>
         
-      </xsl:call-template>
+      </xsl:apply-templates>
     </xsl:for-each>
     
   </xsl:template>

@@ -140,6 +140,7 @@
           <xsl:variable name="apptxt">
             <xsl:apply-templates select="//t:div[@type='apparatus']//t:p"/>
           </xsl:variable>
+          <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
           <xsl:apply-templates select="$apptxt" mode="sqbrackets"/>
         </div>
       </xsl:if>
@@ -150,6 +151,7 @@
           <xsl:variable name="transtxt">
             <xsl:apply-templates select="//t:div[@type='translation']//t:p"/>
           </xsl:variable>
+          <!-- Moded templates found in htm-tpl-sqbrackets.xsl -->
           <xsl:apply-templates select="$transtxt" mode="sqbrackets"/>
         </div>
       </xsl:if>
