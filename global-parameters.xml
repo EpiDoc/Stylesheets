@@ -82,9 +82,34 @@
     <value>zotero</value> <!--looks at the api and renders the html from there-->
   </parameter>
   
+  <parameter> <!--base directory for authority files. Defaults to {user.dir}/webapps/ROOT/content/xml/authority/ in EFES if not set.-->
+    <name>authority-dir</name>
+    <value/>
+  </parameter>
+
   <parameter> <!--path to local TEI XML bibliography if this is the bibliography used-->
     <name>localbibl</name>
     <value>../BIBLIOGRAPHY.xml</value>
+  </parameter>
+
+  <parameter> <!--path to symbols authority file. Defaults to {authority-dir}/symbols.xml if not set.-->
+    <name>symbols-file</name>
+    <value/>
+  </parameter>
+
+  <parameter> <!--path to places authority file. Defaults to {authority-dir}/places.xml if not set.-->
+    <name>places-file</name>
+    <value/>
+  </parameter>
+
+  <parameter> <!--path to institution authority file. Defaults to {authority-dir}/institution.xml if not set.-->
+    <name>institutions-file</name>
+    <value/>
+  </parameter>
+
+  <parameter> <!--URL template for bibliography links. $1 is replaced by the entry ID.-->
+    <name>bib-link-template</name>
+    <value>../concordance/bibliography/$1.html</value>
   </parameter>
   
   <parameter> if the zotero bibliography is used, select whether it is a group library or a user's library
