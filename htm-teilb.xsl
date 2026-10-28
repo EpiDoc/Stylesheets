@@ -123,7 +123,7 @@
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
                     </xsl:when>
                     <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
-                        <xsl:text>&#xa0;&#xa0;←</xsl:text>
+                        <xsl:text>&#xa0;foo&#xa0;←</xsl:text>
                     </xsl:when>
                     <!-- universal cases (vertical or sideways text) (e.g. dipinti and hieroglyphic) -->
                     <!-- writing read downwards, unspecified/default reading direction/letterforms -->
