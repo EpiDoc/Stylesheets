@@ -105,12 +105,12 @@
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
                 <xsl:choose>
                     <!-- old tests (using deprecated markup) -->
-                    <xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and (position() ne 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                    <!--<xsl:when test="not($parm-leiden-style = ('ddbdp','dclp', 'sammelbuch')) and (position() ne 1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
                     </xsl:when>
                     <xsl:when test="not($parm-leiden-style = ('ddbdp', 'dclp','sammelbuch')) and (position() ne 1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
                         <xsl:text>&#xa0;&#xa0;←</xsl:text>
-                    </xsl:when>
+                    </xsl:when>-->
                     <!-- special cases for InsLib (see if really needed) -->
                     <xsl:when test="$parm-edn-structure='inslib' and ancestor::t:l/preceding::t:l[1]//t:lb[last()][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
