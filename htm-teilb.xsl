@@ -100,7 +100,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
-                <xsl:variable name="pblock" select="generate-id((ancestor::t:div|ancestor::t:ab|ancestor::p|ancestor::l)[1])"/>
+                <xsl:variable name="pblock" select="generate-id(ancestor::*:egXML[1])"/>
                 <!-- print arrows right of line if R2L or explicitly L2R -->
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
                 <xsl:choose>
@@ -122,7 +122,7 @@
                     <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;&#xa0;→</xsl:text>
                     </xsl:when>
-                    <xsl:when test="not(position()=1) and preceding::t:lb[generate-id((ancestor::t:div|ancestor::t:ab|ancestor::t:p|ancestor::t:l|ancestor::*:egXML)[1])=$pblock][1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                    <xsl:when test="preceding::t:lb[generate-id(ancestor::*:egXML[1])=$pblock][1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
                         <xsl:text>&#xa0;&#xa0;←</xsl:text>
                     </xsl:when>
                     <!-- universal cases (vertical or sideways text) (e.g. dipinti and hieroglyphic) -->
