@@ -10,9 +10,10 @@
    <!-- Called from htm-tpl-structure.xsl -->
 
    <xsl:template name="medcyprus-body-structure">
-     <xsl:variable name="editor" select="//t:titleStmt/t:author|//t:titleStmt/t:editor"/>  
-     <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-     <xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
+     <xsl:param name="parm-bibloc" tunnel="yes" required="no"/>
+     <xsl:param name="parm-bib-link-template" tunnel="yes" required="no"/>
+     <xsl:variable name="editor" select="//t:titleStmt/t:author|//t:titleStmt/t:editor"/>
+     <xsl:variable name="bibliography-al" select="string($parm-bibloc)"/>
      
      <p>
        <b>License: </b> <a target="_blank" href="{//t:licence/@target}"><xsl:value-of select="//t:licence"/></a>
@@ -119,7 +120,7 @@
            <xsl:choose>
              <xsl:when test="doc-available($bibliography-al) = fn:true() and document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]">
                <xsl:variable name="source" select="document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]"/>
-               <a href="{concat('../concordance/bibliography/',$source-id,'.html')}" target="_blank">
+               <a href="{replace($parm-bib-link-template, '\$1', $source-id)}" target="_blank">
                  <xsl:choose>
                    <xsl:when test="$source//t:title[@type='short']">
                      <xsl:apply-templates select="$source//t:title[@type='short'][1]"/>
@@ -233,7 +234,7 @@
                <xsl:choose>
                  <xsl:when test="doc-available($bibliography-al) = fn:true() and document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]">
                    <xsl:variable name="source" select="document($bibliography-al)//t:bibl[@xml:id=$source-id][not(@sameAs)]"/>
-                   <a href="../concordance/bibliography/{$source-id}.html" target="_blank">
+                   <a href="{replace($parm-bib-link-template, '\$1', $source-id)}" target="_blank">
                      <xsl:choose>
                        <xsl:when test="$source//t:title[@type='short']">
                          <xsl:apply-templates select="$source//t:title[@type='short'][1]"/>
