@@ -64,7 +64,7 @@
                </xsl:when>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="$parm-leiden-style='medcyprus' and @unit=('column', 'surface')">
+          <xsl:when test="$parm-leiden-style='medcyprus' and @unit=('column', 'surface','figure')">
              <xsl:text>|</xsl:text>
           </xsl:when>
           <xsl:otherwise>
