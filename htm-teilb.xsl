@@ -106,52 +106,40 @@
                 <!-- horizontal arrows for reading direction may be added by next template below -->
                 <xsl:choose>
                     <!-- writing read downwards -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:vertical')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:vertical')]">
                         <xsl:text>&#xa0;&#xa0;↓</xsl:text>
                     </xsl:when>
                     <!-- writing read upwards -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:verticalup')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:verticalup')]">
                         <xsl:text>&#xa0;&#xa0;↑</xsl:text>
                     </xsl:when>
             <!-- DIAGONALS -->
                     <!-- writing read diagonal br2tl -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:diagonalnw')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:diagonalnw')]">
                         <xsl:text>&#xa0;&#xa0;↖</xsl:text>
                     </xsl:when>
                     <!-- writing read diagonal bl2tr -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:diagonalne')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:diagonalne')]">
                         <xsl:text>&#xa0;&#xa0;↗</xsl:text>
                     </xsl:when>
                     <!-- writing read diagonal tl2br -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:diagonalse')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:diagonalse')]">
                         <xsl:text>&#xa0;&#xa0;↘</xsl:text>
                     </xsl:when>
                     <!-- writing read diagonal tr2bl -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:diagonalsw')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:diagonalsw')]">
                         <xsl:text>&#xa0;&#xa0;↙</xsl:text>
                     </xsl:when>
                 <!-- CIRCLES -->
                     <!-- writing read in anticlockwise circle -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:circleccw')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:circleccw')]">
                         <xsl:text>&#xa0;&#xa0;↺</xsl:text>
                     </xsl:when>
                     <!-- writing read in clockwise circle -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'writing-mode:circlecw')]">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'writing-mode:circlecw')]">
                         <xsl:text>&#xa0;&#xa0;↻</xsl:text>
                     </xsl:when>
-                </xsl:choose>
-                
-                
-                <!-- TO ADD: -->
-                <!--  2196	 ↖ 	North West Arrow  diagonalnw-lr / diagonalnw-rl / diagonalnw
-                        2197	 ↗ 	North East Arrow  diagonalne-lr / diagonalne-rl / diagonalne
-                        2198	 ↘ 	South East Arrow  diagonalse-lr / diagonalse-rl / diagonalse
-                        2199	 ↙ 	South West Arrow  diagonalsw-lr / diagonalsw-rl / diagonalsw    -->
-                
-                <!-- TO ADD: -->
-                <!-- 21BA  ↺  Anticlockwise Open Circle Arrow circleccw-lr / circleccw-rl / circleccw
-                      21BB  ↻  Clockwise Open Circle Arrow   circlecw-lr / circlecw-rl  / circlecw   -->
-                
+                </xsl:choose>                
                 
                 <!-- print arrows right of line if R2L or explicitly L2R -->
                 <!-- arrows after final line handled in htm-teiab.xsl and htm-teilgandl.xsl -->
@@ -164,10 +152,10 @@
                         <xsl:text>&#xa0;&#xa0;←</xsl:text>
                     </xsl:when>
                     <!-- universal cases (LTR and RTL) -->
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'direction:ltr') or @rend='left-to-right']">
                         <xsl:text>&#xa0;→</xsl:text>
                     </xsl:when>
-                    <xsl:when test="not(position()=1) and preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
+                    <xsl:when test="preceding::t:lb[1][contains(@style, 'direction:rtl') or @rend='right-to-left']">
                         <xsl:text>&#xa0;←</xsl:text>
                     </xsl:when>
                 </xsl:choose>
