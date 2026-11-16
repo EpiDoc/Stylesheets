@@ -146,8 +146,74 @@
      </xsl:if>
      </p>
      
-     <p><b>Type of text: </b>
-       <xsl:apply-templates select="//t:term[@type='textType']"/>
+     <p><b>Text category: </b>
+      <!--<xsl:apply-templates select="//t:term[@type='textType']"/>-->
+       <xsl:for-each select="//t:term[@type='textType']">
+         <xsl:variable name="cur-term" select="normalize-space(lower-case(.))"/>
+         <xsl:apply-templates/>
+         <!-- Reach into text_types and get the ref elements. Do the same as here, but can use @type 
+              to determine which vocabulary is being referred to. -->
+         <xsl:if test="starts-with(@ref,'http')">
+           <xsl:for-each select="tokenize(@ref,' ')">
+             <xsl:choose>
+               <xsl:when test="starts-with(.,'https://ontology.inscriptiones.org')">
+                 <xsl:text> (</xsl:text>
+                 <xsl:element name="a">
+                   <xsl:attribute name="target">_blank</xsl:attribute>
+                   <xsl:attribute name="href" select="."/>
+                   <xsl:attribute name="title">
+                     <xsl:text>Definition of '</xsl:text>
+                     <xsl:value-of select="$cur-term"/>
+                     <xsl:text>' in FairEpigraphy vocabularies</xsl:text>
+                   </xsl:attribute>
+                   <xsl:text>FE</xsl:text>
+                 </xsl:element>
+                 <xsl:text>)</xsl:text>
+               </xsl:when>
+               <xsl:when test="starts-with(.,'https://www.eagle-network.eu/voc')">
+                 <xsl:text> (</xsl:text>
+                 <xsl:element name="a">
+                   <xsl:attribute name="href" select="."/>
+                   <xsl:attribute name="title">
+                     <xsl:text>Definition of '</xsl:text>
+                     <xsl:value-of select="$cur-term"/>
+                     <xsl:text>' in EAGLE vocabularies</xsl:text>
+                   </xsl:attribute>
+                   <xsl:text>Egl</xsl:text>
+                 </xsl:element>
+                 <xsl:text>)</xsl:text>
+               </xsl:when>
+               <xsl:when test="starts-with(.,'https://ark.mom.fr/ark:/76609')">
+                 <xsl:text> (</xsl:text>
+                 <xsl:element name="a">
+                   <xsl:attribute name="href" select="."/>
+                   <xsl:attribute name="title">
+                     <xsl:text>Definition of '</xsl:text>
+                     <xsl:value-of select="$cur-term"/>
+                     <xsl:text>' in Biblissima EpiVoc vocabulary</xsl:text>
+                   </xsl:attribute>
+                   <xsl:text>EV</xsl:text>
+                 </xsl:element>
+                 <xsl:text>)</xsl:text>
+               </xsl:when>
+               <xsl:when test="starts-with(.,'https://www.wikidata.org')">
+                 <xsl:text> (</xsl:text>
+                 <xsl:element name="a">
+                   <xsl:attribute name="href" select="."/>
+                   <xsl:attribute name="title">
+                     <xsl:text>Definition of '</xsl:text>
+                     <xsl:value-of select="$cur-term"/>
+                     <xsl:text>' in Wikidata ontology</xsl:text>
+                   </xsl:attribute>
+                   <xsl:text>WD</xsl:text>
+                 </xsl:element>
+                 <xsl:text>)</xsl:text>
+               </xsl:when>
+             </xsl:choose>
+           </xsl:for-each>
+         </xsl:if>
+         <xsl:if test="position()!=last()">; </xsl:if>
+       </xsl:for-each>
        <xsl:if test="//t:div[@type='edition']//t:lg[@met]">
          <xsl:text>; metre: </xsl:text>
          <xsl:for-each select="//t:div[@type='edition']//t:lg/@met">
