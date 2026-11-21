@@ -38,9 +38,28 @@
                         select="document($param-file)//parameter[name = 'js-dir']/value"/>
             <xsl:param name="bibliography"
                         select="document($param-file)//parameter[name = 'bibliography']/value[@on = 'yes']"/>
+
+            <!-- Base directory for authority files. Override to point at a different location. -->
+            <xsl:variable name="raw-authority-dir"
+                        select="(document($param-file)//parameter[name = 'authority-dir']/value[. != ''], concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/'))[1]"/>
+            <xsl:param name="authority-dir"
+                        select="if (ends-with($raw-authority-dir, '/')) then $raw-authority-dir else concat($raw-authority-dir, '/')"/>
+            <!-- Individual authority file paths. Default to authority-dir + filename.
+                 Can be overridden individually via global-parameters.xml or as stylesheet params. -->
             <xsl:param name="localbibl"
-                        select="document($param-file)//parameter[name = 'localbibl']/value"/>
-            <xsl:param name="ZoteroUorG" 
+                        select="(document($param-file)//parameter[name = 'localbibl']/value[. != ''], concat($authority-dir, 'bibliography.xml'))[1]"/>
+            <xsl:param name="symbols-file"
+                        select="(document($param-file)//parameter[name = 'symbols-file']/value[. != ''], concat($authority-dir, 'symbols.xml'))[1]"/>
+            <xsl:param name="places-file"
+                        select="(document($param-file)//parameter[name = 'places-file']/value[. != ''], concat($authority-dir, 'places.xml'))[1]"/>
+            <xsl:param name="institutions-file"
+                        select="(document($param-file)//parameter[name = 'institutions-file']/value[. != ''], concat($authority-dir, 'institution.xml'))[1]"/>
+
+            <!-- URL template for bibliography links. $1 is replaced by the bibliography entry ID. -->
+            <xsl:param name="bib-link-template"
+                        select="(document($param-file)//parameter[name = 'bib-link-template']/value[. != ''], '../concordance/bibliography/$1.html')[1]"/>
+
+            <xsl:param name="ZoteroUorG"
                         select="document($param-file)//parameter[name = 'ZoteroUorG']/value[@on = 'yes']"/>
             <xsl:param name="ZoteroKey"
                         select="document($param-file)//parameter[name = 'ZoteroKey']/value[@on = 'yes']"/>

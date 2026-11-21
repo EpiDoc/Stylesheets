@@ -274,16 +274,16 @@ bibliography. All examples only cater for book and article.
 	<xsl:template match="t:ptr[@target]">
 		<xsl:param name="parm-edn-structure" tunnel="yes" required="no"/>
 		<xsl:param name="parm-leiden-style" tunnel="yes" required="no"/>
+		<xsl:param name="parm-bibloc" tunnel="yes" required="no"/>
+		<xsl:param name="parm-bib-link-template" tunnel="yes" required="no"/>
 		<xsl:choose>
 			<!-- MODIFIED for SigiDoc by MS 2023-06-16 -->
 			<xsl:when test=" $parm-leiden-style = 'medcyprus' or $parm-edn-structure='inslib' or $parm-edn-structure='sample' or $parm-edn-structure='sigidoc'">
-			 <!-- if you are running this template outside EFES, change the path to the bibliography authority list accordingly -->
-				<xsl:variable name="bibliography-al" select="concat('file:',system-property('user.dir'),'/webapps/ROOT/content/xml/authority/bibliography.xml')"/>
 				<xsl:variable name="bibl-ref" select="translate(@target, '#', '')"/>
 				<xsl:choose>
-				 <xsl:when test="doc-available($bibliography-al) = fn:true()">
-				   <xsl:variable name="bibl" select="document($bibliography-al)//t:bibl[@xml:id=$bibl-ref][not(@sameAs)]"/>
-				    <a href="../concordance/bibliography/{$bibl-ref}.html" target="_blank">
+				 <xsl:when test="doc-available($parm-bibloc) = fn:true()">
+				   <xsl:variable name="bibl" select="document($parm-bibloc)//t:bibl[@xml:id=$bibl-ref][not(@sameAs)]"/>
+				    <a href="{replace($parm-bib-link-template, '\$1', $bibl-ref)}" target="_blank">
 				     <xsl:choose>
 					<xsl:when test="$bibl//t:bibl[@type='abbrev']">
 					  <xsl:apply-templates select="$bibl//t:bibl[@type='abbrev'][1]"/>
